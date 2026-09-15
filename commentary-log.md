@@ -52,4 +52,16 @@ PM session wrapped a touch early (slated to 3:30). The hold screen is the event'
 
 **[ANALYSIS — PM session takeaway.]** The PM pitch, distilled: the product manager's job stops being *prompting* and becomes *managing*. You ask a question in plain English in a Slack-like chat; the analyst agent (Ashley) answers with linked, live data; decisions get recorded as RFCs the agents themselves write and update; and a chief-of-staff agent (Core) runs the meeting cadence. Three things stood out: (1) **artifacts over chat** — every answer ships as an RFC/metrics-link/task, not just words; (2) **named agents with reputations** — referencability means trust accumulates per agent ("ask Ashley"); (3) **the demo company is real within the event** — the travel business's dashboards shown at 2:52 are the same artifacts this chat is editing. The gap nobody on stage has addressed yet: what happens when an agent teammate is *wrong* — audit trails, rollback, accountability. Possible Day 2/3 material.
 
+**[3:14 PM PT, from coverage] — Event context from public reporting.**
+- The three xAI employees building the company live across the 3 days: **Lauren Tan, Matt Palmer, Roshan Sadanani** (per event coverage; to verify against on-stage intros).
+- Product facts: Grok Bot launched Aug 11 (announced with Cursor) as *"your team of always-on agents"* — each bot has its own persistent **cloud computer** (browser, files) and works inside real tools/apps like a human, 24/7. Bloomberg framed it as "SpaceXAI unveils Grok Bot to work like a team of AI agents."
+- Early reactions: enthusiasm from small-business operator circles ("easiest way of getting an AI Agent team set up"); skeptics framing it as a stress test: *"Can AI agents build a real company?"*
+
+**[3:55 PM PT] — 🔴 No break after all: fleet status reveal — 26 bots online.**
+Content continued straight through the gap (the named sessions are highlights; the build runs all day). On screen:
+- A live **fleet stats widget: 26 bots online, 880 web requests, 1 working, 10 archived** — the roster has grown well past the original 11 characters; bots churn (10 archived already).
+- Ops chat activity: QA picking up PRs, a redeploy from **Darcy-bot** (Vercel deployment + linked PR), "14 new members/bots late, 3 new RFCs merged, deploy under review."
+- **The trio on stage** at the table with laptops (Lauren Tan, Matt Palmer, Roshan Sadanani per coverage), warming up for the 4:00 Founders session.
+- Views: 908.7K. Full 3-day schedule confirmed by the user: Day 2 = Sales Engineering / Sales / SDRs / Customer Support; Day 3 = Marketing Operations / Post-Sales / Marketing.
+
 ---

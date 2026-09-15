@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "BREAK — next: Grok Bot for Founders, 4:00 PM PT (Shub Gaur)",
-  viewers: "876.5K",
-  updated: "3:11 PM PT",
+  session: "Build continues — Founders session at 4:00 PM PT (Shub Gaur)",
+  viewers: "908.7K",
+  updated: "3:55 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "3:55 PM PT", day: 1, tag: "DEMO",
+    title: "Fleet reveal: 26 bots online, 880 web requests, 10 archived",
+    body: "No real break — the build runs all day between named sessions. A live fleet-stats widget shows 26 bots online, 880 web requests handled, 1 working, 10 archived: the org has grown past the original 11 characters and is already churning agents (10 archived). Ops chat shows QA picking up PRs, a redeploy by Darcy-bot (Vercel + linked PR), '14 new members/bots late, 3 new RFCs merged, deploy under review.' The trio (Lauren Tan, Matt Palmer, Roshan Sadanani) is on stage at the table with laptops warming up for the 4:00 Founders session. Views: 908.7K."
+  },
   {
     t: "3:11 PM PT", day: 1, tag: "BREAK",
     title: "PM session wrapped — break until the Founders session at 4:00",
