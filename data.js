@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "MILESTONE — the demo company's site is live",
-  viewers: "973.5K",
-  updated: "4:46 PM PT",
+  session: "Founders session + build: Tee Bot runs email marketing",
+  viewers: "991.7K",
+  updated: "4:28 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:28 PM PT", day: 1, tag: "DEMO",
+    title: "Tee Bot runs the email channel — 1M views imminent",
+    body: "A 'Tee Bot' thread shows the merch line's new email channel: drafting/sending Acme t-shirt promo emails, avoiding generic roundup formats, best-seller banners woven in, with a side panel drafting promotional-email variants. Views: 991.7K — the million mark is minutes away. (Note: earlier entry timestamps drifted ahead of the real clock; corrected from here on.)"
+  },
   {
     t: "4:46 PM PT", day: 1, tag: "DEMO",
     title: "🚨 The demo company's website is LIVE — 45 min from wireframe to sign-up",
