@@ -317,6 +317,156 @@
     font-size: 14px;
   }
 
+  /* ---------- live ops strip ---------- */
+  .ops-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 28px;
+    background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 13px 18px;
+  }
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    color: var(--green);
+    border: 1px solid rgba(63,191,127,0.4);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+  .live-badge i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 1.4s ease-in-out infinite; }
+  .ops-stat { display: flex; flex-direction: column; min-width: 80px; }
+  .ops-stat b { font-size: 21px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .ops-stat span { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--faint); }
+  .ops-note { margin-left: auto; font-size: 11.5px; color: var(--faint); max-width: 260px; text-align: right; }
+  @media (max-width: 760px) { .ops-note { margin-left: 0; text-align: left; } }
+
+  /* ---------- archived agents (lifecycle) ---------- */
+  .agent-card.archived { opacity: 0.62; }
+  .agent-card.archived .avatar .body { filter: grayscale(0.7); }
+  .lane.archived { opacity: 0.55; }
+  .menu-row.archived { opacity: 0.55; }
+  .stamp {
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-9deg);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1.5px solid var(--amber);
+    border-radius: 6px;
+    padding: 2px 9px;
+    background: rgba(242, 177, 61, 0.08);
+    pointer-events: none;
+  }
+  .lifecycle {
+    position: absolute;
+    top: 9px;
+    right: 36px;
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 11.5px;
+    padding: 4px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .lifecycle:hover { color: var(--text); background: var(--panel-2); }
+
+  /* ---------- delegate palette ---------- */
+  .modal.pal { width: min(540px, 100%); }
+  .pal-list { display: grid; gap: 7px; overflow-y: auto; }
+  .pal-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 9px 11px;
+  }
+  .pal-item .pwho { font-weight: 600; }
+  .pal-item .prole { color: var(--faint); font-size: 12px; }
+  .pal-item .pwhy { margin-left: auto; color: var(--muted); font-size: 11.5px; text-align: right; max-width: 210px; }
+  .pal-item.best { border-color: var(--accent); background: var(--accent-soft); }
+  .best-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .pal-empty { color: var(--faint); font-size: 13px; padding: 10px 4px; }
+
+  /* ---------- task ask chip ---------- */
+  .task .ask {
+    border: none;
+    background: transparent;
+    color: var(--accent);
+    font-size: 11.5px;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .task .ask:hover { background: var(--accent-soft); }
+  .task .ask.has { color: var(--green); }
+
+  /* ---------- menu (pricing cards) ---------- */
+  .menu-list { display: grid; gap: 10px; }
+  .menu-row {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+  }
+  .menu-row-head { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; flex-wrap: wrap; }
+  .menu-row-head .who { font-weight: 700; }
+  .menu-row-head .role { color: var(--faint); font-size: 12.5px; }
+  .offers { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+  .offer {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 5px 7px;
+    max-width: 100%;
+  }
+  .offer input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 12.5px;
+    padding: 2px 3px;
+  }
+  .offer input:focus { outline: none; border-bottom-color: var(--accent); }
+  .offer input.o-title { width: 165px; font-weight: 600; }
+  .offer input.o-price { width: 78px; color: var(--green); font-weight: 700; }
+  .offer input.o-unit { width: 108px; color: var(--muted); }
+  .offer .x {
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 11px;
+    cursor: pointer;
+    padding: 2px 4px;
+    border-radius: 50%;
+  }
+  .offer .x:hover { color: #ff8a7a; }
+  .priceit { font-size: 12.5px; padding: 5px 10px; margin-left: auto; }
+
   /* ---------- modal ---------- */
   .modal-backdrop {
     position: fixed; inset: 0;
@@ -409,22 +559,28 @@
     <select id="presetSelect" aria-label="Load a preset team">
       <option value="">Load a preset…</option>
       <option value="travel">Travel Co. (event-inspired)</option>
+      <option value="glider">Glider Co. (stream homage)</option>
       <option value="solo">Solo Founder Crew</option>
       <option value="studio">Content Studio</option>
     </select>
     <button id="importBtn" class="ghost" type="button" title="Import a CrewChart JSON file">Import</button>
     <input type="file" id="importFile" accept=".json,application/json" hidden>
     <button id="newBtn" class="ghost" type="button">New team</button>
+    <button id="menuBtn" type="button" title="Copy the deliverable price menu as markdown">Copy menu</button>
     <button id="kickoffBtn" type="button">Copy kickoff prompt</button>
     <button id="exportBtn" class="primary" type="button">Export JSON</button>
   </div>
 </header>
 
 <main>
+  <section aria-label="Live ops">
+    <div id="opsStrip" class="ops-strip"></div>
+  </section>
+
   <section aria-labelledby="roster-h">
     <div class="section-head">
       <h2 id="roster-h">Roster</h2>
-      <span class="hint">Who does what — every teammate gets a name, a role, and its own memory scope.</span>
+      <span class="hint">Who does what — every teammate gets a name, a role, and its own memory scope. Archive churners; they become alumni, not dust.</span>
     </div>
     <div id="roster" class="roster"></div>
   </section>
@@ -432,10 +588,18 @@
   <section aria-labelledby="board-h">
     <div class="section-head">
       <h2 id="board-h">Board</h2>
-      <span class="hint">Click a task to cycle it: queued → running → done.</span>
+      <span class="hint">Click a task to cycle status · the ⇢ ask button delegates it to the teammate the palette suggests.</span>
     </div>
     <div id="meterWrap"></div>
     <div id="lanes" class="lanes"></div>
+  </section>
+
+  <section aria-labelledby="menu-h">
+    <div class="section-head">
+      <h2 id="menu-h">Menu</h2>
+      <span class="hint">Merchandise the crew: tag each teammate's deliverables with price points, copy the menu, ask your client "which one do you like?"</span>
+    </div>
+    <div id="menuList" class="menu-list"></div>
   </section>
 </main>
 
@@ -458,6 +622,18 @@
   </div>
 </div>
 
+<!-- delegate-to palette -->
+<div class="modal-backdrop" id="palBackdrop" role="dialog" aria-modal="true" aria-labelledby="palTitle">
+  <div class="modal pal">
+    <h3 id="palTitle">Delegate to…</h3>
+    <p id="palDesc"></p>
+    <div id="palList" class="pal-list"></div>
+    <div class="row">
+      <button id="palClose" class="primary" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -468,14 +644,41 @@
    State model:
      state = {
        team: string,
-       agents: [{ id, name, role, color, shape, memory, reportsTo }],
-       tasks:  [{ id, agentId, title, status }]   // status: queued|running|done
+       agents: [{ id, name, role, color, shape, memory, reportsTo,
+                  status }],                 // status: active|archived
+       tasks:  [{ id, agentId, title, status, ask }], // status: queued|running|done; ask: agentId of the delegated owner
+       offers: [{ id, agentId, title, price, unit }]  // pricing cards for the Menu section
      }
    ============================================================ */
 
 var STORAGE_KEY = "crewchart.v1";
+var OPS_KEY = "crewchart.ops.v1";
 var STATUS_ORDER = ["queued", "running", "done"];
 var STATUS_LABEL = { queued: "queued", running: "running", done: "done" };
+
+/* Lexicon for the "Delegate to…" suggestion palette — offline heuristics only.
+   Each entry: a category, the task-title words that signal it, and the agent
+   attributes (role/memory/name) that make someone the right owner.
+   Matching is word-boundary prefix match, so "stats" never fires on "states". */
+var ASK_LEXICON = [
+  { cat: "numbers",  words: ["stats", "statistic", "metric", "number", "revenue", "price", "pricing", "how much", "cost", "data", "report", "funnel", "econom", "roi", "conversion", "count", "total"] },
+  { cat: "building", words: ["build", "ship", "fix", "api", "deploy", "bug", "code", "endpoint", "test", "scaffold", "refactor", "feature", "integration"] },
+  { cat: "design",   words: ["design", "ui", "ux", "mock", "layout", "wireframe", "brand", "component", "visual", "illustrat"] },
+  { cat: "research", words: ["research", "scan", "competitor", "market", "source", "find out", "investigate", "benchmark", "compare"] },
+  { cat: "writing",  words: ["write", "draft", "post", "copy", "memo", "email", "content", "blog", "announce", "newsletter", "blurb"] },
+  { cat: "planning", words: ["plan", "priorit", "roadmap", "rfc", "spec", "launch", "coordinate", "agenda", "triage", "schedule", "weekly", "org chart"] }
+];
+
+/* Deterministic price templates for the "Price it" button on Menu cards. */
+var PRICE_BOOK = [
+  { cat: "numbers",  title: "Metrics deep-dive",          price: "$95",  unit: "per report" },
+  { cat: "building", title: "Bug fix or small feature",   price: "$120", unit: "per fix" },
+  { cat: "design",   title: "Page concept, 2 variants",   price: "$180", unit: "per concept" },
+  { cat: "research", title: "Competitor / market scan",   price: "$75",  unit: "per scan" },
+  { cat: "writing",  title: "Draft post or announcement", price: "$60",  unit: "per draft" },
+  { cat: "planning", title: "Weekly ops review memo",     price: "$50",  unit: "per week" },
+  { cat: "generic",  title: "Task bundle",                price: "$99",  unit: "per task" }
+];
 
 var COLORS = [
   { name: "purple", hex: "#7c6cf6" },
@@ -511,7 +714,7 @@ function esc(s) {
 }
 
 function blankState() {
-  return { team: "My Company", agents: [], tasks: [] };
+  return { team: "My Company", agents: [], tasks: [], offers: [] };
 }
 
 function makeAgent(over) {
@@ -522,7 +725,8 @@ function makeAgent(over) {
     color: COLORS[Math.floor(Math.random() * COLORS.length)].name,
     shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
     memory: "",
-    reportsTo: ""
+    reportsTo: "",
+    status: "active"
   };
   for (var k in over) { if (over.hasOwnProperty(k)) { a[k] = over[k]; } }
   return a;
@@ -538,6 +742,25 @@ function colorHex(name) {
 function agentById(id) {
   for (var i = 0; i < state.agents.length; i++) {
     if (state.agents[i].id === id) { return state.agents[i]; }
+  }
+  return null;
+}
+
+function taskById(id) {
+  for (var i = 0; i < state.tasks.length; i++) {
+    if (state.tasks[i].id === id) { return state.tasks[i]; }
+  }
+  return null;
+}
+
+function activeAgents() {
+  return state.agents.filter(function (a) { return a.status !== "archived"; });
+}
+
+function offerById(id) {
+  var offers = state.offers || [];
+  for (var i = 0; i < offers.length; i++) {
+    if (offers[i].id === id) { return offers[i]; }
   }
   return null;
 }
@@ -589,7 +812,8 @@ function sanitize(obj) {
       color: typeof a.color === "string" ? a.color : "purple",
       shape: SHAPES.indexOf(a.shape) >= 0 ? a.shape : "blob",
       memory: typeof a.memory === "string" ? a.memory : "",
-      reportsTo: typeof a.reportsTo === "string" ? a.reportsTo : ""
+      reportsTo: typeof a.reportsTo === "string" ? a.reportsTo : "",
+      status: a.status === "archived" ? "archived" : "active"
     });
     ids[ag.id] = true;
     s.agents.push(ag);
@@ -601,8 +825,22 @@ function sanitize(obj) {
       id: typeof t.id === "string" ? t.id : uid("t"),
       agentId: t.agentId,
       title: typeof t.title === "string" ? t.title : "",
-      status: STATUS_ORDER.indexOf(t.status) >= 0 ? t.status : "queued"
+      status: STATUS_ORDER.indexOf(t.status) >= 0 ? t.status : "queued",
+      ask: (typeof t.ask === "string" && t.ask && Object.prototype.hasOwnProperty.call(ids, t.ask)) ? t.ask : ""
     });
+  });
+  var offerIds = {};
+  (Array.isArray(obj.offers) ? obj.offers : []).forEach(function (o) {
+    if (!o || typeof o !== "object") { return; }
+    if (typeof o.agentId !== "string" || !Object.prototype.hasOwnProperty.call(ids, o.agentId)) { return; }
+    s.offers.push({
+      id: safeId(typeof o.id === "string" ? o.id : "", offerIds).replace(/^a-/, "o-"),
+      agentId: o.agentId,
+      title: typeof o.title === "string" ? o.title : "",
+      price: typeof o.price === "string" ? o.price : "",
+      unit: typeof o.unit === "string" ? o.unit : ""
+    });
+    offerIds[s.offers[s.offers.length - 1].id] = true;
   });
   return s;
 }
@@ -611,7 +849,8 @@ function sanitize(obj) {
 
 function presetTravel() {
   var cosmo = uid("a"), maya = uid("a"), bolt = uid("a"), wren = uid("a"),
-      pia = uid("a"), dot = uid("a"), ledger = uid("a"), scout = uid("a");
+      pia = uid("a"), dot = uid("a"), ledger = uid("a"), scout = uid("a"),
+      comet = uid("a");
   return {
     team: "Travel Co.",
     agents: [
@@ -622,15 +861,48 @@ function presetTravel() {
       { id: pia,    name: "Pia",    role: "Product",           color: "teal",   shape: "squircle",memory: "Keeps the family-travel roadmap and every RFC written so far.", reportsTo: cosmo },
       { id: dot,    name: "Dot",    role: "Designer",          color: "orange", shape: "diamond", memory: "Holds the design system: colors, type scale, component states.", reportsTo: pia },
       { id: ledger, name: "Ledger", role: "Data / Analyst",    color: "brown",  shape: "round",   memory: "Owns the metrics definitions and the booking funnel dashboard.", reportsTo: cosmo },
-      { id: scout,  name: "Scout",  role: "Researcher",        color: "blue",   shape: "hex",     memory: "Accumulates competitor scans and pricing research.", reportsTo: pia }
+      { id: scout,  name: "Scout",  role: "Researcher",        color: "blue",   shape: "hex",     memory: "Accumulates competitor scans and pricing research.", reportsTo: pia },
+      { id: comet,  name: "Comet",  role: "Intern",            color: "gray",   shape: "squircle",memory: "Churned after the summer push — knew the checklist once.", reportsTo: cosmo, status: "archived" }
     ],
     tasks: [
       { id: uid("t"), agentId: dot,    title: "Design family-booking search results", status: "running" },
       { id: uid("t"), agentId: ledger, title: "Pull family booking funnel numbers",   status: "running" },
       { id: uid("t"), agentId: scout,  title: "Scan competitor family bundles",      status: "running" },
-      { id: uid("t"), agentId: pia,    title: "Draft RFC: seat-map picker",          status: "queued" },
+      { id: uid("t"), agentId: pia,    title: "Draft RFC: seat-map picker",          status: "queued", ask: ledger },
       { id: uid("t"), agentId: bolt,   title: "Scaffold booking API endpoints",      status: "queued" },
       { id: uid("t"), agentId: cosmo,  title: "Write weekly goals memo",             status: "done" }
+    ],
+    offers: [
+      { id: uid("o"), agentId: scout,  title: "Competitor / market scan", price: "$75",  unit: "per scan" },
+      { id: uid("o"), agentId: dot,    title: "Landing page concept",     price: "$180", unit: "per concept" },
+      { id: uid("o"), agentId: ledger, title: "Funnel deep-dive",         price: "$95",  unit: "per report" }
+    ]
+  };
+}
+
+function presetGlider() {
+  var aria = uid("a"), gale = uid("a"), sage = uid("a"), merc = uid("a"),
+      tandem = uid("a");
+  return {
+    team: "Glider Co.",
+    agents: [
+      { id: aria,   name: "Aria",   role: "Chief of Staff",         color: "purple", shape: "blob",     memory: "Owns the weekly ops memo and the go/no-go call for weekend flying.", reportsTo: "" },
+      { id: gale,   name: "Gale",   role: "Flight Ops",             color: "green",  shape: "cloud",    memory: "Knows the tow-pilot roster, the weather minima, and the field schedule.", reportsTo: aria },
+      { id: sage,   name: "Sage",   role: "Data / Analyst",         color: "brown",  shape: "round",    memory: "Owns the PDF flight log: ~$250 per flight, 3–6 flights per weekend, ~$5,869 on a good one.", reportsTo: aria },
+      { id: merc,   name: "Merc",   role: "Growth / Merchandising", color: "orange", shape: "diamond",  memory: "Builds the price menu and remembers which packages clients pick.", reportsTo: aria },
+      { id: tandem, name: "Tandem", role: "Intern",                 color: "gray",   shape: "squircle", memory: "Archived at season's end — bots churn; alumni stay on the chart.", reportsTo: gale, status: "archived" }
+    ],
+    tasks: [
+      { id: uid("t"), agentId: sage, title: "Pull the PDF flight log",                 status: "done" },
+      { id: uid("t"), agentId: gale, title: "Weather call for Saturday's window",      status: "running" },
+      { id: uid("t"), agentId: merc, title: "Stats for the menu: which flight sells?", status: "running", ask: sage },
+      { id: uid("t"), agentId: aria, title: "Write weekly goals memo",                 status: "done" }
+    ],
+    offers: [
+      { id: uid("o"), agentId: gale, title: "Local instructor session", price: "$220–250", unit: "per flight · 4.9★" },
+      { id: uid("o"), agentId: merc, title: "Summit Flight package",    price: "$4,365+",  unit: "per student" },
+      { id: uid("o"), agentId: merc, title: "Night Launch Pro",         price: "$299",     unit: "per seat" },
+      { id: uid("o"), agentId: sage, title: "Weekend fly-day bundle",   price: "$5,869",   unit: "per weekend" }
     ]
   };
 }
@@ -673,14 +945,14 @@ function presetStudio() {
   };
 }
 
-var PRESETS = { travel: presetTravel, solo: presetSolo, studio: presetStudio };
+var PRESETS = { travel: presetTravel, glider: presetGlider, solo: presetSolo, studio: presetStudio };
 
 /* ---------------- exports ---------------- */
 
 function buildSpec() {
   return {
     format: "crewchart",
-    version: 1,
+    version: 2,
     team: state.team,
     exportedAt: new Date().toISOString(),
     agents: state.agents.map(function (a) {
@@ -691,11 +963,15 @@ function buildSpec() {
         color: a.color,
         shape: a.shape,
         memory: a.memory,
-        reportsTo: a.reportsTo || null
+        reportsTo: a.reportsTo || null,
+        status: a.status === "archived" ? "archived" : "active"
       };
     }),
     tasks: state.tasks.map(function (t) {
-      return { id: t.id, agentId: t.agentId, title: t.title, status: t.status };
+      return { id: t.id, agentId: t.agentId, title: t.title, status: t.status, ask: t.ask || null };
+    }),
+    offers: (state.offers || []).map(function (o) {
+      return { id: o.id, agentId: o.agentId, title: o.title, price: o.price, unit: o.unit };
     })
   };
 }
@@ -708,22 +984,237 @@ function buildKickoff() {
   lines.push("remembers what is in its own scope; anything marked [running]");
   lines.push("can proceed in parallel with the others.");
   lines.push("");
+  var alumni = state.agents.filter(function (a) { return a.status === "archived"; });
+  if (alumni.length) {
+    lines.push("(Off active duty: " + alumni.map(function (a) { return a.name || "Unnamed"; }).join(", ") +
+      " — archived alumni. History, not headcount.)");
+    lines.push("");
+  }
   state.agents.forEach(function (a) {
     var boss = a.reportsTo ? agentById(a.reportsTo) : null;
     lines.push("## " + (a.name || "Unnamed") + " — " + (a.role || "Teammate") +
-      (boss ? "  (reports to " + boss.name + ")" : ""));
+      (boss ? "  (reports to " + boss.name + ")" : "") +
+      (a.status === "archived" ? "  [archived]" : ""));
     lines.push("Memory / scope: " + (a.memory && a.memory.trim() ? a.memory.trim() : "(to be learned on the job)"));
     var mine = state.tasks.filter(function (t) { return t.agentId === a.id; });
     if (mine.length) {
       mine.forEach(function (t) {
-        lines.push("- [" + t.status + "] " + t.title);
+        var owner = t.ask && agentById(t.ask) ? " (delegated ask → " + agentById(t.ask).name + ")" : "";
+        lines.push("- [" + t.status + "] " + t.title + owner);
       });
     } else {
       lines.push("- (no tasks yet)");
     }
     lines.push("");
   });
+  var menuLines = buildMenuLines();
+  if (menuLines.length) {
+    lines.push("## Menu — deliverables and price points");
+    lines.push("Clients pick from this menu; the named teammate delivers.");
+    lines.push("");
+    menuLines.forEach(function (l) { lines.push(l); });
+    lines.push("");
+  }
   return lines.join("\n");
+}
+
+function buildMenuLines() {
+  var lines = [];
+  var offers = state.offers || [];
+  activeAgents().forEach(function (a) {
+    var mine = offers.filter(function (o) { return o.agentId === a.id; });
+    if (!mine.length) { return; }
+    lines.push("### " + (a.name || "Unnamed") + " — " + (a.role || "Teammate"));
+    mine.forEach(function (o) {
+      lines.push("- **" + (o.title || "Untitled") + "** — " + (o.price || "$?") + (o.unit ? " " + o.unit : ""));
+    });
+    lines.push("");
+  });
+  return lines;
+}
+
+function buildMenuMarkdown() {
+  var lines = [];
+  lines.push("# Menu — " + (state.team || "Untitled team"));
+  lines.push("");
+  lines.push("Pick what you like; the named teammate delivers.");
+  lines.push("");
+  var menuLines = buildMenuLines();
+  if (menuLines.length) {
+    menuLines.forEach(function (l) { lines.push(l); });
+  } else {
+    lines.push("_(No deliverables priced yet — add cards in the Menu section.)_");
+    lines.push("");
+  }
+  lines.push("---");
+  lines.push("_Generated with CrewChart. Prices are yours to set; nothing costs anything until a human says yes._");
+  return lines.join("\n");
+}
+
+/* ---------------- delegate suggestions (offline heuristics) ---------------- */
+
+function lexWordsFor(cat) {
+  for (var i = 0; i < ASK_LEXICON.length; i++) {
+    if (ASK_LEXICON[i].cat === cat) { return ASK_LEXICON[i].words; }
+  }
+  return [];
+}
+
+function lexMatch(text, word) {
+  // word-boundary prefix match: "stats" matches "stats: revenue" but not "states"
+  var safe = String(word).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp("\\b" + safe).test(text);
+}
+
+function containsAny(text, words) {
+  for (var i = 0; i < words.length; i++) {
+    if (lexMatch(text, words[i])) { return true; }
+  }
+  return false;
+}
+
+function countMatches(text, words) {
+  var n = 0;
+  for (var i = 0; i < words.length; i++) {
+    if (lexMatch(text, words[i])) { n++; }
+  }
+  return n;
+}
+
+function agentCategory(agent) {
+  var roleText = ((agent.name || "") + " " + (agent.role || "")).toLowerCase();
+  var memText = (agent.memory || "").toLowerCase();
+  var best = "generic";
+  var bestScore = 0;
+  ASK_LEXICON.forEach(function (lex) {
+    // role signals count double: the role owner beats a memory mention
+    var s = countMatches(roleText, lex.words) * 2 + countMatches(memText, lex.words);
+    if (s > bestScore) { bestScore = s; best = lex.cat; }
+  });
+  return best;
+}
+
+/* Rank active teammates for a task title. Signal, in order:
+   1. the agent is named in the task (referencability — "ask Sage for the stats")
+   2. per hit-word: exact word in role/name > exact word in memory > category
+      word in role/name > category word in memory > generic nudge. Role signal
+      always outweighs memory so the role owner beats a memory mention. */
+function suggestFor(taskTitle) {
+  var t = String(taskTitle || "").toLowerCase();
+  var seen = {};
+  var hits = [];
+  ASK_LEXICON.forEach(function (lex) {
+    lex.words.forEach(function (w) {
+      if (lexMatch(t, w) && !seen[w]) { seen[w] = true; hits.push({ w: w, cat: lex.cat }); }
+    });
+  });
+  return activeAgents()
+    .map(function (a) {
+      var roleText = (a.name + " " + a.role).toLowerCase();
+      var memText = (a.memory || "").toLowerCase();
+      var score = 0;
+      var why = [];
+      hits.forEach(function (h) {
+        var catWords = lexWordsFor(h.cat);
+        var pts = 0.3;
+        if (containsAny(roleText, [h.w])) { pts = 4; why.push("\u201C" + h.w + "\u201D"); }
+        else if (containsAny(memText, [h.w])) { pts = 2; why.push("\u201C" + h.w + "\u201D"); }
+        else if (containsAny(roleText, catWords)) { pts = 1.5; }
+        else if (containsAny(memText, catWords)) { pts = 1; }
+        score += pts;
+      });
+      if (a.name && a.name.length > 2 && t.indexOf(a.name.toLowerCase()) >= 0) {
+        score += 10;
+        why.unshift("named in the task");
+      }
+      return { agent: a, score: score, why: why };
+    })
+    .sort(function (x, y) { return y.score - x.score; });
+}
+
+/* ---------------- live ops strip (local simulation, no network) ---------------- */
+
+var ops = { reqs: 0 };
+var opsAnim = {};
+var opsBuilt = false;
+
+function loadOps() {
+  try {
+    var raw = localStorage.getItem(OPS_KEY);
+    if (raw) {
+      var p = JSON.parse(raw);
+      if (p && typeof p.reqs === "number" && isFinite(p.reqs)) { ops.reqs = Math.max(0, Math.floor(p.reqs)); }
+    }
+  } catch (e) { /* fresh start */ }
+  if (!ops.reqs) { ops.reqs = 37 + state.tasks.length * 3; } // seed so first paint feels alive
+}
+
+function saveOps() {
+  try { localStorage.setItem(OPS_KEY, JSON.stringify(ops)); } catch (e) { /* non-fatal */ }
+}
+
+function setStat(id, val, fmt) {
+  var el = document.getElementById(id);
+  if (!el) { return; }
+  var from = (opsAnim[id] == null) ? 0 : opsAnim[id];
+  if (from === val) {
+    el.textContent = fmt(val);
+    opsAnim[id] = val;
+    return;
+  }
+  opsAnim[id] = val;
+  if (typeof el.animate === "function") {
+    // subtle blip on change
+    el.animate([{ opacity: 0.35 }, { opacity: 1 }], { duration: 420, easing: "ease-out" });
+  }
+  var start = (window.performance && performance.now) ? performance.now() : Date.now();
+  var dur = 550;
+  function frame(now) {
+    var p = Math.min(1, ((now || start) - start) / dur);
+    var eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(Math.round(from + (val - from) * eased));
+    if (p < 1) { window.requestAnimationFrame(frame); }
+  }
+  window.requestAnimationFrame(frame);
+}
+
+function renderOps() {
+  var root = document.getElementById("opsStrip");
+  if (!root) { return; }
+  if (!opsBuilt) {
+    root.innerHTML =
+      '<span class="live-badge"><i></i>LIVE</span>' +
+      '<div class="ops-stat"><b id="opsOnline">0</b><span>bots online</span></div>' +
+      '<div class="ops-stat"><b id="opsRunning">0</b><span>tasks running</span></div>' +
+      '<div class="ops-stat"><b id="opsReqs">0</b><span>web requests</span></div>' +
+      '<div class="ops-stat"><b id="opsAlumni">0</b><span>archived alumni</span></div>' +
+      '<span class="ops-note">Fleet stats for your crew. The request ticker is simulated locally — nothing leaves this file.</span>';
+    opsBuilt = true;
+  }
+  var active = activeAgents();
+  var activeIds = {};
+  active.forEach(function (a) { activeIds[a.id] = true; });
+  var running = state.tasks.filter(function (t) { return t.status === "running" && activeIds[t.agentId]; }).length;
+  var alumni = state.agents.length - active.length;
+  setStat("opsOnline", active.length, String);
+  setStat("opsRunning", running, String);
+  setStat("opsReqs", ops.reqs, function (n) { return Number(n).toLocaleString("en-US"); });
+  setStat("opsAlumni", alumni, String);
+}
+
+function startOpsTicker() {
+  window.setInterval(function () {
+    var activeIds = {};
+    activeAgents().forEach(function (a) { activeIds[a.id] = true; });
+    var running = state.tasks.some(function (t) { return t.status === "running" && activeIds[t.agentId]; });
+    if (running) {
+      ops.reqs += 1 + Math.floor(Math.random() * 3);
+    } else if (Math.random() < 0.35) {
+      ops.reqs += 1;
+    }
+    saveOps();
+    renderOps();
+  }, 4000);
 }
 
 /* ---------------- rendering ---------------- */
@@ -738,8 +1229,10 @@ function avatarHTML(agent, small) {
 
 function render() {
   renderHeader();
+  renderOps();
   renderRoster();
   renderBoard();
+  renderMenu();
 }
 
 function renderHeader() {
@@ -753,6 +1246,7 @@ function renderRoster() {
   var html = [];
 
   state.agents.forEach(function (a) {
+    var archived = a.status === "archived";
     var swatches = COLORS.map(function (c) {
       return '<button type="button" class="sw' + (c.name === a.color ? " on" : "") +
         '" style="background:' + c.hex + '" data-act="color" data-val="' + c.name +
@@ -767,14 +1261,17 @@ function renderRoster() {
 
     var options = '<option value="">—</option>';
     state.agents.forEach(function (o) {
-      if (o.id === a.id) { return; }
+      if (o.id === a.id || o.status === "archived") { return; }
       options += '<option value="' + o.id + '"' + (o.id === a.reportsTo ? " selected" : "") + '>' +
         esc(o.name || "Unnamed") + '</option>';
     });
 
     html.push(
-      '<div class="agent-card" data-id="' + a.id + '">' +
-        '<button type="button" class="del" data-act="del-agent" data-id="' + a.id + '" title="Remove teammate" aria-label="Remove teammate">✕</button>' +
+      '<div class="agent-card' + (archived ? " archived" : "") + '" data-id="' + a.id + '">' +
+        '<button type="button" class="del" data-act="del-agent" data-id="' + a.id + '" title="Remove teammate permanently" aria-label="Remove teammate">✕</button>' +
+        (archived
+          ? '<button type="button" class="lifecycle" data-act="restore-agent" data-id="' + a.id + '" title="Bring back to active duty">Restore</button><span class="stamp">Archived</span>'
+          : '<button type="button" class="lifecycle" data-act="archive-agent" data-id="' + a.id + '" title="Move to alumni — keeps history, pauses the lane">Archive</button>') +
         '<div class="agent-top">' +
           avatarHTML(a, false) +
           '<div class="agent-fields">' +
@@ -807,24 +1304,25 @@ function renderRoster() {
 function renderBoard() {
   var meterWrap = document.getElementById("meterWrap");
   var lanesRoot = document.getElementById("lanes");
+  var active = activeAgents();
 
-  // parallelism meter
+  // parallelism meter — active agents only
   var runningAgents = {};
   var doneAgents = {};
   state.tasks.forEach(function (t) {
     if (t.status === "running") { runningAgents[t.agentId] = true; }
     if (t.status === "done") { doneAgents[t.agentId] = true; }
   });
-  var nRun = Object.keys(runningAgents).length;
+  var nRun = active.filter(function (a) { return runningAgents[a.id]; }).length;
   var dots = "";
-  state.agents.forEach(function (a) {
+  active.forEach(function (a) {
     var cls = runningAgents[a.id] ? "running" : (doneAgents[a.id] ? "done" : "");
     dots += '<i class="' + cls + '"></i>';
   });
   meterWrap.innerHTML =
     '<div class="meter" role="status">' +
       '<span class="dots" aria-hidden="true">' + dots + '</span>' +
-      '<span><b>' + nRun + '</b> of <b>' + state.agents.length + '</b> agents running in parallel</span>' +
+      '<span><b>' + nRun + '</b> of <b>' + active.length + '</b> active agents running in parallel</span>' +
     '</div>';
 
   if (!state.agents.length) {
@@ -834,33 +1332,80 @@ function renderBoard() {
 
   var html = [];
   state.agents.forEach(function (a) {
+    var archived = a.status === "archived";
     var mine = state.tasks.filter(function (t) { return t.agentId === a.id; });
     var chips = mine.map(function (t) {
+      var owner = t.ask ? agentById(t.ask) : null;
+      var askBtn = owner
+        ? '<button type="button" class="ask has" data-act="ask" data-id="' + t.id + '" title="Change the delegated owner">⇢ ' + esc(owner.name || "teammate") + '</button>'
+        : '<button type="button" class="ask" data-act="ask" data-id="' + t.id + '" title="Delegate: ask the palette who should own this">⇢ ask</button>';
       return '<span class="task ' + t.status + '" data-act="cycle-task" data-id="' + t.id + '"' +
         ' title="Click to cycle status">' +
           '<span class="status-dot" aria-hidden="true"></span>' +
           '<span class="tt">' + esc(t.title) + '</span>' +
+          askBtn +
           '<button type="button" class="x" data-act="del-task" data-id="' + t.id + '" title="Delete task" aria-label="Delete task">✕</button>' +
         '</span>';
     }).join("");
 
     html.push(
-      '<div class="lane" data-lane="' + a.id + '">' +
+      '<div class="lane' + (archived ? " archived" : "") + '" data-lane="' + a.id + '">' +
         '<div class="lane-head">' +
           avatarHTML(a, true) +
           '<span class="who">' + esc(a.name || "Unnamed") + '</span>' +
-          '<span class="role">' + esc(a.role || "") + '</span>' +
+          '<span class="role">' + esc(a.role || "") + (archived ? " · archived" : "") + '</span>' +
           '<span class="count">' + mine.length + ' task' + (mine.length === 1 ? "" : "s") + '</span>' +
         '</div>' +
         '<div class="tasks">' + chips +
+          (archived ? '' :
           '<span class="add-task">' +
             '<input type="text" placeholder="+ New task, press Enter" data-act="add-task" data-id="' + a.id + '" aria-label="New task for ' + esc(a.name || "agent") + '">' +
-          '</span>' +
+          '</span>') +
         '</div>' +
       '</div>'
     );
   });
   lanesRoot.innerHTML = html.join("");
+}
+
+function renderMenu() {
+  var root = document.getElementById("menuList");
+  if (!root) { return; }
+
+  if (!state.agents.length) {
+    root.innerHTML = '<div class="empty">No teammates yet — the menu needs a crew. Add agents above or load a preset.</div>';
+    return;
+  }
+
+  var offers = state.offers || [];
+  var html = [];
+  state.agents.forEach(function (a) {
+    var archived = a.status === "archived";
+    var mine = offers.filter(function (o) { return o.agentId === a.id; });
+    var chips = mine.map(function (o) {
+      return '<span class="offer">' +
+        '<input class="o-title" type="text" value="' + esc(o.title) + '" placeholder="Deliverable" data-act="offer-field" data-field="title" data-oid="' + o.id + '" aria-label="Deliverable name">' +
+        '<input class="o-price" type="text" value="' + esc(o.price) + '" placeholder="$0" data-act="offer-field" data-field="price" data-oid="' + o.id + '" aria-label="Price">' +
+        '<input class="o-unit" type="text" value="' + esc(o.unit) + '" placeholder="per unit" data-act="offer-field" data-field="unit" data-oid="' + o.id + '" aria-label="Unit">' +
+        '<button type="button" class="x" data-act="del-offer" data-oid="' + o.id + '" title="Remove card" aria-label="Remove card">✕</button>' +
+      '</span>';
+    }).join("");
+
+    html.push(
+      '<div class="menu-row' + (archived ? " archived" : "") + '" data-agent="' + a.id + '">' +
+        '<div class="menu-row-head">' +
+          avatarHTML(a, true) +
+          '<span class="who">' + esc(a.name || "Unnamed") + '</span>' +
+          '<span class="role">' + esc(a.role || "") + '</span>' +
+          (archived ? '' : '<button type="button" class="priceit" data-act="priceit" data-id="' + a.id + '" title="Suggest a deliverable and price from this agent\'s role">Price it</button>') +
+        '</div>' +
+        '<div class="offers">' + chips +
+          '<button type="button" data-act="add-offer" data-id="' + a.id + '" title="Add a deliverable card">+ card</button>' +
+        '</div>' +
+      '</div>'
+    );
+  });
+  root.innerHTML = html.join("");
 }
 
 /* ---------------- events ---------------- */
@@ -890,9 +1435,20 @@ function wireEvents() {
       if (input) { input.focus(); }
       return;
     }
+    if (act === "archive-agent" || act === "restore-agent") {
+      var ag = agentById(id);
+      if (!ag) { return; }
+      ag.status = act === "archive-agent" ? "archived" : "active";
+      render();
+      saveState();
+      toast(act === "archive-agent" ? "Moved to alumni. History kept, lane paused." : "Back on active duty.");
+      return;
+    }
     if (act === "del-agent") {
       state.agents = state.agents.filter(function (x) { return x.id !== id; });
       state.tasks = state.tasks.filter(function (t) { return t.agentId !== id; });
+      state.tasks.forEach(function (t) { if (t.ask === id) { t.ask = ""; } });
+      state.offers = (state.offers || []).filter(function (o) { return o.agentId !== id; });
       state.agents.forEach(function (x) { if (x.reportsTo === id) { x.reportsTo = ""; } });
       render();
       saveState();
@@ -917,7 +1473,10 @@ function wireEvents() {
     if (!ag) { return; }
     var field = el.getAttribute("data-field");
     ag[field] = el.value;
-    if (field === "name" || field === "role") { updateLaneHeader(ag); } // echo names/roles into lanes
+    if (field === "name" || field === "role") { // echo names/roles into lanes + menu rows
+      updateLaneHeader(ag);
+      updateMenuHead(ag);
+    }
     saveState();
   });
 
@@ -931,12 +1490,17 @@ function wireEvents() {
     saveState();
   });
 
-  // board: task add / cycle / delete
+  // board: task add / cycle / delete / delegate
   document.getElementById("lanes").addEventListener("click", function (e) {
     var el = e.target.closest("[data-act]");
     if (!el) { return; }
     var act = el.getAttribute("data-act");
     if (act === "add-task") { return; } // handled by keydown
+    if (act === "ask") {
+      e.stopPropagation();
+      openPalette(el.getAttribute("data-id"));
+      return;
+    }
     if (act === "del-task") {
       e.stopPropagation();
       var tid = el.getAttribute("data-id");
@@ -964,13 +1528,66 @@ function wireEvents() {
     if (e.key === "Enter") {
       var title = el.value.trim();
       if (!title) { return; }
-      state.tasks.push({ id: uid("t"), agentId: el.getAttribute("data-id"), title: title, status: "queued" });
+      state.tasks.push({ id: uid("t"), agentId: el.getAttribute("data-id"), title: title, status: "queued", ask: "" });
       el.value = "";
       renderBoard();
       saveState();
+      var sug = suggestFor(title)[0];
+      if (sug && sug.score >= 2) {
+        toast("Tip: ⇢ ask " + (sug.agent.name || "teammate") + (sug.agent.role ? " (" + sug.agent.role + ")" : ""));
+      }
       var again = document.querySelector("input[data-act='add-task'][data-id='" + el.getAttribute("data-id") + "']");
       if (again) { again.focus(); }
     }
+  });
+
+  // menu: add / remove / price cards, inline edits
+  document.getElementById("menuList").addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-act]");
+    if (!btn) { return; }
+    var act = btn.getAttribute("data-act");
+    var id = btn.getAttribute("data-id");
+
+    if (act === "add-offer") {
+      var offer = { id: uid("o"), agentId: id, title: "", price: "", unit: "" };
+      state.offers.push(offer);
+      renderMenu();
+      saveState();
+      var inp = document.querySelector('input[data-oid="' + offer.id + '"]');
+      if (inp) { inp.focus(); }
+      return;
+    }
+    if (act === "del-offer") {
+      var oid = btn.getAttribute("data-oid");
+      state.offers = state.offers.filter(function (o) { return o.id !== oid; });
+      renderMenu();
+      saveState();
+      return;
+    }
+    if (act === "priceit") {
+      var ag = agentById(id);
+      if (!ag) { return; }
+      var cat = agentCategory(ag);
+      var tpl = PRICE_BOOK[PRICE_BOOK.length - 1];
+      for (var i = 0; i < PRICE_BOOK.length; i++) {
+        if (PRICE_BOOK[i].cat === cat) { tpl = PRICE_BOOK[i]; break; }
+      }
+      var exists = state.offers.some(function (o) { return o.agentId === id && o.title === tpl.title; });
+      if (exists) { toast("Already priced — edit the card."); return; }
+      state.offers.push({ id: uid("o"), agentId: id, title: tpl.title, price: tpl.price, unit: tpl.unit });
+      renderMenu();
+      saveState();
+      toast("Card added: " + tpl.title + " " + tpl.price + " " + tpl.unit + ".");
+    }
+  });
+
+  document.getElementById("menuList").addEventListener("input", function (e) {
+    var el = e.target.closest("[data-act='offer-field']");
+    if (!el) { return; }
+    var o = offerById(el.getAttribute("data-oid"));
+    if (!o) { return; }
+    o[el.getAttribute("data-field")] = el.value;
+    saveState();
   });
 
   // header actions
@@ -1002,6 +1619,12 @@ function wireEvents() {
     openModal("Kickoff prompt",
       "Paste this at the top of a chat with your agent platform to brief the whole crew in one shot.",
       buildKickoff(), slug(state.team || "team") + ".kickoff.md", null);
+  });
+
+  document.getElementById("menuBtn").addEventListener("click", function () {
+    openModal("Price menu (markdown)",
+      "The merchandising sheet: deliverables, price points, and the teammate who delivers each. Paste it to your client and ask which one they like.",
+      buildMenuMarkdown(), slug(state.team || "team") + ".menu.md", null);
   });
 
   document.getElementById("importBtn").addEventListener("click", function () {
@@ -1037,7 +1660,37 @@ function wireEvents() {
     if (e.target === this) { closeModal(); }
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") { closeModal(); }
+    if (e.key === "Escape") { closeModal(); closePalette(); }
+  });
+
+  // delegate palette
+  document.getElementById("palClose").addEventListener("click", closePalette);
+  document.getElementById("palBackdrop").addEventListener("click", function (e) {
+    if (e.target === this) { closePalette(); }
+  });
+  document.getElementById("palList").addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-act]");
+    if (!btn) { return; }
+    var act = btn.getAttribute("data-act");
+    var t = taskById(palTaskId);
+    if (act === "pal-clear") {
+      if (t) { t.ask = ""; }
+      closePalette();
+      renderBoard();
+      saveState();
+      toast("Delegation cleared.");
+      return;
+    }
+    if (act === "pal-pick" && t) {
+      var ag = agentById(btn.getAttribute("data-id"));
+      if (ag) {
+        t.ask = ag.id;
+        toast("Delegated to " + (ag.name || "teammate") + ".");
+      }
+      closePalette();
+      renderBoard();
+      saveState();
+    }
   });
 
   document.getElementById("modalCopy").addEventListener("click", function () {
@@ -1055,11 +1708,53 @@ function wireEvents() {
 
 /* ---------------- helpers ---------------- */
 
+var palTaskId = null;
+
+function openPalette(taskId) {
+  var t = taskById(taskId);
+  if (!t) { return; }
+  palTaskId = taskId;
+  document.getElementById("palTitle").textContent = "Delegate to…";
+  document.getElementById("palDesc").textContent = "Task: \u201C" + (t.title || "untitled") + "\u201D — who should own it?";
+  var list = document.getElementById("palList");
+  var ranked = suggestFor(t.title);
+  if (!ranked.length) {
+    list.innerHTML = '<div class="pal-empty">No active teammates. Add or restore one on the roster.</div>';
+  } else {
+    list.innerHTML = ranked.map(function (r, idx) {
+      var best = idx === 0 && r.score >= 2;
+      var why = r.why.length ? "matches " + r.why.slice(0, 3).join(", ") : "generalist pick";
+      return '<button type="button" class="pal-item' + (best ? " best" : "") + '" data-act="pal-pick" data-id="' + r.agent.id + '">' +
+        avatarHTML(r.agent, true) +
+        '<span><span class="pwho">' + esc(r.agent.name || "Unnamed") + '</span> <span class="prole">' + esc(r.agent.role || "") + '</span></span>' +
+        (best ? '<span class="best-tag">Best match</span>' : '') +
+        '<span class="pwhy">' + esc(why) + '</span>' +
+      '</button>';
+    }).join("") +
+    (t.ask ? '<button type="button" class="pal-item" data-act="pal-clear">Clear delegation</button>' : '');
+  }
+  document.getElementById("palBackdrop").classList.add("open");
+}
+
+function closePalette() {
+  document.getElementById("palBackdrop").classList.remove("open");
+  palTaskId = null;
+}
+
 function updateLaneHeader(ag) {
   var lane = document.querySelector('.lane[data-lane="' + ag.id + '"]');
   if (!lane) { renderBoard(); return; }
   var who = lane.querySelector(".who");
   var role = lane.querySelector(".role");
+  if (who) { who.textContent = ag.name || "Unnamed"; }
+  if (role) { role.textContent = (ag.role || "") + (ag.status === "archived" ? " · archived" : ""); }
+}
+
+function updateMenuHead(ag) {
+  var row = document.querySelector('.menu-row[data-agent="' + ag.id + '"]');
+  if (!row) { return; }
+  var who = row.querySelector(".who");
+  var role = row.querySelector(".role");
   if (who) { who.textContent = ag.name || "Unnamed"; }
   if (role) { role.textContent = ag.role || ""; }
 }
@@ -1138,8 +1833,11 @@ try {
 } catch (e) {
   state = sanitize(presetTravel());
 }
+if (!Array.isArray(state.offers)) { state.offers = []; }
+loadOps();
 wireEvents();
 render();
+startOpsTicker();
 </script>
 </body>
 </html>
