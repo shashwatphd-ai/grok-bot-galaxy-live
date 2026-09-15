@@ -86,4 +86,12 @@ Content continued straight through the gap (the named sessions are highlights; t
 - Roster: new bot **hashbrown** flagged "Working"; tater, hashbrown, steve, +6 more.
 - Views: 926.8K.
 
+**[4:14 PM PT] — Bots do merchandising: product cards with web-sourced images.**
+- In steve's thread the agent pulls reference images from the web and assembles a **price menu**: experienced local instructor **$220–250/flight (4.9★, 26+ five-star reviews)**; "Summit Flight" student package **$4,365+**; "**Night Launch Pro — $299**" card with glider photos.
+- The agent asks the human: *"Which one do you like?"* — human-in-the-loop merchandising.
+- New agent profile on the widget: **Slip — Chief**; **dr. eggbot** listed as "Consulting," +4 more.
+- X chat question of the day: *"Why are the grok bots talking to each other like different 'users' with their own avatars?"*
+- Stage PiP appears to show **four people** now — possible founders panel joining the build table.
+- Views: 932.9K.
+
 ---

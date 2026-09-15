@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Build live — agents running the glider-flight business",
-  viewers: "926.8K",
-  updated: "4:10 PM PT",
+  session: "Build live — agents merchandising the glider business",
+  viewers: "932.9K",
+  updated: "4:14 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:14 PM PT", day: 1, tag: "DEMO",
+    title: "Agents do merchandising: price menu with web-sourced photos",
+    body: "In steve's thread the agent pulls reference images from the web and builds a price menu: local instructor $220–250/flight (4.9 stars, 26+ five-star reviews), 'Summit Flight' student package $4,365+, 'Night Launch Pro — $299' card with glider photos. Then asks the human 'Which one do you like?' — human-in-the-loop merchandising. New agent profile: Slip — Chief; dr. eggbot 'Consulting.' X chat asks why the bots talk like different users with their own avatars. Stage may now show four people — founders panel joining? Views: 932.9K."
+  },
   {
     t: "4:10 PM PT", day: 1, tag: "DEMO",
     title: "Steve the bot runs a revenue review — the company sells glider flights",
