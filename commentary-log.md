@@ -64,4 +64,11 @@ Content continued straight through the gap (the named sessions are highlights; t
 - **The trio on stage** at the table with laptops (Lauren Tan, Matt Palmer, Roshan Sadanani per coverage), warming up for the 4:00 Founders session.
 - Views: 908.7K. Full 3-day schedule confirmed by the user: Day 2 = Sales Engineering / Sales / SDRs / Customer Support; Day 3 = Marketing Operations / Post-Sales / Marketing.
 
+**[4:00 PM PT] — Founders hour begins; wireframes on the main share.**
+- Screen share: low-fi wireframing board (Balsamiq-style) for the company's landing page — hero approximately *"Private pilot lessons from $99?"*, sign-up form, content blocks. The product's front door is being drafted live.
+- Roster widget: named bots **tater, grokbot, steve — "+23 more."**
+- PiP: the trio at the build table (now three visible, including a woman on the right — consistent with Lauren Tan being on the team).
+- X live chat asking "What's the link for the site?" — audience wants the demo company's URL.
+- Views: 914.5K.
+
 ---

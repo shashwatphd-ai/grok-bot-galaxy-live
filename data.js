@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Build continues — Founders session at 4:00 PM PT (Shub Gaur)",
-  viewers: "908.7K",
-  updated: "3:55 PM PT",
+  session: "Grok Bot for Founders — Shub Gaur (4:00 PM PT)",
+  viewers: "914.5K",
+  updated: "4:01 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:01 PM PT", day: 1, tag: "DEMO",
+    title: "Founders hour: the landing page gets wireframed live",
+    body: "Main share is a Balsamiq-style wireframing board drafting the company's landing page — hero reads like 'Private pilot lessons from $99?' with sign-up form and content blocks. Roster widget: named bots tater, grokbot, steve, +23 more — the fleet keeps growing past the original eleven. The trio builds on at the table; X chat is already asking for the site's link. Views: 914.5K."
+  },
   {
     t: "3:55 PM PT", day: 1, tag: "DEMO",
     title: "Fleet reveal: 26 bots online, 880 web requests, 10 archived",
