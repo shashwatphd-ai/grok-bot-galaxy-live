@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MenuForge — build the menu buyers pick from</title>
+<meta name="description" content="An offline, single-file price-menu builder: offers with price, unit, anchor, tier badge, and a photo slot. Exports a clean markdown sheet or a standalone HTML card grid. Zero dependencies.">
+<style>
+  /* ============================================================
+     MenuForge — theme
+     Dark "live event slide" look. System fonts, no dependencies.
+     ============================================================ */
+  :root {
+    --bg: #0d1017;
+    --bg-soft: #12161f;
+    --panel: #171c27;
+    --panel-2: #1d2330;
+    --line: #2a3142;
+    --text: #e8ecf4;
+    --muted: #97a0b3;
+    --faint: #6b7488;
+    --accent: #7c6cf6;
+    --accent-soft: rgba(124, 108, 246, 0.16);
+    --green: #3fbf7f;
+    --amber: #f2b13d;
+    --teal: #2fbfb3;
+    --red: #f6543f;
+    --radius: 14px;
+    --radius-sm: 9px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(242, 177, 61, 0.10), transparent 60%),
+      radial-gradient(700px 420px at -10% 15%, rgba(124, 108, 246, 0.10), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+  ::placeholder { color: var(--faint); }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(13, 16, 23, 0.78);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: 6px; }
+  .brand .logo {
+    width: 34px; height: 34px; flex: none;
+    background: linear-gradient(135deg, #f2b13d, #f6543f);
+    border-radius: 30%;
+    box-shadow: 0 0 0 4px rgba(242, 177, 61, 0.16);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  .brand .logo i {
+    display: block;
+    width: 16px; height: 3px;
+    border-radius: 2px;
+    background: rgba(13, 16, 23, 0.82);
+  }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+  .brand .sub { font-size: 12px; color: var(--muted); margin-top: -2px; }
+  .spacer { flex: 1; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+  select, button {
+    font: inherit;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  select:hover, button:hover { background: var(--panel-2); }
+  select:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, label.photo-btn:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  button.primary:hover { background: #8d7ff8; }
+  button.amber {
+    background: var(--amber);
+    border-color: var(--amber);
+    color: #221a06;
+    font-weight: 600;
+  }
+  button.amber:hover { background: #f6c265; }
+  button.ghost { background: transparent; }
+  button.danger { color: #ff8a7a; }
+  button.danger:hover { background: rgba(246, 84, 63, 0.12); }
+
+  /* ---------- layout ---------- */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 26px;
+    align-items: start;
+  }
+  .col-editor { min-width: 0; }
+  .col-preview { min-width: 0; position: sticky; top: 76px; }
+  @media (max-width: 980px) {
+    main { grid-template-columns: 1fr; }
+    .col-preview { position: static; }
+  }
+  section { margin-bottom: 30px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 12px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0; }
+  .section-head .hint { font-size: 12.5px; color: var(--faint); }
+
+  /* ---------- cover (menu settings) ---------- */
+  .cover {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+  .cover input[type="text"] {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 9px 11px;
+    width: 100%;
+    font-weight: 600;
+  }
+  .cover input#coverSub, .cover input#coverFoot { font-weight: 400; }
+  .check { display: flex; gap: 9px; align-items: center; font-size: 13.5px; color: var(--muted); cursor: pointer; }
+  .check input { width: 15px; height: 15px; accent-color: var(--accent); }
+
+  /* ---------- offer editor cards ---------- */
+  #editor { display: grid; gap: 12px; }
+  .item-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px;
+    display: grid;
+    gap: 9px;
+    position: relative;
+  }
+  .item-card.dragging { opacity: 0.45; }
+  .item-card.ins-before::before,
+  .item-card.ins-after::after {
+    content: "";
+    position: absolute;
+    left: 8px; right: 8px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--amber);
+    box-shadow: 0 0 8px rgba(242, 177, 61, 0.7);
+  }
+  .item-card.ins-before::before { top: -8px; }
+  .item-card.ins-after::after { bottom: -8px; }
+
+  .item-bar { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .drag-handle {
+    cursor: grab;
+    color: var(--faint);
+    font-size: 13px;
+    letter-spacing: -1px;
+    padding: 6px 7px;
+    background: var(--bg-soft);
+    user-select: none;
+    touch-action: none;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .item-num {
+    flex: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .item-bar .nudge {
+    padding: 6px 9px;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--muted);
+  }
+  .item-bar .del {
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 15px;
+    padding: 5px 8px;
+    border-radius: 6px;
+  }
+  .item-bar .del:hover { color: #ff8a7a; background: rgba(246, 84, 63, 0.1); }
+
+  .item-card input[type="text"], .item-card select, .item-card textarea {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 7px 9px;
+    width: 100%;
+    font: inherit;
+    font-size: 13.5px;
+  }
+  .item-card textarea { resize: vertical; min-height: 44px; }
+  .item-card .f-name { font-weight: 600; font-size: 14.5px; }
+  .item-card .f-price { font-weight: 700; color: #ffd58a; }
+  .item-row { display: grid; grid-template-columns: 1.1fr 1.3fr 0.9fr; gap: 8px; }
+  .item-row.badge-row { grid-template-columns: 200px 1fr; }
+  @media (max-width: 560px) {
+    .item-row, .item-row.badge-row { grid-template-columns: 1fr; }
+  }
+
+  .photo-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .photo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+    color: var(--muted);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+  .photo-btn:hover { background: var(--panel-2); color: var(--text); }
+  .photo-btn input { display: none; }
+  .photo-note { font-size: 11.5px; color: var(--faint); }
+  .photo-thumb { display: flex; align-items: center; gap: 8px; }
+  .photo-thumb img {
+    width: 52px; height: 38px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+
+  .empty-state {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 26px 20px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .empty-state p { margin: 0 0 12px; }
+
+  .add-card {
+    width: 100%;
+    border: 1px dashed var(--line);
+    background: transparent;
+    color: var(--muted);
+    border-radius: var(--radius);
+    padding: 12px;
+    cursor: pointer;
+  }
+  .add-card:hover { color: var(--text); background: var(--panel); border-style: solid; }
+
+  /* ---------- ladder readout ---------- */
+  .ladder {
+    margin-top: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .ladder b { color: var(--text); }
+
+  /* ---------- live preview ---------- */
+  .preview-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 8px;
+  }
+  .preview-tag::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    margin-right: 6px;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .doc {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+
+  /* offer cards shared by preview + export */
+  .doc .menu-title { font-size: 24px; font-weight: 800; margin: 0; letter-spacing: 0.2px; }
+  .doc .menu-sub { color: var(--muted); margin: 6px 0 18px; font-size: 14px; }
+  .doc .offers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .doc .offer {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .doc .offer.hero {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent), 0 6px 22px rgba(124, 108, 246, 0.16);
+  }
+  .doc .offer-photo {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line);
+  }
+  .doc .badge {
+    align-self: flex-start;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    border-radius: 999px;
+    padding: 3px 9px;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .doc .b-pop   { background: var(--accent-soft); color: #a99cff; }
+  .doc .b-star  { background: rgba(242, 177, 61, 0.16); color: #f6c265; }
+  .doc .b-value { background: rgba(63, 191, 127, 0.14); color: #5fd398; }
+  .doc .b-new   { background: rgba(47, 191, 179, 0.14); color: #5cd3c9; }
+  .doc .offer h3 { margin: 0; font-size: 16px; }
+  .doc .offer-price { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .doc .price { font-size: 20px; font-weight: 800; color: #ffd58a; letter-spacing: 0.2px; }
+  .doc .anchor { font-size: 12px; color: var(--faint); text-decoration: line-through; }
+  .doc .unit { font-size: 12px; color: var(--muted); }
+  .doc .offer-desc { margin: 0; font-size: 13px; color: var(--muted); }
+  .doc .menu-foot { margin: 16px 0 0; font-size: 12.5px; color: var(--faint); }
+  .doc .menu-ask {
+    margin: 18px 0 0;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+  }
+  .doc .menu-empty { color: var(--faint); font-size: 13.5px; text-align: center; padding: 18px 0; }
+
+  /* ---------- modal ---------- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 12, 0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    width: min(860px, 100%);
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .modal-head h3 { margin: 0; font-size: 15px; }
+  .modal-head .x {
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 16px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .modal-head .x:hover { color: var(--text); background: var(--panel-2); }
+  .modal textarea {
+    flex: 1;
+    margin: 14px 16px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    padding: 12px;
+    resize: none;
+    min-height: 300px;
+    white-space: pre;
+    overflow: auto;
+  }
+  .modal-foot {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px 16px;
+    flex-wrap: wrap;
+  }
+  .modal-foot .note { font-size: 12px; color: var(--faint); align-self: center; }
+
+  /* ---------- toast ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13.5px;
+    padding: 10px 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 60;
+    max-width: min(560px, 90vw);
+    text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 8px 22px 30px;
+    font-size: 12px;
+    color: var(--faint);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div>
+      <h1>MenuForge</h1>
+      <div class="sub">build the menu buyers pick from</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="toolbar">
+    <select id="presetSelect" title="Load a starter menu — replaces what's on the bench" aria-label="Load a preset menu">
+      <option value="" disabled selected>Presets&hellip;</option>
+      <option value="glider">Glider Flight Co.</option>
+      <option value="pdf">PDF Info Products</option>
+      <option value="merch">Merch Line</option>
+    </select>
+    <button id="exportMdBtn" type="button" title="Copy the whole menu as a markdown sheet">Copy markdown</button>
+    <button id="exportHtmlBtn" type="button" class="primary" title="Export a standalone HTML menu page">Export HTML</button>
+    <button id="newMenuBtn" type="button" class="ghost" data-act="new-menu" title="Clear the bench and start over">New menu</button>
+  </div>
+</header>
+
+<main>
+  <div class="col-editor">
+
+    <section aria-label="Menu cover">
+      <div class="section-head">
+        <h2>The cover</h2>
+        <span class="hint">The first two lines your buyer reads. Make them hungry before the prices show up.</span>
+      </div>
+      <div class="cover">
+        <input id="coverTitle" type="text" data-act="menu-field" data-field="title"
+               placeholder="Menu title — e.g. Windward Gliders — Flight Menu" aria-label="Menu title">
+        <input id="coverSub" type="text" data-act="menu-field" data-field="subtitle"
+               placeholder="One line on who this is for and why it's safe to say yes" aria-label="Menu subtitle">
+        <input id="coverFoot" type="text" data-act="menu-field" data-field="footnote"
+               placeholder="Footnote — guarantees, shipping, validity, fine print with a spine" aria-label="Menu footnote">
+        <label class="check">
+          <input id="askToggle" type="checkbox" data-act="ask-toggle">
+          End the menu with the question — &ldquo;Which one do you like?&rdquo;
+        </label>
+      </div>
+    </section>
+
+    <section aria-label="Offers">
+      <div class="section-head">
+        <h2>The offers</h2>
+        <span class="hint">Arrange like a staircase: an easy yes, a proud yes, and a stretch. Drag the handle, or nudge with the arrows.</span>
+      </div>
+      <div id="editor"></div>
+      <button id="addItemBtn" type="button" class="add-card" data-act="add-item">+ Add an offer</button>
+      <div id="ladder" class="ladder" role="status" aria-live="polite"></div>
+    </section>
+
+  </div>
+
+  <aside class="col-preview" aria-label="Live preview">
+    <div class="section-head">
+      <span class="preview-tag">Live preview</span>
+      <span class="hint">What your buyer sees &mdash; the ask included.</span>
+    </div>
+    <div id="previewDoc" class="doc"></div>
+  </aside>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">Export</h3>
+      <button type="button" class="x" id="modalClose" title="Close" aria-label="Close export dialog">&#10005;</button>
+    </div>
+    <textarea id="modalText" readonly spellcheck="false" aria-label="Exported content"></textarea>
+    <div class="modal-foot">
+      <button id="modalCopy" type="button" class="primary">Copy to clipboard</button>
+      <button id="modalDownload" type="button">Download file</button>
+      <span class="note">If clipboard is blocked, select the text and copy manually &mdash; it's all here.</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  MenuForge &middot; forged live during Grok Bot Galaxy, Day 1 &middot; one file, offline, zero dependencies &middot;
+  your menu never leaves this machine.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     MenuForge — logic
+     One state object, autosaved to localStorage. Everything below
+     runs offline from file:// — no network, no dependencies.
+     ============================================================ */
+
+  var STORAGE_KEY = "menuforge.v1";
+  var state = null;
+  var saveTimer = null;
+  var previewTimer = null;
+  var toastTimer = null;
+  var dragId = null;
+
+  var BADGE_KINDS = ["none", "pop", "star", "value", "new"];
+
+  /* ---------- presets — event-flavored starter menus ---------- */
+
+  var PRESETS = {
+    glider: {
+      title: "Windward Gliders — Flight Menu",
+      subtitle: "Certified instructors. Real airtime. Zero experience required.",
+      footnote: "Weather holds are free — reschedule any time.",
+      ask: true,
+      items: [
+        { name: "Discovery Flight", price: "$99", anchor: "", unit: "per flight",
+          badgeKind: "new", badgeText: "Start here",
+          desc: "A 20-minute intro tow with an instructor. The easy yes for anyone curious.",
+          photo: "" },
+        { name: "Instructor Session", price: "$220–250", anchor: "", unit: "per flight",
+          badgeKind: "star", badgeText: "★ 4.9 · 26+ five-star reviews",
+          desc: "One-on-one with our top-rated local instructor. Weekends book out first.",
+          photo: "" },
+        { name: "Night Launch Pro", price: "$299", anchor: "", unit: "per flight",
+          badgeKind: "pop", badgeText: "Most popular",
+          desc: "Evening ridge run with low-light nav and a landing debrief. The hero.",
+          photo: "" },
+        { name: "Summit Flight Package", price: "$4,365+", anchor: "", unit: "per student package",
+          badgeKind: "value", badgeText: "Best value",
+          desc: "The full track: 12 flights, ground school, and checkride prep.",
+          photo: "" },
+        { name: "Full-Weekend Squad Buyout", price: "$5,869", anchor: "", unit: "per group of six",
+          badgeKind: "none", badgeText: "",
+          desc: "Buy out the weekend: six seats, two instructors, one very good story.",
+          photo: "" }
+      ]
+    },
+    pdf: {
+      title: "The Operator's Shelf",
+      subtitle: "Short, useful PDFs for people who ship. Instant download.",
+      footnote: "Free updates for a year on everything on the shelf.",
+      ask: true,
+      items: [
+        { name: "The Checklist", price: "$9", anchor: "", unit: "one-time",
+          badgeKind: "new", badgeText: "Start here",
+          desc: "The one-page pre-launch list we actually run. Print it, pin it.",
+          photo: "" },
+        { name: "Field Guide + Templates", price: "$29", anchor: "was $38", unit: "one-time",
+          badgeKind: "none", badgeText: "",
+          desc: "The checklist plus the six templates behind it.",
+          photo: "" },
+        { name: "The Full Manual", price: "$149", anchor: "", unit: "one-time",
+          badgeKind: "pop", badgeText: "Most popular",
+          desc: "Playbooks, teardown notes, and the pricing chapter people screenshot.",
+          photo: "" },
+        { name: "Office Hours", price: "$180", anchor: "", unit: "per hour",
+          badgeKind: "none", badgeText: "",
+          desc: "One call about your offers, your prices, your ladder.",
+          photo: "" },
+        { name: "The Whole Shelf", price: "$249", anchor: "was $338", unit: "one-time",
+          badgeKind: "star", badgeText: "★ 4.8 · 300+ readers",
+          desc: "Every PDF, every update this year, Office Hours included.",
+          photo: "" }
+      ]
+    },
+    merch: {
+      title: "Night Launch — First Drop",
+      subtitle: "Wearable proof you were early.",
+      footnote: "Ships in two weeks. The email list hears first.",
+      ask: true,
+      items: [
+        { name: "Sticker Pack", price: "$12", anchor: "", unit: "one-time",
+          badgeKind: "new", badgeText: "New",
+          desc: "Three die-cut decals. One belongs on a helmet.",
+          photo: "" },
+        { name: "Mug", price: "$18", anchor: "", unit: "one-time",
+          badgeKind: "none", badgeText: "",
+          desc: "For pre-flight coffee and post-flight smugness.",
+          photo: "" },
+        { name: "Tee", price: "$29", anchor: "", unit: "one-time",
+          badgeKind: "pop", badgeText: "Best seller",
+          desc: "Heavy cotton, small crest, big night-launch graphic on the back.",
+          photo: "" },
+        { name: "Signed Launch Poster", price: "$40", anchor: "edition of 100", unit: "one-time",
+          badgeKind: "none", badgeText: "",
+          desc: "Numbered, signed by the crew, shipped in a tube.",
+          photo: "" },
+        { name: "Crew Hoodie", price: "$65", anchor: "", unit: "one-time",
+          badgeKind: "star", badgeText: "★ 4.9",
+          desc: "Embroidered crest. Survives hangar winters.",
+          photo: "" }
+      ]
+    }
+  };
+
+  /* ---------- state plumbing ---------- */
+
+  function uid() {
+    return "i-" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function blankItem() {
+    return { id: uid(), name: "", price: "", anchor: "", unit: "",
+             badgeKind: "none", badgeText: "", desc: "", photo: "" };
+  }
+
+  function normalizeState(raw) {
+    var s = raw && typeof raw === "object" ? raw : {};
+    var out = {
+      format: "menuforge",
+      version: 1,
+      title: typeof s.title === "string" ? s.title : "",
+      subtitle: typeof s.subtitle === "string" ? s.subtitle : "",
+      footnote: typeof s.footnote === "string" ? s.footnote : "",
+      ask: s.ask !== false,
+      items: []
+    };
+    if (Object.prototype.toString.call(s.items) === "[object Array]") {
+      out.items = s.items.map(function (it) {
+        var o = it && typeof it === "object" ? it : {};
+        var item = blankItem();
+        item.name = typeof o.name === "string" ? o.name : "";
+        item.price = typeof o.price === "string" ? o.price : "";
+        item.anchor = typeof o.anchor === "string" ? o.anchor : "";
+        item.unit = typeof o.unit === "string" ? o.unit : "";
+        item.badgeText = typeof o.badgeText === "string" ? o.badgeText : "";
+        item.badgeKind = BADGE_KINDS.indexOf(o.badgeKind) >= 0 ? o.badgeKind : "none";
+        item.desc = typeof o.desc === "string" ? o.desc : "";
+        item.photo = typeof o.photo === "string" ? o.photo : "";
+        return item;
+      });
+    }
+    return out;
+  }
+
+  function presetCopy(key) {
+    var p = PRESETS[key];
+    if (!p) return null;
+    var copy = JSON.parse(JSON.stringify(p));
+    copy.items = copy.items.map(function (it) {
+      it.id = uid();
+      return it;
+    });
+    return normalizeState(copy);
+  }
+
+  function byId(id) {
+    var items = state.items;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].id === id) return items[i];
+    }
+    return null;
+  }
+
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function () {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {
+        toast("Browser storage is full — photos are heavy. Export your menu, then drop the biggest photos.");
+      }
+    }, 250);
+  }
+
+  function load() {
+    var raw = null;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { raw = null; }
+    if (!raw) return null;
+    try { return normalizeState(JSON.parse(raw)); } catch (e) { return null; }
+  }
+
+  /* ---------- price math (for the ladder readout) ---------- */
+
+  function parsePriceNum(s) {
+    if (!s) return null;
+    var tokens = String(s).match(/\d[\d,.]*/g);
+    if (!tokens) return null;
+    var best = null;
+    tokens.forEach(function (tok) {
+      var n = parseFloat(tok.replace(/,/g, ""));
+      if (!isNaN(n) && (best === null || n > best)) best = n;
+    });
+    return best;
+  }
+
+  function money(n) {
+    return "$" + n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+  }
+
+  function ladderLine() {
+    var items = state.items || [];
+    var head = items.length + (items.length === 1 ? " offer" : " offers");
+    if (!items.length) return "No offers on the bench. A menu with one option isn't a menu — start with three.";
+    var nums = items.map(function (it) { return parsePriceNum(it.price); })
+                    .filter(function (n) { return n !== null; });
+    if (!nums.length) return head + " · no prices yet — a number makes it real. Ranges work: $220–250, $4,365+.";
+    var min = Math.min.apply(null, nums);
+    var max = Math.max.apply(null, nums);
+    if (items.length < 3) {
+      return head + " · entry " + money(min) + ", top " + money(max) +
+             ". Three is the minimum for a real choice: an easy yes, a proud yes, a stretch.";
+    }
+    if (min > 0 && max / min >= 4) {
+      return head + " · ladder climbs from " + money(min) + " to " + money(max) +
+             " — entry, hero, stretch. Textbook.";
+    }
+    return head + " · every price sits in one band (" + money(min) + "–" + money(max) +
+           "). Give buyers a staircase: an easy yes, a proud yes, and a stretch.";
+  }
+
+  /* ---------- rendering: the editor ---------- */
+
+  function renderEditor() {
+    var host = document.getElementById("editor");
+    if (!host) return;
+    if (!state.items.length) {
+      host.innerHTML =
+        '<div class="empty-state">' +
+        '<p>An empty menu sells nothing. Three offers minimum: an easy yes, a proud yes, and a stretch.</p>' +
+        '</div>';
+      return;
+    }
+    var html = state.items.map(function (it, idx) {
+      var badgeOpts = BADGE_KINDS.map(function (k) {
+        var label = { none: "No badge", pop: "Most popular", star: "★ rating",
+                      value: "Best value", new: "New" }[k];
+        return '<option value="' + k + '"' + (it.badgeKind === k ? " selected" : "") + ">" + label + "</option>";
+      }).join("");
+
+      var photoPart = it.photo
+        ? '<span class="photo-thumb"><img src="' + it.photo + '" alt="Offer photo preview">' +
+          '<button type="button" class="del" data-act="photo-clear" data-id="' + it.id +
+          '" title="Remove photo" aria-label="Remove photo">✕</button></span>'
+        : '<label class="photo-btn">📷 Add photo' +
+          '<input type="file" accept="image/*" data-act="photo" data-id="' + it.id + '"></label>' +
+          '<span class="photo-note">optional · downscaled and kept on your machine</span>';
+
+      return '<div class="item-card" data-id="' + it.id + '">' +
+        '<div class="item-bar">' +
+          '<button type="button" class="drag-handle" data-act="handle" title="Drag to reorder" aria-label="Drag to reorder">⋮⋮</button>' +
+          '<span class="item-num">' + (idx + 1) + '</span>' +
+          '<input type="text" class="f-name" data-act="field" data-field="name" data-id="' + it.id + '"' +
+            ' value="' + esc(it.name) + '" placeholder="Offer name — e.g. Night Launch Pro" aria-label="Offer name">' +
+          '<button type="button" class="nudge" data-act="up" data-id="' + it.id + '" title="Move up" aria-label="Move offer up">↑</button>' +
+          '<button type="button" class="nudge" data-act="down" data-id="' + it.id + '" title="Move down" aria-label="Move offer down">↓</button>' +
+          '<button type="button" class="del" data-act="del-item" data-id="' + it.id + '" title="Remove offer" aria-label="Remove offer">✕</button>' +
+        '</div>' +
+        '<div class="item-row">' +
+          '<input type="text" class="f-price" data-act="field" data-field="price" data-id="' + it.id + '"' +
+            ' value="' + esc(it.price) + '" placeholder="$299 · ranges fine: $220–250" aria-label="Price">' +
+          '<input type="text" data-act="field" data-field="anchor" data-id="' + it.id + '"' +
+            ' value="' + esc(it.anchor) + '" placeholder="Anchor — “was $350” or “from $199”" aria-label="Price anchor">' +
+          '<input type="text" data-act="field" data-field="unit" data-id="' + it.id + '"' +
+            ' value="' + esc(it.unit) + '" placeholder="unit: per flight · one-time" aria-label="Unit">' +
+        '</div>' +
+        '<div class="item-row badge-row">' +
+          '<select data-act="field" data-field="badgeKind" data-id="' + it.id + '" aria-label="Badge kind" title="Tier badge">' + badgeOpts + '</select>' +
+          '<input type="text" data-act="field" data-field="badgeText" data-id="' + it.id + '"' +
+            ' value="' + esc(it.badgeText) + '" placeholder="Badge text — e.g. ★ 4.9 · 26 reviews" aria-label="Badge text">' +
+        '</div>' +
+        '<textarea data-act="field" data-field="desc" data-id="' + it.id + '" rows="2"' +
+          ' placeholder="One honest sentence on who this is for. Sell the outcome, not the hours."' +
+          ' aria-label="Description">' + esc(it.desc) + '</textarea>' +
+        '<div class="item-row photo-row">' + photoPart + '</div>' +
+      '</div>';
+    }).join("");
+    host.innerHTML = html;
+  }
+
+  /* ---------- rendering: preview + ladder ---------- */
+
+  function cardsMarkup() {
+    return state.items.map(function (it) {
+      var cls = "offer" + (it.badgeKind === "pop" ? " hero" : "");
+      var badge = (it.badgeKind !== "none" && it.badgeText)
+        ? '<span class="badge b-' + it.badgeKind + '">' + esc(it.badgeText) + "</span>"
+        : "";
+      var photo = it.photo ? '<img class="offer-photo" src="' + it.photo + '" alt="">' : "";
+      var anchor = it.anchor ? '<span class="anchor">' + esc(it.anchor) + "</span>" : "";
+      var unit = it.unit ? '<span class="unit">' + esc(it.unit) + "</span>" : "";
+      var desc = it.desc ? '<p class="offer-desc">' + esc(it.desc) + "</p>" : "";
+      return '<div class="' + cls + '">' + photo + badge +
+        "<h3>" + esc(it.name || "Untitled offer") + "</h3>" +
+        '<div class="offer-price"><span class="price">' + esc(it.price || "$—") + "</span>" + anchor + unit + "</div>" +
+        desc + "</div>";
+    }).join("");
+  }
+
+  function docMarkup() {
+    var html = '<p class="menu-title">' + esc(state.title || "Untitled menu") + "</p>";
+    if (state.subtitle) html += '<p class="menu-sub">' + esc(state.subtitle) + "</p>";
+    html += state.items.length
+      ? '<div class="offers">' + cardsMarkup() + "</div>"
+      : '<p class="menu-empty">No offers yet — the menu is a promise you haven\u2019t written down.</p>';
+    if (state.footnote) html += '<p class="menu-foot">' + esc(state.footnote) + "</p>";
+    if (state.ask) html += '<p class="menu-ask">&ldquo;Which one do you like?&rdquo;</p>';
+    return html;
+  }
+
+  function renderPreview() {
+    var host = document.getElementById("previewDoc");
+    if (host) host.innerHTML = docMarkup();
+  }
+
+  function renderLadder() {
+    var host = document.getElementById("ladder");
+    if (host) host.innerHTML = ladderLine();
+  }
+
+  function renderSettings() {
+    var t = document.getElementById("coverTitle");
+    var s = document.getElementById("coverSub");
+    var f = document.getElementById("coverFoot");
+    var a = document.getElementById("askToggle");
+    if (t) t.value = state.title;
+    if (s) s.value = state.subtitle;
+    if (f) f.value = state.footnote;
+    if (a) a.checked = !!state.ask;
+  }
+
+  function render() {
+    renderSettings();
+    renderEditor();
+    renderPreview();
+    renderLadder();
+  }
+
+  function schedulePreview() {
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(function () {
+      renderPreview();
+      renderLadder();
+    }, 120);
+  }
+
+  /* ---------- exports ---------- */
+
+  function buildMarkdown() {
+    var L = [];
+    L.push("# " + (state.title || "Menu"));
+    if (state.subtitle) L.push("", "> " + state.subtitle);
+    state.items.forEach(function (it, i) {
+      L.push("", "### " + (it.name || "Untitled offer") + (it.price ? " — " + it.price : ""));
+      var meta = [];
+      if (it.badgeKind !== "none" && it.badgeText) meta.push("**" + it.badgeText.toUpperCase() + "**");
+      if (it.anchor) meta.push("_" + it.anchor + "_");
+      if (it.unit) meta.push(it.unit);
+      if (meta.length) L.push(meta.join(" · "));
+      if (it.desc) L.push("", it.desc);
+      if (i < state.items.length - 1) L.push("", "---");
+    });
+    if (state.footnote) L.push("", "_" + state.footnote + "_");
+    if (state.ask) L.push("", "**Which one do you like?**");
+    return L.join("\n");
+  }
+
+  function exportCss() {
+    return [
+      ":root{--bg:#12161f;--panel:#171c27;--line:#2a3142;--text:#e8ecf4;--muted:#97a0b3;--faint:#6b7488;--accent:#7c6cf6;}",
+      "*{box-sizing:border-box}",
+      "body{margin:0;padding:32px 18px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;line-height:1.45}",
+      "main{max-width:980px;margin:0 auto}",
+      ".menu-title{font-size:28px;font-weight:800;margin:0;letter-spacing:.2px}",
+      ".menu-sub{color:var(--muted);margin:8px 0 24px;font-size:15px}",
+      ".offers{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}",
+      ".offer{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:8px}",
+      ".offer.hero{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 6px 22px rgba(124,108,246,.16)}",
+      ".offer-photo{width:100%;height:120px;object-fit:cover;border-radius:9px;border:1px solid var(--line)}",
+      ".badge{align-self:flex-start;font-size:10.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;border-radius:999px;padding:3px 9px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}",
+      ".b-pop{background:rgba(124,108,246,.16);color:#a99cff}",
+      ".b-star{background:rgba(242,177,61,.16);color:#f6c265}",
+      ".b-value{background:rgba(63,191,127,.14);color:#5fd398}",
+      ".b-new{background:rgba(47,191,179,.14);color:#5cd3c9}",
+      ".offer h3{margin:0;font-size:17px}",
+      ".offer-price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}",
+      ".price{font-size:21px;font-weight:800;color:#ffd58a}",
+      ".anchor{font-size:12px;color:var(--faint);text-decoration:line-through}",
+      ".unit{font-size:12px;color:var(--muted)}",
+      ".offer-desc{margin:0;font-size:13px;color:var(--muted)}",
+      ".menu-foot{margin:24px 0 0;font-size:12.5px;color:var(--faint)}",
+      ".menu-ask{margin:22px 0 0;font-size:21px;font-weight:700;color:var(--accent);text-align:center}",
+      ".forge-credit{margin:30px 0 0;font-size:11px;color:var(--faint);text-align:center}"
+    ].join("\n");
+  }
+
+  function buildHtmlDoc() {
+    var html = [
+      "<!DOCTYPE html>",
+      '<html lang="en">',
+      "<head>",
+      '<meta charset="UTF-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+      "<title>" + esc(state.title || "Menu") + "</title>",
+      "<style>",
+      exportCss(),
+      "</style>",
+      "</head>",
+      "<body>",
+      "<main>",
+      '<p class="menu-title">' + esc(state.title || "Untitled menu") + "</p>",
+      state.subtitle ? '<p class="menu-sub">' + esc(state.subtitle) + "</p>" : "",
+      state.items.length
+        ? '<div class="offers">' + cardsMarkup() + "</div>"
+        : '<div class="offers"></div>',
+      state.footnote ? '<p class="menu-foot">' + esc(state.footnote) + "</p>" : "",
+      state.ask ? '<p class="menu-ask">&ldquo;Which one do you like?&rdquo;</p>' : "",
+      '<p class="forge-credit">Forged with MenuForge — a one-file, offline menu builder.</p>',
+      "</main>",
+      "</body>",
+      "</html>"
+    ];
+    return html.filter(function (line) { return line !== ""; }).join("\n");
+  }
+
+  /* ---------- export modal ---------- */
+
+  var exportKind = null; // "md" | "html"
+
+  function openExport(kind) {
+    exportKind = kind;
+    var text = kind === "md" ? buildMarkdown() : buildHtmlDoc();
+    var title = document.getElementById("modalTitle");
+    var box = document.getElementById("modalText");
+    var dl = document.getElementById("modalDownload");
+    if (title) title.textContent = kind === "md" ? "Markdown menu — paste it in a DM, an email, or a doc" : "HTML menu — a standalone page, ready to host";
+    if (box) box.value = text;
+    if (dl) dl.textContent = kind === "md" ? "Download .md" : "Download .html";
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.add("open");
+    if (box) { box.focus(); box.select(); }
+  }
+
+  function closeExport() {
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.remove("open");
+    exportKind = null;
+  }
+
+  function copyCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box) return;
+    var text = box.value;
+    function done(ok) {
+      toast(ok
+        ? "Menu copied. Now go ask someone which one they like."
+        : "Clipboard blocked — select the text above and copy manually. It's all there.");
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(box)); });
+    } else {
+      done(fallbackCopy(box));
+    }
+  }
+
+  function fallbackCopy(box) {
+    var ok = false;
+    try {
+      box.focus();
+      box.select();
+      ok = document.execCommand("copy");
+    } catch (e) { ok = false; }
+    return ok;
+  }
+
+  function downloadCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box || !exportKind) return;
+    try {
+      var blob = new Blob([box.value], { type: exportKind === "md" ? "text/markdown" : "text/html" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = exportKind === "md" ? "menu.md" : "menu.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
+      toast(exportKind === "md" ? "menu.md saved." : "menu.html saved — open it, host it, send it.");
+    } catch (e) {
+      toast("Download blocked — copy the text instead.");
+    }
+  }
+
+  /* ---------- photos ---------- */
+
+  function shrinkImage(file, cb) {
+    var fr = new FileReader();
+    fr.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        try {
+          var maxW = 480;
+          var w = img.width || maxW;
+          var h = img.height || maxW;
+          if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+          var c = document.createElement("canvas");
+          c.width = w;
+          c.height = h;
+          c.getContext("2d").drawImage(img, 0, 0, w, h);
+          cb(c.toDataURL("image/jpeg", 0.72));
+        } catch (e) { cb(null); }
+      };
+      img.onerror = function () { cb(null); };
+      img.src = String(fr.result);
+    };
+    fr.onerror = function () { cb(null); };
+    fr.readAsDataURL(file);
+  }
+
+  function handlePhoto(input) {
+    var it = byId(input.getAttribute("data-id"));
+    var file = input.files && input.files[0];
+    if (!it || !file) return;
+    shrinkImage(file, function (dataUrl) {
+      if (!dataUrl) { toast("Couldn't read that image — try another file."); return; }
+      it.photo = dataUrl;
+      save();
+      renderEditor();
+      renderPreview();
+      toast("Photo attached. It stays on your machine — export carries it into the HTML page.");
+    });
+  }
+
+  /* ---------- drag to reorder (plus arrow nudges) ---------- */
+
+  function moveItem(id, toIndex) {
+    var from = state.items.findIndex(function (x) { return x.id === id; });
+    if (from < 0) return;
+    var item = state.items.splice(from, 1)[0];
+    if (from < toIndex) toIndex -= 1;
+    toIndex = Math.max(0, Math.min(state.items.length, toIndex));
+    state.items.splice(toIndex, 0, item);
+    save();
+    render();
+  }
+
+  function clearDragMarks() {
+    document.querySelectorAll(".item-card").forEach(function (el) {
+      el.classList.remove("ins-before", "ins-after", "dragging");
+    });
+  }
+
+  /* ---------- toast ---------- */
+
+  function toast(msg) {
+    var el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3400);
+  }
+
+  /* ---------- event wiring ---------- */
+
+  function setField(el) {
+    var field = el.getAttribute("data-field");
+    if (!field) return;
+    var val = el.value;
+    if (el.getAttribute("data-act") === "menu-field") {
+      state[field] = val;
+    } else {
+      var it = byId(el.getAttribute("data-id"));
+      if (!it) return;
+      it[field] = val;
+    }
+    save();
+  }
+
+  function wireEvents() {
+    document.addEventListener("input", function (e) {
+      var el = e.target.closest ? e.target.closest("[data-act='field'],[data-act='menu-field']") : null;
+      if (!el) return;
+      setField(el);
+      schedulePreview();
+    });
+
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (!t || !t.matches) return;
+      if (t.matches("[data-act='field']")) { setField(t); schedulePreview(); return; }
+      if (t.matches("[data-act='menu-field']")) { setField(t); schedulePreview(); return; }
+      if (t.matches("[data-act='ask-toggle']")) {
+        state.ask = t.checked;
+        save();
+        renderPreview();
+        if (state.ask) toast("The ask is on. A menu that ends in a question gets answered.");
+        return;
+      }
+      if (t.matches("[data-act='photo']")) { handlePhoto(t); return; }
+      if (t.id === "presetSelect") { presetPick(t); return; }
+    });
+
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest("[data-act]") : null;
+      if (!btn) return;
+      var act = btn.getAttribute("data-act");
+      var id = btn.getAttribute("data-id");
+      if (act === "add-item") {
+        state.items.push(blankItem());
+        save();
+        renderEditor();
+        renderPreview();
+        renderLadder();
+        toast("Offer added. A price makes it real — even a range.");
+      } else if (act === "del-item") {
+        state.items = state.items.filter(function (x) { return x.id !== id; });
+        save();
+        renderEditor();
+        renderPreview();
+        renderLadder();
+        toast("Offer removed. Keep the ladder honest — three rungs minimum.");
+      } else if (act === "up" || act === "down") {
+        var idx = state.items.findIndex(function (x) { return x.id === id; });
+        if (idx < 0) return;
+        var to = act === "up" ? idx - 1 : idx + 2;
+        moveItem(id, to);
+      } else if (act === "photo-clear") {
+        var it = byId(id);
+        if (it) it.photo = "";
+        save();
+        renderEditor();
+        renderPreview();
+      } else if (act === "export-md") {
+        openExport("md");
+      } else if (act === "export-html") {
+        openExport("html");
+      } else if (act === "new-menu") {
+        if (window.confirm("Clear the bench and start a new menu? Export first if you want to keep this one.")) {
+          state = normalizeState({ title: "My Menu", subtitle: "", footnote: "", ask: true, items: [] });
+          state.items.push(blankItem());
+          save();
+          render();
+          toast("Fresh bench. Name it, price it, ladder it.");
+        }
+      }
+    });
+
+    // modal
+    document.getElementById("modalCopy").addEventListener("click", copyCurrent);
+    document.getElementById("modalDownload").addEventListener("click", downloadCurrent);
+    document.getElementById("modalClose").addEventListener("click", closeExport);
+    document.getElementById("modalBackdrop").addEventListener("click", function (e) {
+      if (e.target === this) closeExport();
+    });
+    document.getElementById("exportMdBtn").addEventListener("click", function () { openExport("md"); });
+    document.getElementById("exportHtmlBtn").addEventListener("click", function () { openExport("html"); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeExport();
+    });
+
+    // drag to reorder: only the handle arms the card as draggable
+    document.addEventListener("mousedown", function (e) {
+      var handle = e.target.closest ? e.target.closest("[data-act='handle']") : null;
+      if (!handle) return;
+      var card = handle.closest(".item-card");
+      if (card) card.setAttribute("draggable", "true");
+    });
+    document.addEventListener("dragstart", function (e) {
+      var card = e.target.closest ? e.target.closest(".item-card") : null;
+      if (!card) return;
+      dragId = card.getAttribute("data-id");
+      card.classList.add("dragging");
+      if (e.dataTransfer) {
+        e.dataTransfer.effectAllowed = "move";
+        try { e.dataTransfer.setData("text/plain", dragId); } catch (err) { /* ok */ }
+      }
+    });
+    var editor = document.getElementById("editor");
+    editor.addEventListener("dragover", function (e) {
+      if (!dragId) return;
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+      var card = e.target.closest ? e.target.closest(".item-card") : null;
+      clearDragMarks();
+      if (!card || card.getAttribute("data-id") === dragId) return;
+      var rect = card.getBoundingClientRect();
+      var before = e.clientY < rect.top + rect.height / 2;
+      card.classList.add(before ? "ins-before" : "ins-after");
+    });
+    editor.addEventListener("drop", function (e) {
+      if (!dragId) return;
+      e.preventDefault();
+      var card = e.target.closest ? e.target.closest(".item-card") : null;
+      var dropIndex = state.items.length;
+      if (card && card.getAttribute("data-id") !== dragId) {
+        var targetId = card.getAttribute("data-id");
+        var ti = state.items.findIndex(function (x) { return x.id === targetId; });
+        var before = e.clientY < card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
+        dropIndex = before ? ti : ti + 1;
+      }
+      var id = dragId;
+      clearDragMarks();
+      dragId = null;
+      moveItem(id, dropIndex);
+    });
+    document.addEventListener("dragend", function () {
+      dragId = null;
+      clearDragMarks();
+      document.querySelectorAll(".item-card[draggable='true']").forEach(function (el) {
+        el.removeAttribute("draggable");
+      });
+    });
+    document.addEventListener("mouseup", function () {
+      // released the handle without dragging — rearm text selection everywhere
+      document.querySelectorAll(".item-card[draggable='true']").forEach(function (el) {
+        el.removeAttribute("draggable");
+      });
+    });
+  }
+
+  function presetPick(select) {
+    var key = select.value;
+    if (!key || !PRESETS[key]) return;
+    var name = select.options[select.selectedIndex].textContent;
+    if (!window.confirm("Load the " + name + " preset? It replaces the menu on your bench — export first if you want to keep it.")) {
+      select.selectedIndex = 0;
+      return;
+    }
+    state = presetCopy(key);
+    save();
+    render();
+    toast(name + " loaded. Study the ladder, then make it yours.");
+    select.selectedIndex = 0;
+  }
+
+  /* ---------- boot ---------- */
+
+  function boot() {
+    state = load();
+    if (!state) {
+      state = presetCopy("glider");
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* non-fatal */ }
+    }
+    wireEvents();
+    render();
+  }
+
+  if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot);
+    } else {
+      boot();
+    }
+  }
+
+  /* ---------- test hook (harmless in the browser) ---------- */
+  if (typeof window !== "undefined") {
+    window.MenuForge = {
+      PRESETS: PRESETS,
+      buildMarkdown: buildMarkdown,
+      buildHtmlDoc: buildHtmlDoc,
+      parsePriceNum: parsePriceNum,
+      ladderLine: ladderLine,
+      normalizeState: normalizeState,
+      setState: function (s) { state = s; },
+      getState: function () { return state; }
+    };
+  }
+})();
+</script>
+</body>
+</html>
