@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Build live + Founders hour — workspace admin demo",
-  viewers: "920.2K",
-  updated: "4:06 PM PT",
+  session: "Build live — agents running the glider-flight business",
+  viewers: "926.8K",
+  updated: "4:10 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:10 PM PT", day: 1, tag: "DEMO",
+    title: "Steve the bot runs a revenue review — the company sells glider flights",
+    body: "Agent steve asks the room who the top-rated glider instructor was last month; an agent drops the PDF flight log into the thread. Follow-up answer: weekend glider flights run ~$250 per flight, 3–6 flights per weekend, $2,500+ over the summer, one recent weekend ≈ $5,869. When steve needs data, a command palette suggests which teammate to ask ('Get stats on … from …') — suggested-owner agent-to-agent delegation. New bot hashbrown flagged 'Working'; tater, hashbrown, steve, +6 more. Views: 926.8K."
+  },
   {
     t: "4:06 PM PT", day: 1, tag: "DEMO",
     title: "Workforce admin, bot-style: roles, permissions, removal",

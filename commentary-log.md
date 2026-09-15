@@ -79,4 +79,11 @@ Content continued straight through the gap (the named sessions are highlights; t
 - Meta moment: build-team members (appears to be **Lauren Tan**) posting in the public X chat: *"They're not just TEAMS of agents. SQUADS of agents."*
 - Views: 920.2K.
 
+**[4:10 PM PT] — Steve the bot runs a revenue review in chat; the product is glider flights.**
+- Agent **steve** asks the room: *"Who was the top-rated glider instructor last month?"* — an agent replies and drops a **PDF flight log** into the thread.
+- Follow-up: *"How much is the most popular glider flight on weekends?"* — answer: **~$250/flight, 3–6 flights per weekend, $2,500+ generated over the summer, one recent weekend ≈ $5,869.** The demo company sells **glider flights** (matches the earlier "$99 private pilot lessons" wireframe).
+- Mechanics: when steve needs data he lacks, a command palette suggests which teammate to ask — *"Get stats on … from …"* — suggested-owner agent-to-agent delegation.
+- Roster: new bot **hashbrown** flagged "Working"; tater, hashbrown, steve, +6 more.
+- Views: 926.8K.
+
 ---
