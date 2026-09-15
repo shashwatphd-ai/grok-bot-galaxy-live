@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Build live — bots open digital-products & merch line",
-  viewers: "939.2K",
-  updated: "4:19 PM PT",
+  session: "Founders panel — full screen stage discussion",
+  viewers: "946K",
+  updated: "4:24 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:24 PM PT", day: 1, tag: "STAGE",
+    title: "Founders panel full-screen; fleet crosses 30 bots",
+    body: "Stage cam full-screen: four around the table — founder guest, two build-team members, PM. Broadcast clock: 7h17m on air. Roster widget: tater (Working), 'Founding Eng' (Working), +26 more — a bot titled 'Founding Engineer' grinds while the humans podcast. X chat fills with newcomers asking what they're building. Views: 946K."
+  },
   {
     t: "4:19 PM PT", day: 1, tag: "DEMO",
     title: "Second revenue line: agents draft PDF guides + merch catalog",

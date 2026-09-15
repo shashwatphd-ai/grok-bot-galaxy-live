@@ -102,4 +102,10 @@ Content continued straight through the gap (the named sessions are highlights; t
 - Viewer quote of the day (X chat): *"You're not watching me do the code — watch me manage agents that build it. The creation layer just moved up."*
 - Views: 939.2K.
 
+**[4:24 PM PT] — Founders panel full-screen; fleet crosses 30 bots.**
+- Stage cam full-screen: four around the table — founder guest (denim shirt) telling the story, two build-team members, PM. Broadcast clock: **7h17m on air**.
+- Roster widget: **tater (Working), "Founding Eng" (Working), +26 more** — 30+ bots; a bot titled "Founding Engineer" is working while the humans talk.
+- X chat filling with newcomers asking "what are y'all building?" — sign of the stream breaking through.
+- Views: 946K.
+
 ---
