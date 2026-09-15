@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders panel — full screen stage discussion",
-  viewers: "946K",
-  updated: "4:24 PM PT",
+  session: "Founders panel — stage discussion continues",
+  viewers: "952.3K",
+  updated: "4:29 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:29 PM PT", day: 1, tag: "STAGE",
+    title: "The org chart has job titles: Founding Eng, Growth Eng, Operator Research",
+    body: "Panel continues full-screen while one builder works her MacBook mid-discussion, steering the fleet. Roster detail: Founding Eng (green dot, actively working), Growth Eng, Operator Research, +8 more — role-titled bots are the product's own org chart: title, avatar, activity status, the whole employment package. Views: 952.3K."
+  },
   {
     t: "4:24 PM PT", day: 1, tag: "STAGE",
     title: "Founders panel full-screen; fleet crosses 30 bots",

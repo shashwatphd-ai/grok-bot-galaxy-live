@@ -108,4 +108,9 @@ Content continued straight through the gap (the named sessions are highlights; t
 - X chat filling with newcomers asking "what are y'all building?" — sign of the stream breaking through.
 - Views: 946K.
 
+**[4:29 PM PT] — The org chart has job titles: Founding Eng, Growth Eng, Operator Research.**
+- Panel continues full-screen; the woman on the right works at her MacBook mid-discussion (steering the fleet).
+- Roster detail: **Founding Eng** (green dot — actively working), **Growth Eng** (recently active), **Operator Research** (recently active), +8 more. Role-titled bots = the product's own org chart.
+- Views: 952.3K.
+
 ---
