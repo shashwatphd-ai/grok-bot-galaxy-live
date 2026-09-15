@@ -31,6 +31,9 @@
      deltas : array of strings "label: from → to" — what changed since your
               last update. Clear this out after a few entries or it goes stale.
 
+   (Full field reference preserved from the v2 design spec; see v2/REDESIGN.md
+   in the repo for the original operating manual.)
+
    ── 5. window.GG_ENTRIES (array, NEWEST FIRST) ─────────────────────────────
      One entry = one broadcast block. REQUIRED on every entry:
        id   : unique permalink string "d<day>-<hhmm>", e.g. "d1-1628".
@@ -57,15 +60,15 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders session + live build — email channel opens",
-  viewers: "991.7K",
-  onAir: "7h 45m",
-  updated: "4:28 PM PT",
+  session: "Founders session — 'Optimizing Costs' (browser-use economics)",
+  viewers: "1M",
+  onAir: "8h 00m",
+  updated: "4:50 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_MOMENT =
-  "The demo company's website went live 45 minutes after its first wireframe — and it just crossed ~1M views while a bot opened its email channel.";
+  "One million people are now watching a company get built by bots — and the stage is openly discussing what the bots cost.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, San Francisco): three xAI employees build an entire real company live on stream using a team of AI agents — Grok Bot — while the internet watches. If the agents can't carry a real business in public, everyone watches it fail.",
@@ -88,14 +91,26 @@ window.GG_SCOREBOARD = {
     { label: "Products on the board", value: "Booking site (live) · Glider price menu · Merch + PDF catalog · Email channel (Tee Bot) · SEO work order (dated)", wide: true }
   ],
   deltas: [
-    "Viewers: 963.1K → 991.7K",
-    "New: email channel opened by Tee Bot",
-    "New: SEO work order with dated timeline"
+    "Viewers: 991.7K → 1M — the million mark is crossed",
+    "New on stage: 'Optimizing Costs' — browser-use economics"
   ]
 };
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d1-1650",
+    t: "4:50 PM PT",
+    day: 1,
+    type: "PBP",
+    tags: ["MILESTONE", "KEYNOTE", "REVENUE"],
+    title: "🎉 1M views — and the stage opens its own cost structure",
+    body: "The broadcast counter flipped to 1M views as the founders session put up 'Optimizing Costs — browser use is powerful (and expensive!)': a walkthrough of what it costs when bots drive browsers all day, with monthly-pricing toggles and per-task economics visible behind the sales-outreach demo. An AI-company pitch showing its own unit economics to a million viewers is doing something rare.",
+    delta: [
+      { label: "Viewers", from: "991.7K", to: "1M" },
+      { label: "On air", from: "7h 45m", to: "8h 00m" }
+    ]
+  },
   {
     id: "d1-1628",
     t: "4:28 PM PT",
