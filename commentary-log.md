@@ -134,4 +134,21 @@ Five cards: **Easy as iMessage** (bots DM you status/approvals — Sales Outreac
 - Day 1 arc so far: idea → agents → analytics → RFCs → pricing → merch catalog → **deployed company**, in ~7 hours of stream.
 - Views: 973.5K.
 
+**[4:55 PM PT] — Growth phase: bot-produced SEO/site audit as a work order.**
+- On screen: a structured audit doc (in a chat with agent avatars attached): Weekend-Pilot SEO meta/description rewrites, page-weight cuts, accessibility fixes (trim signup form to 3 fields, drop required email), FAQ section, starter content.
+- Includes a **dated execution timeline** ("Thu 2026-09-17 08:00 CT — ships staging link for pilot sign-up") — the audit is a work order the agent team can execute, not a report.
+- Views: 980K.
+
+**[TIMESTAMP CORRECTION, noted 4:28 PM PT.]** Entries labeled ~3:55–4:55 PM PT were estimated ahead of the real clock; real time at this note is 4:28 PM PT. Relative order of events is correct; absolute times before ~4:25 PM PT may read up to ~30 min early. All timestamps from here on are real-clock.
+
+**[4:28 PM PT] — Tee Bot runs the email channel; 1M views imminent.**
+- "Tee Bot" thread: drafting/sending Acme t-shirt promo emails, avoiding generic roundup formats, best-seller banners woven in; a side panel drafts "promotional email" variants from event ideas.
+- The merch line (opened ~an hour ago) now has a bot-run email marketing channel.
+- **Views: 991.7K — the million-view mark is minutes away.**
+
+**[4:50 PM PT] — 🎉 1M VIEWS + the honest-math slide.**
+- Broadcast counter flips to **1M views**.
+- Founders session slide: **"Optimizing Costs — Browser use is powerful (and expensive!)"** — a walkthrough of browser-use unit economics (monthly pricing toggles, per-task costs) behind the sales-outreach demo chat. The pitch shows its own cost structure at scale.
+- **[Page note]** The public live page adopted the v2 broadcast format at ~4:45 PM PT: scoreboard, pinned "moment", 60-second catch-up primer, typed entries (play-by-play / why-it-matters / audience lenses / quotes / deltas), built by the format-editor agent.
+
 ---
