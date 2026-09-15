@@ -121,4 +121,11 @@ Content continued straight through the gap (the named sessions are highlights; t
 **[4:37 PM PT] — "Why Grok Bot" feature grid.**
 Five cards: **Easy as iMessage** (bots DM you status/approvals — Sales Outreach, Chief of Staff, Inbox Manager); **Always-on agents 24/7**; **Uses your tools like you** (*"Computer use: sign in to Salesforce"* — bots drive real SaaS with your credentials); **Finishes the work** (create bots → give direction → set automations/routines); **Shareable Templates** (*"Peng shared Kenny with you — an operations bot that coordinates work and surfaces decisions that need your approval"*). The share feature is the seed of an agent marketplace: bots as transferable, pre-trained coworkers. Views: 963.1K.
 
+**[4:42 PM PT] — "Founder Use Cases": the four sells.**
+- **Close Customers, on Autopilot** — bot handles customers end-to-end (research, respond, follow up, follow on socials).
+- **QA + Updates on Product Changes** — prioritize and course-correct by understanding how the product changed over time.
+- **Quickly Adapt to Competitors** — counter-position faster than incumbents can respond.
+- **Ship Feedback Quickly** — collect feedback from Slack/email; Cloud Agents ship updates.
+- Thesis for founders: a one-person company running sales/support/QA/competitive response at 20-person tempo. Views: 968.3K.
+
 ---

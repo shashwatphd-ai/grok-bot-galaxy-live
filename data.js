@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders session — 'Why Grok Bot' feature grid",
-  viewers: "963.1K",
-  updated: "4:37 PM PT",
+  session: "Founders session — Founder Use Cases",
+  viewers: "968.3K",
+  updated: "4:42 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:42 PM PT", day: 1, tag: "SLIDE",
+    title: "Founder Use Cases: the four sells",
+    body: "1) Close Customers on Autopilot — a bot handles customers end to end (research, respond, follow up, follow on socials). 2) QA + Updates on Product Changes — prioritize by understanding how your product changed over time. 3) Quickly Adapt to Competitors — counter-position faster than incumbents respond. 4) Ship Feedback Quickly — collect from Slack/email, Cloud Agents ship updates. Thesis: a one-person company at 20-person tempo. Views: 968.3K."
+  },
   {
     t: "4:37 PM PT", day: 1, tag: "SLIDE",
     title: "'Why Grok Bot': five pillars — and bots you can hand to someone else",
