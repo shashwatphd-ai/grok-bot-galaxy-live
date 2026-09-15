@@ -94,4 +94,12 @@ Content continued straight through the gap (the named sessions are highlights; t
 - Stage PiP appears to show **four people** now — possible founders panel joining the build table.
 - Views: 932.9K.
 
+**[4:19 PM PT] — Second revenue line: digital products + merch, designed by bots.**
+- Agents draft a product catalog in-thread: "Glider Checklist" PDF **$5–10**; bundled gear-guide pack **~$25**; **custom merch designs** (mug/helmet/gear photos) tied to an "official merch" page; on-screen note about a **$30k profit rollout target**.
+- Division of labor: human steers taste, agents do catalog, pricing, copy, imagery.
+- Widget: new hires **drops (verified), foil**; tater flagged "Working," +7 more.
+- Stage PiP: now clearly a **four-person panel** — build trio + founders-session guest merged into one table.
+- Viewer quote of the day (X chat): *"You're not watching me do the code — watch me manage agents that build it. The creation layer just moved up."*
+- Views: 939.2K.
+
 ---

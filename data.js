@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Build live — agents merchandising the glider business",
-  viewers: "932.9K",
-  updated: "4:14 PM PT",
+  session: "Build live — bots open digital-products & merch line",
+  viewers: "939.2K",
+  updated: "4:19 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:19 PM PT", day: 1, tag: "DEMO",
+    title: "Second revenue line: agents draft PDF guides + merch catalog",
+    body: "The agents draft a product catalog in-thread: 'Glider Checklist' PDF $5–10, gear-guide bundle ~$25, custom merch designs (mug/helmet photos) for an official merch page, with a $30k profit rollout target on screen. Human steers taste; bots do catalog, pricing, copy, imagery. New hires on the widget: drops (verified), foil; tater 'Working', +7 more. Stage now a four-person panel — build trio plus the founders guest. Viewer quote of the day: 'You're not watching me do the code — watch me manage agents that build it. The creation layer just moved up.' Views: 939.2K."
+  },
   {
     t: "4:14 PM PT", day: 1, tag: "DEMO",
     title: "Agents do merchandising: price menu with web-sourced photos",
