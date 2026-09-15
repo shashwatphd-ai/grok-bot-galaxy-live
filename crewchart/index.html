@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrewChart — design your AI agent team, export the spec</title>
+<meta name="description" content="An offline, single-file designer for AI agent teams: roster, roles, scoped memory, and a parallel task board. Exports a JSON spec and a kickoff prompt.">
+<style>
+  /* ============================================================
+     CrewChart — theme
+     Dark "live event slide" look. System fonts, no dependencies.
+     ============================================================ */
+  :root {
+    --bg: #0d1017;
+    --bg-soft: #12161f;
+    --panel: #171c27;
+    --panel-2: #1d2330;
+    --line: #2a3142;
+    --text: #e8ecf4;
+    --muted: #97a0b3;
+    --faint: #6b7488;
+    --accent: #7c6cf6;
+    --accent-soft: rgba(124, 108, 246, 0.16);
+    --green: #3fbf7f;
+    --amber: #f2b13d;
+    --red: #f6543f;
+    --radius: 14px;
+    --radius-sm: 9px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(124,108,246,0.14), transparent 60%),
+      radial-gradient(700px 420px at -10% 15%, rgba(47,191,179,0.08), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+  ::placeholder { color: var(--faint); }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(13, 16, 23, 0.75);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: 6px; }
+  .brand .logo {
+    width: 34px; height: 34px; flex: none;
+    background: linear-gradient(135deg, #8d7bff, #5a8df0);
+    border-radius: 42% 58% 55% 45% / 48% 45% 55% 52%;
+    box-shadow: 0 0 0 4px rgba(124,108,246,0.18);
+  }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+  .brand .sub { font-size: 12px; color: var(--muted); margin-top: -2px; }
+  .teamname {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    width: 220px;
+  }
+  .teamname:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .spacer { flex: 1; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+  select, button {
+    font: inherit;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  select:hover, button:hover { background: var(--panel-2); }
+  select:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  button.primary:hover { background: #8d7ff8; }
+  button.ghost { background: transparent; }
+  button.danger { color: #ff8a7a; }
+  button.danger:hover { background: rgba(246, 84, 63, 0.12); }
+
+  /* ---------- layout ---------- */
+  main { max-width: 1180px; margin: 0 auto; padding: 22px; }
+  section { margin-bottom: 34px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 12px;
+  }
+  .section-head h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0; }
+  .section-head .hint { font-size: 12.5px; color: var(--faint); }
+
+  /* ---------- roster grid ---------- */
+  .roster {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+  .agent-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    position: relative;
+  }
+  .agent-card .del {
+    position: absolute;
+    top: 8px; right: 8px;
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 15px;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .agent-card .del:hover { color: #ff8a7a; background: rgba(246,84,63,0.1); }
+
+  .agent-top { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+
+  /* avatar — CSS character shapes, a nod to event roster slides */
+  .avatar {
+    width: 46px; height: 46px; flex: none;
+    position: relative;
+  }
+  .avatar .body { width: 100%; height: 100%; }
+  .avatar .eyes {
+    position: absolute; top: 42%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex; gap: 6px;
+  }
+  .avatar .eyes i {
+    width: 4.5px; height: 9px; border-radius: 3px;
+    background: rgba(10, 12, 18, 0.72);
+    display: block;
+  }
+  .avatar.small { width: 26px; height: 26px; }
+  .avatar.small .eyes { gap: 3px; }
+  .avatar.small .eyes i { width: 2.5px; height: 5px; }
+
+  .shape-blob    { border-radius: 42% 58% 55% 45% / 48% 45% 55% 52%; }
+  .shape-cloud   { border-radius: 26px 26px 10px 10px; }
+  .shape-round   { border-radius: 50%; }
+  .shape-squircle{ border-radius: 30%; }
+  .shape-hex     { clip-path: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0% 50%); }
+  .shape-diamond { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+
+  .agent-fields { flex: 1; min-width: 0; display: grid; gap: 6px; }
+  .agent-fields input {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 6px 9px;
+    width: 100%;
+  }
+  .agent-fields .name { font-weight: 700; font-size: 15.5px; }
+
+  .agent-meta { display: grid; gap: 8px; }
+  .memory-label, .reports-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--faint);
+    margin-bottom: 3px;
+    display: block;
+  }
+  .agent-card textarea {
+    width: 100%;
+    min-height: 52px;
+    resize: vertical;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 7px 9px;
+    font: inherit;
+    font-size: 13.5px;
+  }
+  .agent-card select.reports { width: 100%; font-size: 13.5px; }
+
+  .swatches { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+  .swatches .sw {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+  .swatches .sw.on { border-color: #fff; box-shadow: 0 0 0 2px var(--panel); }
+  .shapes { display: flex; gap: 5px; }
+  .shapes .shp {
+    width: 22px; height: 22px;
+    background: var(--muted);
+    padding: 0;
+    border: none;
+    opacity: 0.45;
+    cursor: pointer;
+  }
+  .shapes .shp.on { opacity: 1; box-shadow: 0 0 0 2px var(--accent); }
+
+  .add-card {
+    border: 1.5px dashed var(--line);
+    background: transparent;
+    border-radius: var(--radius);
+    color: var(--muted);
+    font: inherit;
+    min-height: 120px;
+    cursor: pointer;
+  }
+  .add-card:hover { border-color: var(--accent); color: var(--text); background: var(--accent-soft); }
+
+  /* ---------- board ---------- */
+  .meter {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .meter b { color: var(--text); }
+  .meter .dots { display: flex; gap: 4px; }
+  .meter .dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+  .meter .dots i.running { background: var(--amber); animation: pulse 1.4s ease-in-out infinite; }
+  .meter .dots i.done { background: var(--green); }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .lanes { display: grid; gap: 12px; }
+  .lane {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+  }
+  .lane-head { display: flex; align-items: center; gap: 10px; margin-bottom: 9px; }
+  .lane-head .who { font-weight: 700; }
+  .lane-head .role { color: var(--faint); font-size: 12.5px; }
+  .lane-head .count { margin-left: auto; font-size: 12px; color: var(--faint); }
+  .tasks { display: flex; flex-wrap: wrap; gap: 7px; }
+  .task {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 7px 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    max-width: 100%;
+  }
+  .task .tt { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px; }
+  .task .status-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .task.queued .status-dot { background: var(--faint); }
+  .task.running .status-dot { background: var(--amber); animation: pulse 1.4s ease-in-out infinite; }
+  .task.done .status-dot { background: var(--green); }
+  .task.done .tt { color: var(--muted); text-decoration: line-through; }
+  .task .x {
+    border: none; background: transparent; color: var(--faint);
+    font-size: 12px; cursor: pointer; padding: 2px 5px; border-radius: 50%;
+  }
+  .task .x:hover { color: #ff8a7a; }
+  .task.running { border-color: rgba(242,177,61,0.5); }
+  .task.done { border-color: rgba(63,191,127,0.4); }
+  .add-task {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .add-task input {
+    background: transparent;
+    border: 1px dashed var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    padding: 6px 12px;
+    font: inherit;
+    font-size: 13px;
+    width: 200px;
+  }
+  .add-task input:focus { border-style: solid; }
+
+  .empty {
+    border: 1.5px dashed var(--line);
+    border-radius: var(--radius);
+    color: var(--faint);
+    padding: 26px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  /* ---------- modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(5, 7, 12, 0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    width: min(720px, 100%);
+    max-height: 86vh;
+    display: flex;
+    flex-direction: column;
+    padding: 18px;
+    gap: 12px;
+  }
+  .modal h3 { margin: 0; font-size: 16px; }
+  .modal p { margin: 0; color: var(--muted); font-size: 13px; }
+  .modal textarea {
+    flex: 1;
+    min-height: 300px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    padding: 12px;
+    resize: vertical;
+    white-space: pre;
+  }
+  .modal .row { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+
+  /* ---------- toast ---------- */
+  .toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 13.5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 60;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    text-align: center;
+    color: var(--faint);
+    font-size: 12.5px;
+    padding: 8px 20px 30px;
+  }
+  footer .save-state { margin-left: 8px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .teamname { width: 100%; order: 10; }
+    .task .tt { max-width: 180px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"></div>
+    <div>
+      <h1>CrewChart</h1>
+      <div class="sub">Design your AI agent team. Export the spec.</div>
+    </div>
+  </div>
+
+  <input id="teamName" class="teamname" type="text" aria-label="Team name" placeholder="Team name">
+
+  <div class="spacer"></div>
+
+  <div class="toolbar">
+    <select id="presetSelect" aria-label="Load a preset team">
+      <option value="">Load a preset…</option>
+      <option value="travel">Travel Co. (event-inspired)</option>
+      <option value="solo">Solo Founder Crew</option>
+      <option value="studio">Content Studio</option>
+    </select>
+    <button id="importBtn" class="ghost" type="button" title="Import a CrewChart JSON file">Import</button>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>
+    <button id="newBtn" class="ghost" type="button">New team</button>
+    <button id="kickoffBtn" type="button">Copy kickoff prompt</button>
+    <button id="exportBtn" class="primary" type="button">Export JSON</button>
+  </div>
+</header>
+
+<main>
+  <section aria-labelledby="roster-h">
+    <div class="section-head">
+      <h2 id="roster-h">Roster</h2>
+      <span class="hint">Who does what — every teammate gets a name, a role, and its own memory scope.</span>
+    </div>
+    <div id="roster" class="roster"></div>
+  </section>
+
+  <section aria-labelledby="board-h">
+    <div class="section-head">
+      <h2 id="board-h">Board</h2>
+      <span class="hint">Click a task to cycle it: queued → running → done.</span>
+    </div>
+    <div id="meterWrap"></div>
+    <div id="lanes" class="lanes"></div>
+  </section>
+</main>
+
+<footer>
+  Runs entirely in your browser. Nothing leaves this file.
+  <span class="save-state" id="saveState"></span>
+</footer>
+
+<!-- export / import modal -->
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <h3 id="modalTitle">Export</h3>
+    <p id="modalDesc"></p>
+    <textarea id="modalText" spellcheck="false" aria-label="Exported text"></textarea>
+    <div class="row">
+      <button id="modalCopy" type="button">Copy to clipboard</button>
+      <button id="modalDownload" type="button">Download file</button>
+      <button id="modalClose" class="primary" type="button">Done</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ============================================================
+   CrewChart — app logic
+   State model:
+     state = {
+       team: string,
+       agents: [{ id, name, role, color, shape, memory, reportsTo }],
+       tasks:  [{ id, agentId, title, status }]   // status: queued|running|done
+     }
+   ============================================================ */
+
+var STORAGE_KEY = "crewchart.v1";
+var STATUS_ORDER = ["queued", "running", "done"];
+var STATUS_LABEL = { queued: "queued", running: "running", done: "done" };
+
+var COLORS = [
+  { name: "purple", hex: "#7c6cf6" },
+  { name: "green",  hex: "#3fbf7f" },
+  { name: "pink",   hex: "#f66db3" },
+  { name: "orange", hex: "#f6993f" },
+  { name: "teal",   hex: "#2fbfb3" },
+  { name: "blue",   hex: "#4f7df6" },
+  { name: "brown",  hex: "#a07850" },
+  { name: "red",    hex: "#f6543f" },
+  { name: "gray",   hex: "#8a93a3" }
+];
+
+var SHAPES = ["blob", "cloud", "round", "squircle", "hex", "diamond"];
+
+/* ---------------- state ---------------- */
+
+var state = null;
+var saveTimer = null;
+var modalDownloadName = null;
+
+function uid(prefix) {
+  return prefix + "-" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+}
+
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function blankState() {
+  return { team: "My Company", agents: [], tasks: [] };
+}
+
+function makeAgent(over) {
+  var a = {
+    id: uid("a"),
+    name: "",
+    role: "",
+    color: COLORS[Math.floor(Math.random() * COLORS.length)].name,
+    shape: SHAPES[Math.floor(Math.random() * SHAPES.length)],
+    memory: "",
+    reportsTo: ""
+  };
+  for (var k in over) { if (over.hasOwnProperty(k)) { a[k] = over[k]; } }
+  return a;
+}
+
+function colorHex(name) {
+  for (var i = 0; i < COLORS.length; i++) {
+    if (COLORS[i].name === name) { return COLORS[i].hex; }
+  }
+  return COLORS[0].hex;
+}
+
+function agentById(id) {
+  for (var i = 0; i < state.agents.length; i++) {
+    if (state.agents[i].id === id) { return state.agents[i]; }
+  }
+  return null;
+}
+
+/* ---------------- persistence ---------------- */
+
+function saveState() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function () {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      document.getElementById("saveState").textContent = "Saved locally.";
+    } catch (e) {
+      document.getElementById("saveState").textContent = "Storage unavailable — use Export to keep your team.";
+    }
+  }, 250);
+}
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.agents)) {
+        return sanitize(parsed);
+      }
+    }
+  } catch (e) { /* fall through to preset */ }
+  return sanitize(presetTravel()); // first visit: start with the event-inspired demo team
+}
+
+function safeId(raw, taken) {
+  var id = String(raw == null ? "" : raw).replace(/[^a-zA-Z0-9_-]/g, "");
+  if (!id) { id = uid("a"); }
+  while (taken[id]) { id = id + "-" + Math.random().toString(36).slice(2, 6); }
+  return id;
+}
+
+function sanitize(obj) {
+  var s = blankState();
+  if (typeof obj.team === "string") { s.team = obj.team; }
+  var ids = {};
+  (Array.isArray(obj.agents) ? obj.agents : []).forEach(function (a) {
+    if (!a || typeof a !== "object") { return; }
+    var ag = makeAgent({
+      id: safeId(typeof a.id === "string" ? a.id : "", ids),
+      name: typeof a.name === "string" ? a.name : "",
+      role: typeof a.role === "string" ? a.role : "",
+      color: typeof a.color === "string" ? a.color : "purple",
+      shape: SHAPES.indexOf(a.shape) >= 0 ? a.shape : "blob",
+      memory: typeof a.memory === "string" ? a.memory : "",
+      reportsTo: typeof a.reportsTo === "string" ? a.reportsTo : ""
+    });
+    ids[ag.id] = true;
+    s.agents.push(ag);
+  });
+  (Array.isArray(obj.tasks) ? obj.tasks : []).forEach(function (t) {
+    if (!t || typeof t !== "object") { return; }
+    if (typeof t.agentId !== "string" || !Object.prototype.hasOwnProperty.call(ids, t.agentId)) { return; }
+    s.tasks.push({
+      id: typeof t.id === "string" ? t.id : uid("t"),
+      agentId: t.agentId,
+      title: typeof t.title === "string" ? t.title : "",
+      status: STATUS_ORDER.indexOf(t.status) >= 0 ? t.status : "queued"
+    });
+  });
+  return s;
+}
+
+/* ---------------- presets ---------------- */
+
+function presetTravel() {
+  var cosmo = uid("a"), maya = uid("a"), bolt = uid("a"), wren = uid("a"),
+      pia = uid("a"), dot = uid("a"), ledger = uid("a"), scout = uid("a");
+  return {
+    team: "Travel Co.",
+    agents: [
+      { id: cosmo,  name: "Cosmo",  role: "Chief of Staff",    color: "purple", shape: "blob",     memory: "Owns the weekly goals memo and the master decision log.", reportsTo: "" },
+      { id: maya,   name: "Maya",   role: "Engineering Manager", color: "green", shape: "cloud",  memory: "Knows the booking API architecture and the deploy checklist.", reportsTo: cosmo },
+      { id: bolt,   name: "Bolt",   role: "Engineer",          color: "orange", shape: "hex",     memory: "Owns the booking service codebase and its test suite.", reportsTo: maya },
+      { id: wren,   name: "Wren",   role: "Engineer",          color: "pink",   shape: "round",   memory: "Owns the web frontend and the component library.", reportsTo: maya },
+      { id: pia,    name: "Pia",    role: "Product",           color: "teal",   shape: "squircle",memory: "Keeps the family-travel roadmap and every RFC written so far.", reportsTo: cosmo },
+      { id: dot,    name: "Dot",    role: "Designer",          color: "orange", shape: "diamond", memory: "Holds the design system: colors, type scale, component states.", reportsTo: pia },
+      { id: ledger, name: "Ledger", role: "Data / Analyst",    color: "brown",  shape: "round",   memory: "Owns the metrics definitions and the booking funnel dashboard.", reportsTo: cosmo },
+      { id: scout,  name: "Scout",  role: "Researcher",        color: "blue",   shape: "hex",     memory: "Accumulates competitor scans and pricing research.", reportsTo: pia }
+    ],
+    tasks: [
+      { id: uid("t"), agentId: dot,    title: "Design family-booking search results", status: "running" },
+      { id: uid("t"), agentId: ledger, title: "Pull family booking funnel numbers",   status: "running" },
+      { id: uid("t"), agentId: scout,  title: "Scan competitor family bundles",      status: "running" },
+      { id: uid("t"), agentId: pia,    title: "Draft RFC: seat-map picker",          status: "queued" },
+      { id: uid("t"), agentId: bolt,   title: "Scaffold booking API endpoints",      status: "queued" },
+      { id: uid("t"), agentId: cosmo,  title: "Write weekly goals memo",             status: "done" }
+    ]
+  };
+}
+
+function presetSolo() {
+  var atlas = uid("a"), forge = uid("a"), beacon = uid("a"), quill = uid("a");
+  return {
+    team: "Solo Founder, Inc.",
+    agents: [
+      { id: atlas,  name: "Atlas",  role: "Chief of Staff",   color: "purple", shape: "blob",   memory: "Owns priorities, the calendar, and the decision log.", reportsTo: "" },
+      { id: forge,  name: "Forge",  role: "Engineer",         color: "green",  shape: "hex",    memory: "Knows the codebase, the CI pipeline, and the release process.", reportsTo: atlas },
+      { id: beacon, name: "Beacon", role: "Growth",           color: "orange", shape: "cloud",  memory: "Remembers every experiment run and its results.", reportsTo: atlas },
+      { id: quill,  name: "Quill",  role: "Content / Comms",  color: "teal",   shape: "squircle", memory: "Keeps the brand voice guide and past posts that worked.", reportsTo: atlas }
+    ],
+    tasks: [
+      { id: uid("t"), agentId: forge,  title: "Ship onboarding fix",          status: "running" },
+      { id: uid("t"), agentId: beacon, title: "Launch pricing-page A/B test", status: "running" },
+      { id: uid("t"), agentId: quill,  title: "Draft launch post",            status: "queued" },
+      { id: uid("t"), agentId: atlas,  title: "Triage inbound replies",       status: "queued" }
+    ]
+  };
+}
+
+function presetStudio() {
+  var mast = uid("a"), draft = uid("a"), scout = uid("a"), ledger = uid("a");
+  return {
+    team: "Content Studio",
+    agents: [
+      { id: mast,   name: "Masthead", role: "Editor-in-Chief", color: "purple", shape: "blob",  memory: "Owns the editorial calendar and the standards memo.", reportsTo: "" },
+      { id: draft,  name: "Draft",    role: "Writer",          color: "pink",   shape: "round", memory: "Learns the publication's voice from every edit made.", reportsTo: mast },
+      { id: scout,  name: "Scout",    role: "Researcher",      color: "blue",   shape: "hex",   memory: "Accumulates source notes and interview transcripts.", reportsTo: mast },
+      { id: ledger, name: "Ledger",   role: "Analyst",         color: "brown",  shape: "round", memory: "Owns readership stats and topic performance.", reportsTo: mast }
+    ],
+    tasks: [
+      { id: uid("t"), agentId: draft,  title: "Write this week's feature",    status: "running" },
+      { id: uid("t"), agentId: scout,  title: "Gather sources on agent teams", status: "running" },
+      { id: uid("t"), agentId: ledger, title: "Pull last month's top posts",  status: "done" },
+      { id: uid("t"), agentId: mast,   title: "Plan next month's calendar",   status: "queued" }
+    ]
+  };
+}
+
+var PRESETS = { travel: presetTravel, solo: presetSolo, studio: presetStudio };
+
+/* ---------------- exports ---------------- */
+
+function buildSpec() {
+  return {
+    format: "crewchart",
+    version: 1,
+    team: state.team,
+    exportedAt: new Date().toISOString(),
+    agents: state.agents.map(function (a) {
+      return {
+        id: a.id,
+        name: a.name,
+        role: a.role,
+        color: a.color,
+        shape: a.shape,
+        memory: a.memory,
+        reportsTo: a.reportsTo || null
+      };
+    }),
+    tasks: state.tasks.map(function (t) {
+      return { id: t.id, agentId: t.agentId, title: t.title, status: t.status };
+    })
+  };
+}
+
+function buildKickoff() {
+  var lines = [];
+  lines.push("# Team kickoff — " + (state.team || "Untitled team"));
+  lines.push("");
+  lines.push("How to run this team: address a teammate by name; each one only");
+  lines.push("remembers what is in its own scope; anything marked [running]");
+  lines.push("can proceed in parallel with the others.");
+  lines.push("");
+  state.agents.forEach(function (a) {
+    var boss = a.reportsTo ? agentById(a.reportsTo) : null;
+    lines.push("## " + (a.name || "Unnamed") + " — " + (a.role || "Teammate") +
+      (boss ? "  (reports to " + boss.name + ")" : ""));
+    lines.push("Memory / scope: " + (a.memory && a.memory.trim() ? a.memory.trim() : "(to be learned on the job)"));
+    var mine = state.tasks.filter(function (t) { return t.agentId === a.id; });
+    if (mine.length) {
+      mine.forEach(function (t) {
+        lines.push("- [" + t.status + "] " + t.title);
+      });
+    } else {
+      lines.push("- (no tasks yet)");
+    }
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
+/* ---------------- rendering ---------------- */
+
+function avatarHTML(agent, small) {
+  var hex = colorHex(agent.color);
+  return '<span class="avatar ' + (small ? "small" : "") + '" aria-hidden="true">' +
+    '<span class="body shape-' + esc(agent.shape) + '" style="background:' + hex + '"></span>' +
+    '<span class="eyes"><i></i><i></i></span>' +
+    '</span>';
+}
+
+function render() {
+  renderHeader();
+  renderRoster();
+  renderBoard();
+}
+
+function renderHeader() {
+  var el = document.getElementById("teamName");
+  if (el.value !== state.team) { el.value = state.team; }
+  document.title = (state.team ? state.team + " — " : "") + "CrewChart";
+}
+
+function renderRoster() {
+  var root = document.getElementById("roster");
+  var html = [];
+
+  state.agents.forEach(function (a) {
+    var swatches = COLORS.map(function (c) {
+      return '<button type="button" class="sw' + (c.name === a.color ? " on" : "") +
+        '" style="background:' + c.hex + '" data-act="color" data-val="' + c.name +
+        '" data-id="' + a.id + '" aria-label="Color ' + c.name + '"></button>';
+    }).join("");
+
+    var shapes = SHAPES.map(function (s) {
+      return '<button type="button" class="shp shape-' + s + (s === a.shape ? " on" : "") +
+        '" data-act="shape" data-val="' + s + '" data-id="' + a.id +
+        '" aria-label="Shape ' + s + '" style="background:' + colorHex(a.color) + '"></button>';
+    }).join("");
+
+    var options = '<option value="">—</option>';
+    state.agents.forEach(function (o) {
+      if (o.id === a.id) { return; }
+      options += '<option value="' + o.id + '"' + (o.id === a.reportsTo ? " selected" : "") + '>' +
+        esc(o.name || "Unnamed") + '</option>';
+    });
+
+    html.push(
+      '<div class="agent-card" data-id="' + a.id + '">' +
+        '<button type="button" class="del" data-act="del-agent" data-id="' + a.id + '" title="Remove teammate" aria-label="Remove teammate">✕</button>' +
+        '<div class="agent-top">' +
+          avatarHTML(a, false) +
+          '<div class="agent-fields">' +
+            '<input class="name" type="text" value="' + esc(a.name) + '" placeholder="Name" data-act="field" data-field="name" data-id="' + a.id + '" aria-label="Agent name">' +
+            '<input type="text" value="' + esc(a.role) + '" placeholder="Role" data-act="field" data-field="role" data-id="' + a.id + '" aria-label="Agent role">' +
+          '</div>' +
+        '</div>' +
+        '<div class="agent-meta">' +
+          '<div>' +
+            '<span class="swatches">' + swatches + '</span>' +
+            '<span class="shapes" style="margin-left:10px">' + shapes + '</span>' +
+          '</div>' +
+          '<div>' +
+            '<label class="memory-label" for="mem-' + a.id + '">Scoped memory — what this agent learns on the job</label>' +
+            '<textarea id="mem-' + a.id + '" data-act="field" data-field="memory" data-id="' + a.id + '" placeholder="e.g. Owns the metrics dashboard; remembers every number it has pulled.">' + esc(a.memory) + '</textarea>' +
+          '</div>' +
+          '<div>' +
+            '<label class="reports-label" for="rep-' + a.id + '">Reports to</label>' +
+            '<select id="rep-' + a.id + '" class="reports" data-act="field" data-field="reportsTo" data-id="' + a.id + '">' + options + '</select>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  });
+
+  html.push('<button type="button" class="add-card" data-act="add-agent">+ Add teammate</button>');
+  root.innerHTML = html.join("");
+}
+
+function renderBoard() {
+  var meterWrap = document.getElementById("meterWrap");
+  var lanesRoot = document.getElementById("lanes");
+
+  // parallelism meter
+  var runningAgents = {};
+  var doneAgents = {};
+  state.tasks.forEach(function (t) {
+    if (t.status === "running") { runningAgents[t.agentId] = true; }
+    if (t.status === "done") { doneAgents[t.agentId] = true; }
+  });
+  var nRun = Object.keys(runningAgents).length;
+  var dots = "";
+  state.agents.forEach(function (a) {
+    var cls = runningAgents[a.id] ? "running" : (doneAgents[a.id] ? "done" : "");
+    dots += '<i class="' + cls + '"></i>';
+  });
+  meterWrap.innerHTML =
+    '<div class="meter" role="status">' +
+      '<span class="dots" aria-hidden="true">' + dots + '</span>' +
+      '<span><b>' + nRun + '</b> of <b>' + state.agents.length + '</b> agents running in parallel</span>' +
+    '</div>';
+
+  if (!state.agents.length) {
+    lanesRoot.innerHTML = '<div class="empty">No teammates yet. Add one to the roster above, or load a preset from the header.</div>';
+    return;
+  }
+
+  var html = [];
+  state.agents.forEach(function (a) {
+    var mine = state.tasks.filter(function (t) { return t.agentId === a.id; });
+    var chips = mine.map(function (t) {
+      return '<span class="task ' + t.status + '" data-act="cycle-task" data-id="' + t.id + '"' +
+        ' title="Click to cycle status">' +
+          '<span class="status-dot" aria-hidden="true"></span>' +
+          '<span class="tt">' + esc(t.title) + '</span>' +
+          '<button type="button" class="x" data-act="del-task" data-id="' + t.id + '" title="Delete task" aria-label="Delete task">✕</button>' +
+        '</span>';
+    }).join("");
+
+    html.push(
+      '<div class="lane" data-lane="' + a.id + '">' +
+        '<div class="lane-head">' +
+          avatarHTML(a, true) +
+          '<span class="who">' + esc(a.name || "Unnamed") + '</span>' +
+          '<span class="role">' + esc(a.role || "") + '</span>' +
+          '<span class="count">' + mine.length + ' task' + (mine.length === 1 ? "" : "s") + '</span>' +
+        '</div>' +
+        '<div class="tasks">' + chips +
+          '<span class="add-task">' +
+            '<input type="text" placeholder="+ New task, press Enter" data-act="add-task" data-id="' + a.id + '" aria-label="New task for ' + esc(a.name || "agent") + '">' +
+          '</span>' +
+        '</div>' +
+      '</div>'
+    );
+  });
+  lanesRoot.innerHTML = html.join("");
+}
+
+/* ---------------- events ---------------- */
+
+function wireEvents() {
+  // team name
+  document.getElementById("teamName").addEventListener("input", function (e) {
+    state.team = e.target.value;
+    renderHeader();
+    saveState();
+  });
+
+  // roster: clicks (swatches, shapes, delete, add)
+  document.getElementById("roster").addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-act]");
+    if (!btn) { return; }
+    var act = btn.getAttribute("data-act");
+    var id = btn.getAttribute("data-id");
+
+    if (act === "add-agent") {
+      var prev = state.agents.length ? state.agents[state.agents.length - 1] : null;
+      var a = makeAgent({ reportsTo: prev ? prev.id : "" });
+      state.agents.push(a);
+      render();
+      saveState();
+      var input = document.querySelector('.agent-card[data-id="' + a.id + '"] input.name');
+      if (input) { input.focus(); }
+      return;
+    }
+    if (act === "del-agent") {
+      state.agents = state.agents.filter(function (x) { return x.id !== id; });
+      state.tasks = state.tasks.filter(function (t) { return t.agentId !== id; });
+      state.agents.forEach(function (x) { if (x.reportsTo === id) { x.reportsTo = ""; } });
+      render();
+      saveState();
+      toast("Teammate removed.");
+      return;
+    }
+    if (act === "color" || act === "shape") {
+      var ag = agentById(id);
+      if (!ag) { return; }
+      ag[act] = btn.getAttribute("data-val");
+      renderRoster();
+      renderBoard(); // lane + shape avatars refresh
+      saveState();
+    }
+  });
+
+  // roster: text edits (use 'input' so typing feels live)
+  document.getElementById("roster").addEventListener("input", function (e) {
+    var el = e.target.closest("[data-act='field']");
+    if (!el) { return; }
+    var ag = agentById(el.getAttribute("data-id"));
+    if (!ag) { return; }
+    var field = el.getAttribute("data-field");
+    ag[field] = el.value;
+    if (field === "name" || field === "role") { updateLaneHeader(ag); } // echo names/roles into lanes
+    saveState();
+  });
+
+  // roster: reports-to selects
+  document.getElementById("roster").addEventListener("change", function (e) {
+    var el = e.target.closest("[data-act='field']");
+    if (!el) { return; }
+    var ag = agentById(el.getAttribute("data-id"));
+    if (!ag) { return; }
+    ag[el.getAttribute("data-field")] = el.value;
+    saveState();
+  });
+
+  // board: task add / cycle / delete
+  document.getElementById("lanes").addEventListener("click", function (e) {
+    var el = e.target.closest("[data-act]");
+    if (!el) { return; }
+    var act = el.getAttribute("data-act");
+    if (act === "add-task") { return; } // handled by keydown
+    if (act === "del-task") {
+      e.stopPropagation();
+      var tid = el.getAttribute("data-id");
+      state.tasks = state.tasks.filter(function (t) { return t.id !== tid; });
+      renderBoard();
+      saveState();
+      return;
+    }
+    if (act === "cycle-task") {
+      var t = null;
+      for (var i = 0; i < state.tasks.length; i++) {
+        if (state.tasks[i].id === el.getAttribute("data-id")) { t = state.tasks[i]; break; }
+      }
+      if (!t) { return; }
+      var next = STATUS_ORDER[(STATUS_ORDER.indexOf(t.status) + 1) % STATUS_ORDER.length];
+      t.status = next;
+      renderBoard();
+      saveState();
+    }
+  });
+
+  document.getElementById("lanes").addEventListener("keydown", function (e) {
+    var el = e.target.closest ? e.target.closest("[data-act='add-task']") : null;
+    if (!el) { return; }
+    if (e.key === "Enter") {
+      var title = el.value.trim();
+      if (!title) { return; }
+      state.tasks.push({ id: uid("t"), agentId: el.getAttribute("data-id"), title: title, status: "queued" });
+      el.value = "";
+      renderBoard();
+      saveState();
+      var again = document.querySelector("input[data-act='add-task'][data-id='" + el.getAttribute("data-id") + "']");
+      if (again) { again.focus(); }
+    }
+  });
+
+  // header actions
+  document.getElementById("presetSelect").addEventListener("change", function (e) {
+    var key = e.target.value;
+    e.target.value = "";
+    if (!key || !PRESETS[key]) { return; }
+    state = sanitize(PRESETS[key]());
+    render();
+    saveState();
+    toast("Preset loaded — make it yours.");
+  });
+
+  document.getElementById("newBtn").addEventListener("click", function () {
+    if (!window.confirm("Start a new empty team? Your current team will be replaced (export first if you want to keep it).")) { return; }
+    state = blankState();
+    render();
+    saveState();
+  });
+
+  document.getElementById("exportBtn").addEventListener("click", function () {
+    var json = JSON.stringify(buildSpec(), null, 2);
+    openModal("Export JSON team spec",
+      "This file is the whole team: roster, roles, scoped memory, and the task board. Re-import it here any time, or hand it to any agent platform.",
+      json, slug(state.team || "team") + ".crewchart.json", "crewchart.json");
+  });
+
+  document.getElementById("kickoffBtn").addEventListener("click", function () {
+    openModal("Kickoff prompt",
+      "Paste this at the top of a chat with your agent platform to brief the whole crew in one shot.",
+      buildKickoff(), slug(state.team || "team") + ".kickoff.md", null);
+  });
+
+  document.getElementById("importBtn").addEventListener("click", function () {
+    document.getElementById("importFile").value = "";
+    document.getElementById("importFile").click();
+  });
+
+  document.getElementById("importFile").addEventListener("change", function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) { return; }
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var parsed = JSON.parse(String(reader.result));
+        if (!parsed || !Array.isArray(parsed.agents)) {
+          throw new Error("missing agents array");
+        }
+        state = sanitize(parsed);
+        render();
+        saveState();
+        toast("Team imported.");
+      } catch (err) {
+        toast("That file is not a valid CrewChart export.");
+      }
+    };
+    reader.onerror = function () { toast("Could not read that file."); };
+    reader.readAsText(file);
+  });
+
+  // modal
+  document.getElementById("modalClose").addEventListener("click", closeModal);
+  document.getElementById("modalBackdrop").addEventListener("click", function (e) {
+    if (e.target === this) { closeModal(); }
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { closeModal(); }
+  });
+
+  document.getElementById("modalCopy").addEventListener("click", function () {
+    var text = document.getElementById("modalText").value;
+    copyText(text, function (ok) {
+      toast(ok ? "Copied to clipboard." : "Copy blocked — select the text and press Ctrl+C.");
+    });
+  });
+  document.getElementById("modalDownload").addEventListener("click", function () {
+    var name = modalDownloadName || "crewchart.txt";
+    downloadText(document.getElementById("modalText").value, name);
+    toast("Downloading " + name);
+  });
+}
+
+/* ---------------- helpers ---------------- */
+
+function updateLaneHeader(ag) {
+  var lane = document.querySelector('.lane[data-lane="' + ag.id + '"]');
+  if (!lane) { renderBoard(); return; }
+  var who = lane.querySelector(".who");
+  var role = lane.querySelector(".role");
+  if (who) { who.textContent = ag.name || "Unnamed"; }
+  if (role) { role.textContent = ag.role || ""; }
+}
+
+function slug(s) {
+  return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "team";
+}
+
+var toastTimer = null;
+function toast(msg) {
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { el.classList.remove("show"); }, 2400);
+}
+
+function openModal(title, desc, text, downloadName) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalDesc").textContent = desc;
+  document.getElementById("modalText").value = text;
+  modalDownloadName = downloadName || null;
+  document.getElementById("modalBackdrop").classList.add("open");
+  var ta = document.getElementById("modalText");
+  ta.focus();
+  ta.select();
+}
+
+function closeModal() {
+  document.getElementById("modalBackdrop").classList.remove("open");
+}
+
+function copyText(text, cb) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(
+      function () { cb(true); },
+      function () { fallbackCopy(text, cb); }
+    );
+  } else {
+    fallbackCopy(text, cb);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  try {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    cb(!!ok);
+  } catch (e) {
+    cb(false);
+  }
+}
+
+function downloadText(text, filename) {
+  var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+}
+
+/* ---------------- boot ---------------- */
+
+try {
+  state = loadState();
+} catch (e) {
+  state = sanitize(presetTravel());
+}
+wireEvents();
+render();
+</script>
+</body>
+</html>
