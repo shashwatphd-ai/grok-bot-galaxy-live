@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="60">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grok Bot Galaxy — Live Commentary</title>
+<style>
+  :root {
+    --bg: #0a0a0f; --card: #13131c; --card2: #1a1a26; --line: #26263a;
+    --text: #e8e8f0; --muted: #9a9ab0; --accent: #ff2d78; --accent2: #4fc3f7;
+    --gold: #ffc857; --green: #38e07b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+  a { color: var(--accent2); }
+  header {
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, #14141f 0%, var(--bg) 100%);
+    padding: 22px 24px 16px;
+  }
+  .kicker {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    font-size: 13px; color: var(--muted); margin-bottom: 8px;
+  }
+  .live-dot {
+    background: var(--accent); color: #fff; font-weight: 700; font-size: 12px;
+    letter-spacing: 1.5px; padding: 3px 10px; border-radius: 4px;
+    animation: pulse 1.6s infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
+  h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
+  h1 .galaxy { color: var(--accent); }
+  .meta-line { margin-top: 8px; font-size: 14px; color: var(--muted); }
+  .meta-line b { color: var(--text); }
+  .meta-line .viewers { color: var(--gold); font-weight: 700; }
+  .ticker {
+    overflow: hidden; white-space: nowrap; border-bottom: 1px solid var(--line);
+    background: #0e0e16; padding: 8px 0; font-size: 13.5px;
+  }
+  .ticker span {
+    display: inline-block; padding-left: 100%;
+    animation: scroll 28s linear infinite; color: var(--muted);
+  }
+  .ticker b { color: var(--text); }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
+  .day-head {
+    display: flex; align-items: center; gap: 12px; margin: 8px 0 18px;
+    color: var(--muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .day-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .entry {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px 20px; margin-bottom: 16px;
+  }
+  .entry.fresh { border-color: var(--accent); box-shadow: 0 0 24px rgba(255,45,120,.12); }
+  .entry-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+  .time { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 1.2px; padding: 2px 9px;
+    border-radius: 20px; text-transform: uppercase;
+  }
+  .tag-DEMO    { background: rgba(56,224,123,.15); color: var(--green); }
+  .tag-SLIDE   { background: rgba(79,195,247,.15); color: var(--accent2); }
+  .tag-STAGE   { background: rgba(255,200,87,.15); color: var(--gold); }
+  .tag-ANALYSIS{ background: rgba(255,45,120,.15); color: var(--accent); }
+  .tag-BREAK   { background: rgba(154,154,176,.15); color: var(--muted); }
+  .entry h2 { font-size: 17.5px; font-weight: 700; margin-bottom: 7px; letter-spacing: -.2px; }
+  .entry p { font-size: 14.5px; line-height: 1.65; color: #c9c9da; }
+  footer {
+    border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px;
+    padding: 18px 24px; line-height: 1.7;
+  }
+  footer b { color: var(--text); }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">
+    <span class="live-dot" id="live-badge">● LIVE</span>
+    <span id="meta-day"></span>
+    <span>•</span>
+    <span>Auto-refreshes every 60s</span>
+  </div>
+  <h1>Grok Bot Galaxy <span class="galaxy">— Live Commentary</span></h1>
+  <div class="meta-line">
+    On now: <b id="meta-session"></b> &nbsp;|&nbsp; Watching: <span class="viewers" id="meta-viewers"></span>
+    &nbsp;|&nbsp; Updated: <b id="meta-updated"></b> &nbsp;|&nbsp;
+    <a id="meta-stream" href="#" target="_blank">Watch the stream ↗</a>
+  </div>
+</header>
+<div class="ticker"><span id="ticker-text"></span></div>
+<div class="wrap">
+  <div class="day-head" id="day-head"></div>
+  <div id="feed"></div>
+</div>
+<footer>
+  <b>About this page:</b> Ball-by-ball commentary on xAI's Grok Bot Galaxy event (Sept 15–17, 2026, The Howard, San Francisco) —
+  three employees building an entire company live with a team of Grok Bot agents. Updated continuously by an automated
+  commentary agent watching the stream: what's happening on stage, the technology, the product, and the entrepreneurship.
+  Play-by-play entries reflect what is visible on stream plus public reporting; spoken audio is reconstructed from slides and coverage.
+  <br><br>Schedule &amp; stream: <a href="https://x.ai/galaxy" target="_blank">x.ai/galaxy</a> ·
+  Companion files: <b>grok-bot-galaxy-live-commentary.md</b> (full log) · <b>ventures/</b> (opportunity spin-off).
+</footer>
+<script src="data.js"></script>
+<script>
+  const M = window.GG_META, E = window.GG_ENTRIES;
+  document.title = (M.status === "LIVE" ? "🔴 " : "") + "Grok Bot Galaxy — Live Commentary";
+  document.getElementById("live-badge").textContent = M.status === "LIVE" ? "● LIVE" : "ENDED";
+  document.getElementById("live-badge").style.background = M.status === "LIVE" ? "var(--accent)" : "#555";
+  document.getElementById("meta-day").textContent = M.day;
+  document.getElementById("meta-session").textContent = M.session;
+  document.getElementById("meta-viewers").textContent = M.viewers;
+  document.getElementById("meta-updated").textContent = M.updated;
+  const s = document.getElementById("meta-stream"); s.href = M.stream;
+  document.getElementById("day-head").textContent = "Day " + (E[0] ? E[0].day : 1) + " — play-by-play (newest first)";
+  const latest = E[0] ? E[0].title : "";
+  document.getElementById("ticker-text").innerHTML =
+    "LATEST — <b>" + (E[0] ? E[0].t + ": " + E[0].title : "standby") + "</b> &nbsp;&nbsp;•&nbsp;&nbsp; Session: <b>" + M.session + "</b> &nbsp;&nbsp;•&nbsp;&nbsp; Viewers: <b>" + M.viewers + "</b> &nbsp;&nbsp;•&nbsp;&nbsp; ";
+  const feed = document.getElementById("feed");
+  E.forEach((e, i) => {
+    const div = document.createElement("div");
+    div.className = "entry" + (i === 0 ? " fresh" : "");
+    div.innerHTML =
+      '<div class="entry-top"><span class="time">' + e.t + '</span>' +
+      '<span class="tag tag-' + e.tag + '">' + e.tag + '</span></div>' +
+      '<h2></h2><p></p>';
+    div.querySelector("h2").textContent = e.title;
+    div.querySelector("p").textContent = e.body;
+    feed.appendChild(div);
+  });
+</script>
+</body>
+</html>
