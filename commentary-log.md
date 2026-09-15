@@ -47,4 +47,9 @@ Screen share switches from the analytics dashboard to the agents' actual workpla
 - Killer UI detail: popup offering *"View the RFC in Bots to continue, or move on to the message"* — chat is the management layer; every message bridges into the agents' work surface (tasks, RFCs, dashboards).
 Sidebar shows the roster grouped Humans vs. Bots with per-bot status lines and a task list ("Build SEO…"). Views: 852.3K.
 
+**[3:11 PM PT] — ⏸ BREAK: "Be right back" galaxy slide.**
+PM session wrapped a touch early (slated to 3:30). The hold screen is the event's visual signature: the eleven agent characters orbiting the "Grok Bot Galaxy" logo in a spiral — the org chart as a galaxy. Views: 876.5K.
+
+**[ANALYSIS — PM session takeaway.]** The PM pitch, distilled: the product manager's job stops being *prompting* and becomes *managing*. You ask a question in plain English in a Slack-like chat; the analyst agent (Ashley) answers with linked, live data; decisions get recorded as RFCs the agents themselves write and update; and a chief-of-staff agent (Core) runs the meeting cadence. Three things stood out: (1) **artifacts over chat** — every answer ships as an RFC/metrics-link/task, not just words; (2) **named agents with reputations** — referencability means trust accumulates per agent ("ask Ashley"); (3) **the demo company is real within the event** — the travel business's dashboards shown at 2:52 are the same artifacts this chat is editing. The gap nobody on stage has addressed yet: what happens when an agent teammate is *wrong* — audit trails, rollback, accountability. Possible Day 2/3 material.
+
 ---
