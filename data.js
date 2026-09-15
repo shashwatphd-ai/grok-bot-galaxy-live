@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders panel — stage discussion continues",
-  viewers: "952.3K",
-  updated: "4:29 PM PT",
+  session: "Founders session — keynote: the AI Maturity Curve",
+  viewers: "957.7K",
+  updated: "4:33 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:33 PM PT", day: 1, tag: "ANALYSIS",
+    title: "The 'AI Maturity Curve': naming the land grab",
+    body: "Founders keynote chart: Ask (chatbots) → Do a task (copilots) → Automate job (bot) → Staff function (TEAM of bots), on a hockey-stick curve. xAI names the maturity model and places Grok Bot on the top rung — the endgame where a bot roster IS the company's staff function. Everything demoed today (30+ titled agents, RFCs, delegation palettes, fleet stats) is presented as rung-4 evidence. Views: 957.7K."
+  },
   {
     t: "4:29 PM PT", day: 1, tag: "STAGE",
     title: "The org chart has job titles: Founding Eng, Growth Eng, Operator Research",

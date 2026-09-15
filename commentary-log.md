@@ -113,4 +113,9 @@ Content continued straight through the gap (the named sessions are highlights; t
 - Roster detail: **Founding Eng** (green dot — actively working), **Growth Eng** (recently active), **Operator Research** (recently active), +8 more. Role-titled bots = the product's own org chart.
 - Views: 952.3K.
 
+**[4:33 PM PT] — ANALYSIS: the "AI Maturity Curve" slide — naming the land grab.**
+- Founders session keynote chart: **Ask (chatbots) → Do a task (copilots) → Automate job (bot) → Staff function (team of bots)** on a hockey-stick curve.
+- Strategic read: xAI names the maturity model and places Grok Bot at rung 4 — the endgame where the bot roster *is* the company's staff function. Everything demoed today (26+ titled agents, RFCs, delegation palettes, fleet stats) is rung-4 evidence.
+- Views: 957.7K.
+
 ---
