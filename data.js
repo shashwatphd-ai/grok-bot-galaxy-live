@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders session — Founder Use Cases",
-  viewers: "968.3K",
-  updated: "4:42 PM PT",
+  session: "MILESTONE — the demo company's site is live",
+  viewers: "973.5K",
+  updated: "4:46 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:46 PM PT", day: 1, tag: "DEMO",
+    title: "🚨 The demo company's website is LIVE — 45 min from wireframe to sign-up",
+    body: "A real browser shows the deployed product — reads as 'Woothills Cabins' — with a working Create-your-account flow (name, email, password, zip), cookie consent and terms; page notes it's an early phase. Speed math: 4:01 PM wireframe → 4:46 PM deployed onboarding. Day 1 arc: idea → agents → analytics → RFCs → pricing → merch → deployed company, in ~7 hours of stream. Views: 973.5K."
+  },
   {
     t: "4:42 PM PT", day: 1, tag: "SLIDE",
     title: "Founder Use Cases: the four sells",

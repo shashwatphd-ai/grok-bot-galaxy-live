@@ -128,4 +128,10 @@ Five cards: **Easy as iMessage** (bots DM you status/approvals — Sales Outreac
 - **Ship Feedback Quickly** — collect feedback from Slack/email; Cloud Agents ship updates.
 - Thesis for founders: a one-person company running sales/support/QA/competitive response at 20-person tempo. Views: 968.3K.
 
+**[4:46 PM PT] — 🚨 MILESTONE: the demo company's website is LIVE.**
+- A real browser shows the deployed product — reads as **"Woothills Cabins"** — with a working **Create-your-account** flow (name, email, password, zip), cookie consent, terms. Early-phase note on page: "real results are coming soon."
+- Speed math: **4:01 PM** = Balsamiq wireframe → **4:46 PM** = deployed site with onboarding. ~45 minutes sketch-to-signup.
+- Day 1 arc so far: idea → agents → analytics → RFCs → pricing → merch catalog → **deployed company**, in ~7 hours of stream.
+- Views: 973.5K.
+
 ---
