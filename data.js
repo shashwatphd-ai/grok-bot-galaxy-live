@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders session — keynote: the AI Maturity Curve",
-  viewers: "957.7K",
-  updated: "4:33 PM PT",
+  session: "Founders session — 'Why Grok Bot' feature grid",
+  viewers: "963.1K",
+  updated: "4:37 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:37 PM PT", day: 1, tag: "SLIDE",
+    title: "'Why Grok Bot': five pillars — and bots you can hand to someone else",
+    body: "Feature grid: Easy as iMessage (bots DM you approvals and status); Always-on 24/7; Uses your tools like you ('Computer use: sign in to Salesforce' — bots drive real SaaS with your logins); Finishes the work (create bots → give direction → automations); Shareable Templates ('Peng shared Kenny with you' — a shareable operations bot). The share feature seeds an agent marketplace: bots as transferable, pre-trained coworkers. Views: 963.1K."
+  },
   {
     t: "4:33 PM PT", day: 1, tag: "ANALYSIS",
     title: "The 'AI Maturity Curve': naming the land grab",

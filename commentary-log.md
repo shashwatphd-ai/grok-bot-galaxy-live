@@ -118,4 +118,7 @@ Content continued straight through the gap (the named sessions are highlights; t
 - Strategic read: xAI names the maturity model and places Grok Bot at rung 4 — the endgame where the bot roster *is* the company's staff function. Everything demoed today (26+ titled agents, RFCs, delegation palettes, fleet stats) is rung-4 evidence.
 - Views: 957.7K.
 
+**[4:37 PM PT] — "Why Grok Bot" feature grid.**
+Five cards: **Easy as iMessage** (bots DM you status/approvals — Sales Outreach, Chief of Staff, Inbox Manager); **Always-on agents 24/7**; **Uses your tools like you** (*"Computer use: sign in to Salesforce"* — bots drive real SaaS with your credentials); **Finishes the work** (create bots → give direction → set automations/routines); **Shareable Templates** (*"Peng shared Kenny with you — an operations bot that coordinates work and surfaces decisions that need your approval"*). The share feature is the seed of an agent marketplace: bots as transferable, pre-trained coworkers. Views: 963.1K.
+
 ---
