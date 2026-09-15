@@ -71,4 +71,12 @@ Content continued straight through the gap (the named sessions are highlights; t
 - X live chat asking "What's the link for the site?" — audience wants the demo company's URL.
 - Views: 914.5K.
 
+**[4:06 PM PT] — Workforce admin, bot-style.**
+- Main share: the "Bot team" workspace running **member management on an agent** — menu with *Set as admin / Remove member / View permissions* over a bot in the member list. Slack-style workspace admin, but the employees are bots.
+- Thread topic: launch mechanics — *"I think it creates without sign-in"*; UI nitpick — *"the buttons not visible."*
+- Right panel: workspace browser ("Browse your agencies") with wireframe thumbnails in the nav.
+- Roster widget: **tater, grokbot, steve, +6 more** currently active.
+- Meta moment: build-team members (appears to be **Lauren Tan**) posting in the public X chat: *"They're not just TEAMS of agents. SQUADS of agents."*
+- Views: 920.2K.
+
 ---

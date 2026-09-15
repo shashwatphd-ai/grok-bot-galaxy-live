@@ -1,13 +1,18 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Grok Bot for Founders — Shub Gaur (4:00 PM PT)",
-  viewers: "914.5K",
-  updated: "4:01 PM PT",
+  session: "Build live + Founders hour — workspace admin demo",
+  viewers: "920.2K",
+  updated: "4:06 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_ENTRIES = [
+  {
+    t: "4:06 PM PT", day: 1, tag: "DEMO",
+    title: "Workforce admin, bot-style: roles, permissions, removal",
+    body: "The demo moves to member management on an agent inside the 'Bot team' workspace: a menu with Set as admin / Remove member / View permissions over a bot in the list — Slack-style workspace administration where the employees are bots. Thread debates launch mechanics ('I think it creates without sign-in') and UI ('the buttons not visible'). Roster widget: tater, grokbot, steve, +6 more active. Lauren Tan is posting in the public X chat: 'They're not just TEAMS of agents. SQUADS of agents.' Views: 920.2K."
+  },
   {
     t: "4:01 PM PT", day: 1, tag: "DEMO",
     title: "Founders hour: the landing page gets wireframed live",
