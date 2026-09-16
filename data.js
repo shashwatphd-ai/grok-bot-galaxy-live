@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Day 2 LIVE — opening moments; Sales Engineering at 9:00 AM PT",
-  viewers: "2,649",
-  onAir: "0h 06m",
-  updated: "8:36 AM PT",
+  session: "Grok Bot for Sales Engineering — whiteboarding the pitch flow",
+  viewers: "25.3K",
+  onAir: "0h 45m",
+  updated: "9:10 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-0910",
+    t: "9:10 AM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["PRODUCT", "KEYNOTE"],
+    title: "Sales Engineering whiteboards the customer demo arc",
+    body: "The Sales Engineering session (Amrita Venkatraman) is sketching the pitch flow in a diagram tool: 'Grok Bot Template → Draft your team → Set your lineup → Compete!' — with notes on showing 'how we build a complicated product with bots' and 'digital operations in the business.' A four-step customer demo arc, drawn before it's built. Views: 25.3K."
+  },
   {
     id: "d2-0830",
     t: "8:30 AM PT",
