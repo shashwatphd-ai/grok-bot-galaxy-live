@@ -60,21 +60,21 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Day 1 close — guest interview full screen",
-  viewers: "1M",
-  onAir: "8h 45m",
-  updated: "5:35 PM PT",
+  session: "Day 1 close — guest interview, final minutes",
+  viewers: "1.1M",
+  onAir: "8h 55m",
+  updated: "5:58 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
 window.GG_MOMENT =
-  "One million people are now watching a company get built by bots — and the stage is openly discussing what the bots cost.";
+  "Day 1 closes at 1.1M views. The build looks like an event-venue business — venue, food, cabin lodging, glider flights — and no public website has launched yet.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, San Francisco): three xAI employees build an entire real company live on stream using a team of AI agents — Grok Bot — while the internet watches. If the agents can't carry a real business in public, everyone watches it fail.",
-  company: "The demo company sells glider flights (~$250 per flight; one recent weekend took in ≈ $5,869) and is adding digital products (PDF guides, merch) against a $30k profit rollout target. Its staff is a fleet of 30+ named AI bots with job titles, status dots, and a Slack-style chat where they do the work.",
-  sofar: "Day 1 afternoon: the bots ran a revenue review, drafted a glider-flight price menu, opened a second revenue line (merch + digital products), and grew past 30 agents. The company's booking site went from wireframe to deployed with account sign-up in about 45 minutes. A growth bot filed an SEO work order with a dated execution timeline, and a 'Tee Bot' just started running email marketing for the merch line. Founders session on stage throughout.",
-  watchfor: "Day 2 is Sales/Support, Day 3 Marketing. The unanswered question nobody on stage has touched: what happens when an agent teammate is wrong — audit trails, rollback, accountability?"
+  company: "Best current read: an event-venue business — hosting events with food and catering, cabin lodging, and activities such as glider flights (~$250 per flight; one weekend took in ≈ $5,869) — run by a fleet of 30+ named AI bots in a Slack-style chat. On-screen audio mentions venues and food; on-screen artifacts show cabin bundles, party bookings, flight menus, and merch. The company name is not yet confirmed from a clear source.",
+  sofar: "Day 1 close: the bots produced a metrics dashboard, pricing RFCs, a price menu, a merch and PDF catalog, an email channel, and an SEO work order with dates. A sign-up page appeared on screen in a browser (read roughly as 'Woothills Cabins'), but it looks like a staging or preview build: the page itself said results are coming soon, the URL was never legible, and nothing is publicly indexed. No public launch has happened yet.",
+  watchfor: "Day 2 is Sales/Support, Day 3 Marketing. Watch for: the company's real name and public URL, a checkout or booking flow, and what the sales sessions reveal about how these agents actually sell. Open question nobody on stage has touched: what happens when an agent teammate is wrong — audit trails, rollback, accountability?"
 };
 
 window.GG_SCOREBOARD = {
@@ -86,18 +86,28 @@ window.GG_SCOREBOARD = {
     { label: "On air", value: "7h 45m", sub: "of 3 days" },
     { label: "Best weekend", value: "$5,869", sub: "glider flight revenue" },
     { label: "Profit target", value: "$30k", sub: "merch + digital rollout" },
-    { label: "Revenue lines", value: "2", sub: "flights · digital/merch" },
-    { label: "Live site", value: "DEPLOYED", sub: "sign-up flow live ~45 min after wireframe" },
-    { label: "Products on the board", value: "Booking site (live) · Glider price menu · Merch + PDF catalog · Email channel (Tee Bot) · SEO work order (dated)", wide: true }
+    { label: "Revenue lines", value: "2", sub: "events/flights · digital/merch" },
+    { label: "Website", value: "STAGING", sub: "sign-up page seen in preview; no public launch yet" },
+    { label: "Products on the board", value: "Sign-up page (staging) · Price menu · Merch + PDF catalog · Email channel (Tee Bot) · SEO work order (dated)", wide: true }
   ],
   deltas: [
-    "Viewers: 991.7K → 1M — the million mark is crossed",
-    "New on stage: 'Optimizing Costs' — browser-use economics"
+    "Viewers: 1M → 1.1M",
+    "Correction: 'site live' downgraded to staging — no public launch",
+    "Correction: business reads as event venue + food + cabins + flights"
   ]
 };
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d1-1758",
+    t: "5:58 PM PT",
+    day: 1,
+    type: "WHY",
+    tags: ["MILESTONE"],
+    title: "Two corrections from the Day 1 close: the business reads as an event venue, and no public website has launched",
+    body: "Two things we got wrong today, corrected here. First, the business: audio from viewers reports the stage talking about venues and food, and our own screen captures (cabin bundles, family party bookings, glider flights, pilot lessons) fit an event-venue operation — a place that hosts events with catering, lodging, and activities. Calling it a 'travel business' was too narrow, and a circulating recap calling it a restaurant-delivery ops agent remains unsupported. Second, the website: a sign-up page did appear on screen in a browser around 4:20 PM, but the URL was never legible, the page said results are coming soon, and nothing is publicly indexed. That is a staging build, not a launch. We called it live; it was not. The company's real name and public URL are still open items for Day 2."
+  },
   {
     id: "d1-1735",
     t: "5:35 PM PT",
