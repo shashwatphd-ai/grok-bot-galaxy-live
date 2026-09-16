@@ -63,7 +63,7 @@ window.GG_SCOREBOARD = {
     { label: "Viewers", value: "1.1M", sub: "at Day 1 close" },
     { label: "On air", value: "8h 45m", sub: "of 3 days" },
     { label: "Domain", value: "BOUGHT", sub: "lander in staging" },
-    { label: "Profit target", value: "$30k", sub: "stated during the build" },
+    { label: "Profit target", value: "$30k", sub: "stated ambition — staging data, no real sales" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29" },
     { label: "Built on Day 1", value: "Idea → domain → lander (staging) → ticket stubs → badges/lanyards → plush designs → email drafts → SEO plan", wide: true }
   ],
@@ -75,6 +75,21 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d1-1930",
+    t: "9:30 PM PT",
+    day: 1,
+    type: "WHY",
+    tags: ["REVENUE"],
+    title: "Where do the dollar figures come from? Not from customers — yet",
+    body: "The company has no launched product and no paying customers, so every dollar on this page needs a source. Three kinds appear. The $250-per-flight and $5,869-weekend figures came from the agents' own answers on stream — pulled from the staging database the agents seeded themselves while building. The $30k profit figure was a stated rollout ambition, not a result. And the session presenters' screens (cabins, glider flights, family bookings) ran on clearly separate sample data for teaching the workflows. Treat all of it as a demo economy: internally consistent, externally unproven. The first real dollar will be the most important number of Days 2 and 3.",
+    lenses: {
+      casual: "The money numbers are from the company's own practice database — nobody real has paid anything yet.",
+      builder: "The agents seeded their ops store with synthetic data; quoting it back is the demo working as designed, but it means every metric is self-referential until an external event lands.",
+      investor: "Pre-launch traction numbers quoted by the system that produced them are marketing, not metrics. Track whether a real booking or payment clears on Days 2–3.",
+      skeptic: "Self-referential data is the oldest trick in demo theater — and to the stream's credit, the hosts never claimed a real sale. Keep it that way and the demo stays honest."
+    }
+  },
   {
     id: "d1-1805",
     t: "6:05 PM PT",
