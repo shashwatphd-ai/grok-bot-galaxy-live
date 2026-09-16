@@ -47,10 +47,10 @@
    ============================================================================ */
 
 window.GG_PRODUCT = {
-  name: "Working title: 'Woothills Cabins' (read off-screen, unconfirmed)",
-  nameConfidence: "low",
-  oneLiner: "An event-venue platform: create events with sessions, venue and staff; sell tickets and badges; run a venue with cabin lodging, catering and glider-flight activities; plus a merch/plush line",
-  stage: "BUILD (staging sign-up page; no public launch)"
+  name: "'Pop-up OS' (working name, from the live idea session)",
+  nameConfidence: "medium",
+  oneLiner: "A restaurant pop-up company: run a real pop-up dining event in San Francisco with a partnering chef and venue, ticket it, and turn the operating software (morning briefs, reservations, menu and review management, ticketing) into a product for local restaurants",
+  stage: "BUILD (domain bought, lander in staging; no public launch)"
 };
 
 window.GG_FEATURES = [
@@ -155,7 +155,7 @@ window.GG_FEATURES = [
   {
     id: "analytics",
     name: "Analytics dashboards",
-    category: "Ops",
+    category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
       { status: "SHIPPED", t: "2:52 PM", note: "family-bookings and passenger analytics read out live" }
@@ -175,7 +175,7 @@ window.GG_FEATURES = [
   {
     id: "pricing-rfcs",
     name: "Pricing RFCs with linked metrics",
-    category: "Ops",
+    category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
       { status: "SHIPPED", t: "3:00 PM", note: "Pine Cabins winter-bundle RFC with metrics linked into the document" }
@@ -192,7 +192,7 @@ window.GG_FEATURES = [
   {
     id: "activities-menu",
     name: "Venue activities menu",
-    category: "Revenue",
+    category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
       { status: "SHIPPED", t: "4:14 PM", note: "activities price menu delivered; human asked the taste call: 'which one do you like?'" }
@@ -212,7 +212,7 @@ window.GG_FEATURES = [
   {
     id: "glider-ops",
     name: "Glider flight ops",
-    category: "Revenue",
+    category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
       { status: "SHIPPED", t: "4:10 PM", note: "unit economics read out on screen" }
@@ -232,7 +232,7 @@ window.GG_FEATURES = [
   {
     id: "seo-work-order",
     name: "SEO & growth work order",
-    category: "Growth",
+    category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
       { status: "SHIPPED", t: "4:25 PM", note: "audit delivered as a dated work order, not a report" }
