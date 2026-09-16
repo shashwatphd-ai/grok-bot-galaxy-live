@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Cupcake Loop prototype + the pivot — product-first day",
-  viewers: "85.2K",
-  onAir: "2h 25m",
-  updated: "10:54 AM PT",
+  session: "Cupcake Loop battle screen — human-directed bot iteration",
+  viewers: "122K",
+  onAir: "2h 35m",
+  updated: "11:04 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -49,7 +49,7 @@ window.GG_MOMENT = "Day 2 begins: the bot fleet's second day — today it has to
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
-  company: "The company they chose live on Day 1: ops software born from a restaurant pop-up plan — 'Pop-up OS' (working name). On Day 2 the physical pop-up event itself was retired ('There is no pop-up'), and the focus went product-first: landing page, AEO/SEO, A/B testing, and getting first customer bookings for the event-ops software.",
+  company: "The company pivoted live on Day 2 morning: it is now a GAME DESIGN STUDIO building 'Cupcake Loop' — a competitive character-draft game with a short loop, ELO-style matchmaking, charisma/deck counters, and live-tunable debug sliders ('shorten the time to fun'). Day 1's restaurant pop-up plan was retired on camera ('There is no pop-up — Oct 15 tracks are retired'). The fleet keeps building it: potato-mode prototyping, engineer bots orchestrating cloud agents, a creative director bot on visuals.",
   sofar: "By end of Day 1 the trio had: chosen the idea through agent dialogue, bought a domain and deployed a staging lander, set up a multi-agent engineering pipeline (PRs, reviews, deploys via Cursor Cloud Agents), created marketing assets with guest Cody Sanchez, and designed event supplies — night-market ticket stubs, badges and lanyards, plus Grok Bot plush concepts. The sessions meanwhile demoed Grok Bot itself: onboarding, a bot marketplace, integrations (GitHub, Notion, Figma, Slack), the AI Maturity Curve, and agent cost economics.",
   watchfor: "Day 2 is Sales/SDR/Support day (9:00 AM Sales Engineering, 12:30 Sales, 2:30 SDRs, 4:00 Customer Support). Watch for: the real chef and venue partnership, the ticketed event going public, first sign-ups, and how the sales sessions shape their go-to-market."
 };
@@ -76,6 +76,15 @@ window.GG_SCOREBOARD = {
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
   {
+    id: "d2-1104",
+    t: "11:04 AM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["PRODUCT", "FLEET"],
+    title: "Pair-design session on the Cupcake Loop battle screen",
+    body: "The human directs in plain English — 'this deck should be 3 big cards with the captain selector first', 'when you're done, commit and push to main' — and the bot iterates: mock item rewrites (+46−15), faction/class cleanup, stat line removed, captain slot preserved. Then: remaining pieces, auto-match, routing, events, and the event pairing view. Views: 122K."
+  },
+  {
     id: "d2-1054",
     t: "10:54 AM PT",
     day: 2,
@@ -96,13 +105,13 @@ window.GG_ENTRIES = [
     day: 2,
     type: "WHY",
     tags: ["MILESTONE"],
-    title: "The pivot, live: 'There is no pop-up' — Oct 15 tracks retired, product-first",
-    body: "A Notion workspace on screen settles the company's direction: 'There is no pop-up. Oct 15 venue / host / dining tracks are retired.' The real-world pop-up event — the Day 1 plan to run a physical dinner with a partnering chef — is dropped. What remains is the software: the project doc now tracks a landing page, AEO/SEO, A/B testing, marketing, and an ads-infra 'game', with Cody Sanchez's notes anchored on 'Get our first customers — Bookings.' A browser tab reads 'ship by thursday.' So the demo company pivoted from throwing the event to shipping the booking product first — the classic startup move, made on camera. Views: 66.2K.",
+    title: "The pivot, confirmed on tape: from pop-up to game design studio",
+    body: "The audio transcript confirms what the Notion screen showed at 10:16 — the company pivoted from the Day 1 restaurant pop-up plan to a GAME DESIGN STUDIO. On tape: 'now we're working on our game design studio… we're documenting the pivot and eventually what our go-to-market strategy might be', and 'you're watching us spend 72 hours building a game studio and a game for the game studio.' The first game, Cupcake Loop, already runs as a localhost prototype. The restaurant pop-up: zero mentions in today's speech.",
     lenses: {
-      casual: "They cancelled the party to focus on shipping the app.",
-      builder: "Scope cut on camera: the event was customer-zero theater; the product (event ops software) survives as the actual offer.",
-      investor: "Retiring the physical event removes the messiest ops risk and turns it into a pure software story — right before a sales-focused day. Deliberate or not, it plays.",
-      skeptic: "A pivot announced without a customer's voice is still a plan, not traction. 'Bookings' so far means a Docs page."
+      casual: "They threw away yesterday's plan and became a game studio — live.",
+      builder: "The pivot ran through the system cleanly: knowledge bot updated the company doc, every agent re-pointed at the new context, prototyping started in potato-mode the same hour.",
+      investor: "Games are a harder monetization story than restaurant SaaS — but 'time to fun' as the north-star metric is the right prototyping discipline.",
+      skeptic: "A pivot documented by your own bots is still self-graded. Whether Cupcake Loop is fun is the only test that matters."
     }
   },
   {
