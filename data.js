@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Image Gen locks the landing hero; Cupcake Eng joins",
-  viewers: "132.2K",
-  onAir: "2h 55m",
-  updated: "11:20 AM PT",
+  session: "STREAM RENAMED: Grok Bot builds a Game Studio LIVE",
+  viewers: "147K",
+  onAir: "4h 05m",
+  updated: "12:35 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1235",
+    t: "12:35 PM PT",
+    day: 2,
+    type: "MILESTONE",
+    tags: ["MILESTONE"],
+    title: "The stream itself rebranded: 'Grok Bot builds a Game Studio LIVE'",
+    body: "The broadcast title changed from 'Day 2: Grok Bot Galaxy Livestream' to 'Grok Bot builds a Game Studio LIVE' — the pivot is now the stream's public identity, not just a Notion doc line. The product demo (Sales Outreach walkthrough) continues on screen. Views: 147K."
+  },
   {
     id: "d2-1120",
     t: "11:20 AM PT",
