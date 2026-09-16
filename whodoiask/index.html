@@ -339,6 +339,7 @@
     <select id="presetSelect" aria-label="Load a preset crew">
       <option value="">Load a preset crew…</option>
       <option value="support">Support Desk Co. (Day 2)</option>
+      <option value="venue">Venue Ops Co. (event venue)</option>
       <option value="glider">Glider Co. (stream homage)</option>
     </select>
     <button id="importBtn" class="ghost" type="button" title="Import a CrewChart JSON spec (or a WhoDoIAsk backup)">Import JSON</button>
@@ -732,6 +733,42 @@ function presetGlider() {
   };
 }
 
+/* Venue Ops Co. — the Day 1 demo company as the corrected read has it:
+   an event-venue business (catering + cabin lodging + activities), not a
+   travel agency. Four rules are the house routes: catering → kitchen,
+   booking changes → front desk, activity waivers → activities lead,
+   refunds → the manager. Lodging has no rule on purpose — "is my cabin
+   ready" is the fallback guess's cameo. */
+function presetVenue() {
+  return {
+    crew: {
+      format: "crewchart",
+      version: 2,
+      team: "Venue Ops Co.",
+      agents: [
+        { id: "a-marlow", name: "Marlow", role: "Venue Manager", color: "purple", shape: "blob", memory: "Owns the P&L, the refund authority, and every escalation the front desk can't close.", reportsTo: "", status: "active" },
+        { id: "a-ford", name: "Ford", role: "Front Desk", color: "teal", shape: "cloud", memory: "Owns the booking calendar, the family party schedule, and check-in. First to answer, last to panic.", reportsTo: "a-marlow", status: "active" },
+        { id: "a-kip", name: "Kip", role: "Kitchen Lead", color: "green", shape: "round", memory: "Owns catering menus, the dietary/allergy ledger, and headcount-to-food math for every event on the books.", reportsTo: "a-marlow", status: "active" },
+        { id: "a-ace", name: "Ace", role: "Activities Lead", color: "orange", shape: "hex", memory: "Owns glider flights, pilot lessons, the waiver ledger, and the weather go/no-go call.", reportsTo: "a-marlow", status: "active" },
+        { id: "a-wren", name: "Wren", role: "Lodging Lead", color: "blue", shape: "squircle", memory: "Owns cabin readiness, the winter bundle blocks, and housekeeping turns between party weekends.", reportsTo: "a-marlow", status: "active" },
+        { id: "a-sunny", name: "Sunny", role: "Seasonal Coordinator (summer)", color: "gray", shape: "diamond", memory: "Ran the summer wedding season; archived when the season ended — alumni stay on the chart.", reportsTo: "a-ford", status: "archived" }
+      ],
+      tasks: [
+        { id: "t-1", agentId: "a-kip", title: "Finalize Saturday wedding catering headcount", status: "running", ask: "a-ford" },
+        { id: "t-2", agentId: "a-ace", title: "Refresh the glider-lesson waiver for minors", status: "queued", ask: "" }
+      ],
+      offers: []
+    },
+    rules: [
+      { id: "r-v1", label: "Catering question", words: "catering, caterer, menu, food, buffet, dietary, allergy, gluten, vegetarian, vegan, headcount, plates", agentId: "a-kip", why: "Runs the kitchen: the menus, the allergy ledger, the headcount math. A catering guess is a ruined event." },
+      { id: "r-v2", label: "Booking change", words: "booking, reservation, reschedule, date change, availability, cancel my stay, party, room block, check-in, checkout", agentId: "a-ford", why: "Owns the calendar. One desk touches every booking so two families never arrive to the same cabin." },
+      { id: "r-v3", label: "Flight activity waiver", words: "waiver, liability, glider, flight, lesson, pilot, instructor, guardian, safety, weather", agentId: "a-ace", why: "Activities lead keeps the waiver ledger and the minima. Sign-off lines and go/no-go calls aren't front-desk work." },
+      { id: "r-v4", label: "Refund request", words: "refund, money back, overcharged, double billed, chargeback, dispute, compensation", agentId: "a-marlow", why: "The only one with refund authority. Money leaves the venue over the manager's signature, not whoever got the email." }
+    ],
+    defaultAgentId: "a-marlow"
+  };
+}
+
 /* ---------------- rendering ---------------- */
 
 function avatarHtml(a, cls) {
@@ -1039,7 +1076,7 @@ function wire() {
   document.getElementById("presetSelect").addEventListener("change", function () {
     var v = this.value;
     if (!v) { return; }
-    var p = v === "support" ? presetSupport() : presetGlider();
+    var p = v === "support" ? presetSupport() : v === "venue" ? presetVenue() : presetGlider();
     state = presetState(p);
     save();
     renderAll();
