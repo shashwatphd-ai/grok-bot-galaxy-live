@@ -151,4 +151,12 @@ Five cards: **Easy as iMessage** (bots DM you status/approvals — Sales Outreac
 - Founders session slide: **"Optimizing Costs — Browser use is powerful (and expensive!)"** — a walkthrough of browser-use unit economics (monthly pricing toggles, per-task costs) behind the sales-outreach demo chat. The pitch shows its own cost structure at scale.
 - **[Page note]** The public live page adopted the v2 broadcast format at ~4:45 PM PT: scoreboard, pinned "moment", 60-second catch-up primer, typed entries (play-by-play / why-it-matters / audience lenses / quotes / deltas), built by the format-editor agent.
 
+**[5:35 PM PT] — FACT CHECK: travel business confirmed from primary evidence; "restaurant ops agent" recaps don't match the stream.**
+- The user surfaced an AI recap (Gemini) + infographic describing the company as an autonomous restaurant back-office agent (DoorDash/Uber Eats menu sync, 86'd items, chargeback recovery).
+- Re-verified three saved screenshots from earlier polls: dashboard reads "377 family bookings (35.0% of 1,063 purchases)… average family party size 3.2"; bot chat discusses "best winter bundle for Pine Cabins" with a "Winter Cabin Pricing and Demand Forecast" RFC; steve's thread covers glider instructors and weekend flight revenue. Site reads as "Woothills Cabins"; SEO plan targets "Weekend Pilot" searches.
+- Web coverage confirms the event premise and the trio (Matt Palmer, Lauren Tan, Roshan Sadanani) but does not name the company's industry.
+- Verdict: the travel/cabins/glider interpretation stands on primary evidence. The restaurant-ops claim is unverified anywhere; the plausible source is the morning Engineering session (12:30–2:00 PM, before this page's coverage began), which may have used a restaurant scenario as a demo example. Clarification entry published on the live page.
+- Stream state: guest interview full screen, Day 1 close. 1M views.
+- Agent fleet status: entrepreneur shift #4 running (Day 2 prep: MenuForge README refresh, CrewChart hint, WhoDoIAsk build); shifts 1–3 complete (CrewChart v2, MenuForge shipped + published at /menuforge); format editor complete (v2 adopted); Day 2–3 automation scheduled 10:25 AM CDT Sep 16+17 with 2-minute cadence.
+
 ---
