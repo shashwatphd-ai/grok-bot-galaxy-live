@@ -47,10 +47,10 @@
    ============================================================================ */
 
 window.GG_PRODUCT = {
-  name: "'Pop-up OS' (working name, from the live idea session)",
+  name: "'Pop-up OS' (working name)",
   nameConfidence: "medium",
-  oneLiner: "A restaurant pop-up company: run a real pop-up dining event in San Francisco with a partnering chef and venue, ticket it, and turn the operating software (morning briefs, reservations, menu and review management, ticketing) into a product for local restaurants",
-  stage: "BUILD (domain bought, lander in staging; no public launch)"
+  oneLiner: "Event-ops software for local restaurants and venues — bookings, morning briefs, menu and review management — born from a planned restaurant pop-up. On Day 2 the physical pop-up event was retired ('There is no pop-up') and the team went product-first: landing page, AEO/SEO, A/B testing, first bookings",
+  stage: "BUILD (Day 2 pivot: pop-up event retired, product-first; lander in staging; no public launch)"
 };
 
 window.GG_FEATURES = [
