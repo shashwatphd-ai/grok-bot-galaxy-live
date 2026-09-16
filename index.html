@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="refresh" content="30">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grok Bot Galaxy — Live Commentary</title>
 <meta name="description" content="Live ball-by-ball commentary on xAI's Grok Bot Galaxy (Sept 15–17): three employees build an entire company live with a team of AI agents. Scoreboard, moment-by-moment, and analysis for casual, builder, investor and skeptic audiences.">
@@ -59,6 +58,7 @@
   h1 .galaxy { color: var(--accent); }
   .meta-line { margin-top: 7px; font-size: 13.5px; color: var(--muted); }
   .meta-line b { color: var(--text); }
+  .flash { color: var(--green) !important; transition: color 3s; }
 
   /* ── ticker ────────────────────────────────────────────── */
   .ticker {
@@ -209,6 +209,8 @@
   .drow .arr { color: var(--dim); }
   .drow .to { color: var(--green); font-weight: 800; font-variant-numeric: tabular-nums; }
 
+  .conn { margin-top: 10px; font-size: 12px; color: var(--dim); }
+  .conn.ok { color: var(--green); }
   footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; padding: 18px; line-height: 1.7; }
   footer .inner { max-width: 880px; margin: 0 auto; }
   footer b { color: var(--text); }
@@ -219,14 +221,14 @@
 
 <div class="topbar" id="topbar"></div>
 
-<noscript><div><b>JavaScript is off.</b> This live page renders its feed client-side — enable JavaScript, or read the plain-text log: <a href="commentary-log.md">commentary-log.md</a>.</div></noscript>
+<noscript><div><b>JavaScript is off.</b> This live page pulls fresh data every 30 seconds using JavaScript. Enable it, or read the plain-text log: <a href="commentary-log.md">commentary-log.md</a>.</div></noscript>
 
 <header>
   <div class="inner">
     <div class="kicker" id="meta-day"></div>
     <h1>Grok Bot Galaxy <span class="galaxy">— Live Commentary</span></h1>
     <div class="meta-line">
-      Updated <b id="meta-updated"></b> · Auto-refreshes every 30s ·
+      Updated <b id="meta-updated">—</b> · <span id="meta-refresh-note">Live data pulls fresh every 30s · no reload needed</span> ·
       <a id="meta-stream" href="#" target="_blank" rel="noopener">Watch the stream ↗</a> ·
       <a href="https://x.ai/galaxy" target="_blank" rel="noopener">Schedule ↗</a>
     </div>
@@ -263,11 +265,13 @@
   </div>
 </footer>
 
-<script src="data.js"></script>
 <script>
 (function () {
-  var M = window.GG_META || {}, E = window.GG_ENTRIES || [];
-  var LIVE = M.status === "LIVE";
+  var KNOWN_TAGS = { REVENUE:1, PRODUCT:1, FLEET:1, KEYNOTE:1, CHAT:1, MILESTONE:1, HOLD:1 };
+  var TYPE_LABELS = { PBP:"Play-by-play", MOMENT:"Moment", WHY:"Why it matters", LENSES:"Audience lenses", QUOTE:"Pull-quote", DELTA:"Scoreboard delta" };
+  var DAY_NAMES = { 1: "Tue Sep 15, 2026", 2: "Wed Sep 16, 2026", 3: "Thu Sep 17, 2026" };
+  var lastFeedHtml = "";
+  var timer = null;
 
   function el(tag, cls, text) {
     var n = document.createElement(tag);
@@ -279,186 +283,223 @@
     return "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text + " — Grok Bot Galaxy live blog: " + location.href.split("#")[0]);
   }
   function anchorId(id) { return "e-" + String(id).replace(/[^a-zA-Z0-9_-]/g, ""); }
-
-  /* ── topbar ── */
-  var tb = document.getElementById("topbar");
-  var dot = el("span", "live-dot" + (LIVE ? "" : " off"), LIVE ? "● LIVE" : (M.status === "ENDED" ? "ENDED" : "STANDBY"));
-  tb.appendChild(dot);
-  tb.appendChild(el("span", "sess", M.session || ""));
-  tb.appendChild(el("span", "grow"));
-  tb.appendChild(el("span", null, "Bots online: ")).appendChild(el("b", "num", (window.GG_SCOREBOARD && firstStat("Bots online")) || "—"));
-  tb.appendChild(el("span", null, "Watching: ")).appendChild(el("b", "num", M.viewers || "—"));
-  tb.appendChild(el("span", null, "Updated: ")).appendChild(el("b", null, M.updated || "—"));
-
   function firstStat(label) {
     var s = window.GG_SCOREBOARD && window.GG_SCOREBOARD.stats || [];
     for (var i = 0; i < s.length; i++) if (s[i].label === label) return s[i].value;
     return null;
   }
-
-  /* ── header meta ── */
-  document.getElementById("meta-day").textContent = M.day || "";
-  document.getElementById("meta-updated").textContent = M.updated || "—";
-  document.getElementById("meta-stream").href = M.stream || "#";
-  document.title = (LIVE ? "🔴 " : "") + "Grok Bot Galaxy — Live Commentary";
-
-  /* ── ticker ── */
-  var tick = "LATEST — ";
-  if (E[0]) tick += E[0].t + ": " + E[0].title + "  •  ";
-  var deltas = (window.GG_SCOREBOARD && window.GG_SCOREBOARD.deltas) || [];
-  if (deltas.length) tick += " CHANGED — " + deltas.join("  •  ") + "  •  ";
-  tick += " Session: " + (M.session || "—") + "  •  Viewers: " + (M.viewers || "—") + "  •  ";
-  document.getElementById("ticker-text").textContent = tick;
-
-  /* ── moment banner ── */
-  var moment = window.GG_MOMENT, mEl = document.getElementById("moment");
-  if (moment) {
-    var m = el("div", "moment"), mi = el("div", "in");
-    var ml = el("div", "lbl");
-    ml.appendChild(el("span", null, "⚡ On screen now — the moment"));
-    mi.appendChild(ml);
-    mi.appendChild(el("div", "txt", moment));
-    var ms = el("div", "share");
-    var sa = el("a", null, "Post this moment ↗");
-    sa.href = xIntent(moment); sa.target = "_blank"; sa.rel = "noopener";
-    ms.appendChild(sa);
-    mi.appendChild(ms);
-    m.appendChild(mi);
-    mEl.appendChild(m);
-  }
-
-  /* ── scoreboard ── */
-  var B = window.GG_SCOREBOARD, board = document.getElementById("board");
-  if (B) {
-    var b = el("div", "board");
-    var bt = el("div", "board-title");
-    bt.appendChild(el("span", null, "▦ Scoreboard — state of the demo company"));
-    bt.appendChild(el("span", "upd", "session: " + (M.session || "—")));
-    b.appendChild(bt);
-    var tiles = el("div", "tiles");
-    (B.stats || []).forEach(function (s) {
-      var t = el("div", "tile" + (s.wide ? " wide" : ""));
-      t.appendChild(el("div", "l", s.label));
-      t.appendChild(el("div", "v", s.value));
-      if (s.sub) t.appendChild(el("div", "s", s.sub));
-      tiles.appendChild(t);
-    });
-    b.appendChild(tiles);
-    if ((B.deltas || []).length) {
-      var dl = el("div", "deltas");
-      dl.appendChild(el("span", null, "Changed recently: "));
-      B.deltas.forEach(function (d) { dl.appendChild(el("span", "chip", d)); });
-      b.appendChild(dl);
-    }
-    board.appendChild(b);
-  }
-
-  /* ── primer ── */
-  var P = window.GG_PRIMER, pb = document.getElementById("primer-body");
-  if (P) {
-    [["The event: ", P.event], ["The company being built: ", P.company],
-     ["Where things stand: ", P.sofar], ["What's next: ", P.watchfor]].forEach(function (pair) {
-      if (!pair[1]) return;
-      var p = el("p");
-      p.appendChild(el("b", null, pair[0]));
-      p.appendChild(document.createTextNode(pair[1]));
-      pb.appendChild(p);
-    });
-  } else {
-    document.getElementById("primer").open = false;
-  }
-
-  /* ── entry builders ── */
-  function entryShell(e, i) {
-    var d = el("div", "entry e-" + e.type + (i === 0 ? " fresh" : ""));
-    d.id = anchorId(e.id);
-    var top = el("div", "entry-top");
-    top.appendChild(el("span", "etype", typeLabel(e.type)));
-    top.appendChild(el("span", "time", e.t));
-    (e.tags || []).forEach(function (tg) {
-      top.appendChild(el("span", "etag etag-" + (KNOWN_TAGS[tg] ? tg : "OTHER"), tg));
-    });
-    var pl = el("a", "permalink", "#");
-    pl.href = "#" + anchorId(e.id);
-    pl.title = "Permalink";
-    top.appendChild(pl);
-    d.appendChild(top);
-    return d;
-  }
-  var KNOWN_TAGS = { REVENUE:1, PRODUCT:1, FLEET:1, KEYNOTE:1, CHAT:1, MILESTONE:1, HOLD:1 };
-  var TYPE_LABELS = { PBP:"Play-by-play", MOMENT:"Moment", WHY:"Why it matters", LENSES:"Audience lenses", QUOTE:"Pull-quote", DELTA:"Scoreboard delta" };
   function typeLabel(t) { return TYPE_LABELS[t] || "Update"; }
-
-  function addLenses(d, lenses) {
-    if (!lenses) return;
-    var order = [["casual","🧢 Casual","Ask me anything"],["builder","🛠 Builder","For the build crowd"],["investor","💼 Investor","Money angle"],["skeptic","🤨 Skeptic","Strongest honest objection"]];
-    var bar = el("div", "lensbar"), panel = el("div", "lenspanel"), current = null;
-    function pick(key, label, who) {
-      if (!lenses[key]) return;
-      current = current || { key: key, label: label, who: who };
-      var btn = el("button", null, label);
-      btn.addEventListener("click", function () {
-        panel.innerHTML = "";
-        var w = el("span", "who", who); w.style.color = lensColor(key);
-        panel.appendChild(w);
-        panel.appendChild(document.createTextNode(lenses[key]));
-        [].forEach.call(bar.children, function (b2) { b2.className = ""; });
-        btn.className = "on-" + key;
-      });
-      btn.dataset.key = key;
-      bar.appendChild(btn);
-    }
-    order.forEach(function (o) { pick(o[0], o[1], o[2]); });
-    d.appendChild(bar);
-    d.appendChild(panel);
-    if (current && bar.children[0]) bar.children[0].click();
-  }
   function lensColor(key) {
     return { casual:"#4fc3f7", builder:"#b39dff", investor:"#ffc857", skeptic:"#ff2d78" }[key] || "var(--muted)";
   }
 
-  function addQuote(d, q) {
-    if (!q || !q.text) return;
-    var qc = el("div", "qcard");
-    qc.appendChild(el("div", "qt", q.text));
-    if (q.who) qc.appendChild(el("div", "qw", q.who));
-    d.appendChild(qc);
-  }
+  function render() {
+    var M = window.GG_META || {}, E = window.GG_ENTRIES || [];
+    var LIVE = M.status === "LIVE";
+    document.title = (LIVE ? "🔴 " : "") + "Grok Bot Galaxy — Live Commentary";
 
-  function addDelta(d, rows) {
-    if (!rows || !rows.length) return;
-    rows.forEach(function (r) {
-      var row = el("div", "drow");
-      row.appendChild(el("span", "dl", r.label || ""));
-      row.appendChild(el("span", "from", r.from != null ? String(r.from) : ""));
-      row.appendChild(el("span", "arr", "→"));
-      row.appendChild(el("span", "to", r.to != null ? String(r.to) : ""));
-      d.appendChild(row);
+    /* topbar */
+    var tb = document.getElementById("topbar");
+    tb.innerHTML = "";
+    tb.appendChild(el("span", "live-dot" + (LIVE ? "" : " off"), LIVE ? "● LIVE" : (M.status === "ENDED" ? "ENDED" : "STANDBY")));
+    tb.appendChild(el("span", "sess", M.session || ""));
+    tb.appendChild(el("span", "grow"));
+    tb.appendChild(el("span", null, "Bots online: ")).appendChild(el("b", "num", firstStat("Bots online") || "—"));
+    tb.appendChild(el("span", null, "Watching: ")).appendChild(el("b", "num", M.viewers || "—"));
+    tb.appendChild(el("span", null, "Updated: ")).appendChild(el("b", null, M.updated || "—"));
+
+    /* header */
+    document.getElementById("meta-day").textContent = M.day || "";
+    var upd = document.getElementById("meta-updated");
+    upd.textContent = M.updated || "—";
+    upd.classList.remove("flash"); void upd.offsetWidth; upd.classList.add("flash");
+    document.getElementById("meta-stream").href = M.stream || "#";
+
+    /* ticker */
+    var tick = "LATEST — ";
+    if (E[0]) tick += E[0].t + ": " + E[0].title + "  •  ";
+    var deltas = (window.GG_SCOREBOARD && window.GG_SCOREBOARD.deltas) || [];
+    if (deltas.length) tick += " CHANGED — " + deltas.join("  •  ") + "  •  ";
+    tick += " Session: " + (M.session || "—") + "  •  Viewers: " + (M.viewers || "—") + "  •  ";
+    document.getElementById("ticker-text").textContent = tick;
+
+    /* moment */
+    var moment = window.GG_MOMENT, mEl = document.getElementById("moment");
+    mEl.innerHTML = "";
+    if (moment) {
+      var m = el("div", "moment"), mi = el("div", "in");
+      var ml = el("div", "lbl");
+      ml.appendChild(el("span", null, "⚡ On screen now — the moment"));
+      mi.appendChild(ml);
+      mi.appendChild(el("div", "txt", moment));
+      var ms = el("div", "share");
+      var sa = el("a", null, "Post this moment ↗");
+      sa.href = xIntent(moment); sa.target = "_blank"; sa.rel = "noopener";
+      ms.appendChild(sa);
+      mi.appendChild(ms);
+      m.appendChild(mi);
+      mEl.appendChild(m);
+    }
+
+    /* scoreboard */
+    var B = window.GG_SCOREBOARD, board = document.getElementById("board");
+    board.innerHTML = "";
+    if (B) {
+      var b = el("div", "board");
+      var bt = el("div", "board-title");
+      bt.appendChild(el("span", null, "▦ Scoreboard — state of the demo company"));
+      bt.appendChild(el("span", "upd", "session: " + (M.session || "—")));
+      b.appendChild(bt);
+      var tiles = el("div", "tiles");
+      (B.stats || []).forEach(function (s) {
+        var t = el("div", "tile" + (s.wide ? " wide" : ""));
+        t.appendChild(el("div", "l", s.label));
+        t.appendChild(el("div", "v", s.value));
+        if (s.sub) t.appendChild(el("div", "s", s.sub));
+        tiles.appendChild(t);
+      });
+      b.appendChild(tiles);
+      if ((B.deltas || []).length) {
+        var dl = el("div", "deltas");
+        dl.appendChild(el("span", null, "Changed recently: "));
+        B.deltas.forEach(function (d) { dl.appendChild(el("span", "chip", d)); });
+        b.appendChild(dl);
+      }
+      board.appendChild(b);
+    }
+
+    /* primer */
+    var P = window.GG_PRIMER, pb = document.getElementById("primer-body");
+    pb.innerHTML = "";
+    if (P) {
+      [["The event: ", P.event], ["The company being built: ", P.company],
+       ["Where things stand: ", P.sofar], ["What's next: ", P.watchfor]].forEach(function (pair) {
+        if (!pair[1]) return;
+        var p = el("p");
+        p.appendChild(el("b", null, pair[0]));
+        p.appendChild(document.createTextNode(pair[1]));
+        pb.appendChild(p);
+      });
+    }
+
+    /* feed */
+    var feed = document.getElementById("feed");
+    var scrollTop = window.scrollY;
+    feed.innerHTML = "";
+    var lastDay = null;
+    E.forEach(function (e, i) {
+      if (e.day !== lastDay) {
+        lastDay = e.day;
+        feed.appendChild(el("div", "day-head", "Day " + e.day + (DAY_NAMES[e.day] ? " — " + DAY_NAMES[e.day] : "") + " · newest first"));
+      }
+      var d = el("div", "entry e-" + e.type + (i === 0 ? " fresh" : ""));
+      d.id = anchorId(e.id);
+      var top = el("div", "entry-top");
+      top.appendChild(el("span", "etype", typeLabel(e.type)));
+      top.appendChild(el("span", "time", e.t));
+      (e.tags || []).forEach(function (tg) {
+        top.appendChild(el("span", "etag etag-" + (KNOWN_TAGS[tg] ? tg : "OTHER"), tg));
+      });
+      var pl = el("a", "permalink", "#");
+      pl.href = "#" + anchorId(e.id);
+      pl.title = "Permalink";
+      top.appendChild(pl);
+      d.appendChild(top);
+      if (e.type === "QUOTE") {
+        var q = e.quote;
+        if (q && q.text) {
+          var qc = el("div", "qcard");
+          qc.appendChild(el("div", "qt", q.text));
+          if (q.who) qc.appendChild(el("div", "qw", q.who));
+          d.appendChild(qc);
+        }
+      } else {
+        if (e.title) d.appendChild(el("h2", null, e.title));
+        if (e.body) d.appendChild(el("div", "body", e.body));
+      }
+      if (e.delta && e.delta.length) {
+        e.delta.forEach(function (r) {
+          var row = el("div", "drow");
+          row.appendChild(el("span", "dl", r.label || ""));
+          row.appendChild(el("span", "from", r.from != null ? String(r.from) : ""));
+          row.appendChild(el("span", "arr", "→"));
+          row.appendChild(el("span", "to", r.to != null ? String(r.to) : ""));
+          d.appendChild(row);
+        });
+      }
+      if (e.lenses) {
+        var lenses = e.lenses;
+        var order = [["casual","🧢 Casual","Ask me anything"],["builder","🛠 Builder","For the build crowd"],["investor","💼 Investor","Money angle"],["skeptic","🤨 Skeptic","Strongest honest objection"]];
+        var bar = el("div", "lensbar"), panel = el("div", "lenspanel"), picked = null;
+        function pick(key, label, who) {
+          if (!lenses[key]) return;
+          picked = picked || { key: key, label: label, who: who };
+          var btn = el("button", null, label);
+          btn.addEventListener("click", function () {
+            panel.innerHTML = "";
+            var w = el("span", "who", who); w.style.color = lensColor(key);
+            panel.appendChild(w);
+            panel.appendChild(document.createTextNode(lenses[key]));
+            [].forEach.call(bar.children, function (b2) { b2.className = ""; });
+            btn.className = "on-" + key;
+          });
+          bar.appendChild(btn);
+        }
+        order.forEach(function (o) { pick(o[0], o[1], o[2]); });
+        d.appendChild(bar);
+        d.appendChild(panel);
+        if (picked && bar.children[0]) bar.children[0].click();
+      }
+      if (e.quote && e.type !== "QUOTE") {
+        var q2 = e.quote;
+        var qc2 = el("div", "qcard");
+        qc2.appendChild(el("div", "qt", q2.text));
+        if (q2.who) qc2.appendChild(el("div", "qw", q2.who));
+        d.appendChild(qc2);
+      }
+      feed.appendChild(d);
     });
+    if (!E.length) feed.appendChild(el("p", null, "No entries yet — standby."));
+    window.scrollTo(0, scrollTop);
   }
 
-  /* ── feed ── */
-  var feed = document.getElementById("feed");
-  var DAY_NAMES = { 1: "Tue Sep 15, 2026", 2: "Wed Sep 16, 2026", 3: "Thu Sep 17, 2026" };
-  var lastDay = null;
-  E.forEach(function (e, i) {
-    if (e.day !== lastDay) {
-      lastDay = e.day;
-      feed.appendChild(el("div", "day-head", "Day " + e.day + (DAY_NAMES[e.day] ? " — " + DAY_NAMES[e.day] : "") + " · newest first"));
+  function setData(text) {
+    /* data.js assigns window.GG_*; evaluate freshly fetched source */
+    try { (new Function(text))(); return true; }
+    catch (err) { return false; }
+  }
+
+  function connLine(ok, msg) {
+    var c = document.getElementById("conn");
+    if (!c) {
+      c = el("div", "conn", "");
+      c.id = "conn";
+      document.getElementById("meta-refresh-note").parentNode.appendChild(c);
     }
-    var d = entryShell(e, i);
-    if (e.type === "QUOTE") {
-      addQuote(d, e.quote);
-    } else {
-      if (e.title) d.appendChild(el("h2", null, e.title));
-      if (e.body) d.appendChild(el("div", "body", e.body));
-    }
-    addDelta(d, e.delta);
-    addLenses(d, e.lenses);
-    addQuote(d, e.quote);
-    feed.appendChild(d);
-  });
-  if (!E.length) feed.appendChild(el("p", null, "No entries yet — standby."));
+    c.className = "conn" + (ok ? " ok" : "");
+    c.textContent = msg;
+  }
+
+  function pull() {
+    fetch("data.js?cb=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+      .then(function (text) {
+        if (setData(text)) {
+          render();
+          connLine(true, "● live link ok — last checked " + new Date().toLocaleTimeString());
+        } else {
+          connLine(false, "data error — will retry in 30s");
+        }
+      })
+      .catch(function () { connLine(false, "reconnecting…"); });
+  }
+
+  /* static script src for the very first paint, then no-store polling */
+  var s = document.createElement("script");
+  s.src = "data.js";
+  s.onload = function () { render(); pull(); timer = setInterval(pull, 30000); };
+  s.onerror = function () { connLine(false, "waiting for data…"); timer = setInterval(pull, 10000); };
+  document.head.appendChild(s);
 })();
 </script>
 </body>
