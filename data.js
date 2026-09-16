@@ -60,10 +60,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Build resumes — whiteboard planning at the table",
+  session: "Day 1 close — guest interview full screen",
   viewers: "1M",
-  onAir: "8h 30m",
-  updated: "5:22 PM PT",
+  onAir: "8h 45m",
+  updated: "5:35 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
@@ -98,6 +98,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d1-1735",
+    t: "5:35 PM PT",
+    day: 1,
+    type: "WHY",
+    tags: ["MILESTONE"],
+    title: "Fact check: the company is a travel business. Recaps calling it a 'restaurant ops agent' do not match the stream",
+    body: "AI-generated recaps circulating today describe the demo company as a restaurant back-office agent that syncs menus across delivery apps and recovers chargebacks. The stream's own artifacts say otherwise. Everything the bots built this afternoon points the same way: a family-bookings dashboard, a 'Pine Cabins' winter pricing RFC, a deployed cabins site, glider-flight revenue numbers, and an SEO plan targeting 'Weekend Pilot' searches. A restaurant scenario may well have appeared in the morning Engineering session (12:30 to 2:00), which this page did not cover. Until someone produces that footage, weight the stream over the summaries."
+  },
   {
     id: "d1-1650",
     t: "4:50 PM PT",
