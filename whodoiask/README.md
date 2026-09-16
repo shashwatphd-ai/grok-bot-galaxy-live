@@ -13,6 +13,7 @@ Built during Day 1 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), ahead 
 - **Routing rules** — editable: a situation label, comma-separated trigger words, an owner picked from the crew, and the because-sentence. Rules whose owner vanished (crew changed, agent archived) are flagged and can't silently misroute.
 - **Fallback with honesty** — when no rule matches, a deterministic role-and-memory lexicon proposes a best guess and says, plainly, that it's a guess: holes are cheaper to fix at 2 PM than at the next escalation.
 - **The crew** — imported roster chips (CrewChart's exact agent shape: name, role, color/shape avatar, scoped memory, archived alumni stay visible but take no routing).
+- **Presets** — three crews, each defined as literal CrewChart-format JSON so the import path is the demo: **Support Desk Co.** (Day 2's sales/support org, routed), **Venue Ops Co.** (an event-venue team: catering → kitchen lead, booking changes → front desk, flight activity waivers → activities lead, refunds → manager), and **Glider Co.** (the stream's flights).
 - **"When in doubt, ask"** — a default agent for everything the sheet doesn't cover, in the UI and in every export.
 - **Exports** — markdown cheat-sheet (rules table + crew list) with Copy and Download.
 - **Zero setup** — one HTML file, no dependencies, no backend, no network calls, works straight from `file://`. Autosaves to localStorage as you type.
