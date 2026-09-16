@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhoDoIAsk — the routing cheat-sheet for your agent crew</title>
+<meta name="description" content="An offline, single-file routing cheat-sheet for agent teams: paste a CrewChart team spec, edit situation-to-agent routing rules, and get a lookup desk plus a paste-able cheat-sheet.">
+<style>
+  /* ============================================================
+     WhoDoIAsk — theme
+     Same dark "live event slide" family look as CrewChart/MenuForge.
+     System fonts, no dependencies, no network.
+     ============================================================ */
+  :root {
+    --bg: #0d1017;
+    --bg-soft: #12161f;
+    --panel: #171c27;
+    --panel-2: #1d2330;
+    --line: #2a3142;
+    --text: #e8ecf4;
+    --muted: #97a0b3;
+    --faint: #6b7488;
+    --accent: #2fbfb3;
+    --accent-soft: rgba(47, 191, 179, 0.14);
+    --green: #3fbf7f;
+    --amber: #f2b13d;
+    --red: #f6543f;
+    --purple: #7c6cf6;
+    --radius: 14px;
+    --radius-sm: 9px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(47,191,179,0.13), transparent 60%),
+      radial-gradient(700px 420px at -10% 15%, rgba(124,108,246,0.09), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+  ::placeholder { color: var(--faint); }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(13, 16, 23, 0.78);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: 6px; }
+  .brand .logo {
+    width: 34px; height: 34px; flex: none;
+    background: var(--accent);
+    border-radius: 46% 54% 52% 48% / 55% 45% 55% 45%;
+    box-shadow: 0 0 18px rgba(47,191,179,0.45);
+  }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+  .brand .tag { font-size: 12px; color: var(--muted); margin-top: 1px; }
+  .spacer { flex: 1; }
+  .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+  button, select {
+    font: inherit;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 7px 13px;
+    cursor: pointer;
+  }
+  button:hover, select:hover { border-color: var(--accent); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #06211f; font-weight: 600; }
+  button.primary:hover { filter: brightness(1.08); }
+  button.ghost { background: transparent; }
+  button:disabled { opacity: 0.45; cursor: default; }
+
+  /* ---------- layout ---------- */
+  main { max-width: 1060px; margin: 0 auto; padding: 10px 22px 30px; }
+  section { margin-top: 26px; }
+  .section-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .section-head h2 { font-size: 15px; margin: 0; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); }
+  .section-head .hint { font-size: 12.5px; color: var(--faint); flex: 1; min-width: 220px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+
+  /* ---------- the desk (lookup) ---------- */
+  #deskInput {
+    width: 100%;
+    font: inherit;
+    font-size: 17px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    outline: none;
+  }
+  #deskInput:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  #deskDefault { margin: 8px 2px 0; font-size: 12.5px; color: var(--faint); }
+  #deskDefault b { color: var(--muted); font-weight: 600; }
+
+  .desk-card {
+    margin-top: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 15px 17px;
+  }
+  .desk-kicker { font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .desk-kicker .kw { color: var(--accent); }
+  .desk-route { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+  .desk-route .arrow { color: var(--accent); }
+  .desk-role { font-size: 12.5px; font-weight: 500; color: var(--bg); background: var(--accent); border-radius: 999px; padding: 2px 10px; }
+  .desk-why { margin-top: 7px; color: var(--muted); font-size: 14px; }
+  .desk-alt { margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--faint); }
+  .desk-alt b { color: var(--muted); }
+  .desk-card.warn { border-left-color: var(--amber); }
+  .desk-card.hole { border-left-color: var(--red); }
+  .desk-note { margin-top: 10px; font-size: 13.5px; color: var(--faint); }
+  .desk-note b { color: var(--muted); }
+
+  .glance { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .glance button {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--muted);
+  }
+  .glance button:hover { color: var(--text); border-color: var(--accent); }
+
+  /* ---------- cheat-sheet ---------- */
+  #sheetGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+  .sheet-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .sheet-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .sheet-sit { font-weight: 650; font-size: 14.5px; }
+  .sheet-agent { display: flex; align-items: center; gap: 8px; margin: 8px 0 6px; font-size: 14.5px; }
+  .sheet-agent .arrow { color: var(--accent); font-weight: 700; }
+  .sheet-agent .role { font-size: 11.5px; color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; padding: 1px 8px; }
+  .sheet-why { font-size: 13px; color: var(--muted); }
+  .sheet-trig { margin-top: 8px; font-size: 11.5px; color: var(--faint); }
+  .sheet-card .noowner { color: var(--amber); font-size: 13px; }
+
+  .empty {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+    color: var(--faint);
+    font-size: 13.5px;
+    text-align: center;
+  }
+
+  /* ---------- rules editor ---------- */
+  .rules-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .rules-top .doubt { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .rules-top select { font-size: 13px; padding: 5px 9px; }
+  .rule {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 36px;
+    grid-template-areas: "label agent del" "words why del";
+    gap: 8px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .rule.noowner { border-left: 3px solid var(--amber); }
+  .rule input, .rule select {
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--text);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    outline: none;
+    width: 100%;
+  }
+  .rule input:focus, .rule select:focus { border-color: var(--accent); }
+  .rule .f-label { grid-area: label; }
+  .rule .f-agent { grid-area: agent; }
+  .rule .f-words { grid-area: words; }
+  .rule .f-why { grid-area: why; }
+  .rule .f-del {
+    grid-area: del;
+    align-self: start;
+    justify-self: end;
+    background: transparent;
+    border: none;
+    color: var(--faint);
+    font-size: 15px;
+    padding: 4px 8px;
+  }
+  .rule .f-del:hover { color: var(--red); }
+  #addRuleBtn { margin-top: 2px; }
+
+  /* ---------- crew ---------- */
+  #crewChips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px 6px 7px;
+    max-width: 100%;
+  }
+  .chip .who { line-height: 1.15; }
+  .chip .who .nm { font-size: 13.5px; font-weight: 600; }
+  .chip .who .rl { font-size: 11.5px; color: var(--muted); }
+  .chip.archived { opacity: 0.5; filter: grayscale(0.8); }
+  .chip .stamp { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; }
+
+  /* avatars — same shape family as CrewChart */
+  .avatar { width: 26px; height: 26px; flex: none; display: inline-block; }
+  .av-purple { background: #7c6cf6; } .av-green { background: #3fbf7f; }
+  .av-pink { background: #f66db3; }  .av-orange { background: #f6993f; }
+  .av-teal { background: #2fbfb3; }  .av-blue { background: #4f7df6; }
+  .av-brown { background: #a07850; } .av-red { background: #f6543f; }
+  .av-gray { background: #8a93a3; }
+  .sh-blob { border-radius: 46% 54% 52% 48% / 55% 45% 55% 45%; }
+  .sh-cloud { border-radius: 60% 40% 55% 45% / 55% 62% 38% 45%; }
+  .sh-round { border-radius: 50%; }
+  .sh-squircle { border-radius: 30%; }
+  .sh-hex { clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%); }
+  .sh-diamond { clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+
+  /* ---------- dialogs & toast ---------- */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(5, 7, 11, 0.72);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 50;
+    padding: 20px;
+  }
+  .overlay.open { display: flex; }
+  .dialog {
+    width: min(680px, 100%);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .dialog h3 { margin: 0 0 4px; font-size: 15px; }
+  .dialog .sub { font-size: 12.5px; color: var(--faint); margin-bottom: 12px; }
+  .dialog textarea {
+    width: 100%;
+    height: 200px;
+    font: 12.5px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--text);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    outline: none;
+    resize: vertical;
+  }
+  .dialog .row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; align-items: center; }
+  .dialog .msg { font-size: 13px; margin-left: auto; }
+  .dialog .msg.ok { color: var(--green); }
+  .dialog .msg.err { color: var(--red); }
+  #toast {
+    position: fixed;
+    left: 50%; bottom: 26px;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 9px 18px;
+    font-size: 13.5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 60;
+    max-width: 90vw;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 18px 22px 34px;
+    color: var(--faint);
+    font-size: 12.5px;
+    border-top: 1px solid var(--line);
+  }
+  footer b { color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .rule { grid-template-columns: 1fr 1fr; grid-template-areas: "label label" "agent agent" "words why" "del del"; }
+    .rule .f-del { justify-self: start; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"></div>
+    <div>
+      <h1>WhoDoIAsk</h1>
+      <div class="tag">The routing cheat-sheet for the crew you already have.</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="toolbar">
+    <select id="presetSelect" aria-label="Load a preset crew">
+      <option value="">Load a preset crew…</option>
+      <option value="support">Support Desk Co. (Day 2)</option>
+      <option value="glider">Glider Co. (stream homage)</option>
+    </select>
+    <button id="importBtn" class="ghost" type="button" title="Import a CrewChart JSON spec (or a WhoDoIAsk backup)">Import JSON</button>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>
+    <button id="pasteBtn" class="ghost" type="button" title="Paste a CrewChart JSON spec straight from your clipboard">Paste JSON</button>
+    <button id="newBtn" class="ghost" type="button" title="Start from a blank sheet">New sheet</button>
+    <button id="exportBtn" class="primary" type="button" title="Copy or download the routing cheat-sheet as markdown">Export cheat-sheet</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============ THE DESK ============ -->
+  <section aria-labelledby="desk-h">
+    <div class="section-head">
+      <h2 id="desk-h">The desk</h2>
+      <span class="hint">Type the situation as it actually arrives — "customer angry about billing", "demo environment is down", "prospect wants a POC". The desk answers who gets it, and why.</span>
+    </div>
+    <input id="deskInput" type="text" autocomplete="off" spellcheck="false"
+           placeholder="Try: customer angry about billing" aria-label="Describe the situation">
+    <div id="deskDefault"></div>
+    <div id="deskResults" aria-live="polite"></div>
+  </section>
+
+  <!-- ============ THE CHEAT-SHEET ============ -->
+  <section aria-labelledby="sheet-h">
+    <div class="section-head">
+      <h2 id="sheet-h">The cheat-sheet</h2>
+      <span class="hint">Your routing rules, rendered as the page you wish you'd had. Click any card to run it through the desk. This is what the export copies.</span>
+    </div>
+    <div id="sheetGrid"></div>
+  </section>
+
+  <!-- ============ ROUTING RULES ============ -->
+  <section aria-labelledby="rules-h">
+    <div class="section-head">
+      <h2 id="rules-h">Routing rules</h2>
+      <span class="hint">Situation triggers → who gets it → why. Keep the "why" honest; that sentence is what turns a lookup table into judgment.</span>
+    </div>
+    <div class="rules-top">
+      <button id="addRuleBtn" type="button">+ Add rule</button>
+      <span class="doubt">When in doubt, ask:
+        <select id="defaultSelect" aria-label="Default agent when nothing matches"></select>
+      </span>
+    </div>
+    <div id="rulesList"></div>
+  </section>
+
+  <!-- ============ THE CREW ============ -->
+  <section aria-labelledby="crew-h">
+    <div class="section-head">
+      <h2 id="crew-h">The crew</h2>
+      <span class="hint" id="crewNote">Pick a preset, or import a CrewChart JSON spec — same shape CrewChart exports. Tasks and price menus stay in CrewChart; routing lives here.</span>
+    </div>
+    <div id="crewChips"></div>
+  </section>
+</main>
+
+<footer>
+  Runs entirely in your browser. Nothing leaves this file — no network, no accounts, no sync.
+  Your crew roster autosaves to localStorage; the <b>Export cheat-sheet</b> markdown is the handoff.
+  A companion to <b>CrewChart</b> (design the crew) and <b>MenuForge</b> (price what they deliver).
+</footer>
+
+<!-- ============ PASTE DIALOG ============ -->
+<div class="overlay" id="pasteDialog" role="dialog" aria-modal="true" aria-labelledby="pasteTitle">
+  <div class="dialog">
+    <h3 id="pasteTitle">Paste a team spec</h3>
+    <div class="sub">Accepts a CrewChart export (format "crewchart" — v1 or v2) or a WhoDoIAsk backup (format "whodoiask"). Ctrl+A the JSON file, paste, apply.</div>
+    <textarea id="pasteArea" spellcheck="false" placeholder='{ "format": "crewchart", "version": 2, "team": "...", "agents": [ … ] }'></textarea>
+    <div class="row">
+      <button id="pasteApply" class="primary" type="button">Apply</button>
+      <button id="pasteClose" class="ghost" type="button">Close</button>
+      <span id="pasteMsg" class="msg"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EXPORT DIALOG ============ -->
+<div class="overlay" id="exportDialog" role="dialog" aria-modal="true" aria-labelledby="exportTitle">
+  <div class="dialog">
+    <h3 id="exportTitle">The cheat-sheet, as markdown</h3>
+    <div class="sub">Paste it into your team wiki, the agent platform's instructions field, or the on-call doc. That last one is the point.</div>
+    <textarea id="exportArea" readonly spellcheck="false"></textarea>
+    <div class="row">
+      <button id="exportCopy" class="primary" type="button">Copy</button>
+      <button id="exportDownload" type="button">Download .md</button>
+      <button id="exportClose" class="ghost" type="button">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script>
+/* ============================================================
+   WhoDoIAsk — logic
+   Single-file, offline, localStorage only. ES5-style, no deps.
+
+   State (localStorage key "whodoiask.v1"):
+     {
+       format: "whodoiask", version: 1,
+       team: "Support Desk Co.",
+       agents: [ same shape as CrewChart spec v2 agents:
+                 { id, name, role, color, shape, memory, reportsTo, status } ],
+       rules: [ { id, label, words: "comma,separated,triggers",
+                  agentId, why } ],
+       defaultAgentId: "a-…"   // the "when in doubt, ask" pick
+     }
+   Import accepts: full WhoDoIAsk backups, CrewChart exports
+   (v1 or v2 — tasks/offers are noted and ignored), or any
+   { team, agents: [...] } that quacks like a crew.
+   ============================================================ */
+
+var STORAGE_KEY = "whodoiask.v1";
+
+/* Fallback lexicon — used when no rule matches a query. Each category
+   holds the words that signal it; an agent becomes the guess when their
+   name/role/memory text contains any of those words. Same philosophy as
+   CrewChart's delegate palette: deterministic, offline, proposes only. */
+var ROUTE_LEXICON = [
+  { cat: "money",      words: ["billing", "invoice", "refund", "charge", "overcharg", "payment", "proration", "dunning", "receipt", "subscription"] },
+  { cat: "technical",  words: ["api", "integration", "webhook", "sdk", "bug", "error", "broken", "technical", "feasib", "poc", "sandbox", "security", "sso", "evaluat", "deploy"] },
+  { cat: "selling",    words: ["pricing", "quote", "discount", "contract", "procurement", "proposal", "outbound", "cold", "prospect", "lead", "pipeline", "demo"] },
+  { cat: "support",    words: ["stuck", "not working", "how do i", "login", "password", "locked", "ticket", "onboarding", "help", "reset"] },
+  { cat: "analytics",  words: ["metric", "csat", "churn", "report", "dashboard", "stats", "data", "trend", "nps", "retention", "funnel"] },
+  { cat: "coordination", words: ["escalat", "urgent", "manager", "complaint", "emergency", "who owns", "schedule", "priorit", "process"] }
+];
+
+var COLORS = ["purple", "green", "pink", "orange", "teal", "blue", "brown", "red", "gray"];
+var SHAPES = ["blob", "cloud", "round", "squircle", "hex", "diamond"];
+
+/* ---------------- state ---------------- */
+
+var state = null;
+var saveTimer = null;
+
+function uid(prefix) {
+  return prefix + "-" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-4);
+}
+
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function rx(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function cap(s, n) {
+  s = String(s == null ? "" : s);
+  return s.length > n ? s.slice(0, n) : s;
+}
+
+function blankState() {
+  return { format: "whodoiask", version: 1, team: "My Company", agents: [], rules: [], defaultAgentId: "" };
+}
+
+function makeAgent(over) {
+  var a = {
+    id: over.id || uid("a"),
+    name: cap(over.name, 60),
+    role: cap(over.role, 80),
+    color: COLORS.indexOf(over.color) >= 0 ? over.color : "purple",
+    shape: SHAPES.indexOf(over.shape) >= 0 ? over.shape : "blob",
+    memory: cap(over.memory, 240),
+    reportsTo: over.reportsTo || "",
+    status: over.status === "archived" ? "archived" : "active"
+  };
+  return a;
+}
+
+function safeId(raw, taken) {
+  var id = String(raw == null ? "" : raw).replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40);
+  if (!id) { id = uid("a"); }
+  while (taken[id]) { id = id + "-" + Math.random().toString(36).slice(2, 6); }
+  return id;
+}
+
+/* Validate a full WhoDoIAsk-shaped object into clean state. */
+function sanitizeState(obj) {
+  var s = blankState();
+  if (obj && typeof obj === "object") {
+    if (typeof obj.team === "string" && obj.team.trim()) { s.team = cap(obj.team.trim(), 80); }
+    var ids = {};
+    (Array.isArray(obj.agents) ? obj.agents : []).slice(0, 60).forEach(function (a) {
+      if (!a || typeof a !== "object") { return; }
+      var ag = makeAgent({
+        id: safeId(typeof a.id === "string" ? a.id : "", ids),
+        name: typeof a.name === "string" ? a.name : "",
+        role: typeof a.role === "string" ? a.role : "",
+        color: a.color, shape: a.shape,
+        memory: typeof a.memory === "string" ? a.memory : "",
+        reportsTo: typeof a.reportsTo === "string" ? a.reportsTo : "",
+        status: a.status
+      });
+      ids[ag.id] = true;
+      s.agents.push(ag);
+    });
+    (Array.isArray(obj.rules) ? obj.rules : []).slice(0, 120).forEach(function (r) {
+      if (!r || typeof r !== "object") { return; }
+      s.rules.push({
+        id: safeId(typeof r.id === "string" ? r.id : "", ids).replace(/^a-/, "r-"),
+        label: cap(typeof r.label === "string" ? r.label : "", 80),
+        words: cap(typeof r.words === "string" ? r.words : "", 240),
+        agentId: (typeof r.agentId === "string" && ids[r.agentId]) ? r.agentId : "",
+        why: cap(typeof r.why === "string" ? r.why : "", 240)
+      });
+    });
+    if (typeof obj.defaultAgentId === "string" && ids[obj.defaultAgentId]) { s.defaultAgentId = obj.defaultAgentId; }
+  }
+  return s;
+}
+
+/* Extract a crew (team + agents) from a CrewChart-style object.
+   Returns { team, agents, ignoredTasks, ignoredOffers } or null. */
+function extractCrew(obj) {
+  if (!obj || typeof obj !== "object" || !Array.isArray(obj.agents)) { return null; }
+  var clean = sanitizeState(obj);
+  if (!clean.agents.length) { return null; }
+  return {
+    team: clean.team === "My Company" ? "Imported crew" : clean.team,
+    agents: clean.agents,
+    ignoredTasks: Array.isArray(obj.tasks) ? obj.tasks.length : 0,
+    ignoredOffers: Array.isArray(obj.offers) ? obj.offers.length : 0
+  };
+}
+
+function save() {
+  if (saveTimer) { clearTimeout(saveTimer); }
+  saveTimer = setTimeout(function () {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    catch (e) { toast("Couldn't save to localStorage — export before you close."); }
+  }, 250);
+}
+
+function load() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) { return sanitizeState(JSON.parse(raw)); }
+  } catch (e) { /* fall through to preset */ }
+  return null;
+}
+
+/* ---------------- helpers ---------------- */
+
+function activeAgents() {
+  return state.agents.filter(function (a) { return a.status !== "archived"; });
+}
+
+function agentById(id) {
+  for (var i = 0; i < state.agents.length; i++) {
+    if (state.agents[i].id === id) { return state.agents[i]; }
+  }
+  return null;
+}
+
+function parseWords(w) {
+  return String(w || "").split(",")
+    .map(function (s) { return s.trim().toLowerCase(); })
+    .filter(Boolean)
+    .slice(0, 14);
+}
+
+/* Word-boundary prefix match: "billing" fires on "billings", never on "unbilling".
+   Multi-word triggers ("not working") match anywhere in the query. */
+function kwMatch(qLower, kw) {
+  if (/\s/.test(kw)) { return qLower.indexOf(kw) >= 0; }
+  return new RegExp("\\b" + rx(kw)).test(qLower);
+}
+
+/* Rank rules against a query. Returns [{ rule, matched:[kw…] }] best-first,
+   at most one (the best) rule per agent. */
+function lookupRules(qLower) {
+  var hits = [];
+  state.rules.forEach(function (r) {
+    var kws = parseWords(r.words);
+    if (!kws.length) { return; }
+    var matched = kws.filter(function (k) { return kwMatch(qLower, k); });
+    if (matched.length) { hits.push({ rule: r, matched: matched }); }
+  });
+  hits.sort(function (a, b) { return b.matched.length - a.matched.length; });
+  var seen = {};
+  var picked = [];
+  hits.forEach(function (h) {
+    var key = h.rule.agentId || ("unassigned:" + h.rule.id);
+    if (h.rule.agentId && seen[h.rule.agentId]) { return; }
+    seen[key] = true;
+    picked.push(h);
+  });
+  return picked.slice(0, 3);
+}
+
+/* No rule matched — guess from role/memory text (and a name mention).
+   Word-boundary matched, weighted by distinct signal words, so an agent
+   with "outbound" AND "cold" in their text beats one whose job title
+   happens to contain "lead". */
+function fallbackPick(qLower) {
+  var cats = [];
+  ROUTE_LEXICON.forEach(function (c) {
+    var m = c.words.filter(function (w) { return kwMatch(qLower, w); });
+    if (m.length) { cats.push({ cat: c.cat, words: c.words }); }
+  });
+  if (!cats.length) { return null; }
+  var best = null;
+  activeAgents().forEach(function (a) {
+    var text = (a.name + " " + a.role + " " + a.memory).toLowerCase();
+    var score = 0;
+    if (a.name && new RegExp("\\b" + rx(a.name.toLowerCase())).test(qLower)) { score += 4; }
+    cats.forEach(function (c) {
+      c.words.forEach(function (w) {
+        if (kwMatch(text, w)) { score += 1; }
+      });
+    });
+    if (score > 0 && (!best || score > best.score)) {
+      best = { agent: a, score: score, cats: cats.map(function (c) { return c.cat; }) };
+    }
+  });
+  return best;
+}
+
+/* ---------------- presets (crews in exact CrewChart export shape) ---------------- */
+
+/* Unwrap a preset ({ crew, rules, defaultAgentId }) into clean app state. */
+function presetState(p) {
+  return sanitizeState({ format: "whodoiask", version: 1, team: p.crew.team, agents: p.crew.agents, rules: p.rules, defaultAgentId: p.defaultAgentId });
+}
+
+function presetSupport() {
+  return {
+    crew: {
+      format: "crewchart",
+      version: 2,
+      team: "Support Desk Co.",
+      agents: [
+        { id: "a-blair", name: "Blair", role: "Chief of Staff", color: "purple", shape: "blob", memory: "Runs the floor: the escalation ladder, the SLA board, and who covers what when someone's out.", reportsTo: "", status: "active" },
+        { id: "a-mira", name: "Mira", role: "Support Lead", color: "teal", shape: "cloud", memory: "Owns the ticket queue, the macro library, and every how-do-I answer worth saving.", reportsTo: "a-blair", status: "active" },
+        { id: "a-penny", name: "Penny", role: "Billing Ops", color: "green", shape: "round", memory: "Owns invoices, refunds, proration, and the dunning ladder. The only one who can reverse a charge.", reportsTo: "a-blair", status: "active" },
+        { id: "a-hank", name: "Hank", role: "Sales Engineer", color: "orange", shape: "hex", memory: "Knows the demo environment, the integration limits, and every objection that has a workaround.", reportsTo: "a-blair", status: "active" },
+        { id: "a-piper", name: "Piper", role: "SDR", color: "pink", shape: "squircle", memory: "Owns outbound sequences, the ICP notes, and which cold-email openers survived reply-rate triage.", reportsTo: "a-hank", status: "active" },
+        { id: "a-dash", name: "Dash", role: "CS Analyst", color: "brown", shape: "round", memory: "Owns churn-risk flags, CSAT cuts, and the weekly support metrics memo.", reportsTo: "a-blair", status: "active" },
+        { id: "a-temp", name: "Temp", role: "Trial SDR (Q3)", color: "gray", shape: "diamond", memory: "Ran the summer outbound blitz; archived when the contract ended.", reportsTo: "a-piper", status: "archived" }
+      ],
+      tasks: [
+        { id: "t-1", agentId: "a-mira", title: "Cut first-response time below 2h", status: "running", ask: "a-dash" },
+        { id: "t-2", agentId: "a-piper", title: "Draft the Q4 outbound sequence", status: "queued", ask: "" }
+      ],
+      offers: [
+        { id: "o-1", agentId: "a-hank", title: "Technical deep-dive call", price: "$0", unit: "pre-sale" }
+      ]
+    },
+    rules: [
+      { id: "r-s1", label: "Billing complaint / refund demand", words: "billing, invoice, refund, charge, overcharged, double billed, money back, cancel my subscription", agentId: "a-penny", why: "Owns the money: invoices, refunds, proration. Anger routes to the one person who can actually reverse a charge, not whoever answers first." },
+      { id: "r-s2", label: "Technical / does-it-work-with-us", words: "api, integration, webhook, sdk, sso, security, feasibility, poc, sandbox, does it work with, eval", agentId: "a-hank", why: "Holds the demo environment and the integration limits — answers with a workaround instead of a maybe." },
+      { id: "r-s3", label: "Stuck user / how-do-I", words: "stuck, not working, how do i, login, password, locked, error, onboarding, reset", agentId: "a-mira", why: "Fronts the queue and keeps the macro library; most of these die there before they ever escalate." },
+      { id: "r-s4", label: "New lead / outbound motion", words: "lead, prospect, cold, outbound, pipeline, follow up, sequence, signed up, webinar", agentId: "a-piper", why: "Runs the sequences and remembers which openers get replies. Nobody else touches outbound — that's how messaging stays coherent." },
+      { id: "r-s5", label: "Churn risk / renewal worry", words: "churn, renewal, csat, unhappy, quiet, usage dropped, at risk, nps", agentId: "a-dash", why: "Sees usage and CSAT trends first — flags the at-risk account before the renewal call, not after it." },
+      { id: "r-s6", label: "Escalation / who owns this mess", words: "escalate, urgent, manager, complaint, emergency, who owns, asap", agentId: "a-blair", why: "Chief of staff. When the sheet doesn't know, triage is literally the job description." }
+    ],
+    defaultAgentId: "a-blair"
+  };
+}
+
+function presetGlider() {
+  return {
+    crew: {
+      format: "crewchart",
+      version: 2,
+      team: "Glider Co.",
+      agents: [
+        { id: "a-aria", name: "Aria", role: "Chief of Staff", color: "purple", shape: "blob", memory: "Owns the weekly ops memo and the go/no-go call for weekend flying.", reportsTo: "", status: "active" },
+        { id: "a-gale", name: "Gale", role: "Flight Ops", color: "green", shape: "cloud", memory: "Knows the tow-pilot roster, the weather minima, and the field schedule.", reportsTo: "a-aria", status: "active" },
+        { id: "a-sage", name: "Sage", role: "Data / Analyst", color: "brown", shape: "round", memory: "Owns the PDF flight log: ~$250 per flight, 3–6 flights per weekend, ~$5,869 on a good one.", reportsTo: "a-aria", status: "active" },
+        { id: "a-merc", name: "Merc", role: "Growth / Merchandising", color: "orange", shape: "diamond", memory: "Builds the price menu and remembers which packages clients pick.", reportsTo: "a-aria", status: "active" },
+        { id: "a-tandem", name: "Tandem", role: "Intern", color: "gray", shape: "squircle", memory: "Archived at season's end — bots churn; alumni stay on the chart.", reportsTo: "a-gale", status: "archived" }
+      ],
+      tasks: [],
+      offers: []
+    },
+    rules: [
+      { id: "r-g1", label: "Weather / field / schedule call", words: "weather, wind, field, schedule, tow, tomorrow, fly, no-go", agentId: "a-gale", why: "Knows the minima and the roster. A go/no-go call is not a committee." },
+      { id: "r-g2", label: "Numbers / how much did we make", words: "revenue, numbers, stats, flight log, how much, bookings, economics", agentId: "a-sage", why: "Owns the flight log and the unit economics — answers with receipts, not vibes." },
+      { id: "r-g3", label: "Packages / pricing / merch", words: "package, price, pricing, menu, merch, gift card, night launch, summit", agentId: "a-merc", why: "Builds the price menu and remembers what clients actually pick." },
+      { id: "r-g4", label: "Everything that isn't obviously one of those", words: "unsure, not sure, unclear, general", agentId: "a-aria", why: "Chief of staff. The default isn't a cop-out; it's the fastest path to the right owner." }
+    ],
+    defaultAgentId: "a-aria"
+  };
+}
+
+/* ---------------- rendering ---------------- */
+
+function avatarHtml(a, cls) {
+  return '<span class="avatar ' + cls + ' av-' + esc(a.color) + ' sh-' + esc(a.shape) + '" aria-hidden="true"></span>';
+}
+
+function renderDesk() {
+  var input = document.getElementById("deskInput");
+  var q = input.value.trim().toLowerCase();
+  var results = document.getElementById("deskResults");
+  var defLine = document.getElementById("deskDefault");
+  var html = "";
+
+  var defAgent = agentById(state.defaultAgentId);
+  if (defAgent && defAgent.status !== "archived") {
+    defLine.innerHTML = "When in doubt: ask <b>" + esc(defAgent.name) + "</b> · " + esc(defAgent.role) + ".";
+  } else {
+    defLine.textContent = "";
+  }
+
+  if (!state.agents.length) {
+    results.innerHTML = '<div class="desk-card hole"><div class="desk-kicker">No crew loaded</div>' +
+      '<div class="desk-why">The desk has nobody to route to. Load a preset above, or paste a CrewChart JSON spec — then come back and type the situation.</div></div>';
+    return;
+  }
+
+  if (!q) {
+    var chips = state.rules.filter(function (r) { return parseWords(r.words).length; }).slice(0, 8);
+    html = '<div class="desk-note">Situations the sheet already knows — click one to see the routing:</div>' +
+      '<div class="glance">' +
+      chips.map(function (r) {
+        return '<button type="button" data-fill="' + esc(r.label || r.words) + '">' + esc(r.label || r.words) + "</button>";
+      }).join("") +
+      "</div>";
+    if (!chips.length) {
+      html += '<div class="desk-note">No rules with triggers yet — the desk will be guessing from roles alone. Add a rule below; your future self at 6 PM on a Friday will thank you.</div>';
+    }
+    results.innerHTML = html;
+    return;
+  }
+
+  var hits = lookupRules(q);
+
+  if (hits.length) {
+    hits.forEach(function (h, i) {
+      var a = h.rule.agentId ? agentById(h.rule.agentId) : null;
+      var kw = h.matched.map(function (m) { return '<span class="kw">' + esc(m) + "</span>"; }).join(", ");
+      if (i === 0) {
+        html += '<div class="desk-card">' +
+          '<div class="desk-kicker">Matched on ' + kw + "</div>";
+        if (a) {
+          html += '<div class="desk-route"><span class="arrow">→</span> Ask ' + esc(a.name) +
+            ' <span class="desk-role">' + esc(a.role) + "</span></div>" +
+            (h.rule.why ? '<div class="desk-why">' + esc(h.rule.why) + "</div>" : "");
+        } else {
+          html += '<div class="desk-route">⚠ "' + esc(h.rule.label || "a rule") + '" matches — but nobody owns it</div>' +
+            '<div class="desk-why">The rule fires and routes to nobody. Fix it in Routing rules below before this situation is real.</div>';
+        }
+        html += "</div>";
+      } else if (a) {
+        html += '<div class="desk-alt">Next best: <b>' + esc(a.name) + "</b> · " + esc(a.role) +
+          (h.rule.why ? " — " + esc(h.rule.why) : "") + "</div>";
+      }
+    });
+  } else {
+    var fb = fallbackPick(q);
+    if (fb) {
+      html = '<div class="desk-card warn">' +
+        '<div class="desk-kicker">No rule covers this — best guess by role &amp; memory (' + esc(fb.cats.join(", ")) + ")</div>" +
+        '<div class="desk-route"><span class="arrow">→</span> Probably ' + esc(fb.agent.name) +
+        ' <span class="desk-role">' + esc(fb.agent.role) + "</span></div>" +
+        '<div class="desk-why">' + esc(fb.agent.name) + "'s role or memory mentions this territory: <i>" + esc(fb.agent.memory || fb.agent.role) + "</i></div>" +
+        '<div class="desk-note">It\u2019s a guess, not a rule. If this situation recurs, write the rule — holes are cheaper to fix at 2 PM than at the next escalation.</div></div>';
+    } else {
+      html = '<div class="desk-card hole">' +
+        '<div class="desk-kicker">No rule, no hunch</div>' +
+        '<div class="desk-why">Nothing on the sheet and nobody\u2019s role or memory mentions anything like it. Two options: add a rule below, or admit this one\u2019s human work.</div></div>';
+    }
+  }
+
+  results.innerHTML = html;
+}
+
+function renderSheet() {
+  var grid = document.getElementById("sheetGrid");
+  if (!state.agents.length) {
+    grid.innerHTML = '<div class="empty">The sheet is waiting for a crew. Load a preset or paste a CrewChart JSON above.</div>';
+    return;
+  }
+  if (!state.rules.length) {
+    grid.innerHTML = '<div class="empty">No rules yet. Add one below: a situation, its trigger words, who gets it, and the one-line why.</div>';
+    return;
+  }
+  grid.innerHTML = state.rules.map(function (r) {
+    var a = r.agentId ? agentById(r.agentId) : null;
+    var agentLine = a
+      ? '<span class="arrow">→</span> ' + avatarHtml(a, "") + " <b>" + esc(a.name) + '</b> <span class="role">' + esc(a.role) + "</span>"
+      : '<span class="noowner">⚠ no owner yet — pick someone in Routing rules</span>';
+    var kws = parseWords(r.words);
+    return '<div class="sheet-card" data-fill="' + esc(r.label || r.words) + '" title="Run this through the desk">' +
+      '<div class="sheet-sit">' + (esc(r.label) || '<i>unlabeled situation</i>') + "</div>" +
+      '<div class="sheet-agent">' + agentLine + "</div>" +
+      '<div class="sheet-why">' + esc(r.why) + "</div>" +
+      (kws.length ? '<div class="sheet-trig">triggers: ' + esc(kws.join(" · ")) + "</div>" : "") +
+      "</div>";
+  }).join("");
+}
+
+function agentOptions(selectedId) {
+  var opts = '<option value="">— pick someone —</option>';
+  activeAgents().forEach(function (a) {
+    opts += '<option value="' + esc(a.id) + '"' + (a.id === selectedId ? " selected" : "") + ">" +
+      esc(a.name + (a.role ? " · " + a.role : "")) + "</option>";
+  });
+  return opts;
+}
+
+function renderRules() {
+  var list = document.getElementById("rulesList");
+  var defSel = document.getElementById("defaultSelect");
+  defSel.innerHTML = agentOptions(state.defaultAgentId);
+  defSel.value = state.defaultAgentId || "";
+
+  if (!state.rules.length) {
+    list.innerHTML = '<div class="empty">No rules yet. "Customer angry about billing" shouldn\u2019t be a judgment call — write it down once and it\u2019s policy.</div>';
+    return;
+  }
+  list.innerHTML = state.rules.map(function (r) {
+    var owned = r.agentId && agentById(r.agentId) && agentById(r.agentId).status !== "archived";
+    return '<div class="rule' + (owned ? "" : " noowner") + '" data-id="' + esc(r.id) + '">' +
+      '<input class="f-label" type="text" value="' + esc(r.label) + '" placeholder="Situation — \u201cbilling complaint\u201d" aria-label="Rule situation label">' +
+      '<select class="f-agent" aria-label="Rule owner">' + agentOptions(r.agentId) + "</select>" +
+      '<input class="f-words" type="text" value="' + esc(r.words) + '" placeholder="triggers, comma-separated — billing, refund, invoice" aria-label="Rule trigger words">' +
+      '<input class="f-why" type="text" value="' + esc(r.why) + '" placeholder="because… (one honest sentence)" aria-label="Rule reasoning">' +
+      '<button class="f-del" type="button" data-act="del-rule" title="Delete rule" aria-label="Delete rule">✕</button>' +
+      "</div>";
+  }).join("");
+  // restore select values (innerHTML default-selects the first option)
+  Array.prototype.forEach.call(list.querySelectorAll(".rule"), function (row) {
+    var r = state.rules.filter(function (x) { return x.id === row.getAttribute("data-id"); })[0];
+    if (!r) { return; }
+    var sel = row.querySelector(".f-agent");
+    sel.value = r.agentId || "";
+  });
+}
+
+function renderCrew() {
+  var chips = document.getElementById("crewChips");
+  var note = document.getElementById("crewNote");
+  if (!state.agents.length) {
+    chips.innerHTML = '<div class="empty">No crew loaded. Presets up top, or import a CrewChart JSON spec — the exact shape CrewChart exports.</div>';
+    note.textContent = "Pick a preset, or import a CrewChart JSON spec — same shape CrewChart exports. Tasks and price menus stay in CrewChart; routing lives here.";
+    return;
+  }
+  chips.innerHTML = state.agents.map(function (a) {
+    var arch = a.status === "archived";
+    return '<div class="chip' + (arch ? " archived" : "") + '" title="' + esc(a.memory || "") + '">' +
+      avatarHtml(a, "") +
+      '<span class="who"><span class="nm">' + esc(a.name) + '</span><br><span class="rl">' + esc(a.role) + "</span></span>" +
+      (arch ? '<span class="stamp">alumni</span>' : "") +
+      "</div>";
+  }).join("");
+  var n = activeAgents().length;
+  var archN = state.agents.length - n;
+  note.textContent = state.team + " — " + n + " active teammate" + (n === 1 ? "" : "s") +
+    (archN ? " · " + archN + " archived (alumni don\u2019t take routing)" : "") +
+    ". Hover a chip for their scoped memory.";
+}
+
+function renderAll() {
+  renderDesk();
+  renderSheet();
+  renderRules();
+  renderCrew();
+}
+
+/* ---------------- markdown export ---------------- */
+
+function mdPipe(s) {
+  return String(s == null ? "" : s).replace(/\|/g, "\\|");
+}
+
+function buildMarkdown() {
+  var lines = [];
+  var defAgent = agentById(state.defaultAgentId);
+  lines.push("# Who do I ask? — " + state.team);
+  lines.push("");
+  lines.push("_Routing cheat-sheet for the crew, generated offline with WhoDoIAsk._");
+  if (defAgent && defAgent.status !== "archived") {
+    lines.push("_When in doubt, ask **" + mdPipe(defAgent.name) + " (" + mdPipe(defAgent.role) + ")** and keep moving._");
+  }
+  lines.push("");
+  if (state.rules.length) {
+    lines.push("| Situation | Ask | Because | Triggers |");
+    lines.push("| --- | --- | --- | --- |");
+    state.rules.forEach(function (r) {
+      var a = r.agentId ? agentById(r.agentId) : null;
+      var ask = a ? "**" + mdPipe(a.name) + "** · " + mdPipe(a.role) : "⚠ unassigned";
+      lines.push("| " + (mdPipe(r.label) || "—") + " | " + ask + " | " + (mdPipe(r.why) || "—") + " | " + mdPipe(parseWords(r.words).join(", ")) + " |");
+    });
+  } else {
+    lines.push("_No routing rules yet — that\u2019s the sheet\u2019s whole point, so add some._");
+  }
+  lines.push("");
+  if (state.agents.length) {
+    lines.push("## The crew");
+    lines.push("");
+    state.agents.forEach(function (a) {
+      var arch = a.status === "archived";
+      lines.push("- " + (arch ? "~~" : "") + "**" + mdPipe(a.name) + "** — " + mdPipe(a.role) + (arch ? "~~ _alumni_" : "") +
+        (a.memory ? " — " + mdPipe(a.memory) : ""));
+    });
+  }
+  lines.push("");
+  return lines.join("\n");
+}
+
+/* ---------------- import / apply ---------------- */
+
+function applyImportText(txt, source) {
+  var msgEl = document.getElementById("pasteMsg");
+  var obj;
+  try {
+    obj = JSON.parse(txt);
+  } catch (e) {
+    return "That didn't parse as JSON — paste the whole file, curly braces and all.";
+  }
+  if (!obj || typeof obj !== "object") { return "That's not a JSON object."; }
+
+  if (obj.format === "whodoiask") {
+    state = sanitizeState(obj);
+    save();
+    renderAll();
+    return "ok";
+  }
+
+  var crew = extractCrew(obj);
+  if (!crew) {
+    return "No agents found. Expecting a CrewChart export (it has an \"agents\" array) or a WhoDoIAsk backup.";
+  }
+
+  var keepRules = state.rules;
+  state.team = crew.team;
+  state.agents = crew.agents;
+  var ids = {};
+  state.agents.forEach(function (a) { ids[a.id] = true; });
+  // keep rules, blanking owners that don't exist in the new crew
+  state.rules = keepRules.map(function (r) {
+    return { id: r.id, label: r.label, words: r.words, agentId: ids[r.agentId] ? r.agentId : "", why: r.why };
+  });
+  state.defaultAgentId = ids[state.defaultAgentId] ? state.defaultAgentId : (activeAgents()[0] ? activeAgents()[0].id : "");
+  save();
+  renderAll();
+  var extra = [];
+  if (crew.ignoredTasks) { extra.push(crew.ignoredTasks + " tasks"); }
+  if (crew.ignoredOffers) { extra.push(crew.ignoredOffers + " offers"); }
+  toast("Crew loaded: " + state.agents.length + " agents" + (extra.length ? " (" + extra.join(", ") + " stay in CrewChart)" : "") + ".");
+  return "ok";
+}
+
+/* ---------------- dialogs, toast, clipboard ---------------- */
+
+function openDialog(id) { document.getElementById(id).classList.add("open"); }
+function closeDialog(id) { document.getElementById(id).classList.remove("open"); }
+
+var toastTimer = null;
+function toast(msg) {
+  var t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  if (toastTimer) { clearTimeout(toastTimer); }
+  toastTimer = setTimeout(function () { t.classList.remove("show"); }, 3400);
+}
+
+function copyText(text, btn) {
+  var done = function () { toast("Copied. Paste it where the crew can see it."); };
+  var fail = function () { toast("Clipboard blocked — select the text and copy manually."); };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, fail);
+  } else {
+    fail();
+  }
+}
+
+function downloadText(text, name) {
+  var blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+}
+
+function slug(s) {
+  return String(s || "sheet").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) || "sheet";
+}
+
+/* ---------------- events ---------------- */
+
+function wire() {
+  // toolbar
+  document.getElementById("presetSelect").addEventListener("change", function () {
+    var v = this.value;
+    if (!v) { return; }
+    var p = v === "support" ? presetSupport() : presetGlider();
+    state = presetState(p);
+    save();
+    renderAll();
+    toast("Preset loaded. Type a situation in the desk — that's the demo.");
+    this.value = "";
+  });
+
+  document.getElementById("importBtn").addEventListener("click", function () {
+    document.getElementById("importFile").value = "";
+    document.getElementById("importFile").click();
+  });
+
+  document.getElementById("importFile").addEventListener("change", function () {
+    var f = this.files && this.files[0];
+    if (!f) { return; }
+    var reader = new FileReader();
+    reader.onload = function () {
+      var res = applyImportText(String(reader.result), "file");
+      if (res !== "ok") { toast(res); }
+    };
+    reader.readAsText(f);
+  });
+
+  document.getElementById("pasteBtn").addEventListener("click", function () {
+    document.getElementById("pasteArea").value = "";
+    document.getElementById("pasteMsg").textContent = "";
+    document.getElementById("pasteMsg").className = "msg";
+    openDialog("pasteDialog");
+    document.getElementById("pasteArea").focus();
+  });
+
+  document.getElementById("pasteApply").addEventListener("click", function () {
+    var res = applyImportText(document.getElementById("pasteArea").value, "paste");
+    var m = document.getElementById("pasteMsg");
+    if (res === "ok") {
+      m.textContent = "Applied.";
+      m.className = "msg ok";
+      setTimeout(function () { closeDialog("pasteDialog"); }, 450);
+    } else {
+      m.textContent = res;
+      m.className = "msg err";
+    }
+  });
+
+  document.getElementById("pasteClose").addEventListener("click", function () { closeDialog("pasteDialog"); });
+
+  document.getElementById("newBtn").addEventListener("click", function () {
+    state = blankState();
+    save();
+    renderAll();
+    toast("Blank sheet. Export first if the old one mattered.");
+  });
+
+  document.getElementById("exportBtn").addEventListener("click", function () {
+    document.getElementById("exportArea").value = buildMarkdown();
+    openDialog("exportDialog");
+  });
+
+  document.getElementById("exportCopy").addEventListener("click", function () {
+    copyText(document.getElementById("exportArea").value, this);
+  });
+
+  document.getElementById("exportDownload").addEventListener("click", function () {
+    downloadText(document.getElementById("exportArea").value, slug(state.team) + ".whodoiask.md");
+  });
+
+  document.getElementById("exportClose").addEventListener("click", function () { closeDialog("exportDialog"); });
+
+  // close overlays on backdrop click
+  ["pasteDialog", "exportDialog"].forEach(function (id) {
+    document.getElementById(id).addEventListener("click", function (ev) {
+      if (ev.target === this) { closeDialog(id); }
+    });
+  });
+
+  // desk
+  document.getElementById("deskInput").addEventListener("input", renderDesk);
+  document.getElementById("deskResults").addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-fill]");
+    if (b) {
+      document.getElementById("deskInput").value = b.getAttribute("data-fill");
+      renderDesk();
+      document.getElementById("deskInput").focus();
+    }
+  });
+  document.getElementById("sheetGrid").addEventListener("click", function (ev) {
+    var c = ev.target.closest("[data-fill]");
+    if (c) {
+      document.getElementById("deskInput").value = c.getAttribute("data-fill");
+      renderDesk();
+      document.getElementById("deskInput").scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+
+  // rules editor — one delegated listener each for typing, picking, deleting
+  document.getElementById("rulesList").addEventListener("input", function (ev) {
+    var row = ev.target.closest(".rule");
+    if (!row) { return; }
+    var r = state.rules.filter(function (x) { return x.id === row.getAttribute("data-id"); })[0];
+    if (!r) { return; }
+    if (ev.target.classList.contains("f-label")) { r.label = cap(ev.target.value, 80); }
+    if (ev.target.classList.contains("f-words")) { r.words = cap(ev.target.value, 240); }
+    if (ev.target.classList.contains("f-why")) { r.why = cap(ev.target.value, 240); }
+    save();
+    renderDesk();
+    renderSheet();
+  });
+
+  document.getElementById("rulesList").addEventListener("change", function (ev) {
+    var row = ev.target.closest(".rule");
+    if (!row) { return; }
+    var r = state.rules.filter(function (x) { return x.id === row.getAttribute("data-id"); })[0];
+    if (!r) { return; }
+    if (ev.target.classList.contains("f-agent")) {
+      r.agentId = ev.target.value;
+      row.classList.toggle("noowner", !r.agentId);
+      save();
+      renderDesk();
+      renderSheet();
+    }
+  });
+
+  document.getElementById("rulesList").addEventListener("click", function (ev) {
+    var btn = ev.target.closest('[data-act="del-rule"]');
+    if (!btn) { return; }
+    var row = btn.closest(".rule");
+    var id = row ? row.getAttribute("data-id") : null;
+    state.rules = state.rules.filter(function (x) { return x.id !== id; });
+    save();
+    renderRules();
+    renderDesk();
+    renderSheet();
+  });
+
+  document.getElementById("addRuleBtn").addEventListener("click", function () {
+    var r = { id: uid("r"), label: "", words: "", agentId: state.defaultAgentId || (activeAgents()[0] ? activeAgents()[0].id : ""), why: "" };
+    state.rules.push(r);
+    save();
+    renderRules();
+    renderDesk();
+    renderSheet();
+    var rows = document.querySelectorAll('.rule[data-id="' + r.id + '"] .f-label');
+    if (rows.length) { rows[0].focus(); }
+  });
+
+  document.getElementById("defaultSelect").addEventListener("change", function () {
+    state.defaultAgentId = this.value;
+    save();
+    renderDesk();
+  });
+}
+
+/* ---------------- init ---------------- */
+
+function init() {
+  state = load();
+  if (!state) { state = presetState(presetSupport()); }
+  renderAll();
+  wire();
+}
+
+init();
+</script>
+</body>
+</html>
