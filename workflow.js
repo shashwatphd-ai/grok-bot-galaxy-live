@@ -45,7 +45,12 @@ window.GG_WORKFLOW = {
     { t: "4:20 PM",  lane: "ai", actor: "dr. eggbot", act: "Staged the sign-up page", detail: "A booking sign-up flow (name, email, password, ZIP + cookie consent) appeared in a preview browser — staging only, URL never public. Wireframe to sign-up page in roughly 45 minutes." },
     { t: "4:25 PM",  lane: "ai", actor: "grokbot", act: "Filed the SEO work order", detail: "Keyword plan ('Weekend Pilot'), page-weight cuts, form trimmed to three fields, FAQ — with a dated execution timeline: 'Thu 2026-09-17 08:00 CT — ships staging link for pilot sign-up.'" },
     { t: "4:28 PM",  lane: "ai", actor: "Tee Bot", act: "Opened the email channel", detail: "Drafted and sent promo emails for the merch line — best-seller banners in, generic roundup formats deliberately out." },
-    { t: "4:50 PM",  lane: "human", actor: "all three", act: "Crossed 1M viewers while studying their own costs", detail: "'Optimizing Costs — browser use is powerful (and expensive!)' ran as the counter passed a million: the humans reviewing what their bot staff costs to run." }
+    { t: "4:50 PM",  lane: "human", actor: "all three", act: "Crossed 1M viewers while studying their own costs", detail: "'Optimizing Costs — browser use is powerful (and expensive!)' ran as the counter passed a million: the humans reviewing what their bot staff costs to run.", day: 1 },
+
+    /* ── Day 2 — Wed Sep 16: the sales track ── */
+    { t: "8:33 AM",  lane: "human", actor: "Lauren · Roshan · Matt", act: "Opened Day 2: the selling day", detail: "New broadcast, same mission: yesterday the fleet built a pop-up business — today the humans have to sell it. Sales track ahead: Sales Engineering, Sales, SDRs, Customer Support.", day: 2 },
+    { t: "9:10 AM",  lane: "human", actor: "Sales Engineering (Amrita Venkatraman)", act: "Whiteboarded the customer demo arc", detail: "Diagram tool on screen: 'Grok Bot Template → Draft your team → Set your lineup → Compete!' — a four-step customer demo arc for selling the bot-built product, with notes on showing 'how we build a complicated product with bots.'", day: 2 },
+    { t: "9:35 AM",  lane: "human", actor: "Amrita Venkatraman", act: "Built the Vision Deck pitch live", detail: "Google Slides on screen ('Amrita SpaceXAI Vision Deck'): a 'Why SpaceXAI?' narrative slide assembled and delivered in the same session — deck-building as a sales-engineering skill.", day: 2 }
   ],
 
   deliverables: [
