@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProofWall — build the wall of love that closes</title>
+<meta name="description" content="An offline, single-file wall-of-love builder: quote cards with author, source, verification, star ratings, and a metric anchor per card. A proof-balance coach keeps the wall honest. Exports markdown or a standalone HTML page. Zero dependencies.">
+<style>
+  /* ============================================================
+     ProofWall — theme
+     Same dark "live event" family as its siblings. System fonts,
+     no dependencies, runs from file://.
+     ============================================================ */
+  :root {
+    --bg: #0d1017;
+    --bg-soft: #12161f;
+    --panel: #171c27;
+    --panel-2: #1d2330;
+    --line: #2a3142;
+    --text: #e8ecf4;
+    --muted: #97a0b3;
+    --faint: #6b7488;
+    --accent: #3fbf7f;
+    --accent-soft: rgba(63, 191, 127, 0.14);
+    --amber: #f2b13d;
+    --teal: #2fbfb3;
+    --red: #f6543f;
+    --radius: 14px;
+    --radius-sm: 9px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(63, 191, 127, 0.09), transparent 60%),
+      radial-gradient(700px 420px at -10% 15%, rgba(47, 191, 179, 0.09), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+    min-height: 100vh;
+  }
+  ::placeholder { color: var(--faint); }
+
+  /* ---------- header ---------- */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(13, 16, 23, 0.78);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    backdrop-filter: blur(8px);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; margin-right: 6px; }
+  .brand .logo {
+    width: 34px; height: 34px; flex: none;
+    background: linear-gradient(135deg, #3fbf7f, #2fbfb3);
+    border-radius: 30%;
+    box-shadow: 0 0 0 4px rgba(63, 191, 127, 0.15);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    padding: 7px;
+  }
+  .brand .logo i {
+    display: block;
+    border-radius: 2px;
+    background: rgba(13, 16, 23, 0.82);
+  }
+  .brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+  .brand .sub { font-size: 12px; color: var(--muted); margin-top: -2px; }
+  .spacer { flex: 1; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+  select, button {
+    font: inherit;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  select:hover, button:hover { background: var(--panel-2); }
+  select:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #06170e;
+    font-weight: 600;
+  }
+  button.primary:hover { background: #55cf92; }
+  button.ghost { background: transparent; }
+
+  /* ---------- layout ---------- */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 22px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 26px;
+    align-items: start;
+  }
+  .col-editor { min-width: 0; }
+  .col-preview { min-width: 0; position: sticky; top: 76px; }
+  @media (max-width: 980px) {
+    main { grid-template-columns: 1fr; }
+    .col-preview { position: static; }
+  }
+  section { margin-bottom: 30px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 12px;
+    flex-wrap: wrap;
+  }
+  .section-head h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0; }
+  .section-head .hint { font-size: 12.5px; color: var(--faint); }
+
+  /* ---------- wall header (settings) ---------- */
+  .cover {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+  }
+  .cover input[type="text"] {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 9px 11px;
+    width: 100%;
+    font-weight: 600;
+  }
+  .cover input#wallSub, .cover input#wallCta, .cover input#wallFoot { font-weight: 400; }
+
+  /* ---------- quote editor cards ---------- */
+  #editor { display: grid; gap: 12px; }
+  .item-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px;
+    display: grid;
+    gap: 9px;
+    position: relative;
+  }
+  .item-card.dragging { opacity: 0.45; }
+  .item-card.ins-before::before,
+  .item-card.ins-after::after {
+    content: "";
+    position: absolute;
+    left: 8px; right: 8px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--amber);
+    box-shadow: 0 0 8px rgba(242, 177, 61, 0.7);
+  }
+  .item-card.ins-before::before { top: -8px; }
+  .item-card.ins-after::after { bottom: -8px; }
+
+  .item-bar { display: flex; align-items: center; gap: 7px; min-width: 0; }
+  .drag-handle {
+    cursor: grab;
+    color: var(--faint);
+    font-size: 13px;
+    letter-spacing: -1px;
+    padding: 6px 7px;
+    background: var(--bg-soft);
+    user-select: none;
+    touch-action: none;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .item-num {
+    flex: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .item-bar .nudge {
+    padding: 6px 9px;
+    font-size: 13px;
+    line-height: 1;
+    color: var(--muted);
+  }
+  .item-bar .del {
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 15px;
+    padding: 5px 8px;
+    border-radius: 6px;
+  }
+  .item-bar .del:hover { color: #ff8a7a; background: rgba(246, 84, 63, 0.1); }
+
+  .item-card input[type="text"], .item-card select, .item-card textarea {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    padding: 7px 9px;
+    width: 100%;
+    font: inherit;
+    font-size: 13.5px;
+  }
+  .item-card textarea { resize: vertical; min-height: 56px; }
+  .item-card .f-author { font-weight: 600; font-size: 14.5px; }
+  .item-card .f-metric { font-weight: 600; color: #ffd58a; }
+  .item-row { display: grid; grid-template-columns: 1fr 1.25fr; gap: 8px; }
+  .item-row.meta-row { grid-template-columns: 0.9fr 1fr auto; align-items: center; }
+  @media (max-width: 560px) {
+    .item-row, .item-row.meta-row { grid-template-columns: 1fr; }
+  }
+  .check {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+  .check:hover { background: var(--bg-soft); }
+  .check input { width: 15px; height: 15px; accent-color: var(--accent); }
+
+  .empty-state {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 26px 20px;
+    text-align: center;
+    color: var(--muted);
+  }
+  .empty-state p { margin: 0 0 12px; }
+
+  .add-card {
+    width: 100%;
+    border: 1px dashed var(--line);
+    background: transparent;
+    color: var(--muted);
+    border-radius: var(--radius);
+    padding: 12px;
+    cursor: pointer;
+  }
+  .add-card:hover { color: var(--text); background: var(--panel); border-style: solid; }
+
+  /* ---------- proof-balance coach ---------- */
+  .coach {
+    margin-top: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .coach.all-clear { border-left-color: var(--accent); }
+  .coach .verdict { color: var(--text); font-weight: 600; margin-bottom: 6px; }
+  .coach ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .coach li { padding-left: 20px; position: relative; }
+  .coach li.ok { color: var(--faint); }
+  .coach li.flag { color: #ffce8a; }
+  .coach li::before { position: absolute; left: 0; top: 0; }
+  .coach li.ok::before { content: "\2713"; color: var(--accent); font-weight: 700; }
+  .coach li.flag::before { content: "\2717"; color: var(--amber); font-weight: 700; }
+
+  /* ---------- live preview ---------- */
+  .preview-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--green, #3fbf7f);
+    margin-bottom: 8px;
+  }
+  .preview-tag::before {
+    content: "";
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .doc {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+  .doc .wall-title { font-size: 24px; font-weight: 800; margin: 0; letter-spacing: 0.2px; }
+  .doc .wall-sub { color: var(--muted); margin: 6px 0 18px; font-size: 14px; }
+  .doc .wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .doc .q-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .doc .stars { color: var(--amber); font-size: 13px; letter-spacing: 2px; }
+  .doc .stars .off { color: var(--line); }
+  .doc .q-quote { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--text); flex: 1; }
+  .doc .q-metric {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #5fd398;
+    background: var(--accent-soft);
+    border-radius: 7px;
+    padding: 5px 9px;
+    align-self: flex-start;
+  }
+  .doc .q-who { display: flex; align-items: center; gap: 9px; margin-top: 2px; }
+  .doc .avatar {
+    flex: none;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .doc .q-id { min-width: 0; }
+  .doc .q-author { font-size: 13px; font-weight: 700; }
+  .doc .q-role { font-size: 11.5px; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .doc .q-meta { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .doc .src {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    border-radius: 5px;
+    padding: 2px 6px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .doc .src.s-x { color: #dfe5ee; }
+  .doc .src.s-linkedin { color: #7ab6f2; border-color: rgba(122, 182, 242, 0.35); }
+  .doc .src.s-email { color: #5cd3c9; border-color: rgba(92, 211, 201, 0.35); }
+  .doc .src.s-review { color: #f6c265; border-color: rgba(242, 177, 61, 0.35); }
+  .doc .v-badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #5fd398;
+    white-space: nowrap;
+  }
+  .doc .v-badge::before { content: "\2713 "; }
+  .doc .wall-foot { margin: 16px 0 0; font-size: 12.5px; color: var(--faint); }
+  .doc .wall-cta {
+    margin: 18px 0 0;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+  }
+  .doc .wall-empty { color: var(--faint); font-size: 13.5px; text-align: center; padding: 18px 0; }
+
+  /* ---------- modal ---------- */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 12, 0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 20px;
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    width: min(860px, 100%);
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .modal-head h3 { margin: 0; font-size: 15px; }
+  .modal-head .x {
+    margin-left: auto;
+    border: none;
+    background: transparent;
+    color: var(--faint);
+    font-size: 16px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .modal-head .x:hover { color: var(--text); background: var(--panel-2); }
+  .modal textarea {
+    flex: 1;
+    margin: 14px 16px;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    padding: 12px;
+    resize: none;
+    min-height: 300px;
+    white-space: pre;
+    overflow: auto;
+  }
+  .modal-foot {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px 16px;
+    flex-wrap: wrap;
+  }
+  .modal-foot .note { font-size: 12px; color: var(--faint); align-self: center; }
+
+  /* ---------- toast ---------- */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%) translateY(8px);
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text);
+    font-size: 13.5px;
+    padding: 10px 18px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 60;
+    max-width: min(560px, 90vw);
+    text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 8px 22px 30px;
+    font-size: 12px;
+    color: var(--faint);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div>
+      <h1>ProofWall</h1>
+      <div class="sub">build the wall of love that closes</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="toolbar">
+    <select id="presetSelect" title="Load a starter wall — replaces what's here" aria-label="Load a preset wall">
+      <option value="" disabled selected>Presets&hellip;</option>
+      <option value="popup">Pop-up OS (day-one homage)</option>
+      <option value="saas">SaaS Launch</option>
+      <option value="local">Restaurant &amp; Local</option>
+    </select>
+    <button id="exportMdBtn" type="button" title="Copy the whole wall as markdown">Copy markdown</button>
+    <button id="exportHtmlBtn" type="button" class="primary" title="Export a standalone HTML wall page">Export HTML</button>
+    <button id="newWallBtn" type="button" class="ghost" data-act="new-wall" title="Clear the wall and start over">New wall</button>
+  </div>
+</header>
+
+<main>
+  <div class="col-editor">
+
+    <section aria-label="Wall header">
+      <div class="section-head">
+        <h2>The header</h2>
+        <span class="hint">Set the stage before the quotes speak. The fine print is where &ldquo;used with permission&rdquo; lives.</span>
+      </div>
+      <div class="cover">
+        <input id="wallTitle" type="text" data-act="wall-field" data-field="title"
+               placeholder="Wall title — e.g. What customers actually say" aria-label="Wall title">
+        <input id="wallSub" type="text" data-act="wall-field" data-field="subtitle"
+               placeholder="One line on who these people are and why they're real" aria-label="Wall subtitle">
+        <input id="wallCta" type="text" data-act="wall-field" data-field="cta"
+               placeholder="Closing line — what the reader should do now" aria-label="Closing line">
+        <input id="wallFoot" type="text" data-act="wall-field" data-field="footnote"
+               placeholder="Footnote — permission, sources, fine print with a spine" aria-label="Footnote">
+      </div>
+    </section>
+
+    <section aria-label="Quotes">
+      <div class="section-head">
+        <h2>The quotes</h2>
+        <span class="hint">Three minimum, one of them skeptical. Drag the handle, or nudge with the arrows.</span>
+      </div>
+      <div id="editor"></div>
+      <button id="addCardBtn" type="button" class="add-card" data-act="add-card">+ Add a quote</button>
+      <div id="coach" class="coach" role="status" aria-live="polite"></div>
+    </section>
+
+  </div>
+
+  <aside class="col-preview" aria-label="Live preview">
+    <div class="section-head">
+      <span class="preview-tag">Live preview</span>
+      <span class="hint">What your buyer sees &mdash; the closing line included.</span>
+    </div>
+    <div id="previewDoc" class="doc"></div>
+  </aside>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">Export</h3>
+      <button type="button" class="x" id="modalClose" title="Close" aria-label="Close export dialog">&#10005;</button>
+    </div>
+    <textarea id="modalText" readonly spellcheck="false" aria-label="Exported content"></textarea>
+    <div class="modal-foot">
+      <button id="modalCopy" type="button" class="primary">Copy to clipboard</button>
+      <button id="modalDownload" type="button">Download file</button>
+      <span class="note">If clipboard is blocked, select the text and copy manually &mdash; it's all here.</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  ProofWall &middot; built live during Grok Bot Galaxy, Day 2 &mdash; the selling day &middot; one file, offline, zero dependencies &middot;
+  your proof never leaves this machine.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     ProofWall — logic
+     One state object, autosaved to localStorage. Everything below
+     runs offline from file:// — no network, no dependencies.
+     ============================================================ */
+
+  var STORAGE_KEY = "proofwall.v1";
+  var state = null;
+  var saveTimer = null;
+  var previewTimer = null;
+  var toastTimer = null;
+  var dragId = null;
+
+  var SOURCE_KEYS = ["x", "linkedin", "email", "review"];
+  var SOURCES = {
+    x:       { label: "X",           chip: "X",  via: "via X" },
+    linkedin:{ label: "LinkedIn",    chip: "in", via: "via LinkedIn" },
+    email:   { label: "Email",       chip: "@",  via: "via email" },
+    review:  { label: "Review site", chip: "★",  via: "via review site" }
+  };
+
+  /* ---------- presets — event-flavored starter walls ---------- */
+
+  var PRESETS = {
+    popup: {
+      title: "Pop-up OS — proof from day one",
+      subtitle: "Cody Sanchez keeps a proof vault — every good thing anyone says about you, saved. This is day one of ours.",
+      footnote: "Quotes are real, pulled from the public day-one chat. The company is a demo; the wall is the lesson.",
+      cta: "Watch us earn the next quote — days 2 and 3 are live.",
+      cards: [
+        { quote: "You're not watching me do the code — watch me manage agents that build it. The creation layer just moved up.",
+          author: "A viewer", role: "live chat, Day 1", source: "x", verified: false, stars: 5,
+          metric: "1.1M watched day one happen" },
+        { quote: "They're not just TEAMS of agents. SQUADS of agents.",
+          author: "Lauren", role: "build team, in the open chat", source: "x", verified: true, stars: 5,
+          metric: "30+ bots hired in one day" },
+        { quote: "What's the link for the site?",
+          author: "The chat, all afternoon", role: "the most-repeated question of day one", source: "x", verified: false, stars: 0,
+          metric: "" },
+        { quote: "Why are the bots talking to each other like different users with their own avatars?",
+          author: "A skeptic", role: "live chat, Day 1 — kept on purpose", source: "x", verified: false, stars: 3,
+          metric: "" },
+        { quote: "No pull requests — we ship to main.",
+          author: "Tater", role: "engineering bot — the rule that drew a laugh", source: "x", verified: false, stars: 0,
+          metric: "0 pull requests shipped on day one" }
+      ]
+    },
+    saas: {
+      title: "What customers actually say",
+      subtitle: "Nineteen teams switched last quarter. What they wrote back:",
+      footnote: "Every quote on file with the sender's permission — ask and we'll show you the originals.",
+      cta: "Ready to make it twenty?",
+      cards: [
+        { quote: "Trial-to-paid went from 11% to 19% the quarter we switched. I checked the math twice; it held.",
+          author: "Priya N.", role: "Head of Growth, Brightpath", source: "linkedin", verified: true, stars: 5,
+          metric: "+8 pts trial-to-paid in one quarter" },
+        { quote: "I was the holdout. Two weeks in, I caught myself demoing it to the board.",
+          author: "Marcus T.", role: "COO, Ferryline", source: "email", verified: true, stars: 4,
+          metric: "" },
+        { quote: "Weekly reporting went from six hours to forty minutes. That's a part-time hire, found.",
+          author: "Dana K.", role: "Ops Lead, Copperline", source: "review", verified: true, stars: 5,
+          metric: "6 hrs to 40 min, weekly" },
+        { quote: "Support tickets per customer dropped 52%. My team noticed before I did.",
+          author: "Sam O.", role: "Founder, Tidepool Labs", source: "x", verified: false, stars: 5,
+          metric: "tickets per customer -52%" },
+        { quote: "Honestly expected another dashboard. This one changed what the Monday meeting is for.",
+          author: "Renata V.", role: "CEO, Kettle & Co", source: "review", verified: true, stars: 5,
+          metric: "" }
+      ]
+    },
+    local: {
+      title: "What the room says",
+      subtitle: "Pinned from review sites, DMs, and the comment cards nobody expected anyone to read.",
+      footnote: "Regulars gave permission. Spelling preserved where it had personality.",
+      cta: "Your table is one form away — which night do you want?",
+      cards: [
+        { quote: "We sold out both nights — 96 covers — and the ticket page did the selling while we cooked.",
+          author: "Chef Marisol", role: "partner, the pop-up on 9th", source: "x", verified: true, stars: 5,
+          metric: "2 sold-out nights, 96 covers" },
+        { quote: "I don't trust QR menus. Trusted this one, then booked three more Sundays.",
+          author: "Devin", role: "regular since night one", source: "review", verified: true, stars: 4,
+          metric: "3 repeat bookings" },
+        { quote: "Booked them for a 40-person birthday. One form, one confirmation, zero phone tag.",
+          author: "Amara O.", role: "event host", source: "email", verified: true, stars: 5,
+          metric: "40-person party, booked in one form" },
+        { quote: "Friday covers up a third since the ticket page went live.",
+          author: "Jules", role: "owner, night-market stall", source: "x", verified: false, stars: 5,
+          metric: "+33% Friday covers" },
+        { quote: "Came for the noodles, stayed because checkout took twenty seconds.",
+          author: "A guest", role: "review, condensed", source: "review", verified: false, stars: 5,
+          metric: "" }
+      ]
+    }
+  };
+
+  /* ---------- state plumbing ---------- */
+
+  function uid() {
+    return "c-" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function blankCard() {
+    return { id: uid(), quote: "", author: "", role: "",
+             source: "x", verified: false, stars: 0, metric: "" };
+  }
+
+  function normalizeState(raw) {
+    var s = raw && typeof raw === "object" ? raw : {};
+    var out = {
+      format: "proofwall",
+      version: 1,
+      title: typeof s.title === "string" ? s.title : "",
+      subtitle: typeof s.subtitle === "string" ? s.subtitle : "",
+      footnote: typeof s.footnote === "string" ? s.footnote : "",
+      cta: typeof s.cta === "string" ? s.cta : "",
+      cards: []
+    };
+    if (Object.prototype.toString.call(s.cards) === "[object Array]") {
+      out.cards = s.cards.map(function (c) {
+        var o = c && typeof c === "object" ? c : {};
+        var card = blankCard();
+        if (typeof o.id === "string" && o.id) card.id = o.id;
+        card.quote = typeof o.quote === "string" ? o.quote : "";
+        card.author = typeof o.author === "string" ? o.author : "";
+        card.role = typeof o.role === "string" ? o.role : "";
+        card.metric = typeof o.metric === "string" ? o.metric : "";
+        card.source = SOURCE_KEYS.indexOf(o.source) >= 0 ? o.source : "x";
+        card.verified = !!o.verified;
+        var n = parseInt(o.stars, 10);
+        if (isNaN(n) || n < 0) n = 0;
+        if (n > 5) n = 5;
+        card.stars = n;
+        return card;
+      });
+    }
+    return out;
+  }
+
+  function presetCopy(key) {
+    var p = PRESETS[key];
+    if (!p) return null;
+    var copy = JSON.parse(JSON.stringify(p));
+    copy.cards = copy.cards.map(function (c) {
+      c.id = uid();
+      return c;
+    });
+    return normalizeState(copy);
+  }
+
+  function byId(id) {
+    var cards = state.cards;
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].id === id) return cards[i];
+    }
+    return null;
+  }
+
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveNow, 250);
+  }
+
+  function saveNow() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      toast("Browser storage is full — export your wall, then trim the longest quotes.");
+    }
+  }
+
+  function load() {
+    var raw = null;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { raw = null; }
+    if (!raw) return null;
+    try { return normalizeState(JSON.parse(raw)); } catch (e) { return null; }
+  }
+
+  /* ---------- the proof-balance readout ---------- */
+
+  function hasNumber(s) {
+    return /\d/.test(String(s || ""));
+  }
+
+  function isAnchored(card) {
+    return hasNumber(card.metric) || hasNumber(card.quote);
+  }
+
+  var SKEPTIC_RE = new RegExp(
+    "skept|doubt|holdout|wasn.?t sure|not sure|honestly|at first|" +
+    "took (us|me) (a|two|three|six)|worried|hesitant|didn.?t trust|" +
+    "almost (didn|did not|quit)|nervous|second.guess|don.?t trust", "i");
+
+  function isSkeptic(card) {
+    if (card.stars > 0 && card.stars < 5) return true;
+    return SKEPTIC_RE.test(card.quote);
+  }
+
+  function starLine(n, joiner) {
+    var sep = joiner || "";
+    if (!n) return "";
+    var out = "";
+    for (var i = 1; i <= 5; i++) out += (i <= n ? "\u2605" : "\u2606") + sep;
+    return sep ? out.slice(0, -sep.length) : out;
+  }
+
+  function initials(name) {
+    var parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return "?";
+    var out = parts[0].charAt(0);
+    if (parts.length > 1) out += parts[parts.length - 1].charAt(0);
+    return out.toUpperCase();
+  }
+
+  function hueFor(name) {
+    var h = 0;
+    var s = String(name || "");
+    for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360;
+    return h;
+  }
+
+  function coachReadout() {
+    var cards = state.cards || [];
+    var n = cards.length;
+    var anchored = cards.filter(isAnchored).length;
+    var skeptics = cards.filter(isSkeptic).length;
+    var verified = cards.filter(function (c) { return c.verified; }).length;
+    var distinct = {};
+    cards.forEach(function (c) { distinct[c.source] = true; });
+    var sourceCount = Object.keys(distinct).length;
+
+    var items = [];
+
+    // volume
+    if (n === 0) {
+      items.push({ ok: false, text: "An empty wall convinces nobody — paste three quotes to start." });
+    } else if (n < 3) {
+      items.push({ ok: false, text: n + (n === 1 ? " quote is" : " quotes are") + " a warm-up. Three is a pattern — sell to three, prove with three." });
+    } else {
+      items.push({ ok: true, text: n + " quotes on the wall." });
+    }
+
+    // numbers
+    if (n > 0 && anchored === 0) {
+      items.push({ ok: false, text: "Nothing on the wall has a number. \u201CLoved it\u201D proves nothing — add a metric anchor (\u201C+38% bookings after switching\u201D)." });
+    } else if (n > 0 && anchored < n / 2) {
+      items.push({ ok: false, text: "Only " + anchored + " of " + n + " quotes carry a number — anchor the rest." });
+    } else if (n > 0) {
+      items.push({ ok: true, text: anchored + " of " + n + " quotes carry a number." });
+    }
+
+    // skeptics
+    if (n > 0 && skeptics === 0) {
+      items.push({ ok: false, text: "Every quote is pure praise. Add one skeptical-sounding quote — walls of only 5-stars read as fake." });
+    } else if (n > 0) {
+      items.push({ ok: true, text: skeptics + (skeptics === 1 ? " skeptic" : " skeptics") + " on the wall — the 5-stars read truer for it." });
+    }
+
+    // spread
+    if (n > 1 && sourceCount === 1) {
+      var onlyVia = SOURCES[cards[0].source] ? SOURCES[cards[0].source].via : "one channel";
+      items.push({ ok: false, text: "Every quote came through one door (" + onlyVia + "). Mix in an email or a review site." });
+    } else if (n > 1) {
+      items.push({ ok: true, text: sourceCount + " sources represented." });
+    }
+
+    // receipts
+    if (n > 0 && verified === 0) {
+      items.push({ ok: false, text: "Nothing is verified. Flip the check on quotes you can prove — receipts beat adjectives." });
+    } else if (n > 0) {
+      items.push({ ok: true, text: verified + " of " + n + " verified." });
+    }
+
+    var fails = items.filter(function (it) { return !it.ok; }).length;
+    var head = n + " quotes \u00B7 " + anchored + " with numbers \u00B7 " +
+               skeptics + (skeptics === 1 ? " skeptic" : " skeptics") + " \u00B7 " +
+               verified + " verified";
+    var verdict;
+    if (n === 0) {
+      verdict = "The wall is bare. Belief needs exhibits.";
+    } else if (fails === 0) {
+      verdict = head + " — balanced: numbers, skeptics, receipts. Textbook.";
+    } else if (fails === 1) {
+      verdict = head + " — one fix below and this wall closes.";
+    } else {
+      verdict = head + " — as it stands, this wall reads staged. " + fails + " fixes below.";
+    }
+    return { verdict: verdict, items: items, fails: fails };
+  }
+
+  /* ---------- rendering: the editor ---------- */
+
+  function renderEditor() {
+    var host = document.getElementById("editor");
+    if (!host) return;
+    if (!state.cards.length) {
+      host.innerHTML =
+        '<div class="empty-state">' +
+        '<p>An empty wall convinces nobody. Three quotes minimum — one of them allowed to sound unconvinced.</p>' +
+        '</div>';
+      return;
+    }
+    var html = state.cards.map(function (c, idx) {
+      var sourceOpts = SOURCE_KEYS.map(function (k) {
+        return '<option value="' + k + '"' + (c.source === k ? " selected" : "") + ">" + SOURCES[k].label + "</option>";
+      }).join("");
+      var starOpts = [0, 1, 2, 3, 4, 5].map(function (n) {
+        var label = n === 0 ? "No rating" : starLine(n, " ");
+        return '<option value="' + n + '"' + (c.stars === n ? " selected" : "") + ">" + label + "</option>";
+      }).join("");
+
+      return '<div class="item-card" data-id="' + c.id + '">' +
+        '<div class="item-bar">' +
+          '<button type="button" class="drag-handle" data-act="handle" title="Drag to reorder" aria-label="Drag to reorder">\u22EE\u22EE</button>' +
+          '<span class="item-num">' + (idx + 1) + '</span>' +
+          '<input type="text" class="f-author" data-act="field" data-field="author" data-id="' + c.id + '"' +
+            ' value="' + esc(c.author) + '" placeholder="Who said it — name or honest attribution" aria-label="Author">' +
+          '<button type="button" class="nudge" data-act="up" data-id="' + c.id + '" title="Move up" aria-label="Move quote up">\u2191</button>' +
+          '<button type="button" class="nudge" data-act="down" data-id="' + c.id + '" title="Move down" aria-label="Move quote down">\u2193</button>' +
+          '<button type="button" class="del" data-act="del-card" data-id="' + c.id + '" title="Remove quote" aria-label="Remove quote">\u2715</button>' +
+        '</div>' +
+        '<textarea data-act="field" data-field="quote" data-id="' + c.id + '" rows="3"' +
+          ' placeholder="The quote — specific beats kind. Edit lightly, keep their voice."' +
+          ' aria-label="Quote">' + esc(c.quote) + '</textarea>' +
+        '<div class="item-row">' +
+          '<input type="text" data-act="field" data-field="role" data-id="' + c.id + '"' +
+            ' value="' + esc(c.role) + '" placeholder="Role, company — or how you know them" aria-label="Role and company">' +
+          '<input type="text" class="f-metric" data-act="field" data-field="metric" data-id="' + c.id + '"' +
+            ' value="' + esc(c.metric) + '" placeholder="Metric anchor — e.g. +38% bookings after switching" aria-label="Metric anchor">' +
+        '</div>' +
+        '<div class="item-row meta-row">' +
+          '<select data-act="field" data-field="source" data-id="' + c.id + '" aria-label="Source" title="Where this quote arrived">' + sourceOpts + '</select>' +
+          '<select data-act="field" data-field="stars" data-id="' + c.id + '" aria-label="Star rating" title="Star rating (optional)">' + starOpts + '</select>' +
+          '<label class="check" title="Tick only what you can prove">' +
+            '<input type="checkbox" data-act="verified" data-id="' + c.id + '"' + (c.verified ? " checked" : "") + '> verified' +
+          '</label>' +
+        '</div>' +
+      '</div>';
+    }).join("");
+    host.innerHTML = html;
+  }
+
+  /* ---------- rendering: preview + coach ---------- */
+
+  function cardsMarkup() {
+    return state.cards.map(function (c) {
+      var src = SOURCES[c.source] || SOURCES.x;
+      var stars = c.stars
+        ? '<div class="stars">' + starLine(c.stars).split("").map(function (ch) {
+            return ch === "\u2605" ? ch : '<span class="off">' + ch + "</span>";
+          }).join("") + "</div>"
+        : "";
+      var metric = c.metric ? '<div class="q-metric">' + esc(c.metric) + "</div>" : "";
+      var hue = hueFor(c.author);
+      var verified = c.verified ? '<span class="v-badge">verified</span>' : "";
+      return '<div class="q-card">' + stars +
+        '<p class="q-quote">\u201C' + esc(c.quote || "\u2026") + '\u201D</p>' +
+        metric +
+        '<div class="q-who">' +
+          '<span class="avatar" style="background:hsl(' + hue + ',38%,32%)">' + esc(initials(c.author)) + "</span>" +
+          '<span class="q-id"><span class="q-author">' + esc(c.author || "Anonymous") + "</span>" +
+          (c.role ? '<br><span class="q-role">' + esc(c.role) + "</span>" : "") +
+          "</span>" +
+        "</div>" +
+        '<div class="q-meta"><span class="src s-' + esc(c.source) + '">' + esc(src.chip) + "</span>" + verified + "</div>" +
+      "</div>";
+    }).join("");
+  }
+
+  function docMarkup() {
+    var html = '<p class="wall-title">' + esc(state.title || "Untitled wall") + "</p>";
+    if (state.subtitle) html += '<p class="wall-sub">' + esc(state.subtitle) + "</p>";
+    html += state.cards.length
+      ? '<div class="wall">' + cardsMarkup() + "</div>"
+      : '<p class="wall-empty">No quotes yet — this is where belief goes to be proven.</p>';
+    if (state.footnote) html += '<p class="wall-foot">' + esc(state.footnote) + "</p>";
+    if (state.cta) html += '<p class="wall-cta">' + esc(state.cta) + "</p>";
+    return html;
+  }
+
+  function renderPreview() {
+    var host = document.getElementById("previewDoc");
+    if (host) host.innerHTML = docMarkup();
+  }
+
+  function renderCoach() {
+    var host = document.getElementById("coach");
+    if (!host) return;
+    var read = coachReadout();
+    var list = read.items.map(function (it) {
+      return '<li class="' + (it.ok ? "ok" : "flag") + '">' + esc(it.text) + "</li>";
+    }).join("");
+    host.innerHTML = '<div class="verdict">' + esc(read.verdict) + "</div><ul>" + list + "</ul>";
+    host.classList.toggle("all-clear", read.fails === 0 && state.cards.length > 0);
+  }
+
+  function renderSettings() {
+    var t = document.getElementById("wallTitle");
+    var s = document.getElementById("wallSub");
+    var c = document.getElementById("wallCta");
+    var f = document.getElementById("wallFoot");
+    if (t) t.value = state.title;
+    if (s) s.value = state.subtitle;
+    if (c) c.value = state.cta;
+    if (f) f.value = state.footnote;
+  }
+
+  function render() {
+    renderSettings();
+    renderEditor();
+    renderPreview();
+    renderCoach();
+  }
+
+  function schedulePreview() {
+    clearTimeout(previewTimer);
+    previewTimer = setTimeout(function () {
+      renderPreview();
+      renderCoach();
+    }, 120);
+  }
+
+  /* ---------- exports ---------- */
+
+  function buildMarkdown() {
+    var L = [];
+    L.push("# " + (state.title || "Wall of love"));
+    if (state.subtitle) L.push("", "> " + state.subtitle);
+    state.cards.forEach(function (c) {
+      var src = SOURCES[c.source] || SOURCES.x;
+      L.push("");
+      var lines = String(c.quote || "").split("\n");
+      if (lines.length === 1) {
+        L.push("> \u201C" + lines[0] + "\u201D");
+      } else {
+        L.push("> \u201C" + lines[0]);
+        for (var i = 1; i < lines.length - 1; i++) L.push("> " + lines[i]);
+        L.push("> " + lines[lines.length - 1] + "\u201D");
+      }
+      if (c.metric) L.push(">", "> **" + c.metric + "**");
+      var meta = [];
+      meta.push("**" + (c.author || "Anonymous") + "**");
+      if (c.role) meta.push(c.role);
+      meta.push(src.via);
+      if (c.stars) meta.push(starLine(c.stars, " "));
+      if (c.verified) meta.push("\u2714 verified");
+      L.push(">", "> \u2014 " + meta.join(" \u00B7 "));
+    });
+    if (state.footnote) L.push("", "_" + state.footnote + "_");
+    if (state.cta) L.push("", "**" + state.cta + "**");
+    return L.join("\n");
+  }
+
+  function exportCss() {
+    return [
+      ":root{--bg:#12161f;--panel:#171c27;--line:#2a3142;--text:#e8ecf4;--muted:#97a0b3;--faint:#6b7488;--accent:#3fbf7f}",
+      "*{box-sizing:border-box}",
+      "body{margin:0;padding:32px 18px;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif;line-height:1.45}",
+      "main{max-width:1020px;margin:0 auto}",
+      ".wall-title{font-size:28px;font-weight:800;margin:0;letter-spacing:.2px}",
+      ".wall-sub{color:var(--muted);margin:8px 0 24px;font-size:15px}",
+      ".wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}",
+      ".q-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:9px}",
+      ".stars{color:#f2b13d;font-size:13px;letter-spacing:2px}",
+      ".stars .off{color:var(--line)}",
+      ".q-quote{margin:0;font-size:14.5px;line-height:1.55;flex:1}",
+      ".q-metric{font-size:12.5px;font-weight:700;color:#5fd398;background:rgba(63,191,127,.14);border-radius:7px;padding:5px 9px;align-self:flex-start}",
+      ".q-who{display:flex;align-items:center;gap:9px}",
+      ".avatar{flex:none;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:800;color:rgba(255,255,255,.92)}",
+      ".q-id{min-width:0}",
+      ".q-author{font-size:13px;font-weight:700}",
+      ".q-role{font-size:11.5px;color:var(--faint)}",
+      ".q-meta{display:flex;align-items:center;gap:7px;flex-wrap:wrap}",
+      ".src{font-size:10px;font-weight:800;letter-spacing:.4px;border-radius:5px;padding:2px 6px;background:var(--panel);border:1px solid var(--line);color:var(--muted)}",
+      ".s-x{color:#dfe5ee}",
+      ".s-linkedin{color:#7ab6f2;border-color:rgba(122,182,242,.35)}",
+      ".s-email{color:#5cd3c9;border-color:rgba(92,211,201,.35)}",
+      ".s-review{color:#f6c265;border-color:rgba(242,177,61,.35)}",
+      ".v-badge{font-size:10.5px;font-weight:700;color:#5fd398}",
+      ".v-badge:before{content:\"\\2713 \"}",
+      ".wall-foot{margin:24px 0 0;font-size:12.5px;color:var(--faint)}",
+      ".wall-cta{margin:22px 0 0;font-size:21px;font-weight:700;color:var(--accent);text-align:center}",
+      ".proof-credit{margin:30px 0 0;font-size:11px;color:var(--faint);text-align:center}"
+    ].join("\n");
+  }
+
+  function buildHtmlDoc() {
+    var html = [
+      "<!DOCTYPE html>",
+      '<html lang="en">',
+      "<head>",
+      '<meta charset="UTF-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+      "<title>" + esc(state.title || "Wall of love") + "</title>",
+      "<style>",
+      exportCss(),
+      "</style>",
+      "</head>",
+      "<body>",
+      "<main>",
+      '<p class="wall-title">' + esc(state.title || "Untitled wall") + "</p>",
+      state.subtitle ? '<p class="wall-sub">' + esc(state.subtitle) + "</p>" : "",
+      state.cards.length
+        ? '<div class="wall">' + cardsMarkup() + "</div>"
+        : '<div class="wall"></div>',
+      state.footnote ? '<p class="wall-foot">' + esc(state.footnote) + "</p>" : "",
+      state.cta ? '<p class="wall-cta">' + esc(state.cta) + "</p>" : "",
+      '<p class="proof-credit">Built with ProofWall — a one-file, offline wall-of-love builder.</p>',
+      "</main>",
+      "</body>",
+      "</html>"
+    ];
+    return html.filter(function (line) { return line !== ""; }).join("\n");
+  }
+
+  /* ---------- export modal ---------- */
+
+  var exportKind = null; // "md" | "html"
+
+  function openExport(kind) {
+    exportKind = kind;
+    var text = kind === "md" ? buildMarkdown() : buildHtmlDoc();
+    var title = document.getElementById("modalTitle");
+    var box = document.getElementById("modalText");
+    var dl = document.getElementById("modalDownload");
+    if (title) title.textContent = kind === "md"
+      ? "Markdown wall — paste it where the sale happens"
+      : "HTML wall — a standalone page, ready to host";
+    if (box) box.value = text;
+    if (dl) dl.textContent = kind === "md" ? "Download .md" : "Download .html";
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.add("open");
+    if (box) { box.focus(); box.select(); }
+  }
+
+  function closeExport() {
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.remove("open");
+    exportKind = null;
+  }
+
+  function copyCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box) return;
+    var text = box.value;
+    function done(ok) {
+      toast(ok
+        ? "Wall copied. Paste it where the sale happens."
+        : "Clipboard blocked — select the text above and copy manually. It's all there.");
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(fallbackCopy(box)); });
+    } else {
+      done(fallbackCopy(box));
+    }
+  }
+
+  function fallbackCopy(box) {
+    var ok = false;
+    try {
+      box.focus();
+      box.select();
+      ok = document.execCommand("copy");
+    } catch (e) { ok = false; }
+    return ok;
+  }
+
+  function downloadCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box || !exportKind) return;
+    try {
+      var blob = new Blob([box.value], { type: exportKind === "md" ? "text/markdown" : "text/html" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = exportKind === "md" ? "wall-of-love.md" : "wall-of-love.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
+      toast(exportKind === "md" ? "wall-of-love.md saved." : "wall-of-love.html saved — host it where buyers hesitate.");
+    } catch (e) {
+      toast("Download blocked — copy the text instead.");
+    }
+  }
+
+  /* ---------- reorder (drag + nudges) ---------- */
+
+  function moveCard(id, toIndex) {
+    var from = state.cards.findIndex(function (x) { return x.id === id; });
+    if (from < 0) return state;
+    var card = state.cards.splice(from, 1)[0];
+    if (from < toIndex) toIndex -= 1;
+    toIndex = Math.max(0, Math.min(state.cards.length, toIndex));
+    state.cards.splice(toIndex, 0, card);
+    return state;
+  }
+
+  function clearDragMarks() {
+    document.querySelectorAll(".item-card").forEach(function (el) {
+      el.classList.remove("ins-before", "ins-after", "dragging");
+    });
+  }
+
+  /* ---------- toast ---------- */
+
+  function toast(msg) {
+    var el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3400);
+  }
+
+  /* ---------- event wiring ---------- */
+
+  function setField(el) {
+    var field = el.getAttribute("data-field");
+    if (!field) return;
+    var val = el.value;
+    if (el.getAttribute("data-act") === "wall-field") {
+      state[field] = val;
+    } else {
+      var c = byId(el.getAttribute("data-id"));
+      if (!c) return;
+      c[field] = val;
+    }
+    save();
+  }
+
+  function wireEvents() {
+    document.addEventListener("input", function (e) {
+      var el = e.target.closest ? e.target.closest("[data-act='field'],[data-act='wall-field']") : null;
+      if (!el) return;
+      setField(el);
+      schedulePreview();
+    });
+
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (!t || !t.matches) return;
+      if (t.matches("[data-act='field']")) { setField(t); schedulePreview(); return; }
+      if (t.matches("[data-act='wall-field']")) { setField(t); schedulePreview(); return; }
+      if (t.matches("[data-act='verified']")) {
+        var c = byId(t.getAttribute("data-id"));
+        if (c) {
+          c.verified = t.checked;
+          save();
+          renderPreview();
+          renderCoach();
+          if (t.checked) toast("Marked verified — you can prove this one. That's the whole trick.");
+        }
+        return;
+      }
+      if (t.id === "presetSelect") { presetPick(t); return; }
+    });
+
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest("[data-act]") : null;
+      if (!btn) return;
+      var act = btn.getAttribute("data-act");
+      var id = btn.getAttribute("data-id");
+      if (act === "add-card") {
+        state.cards.push(blankCard());
+        save();
+        renderEditor();
+        renderPreview();
+        renderCoach();
+        toast("Quote added. Now make it specific — a number, a name, a before-and-after.");
+      } else if (act === "del-card") {
+        state.cards = state.cards.filter(function (x) { return x.id !== id; });
+        save();
+        renderEditor();
+        renderPreview();
+        renderCoach();
+        toast("Quote removed. Keep the balance honest.");
+      } else if (act === "up" || act === "down") {
+        var idx = state.cards.findIndex(function (x) { return x.id === id; });
+        if (idx < 0) return;
+        var to = act === "up" ? idx - 1 : idx + 2;
+        moveCard(id, to);
+        save();
+        render();
+      } else if (act === "export-md") {
+        openExport("md");
+      } else if (act === "export-html") {
+        openExport("html");
+      } else if (act === "new-wall") {
+        if (window.confirm("Clear the wall and start over? Export first if you want to keep this one.")) {
+          state = normalizeState({ title: "My wall of love", subtitle: "", footnote: "", cta: "", cards: [] });
+          state.cards.push(blankCard());
+          save();
+          render();
+          toast("Fresh wall. Three quotes and a metric — go get them.");
+        }
+      }
+    });
+
+    // modal
+    document.getElementById("modalCopy").addEventListener("click", copyCurrent);
+    document.getElementById("modalDownload").addEventListener("click", downloadCurrent);
+    document.getElementById("modalClose").addEventListener("click", closeExport);
+    document.getElementById("modalBackdrop").addEventListener("click", function (e) {
+      if (e.target === this) closeExport();
+    });
+    document.getElementById("exportMdBtn").addEventListener("click", function () { openExport("md"); });
+    document.getElementById("exportHtmlBtn").addEventListener("click", function () { openExport("html"); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeExport();
+    });
+
+    // drag to reorder: only the handle arms the card as draggable
+    document.addEventListener("mousedown", function (e) {
+      var handle = e.target.closest ? e.target.closest("[data-act='handle']") : null;
+      if (!handle) return;
+      var card = handle.closest(".item-card");
+      if (card) card.setAttribute("draggable", "true");
+    });
+    document.addEventListener("dragstart", function (e) {
+      var card = e.target.closest ? e.target.closest(".item-card") : null;
+      if (!card) return;
+      dragId = card.getAttribute("data-id");
+      card.classList.add("dragging");
+      if (e.dataTransfer) {
+        e.dataTransfer.effectAllowed = "move";
+        try { e.dataTransfer.setData("text/plain", dragId); } catch (err) { /* ok */ }
+      }
+    });
+    var editor = document.getElementById("editor");
+    editor.addEventListener("dragover", function (e) {
+      if (!dragId) return;
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = "move";
+      var card = e.target.closest ? e.target.closest(".item-card") : null;
+      clearDragMarks();
+      if (!card || card.getAttribute("data-id") === dragId) return;
+      var rect = card.getBoundingClientRect();
+      var before = e.clientY < rect.top + rect.height / 2;
+      card.classList.add(before ? "ins-before" : "ins-after");
+    });
+    editor.addEventListener("drop", function (e) {
+      if (!dragId) return;
+      e.preventDefault();
+      var card = e.target.closest ? e.target.closest(".item-card") : null;
+      var dropIndex = state.cards.length;
+      if (card && card.getAttribute("data-id") !== dragId) {
+        var targetId = card.getAttribute("data-id");
+        var ti = state.cards.findIndex(function (x) { return x.id === targetId; });
+        var rect = card.getBoundingClientRect();
+        var before = e.clientY < rect.top + rect.height / 2;
+        dropIndex = before ? ti : ti + 1;
+      }
+      var id = dragId;
+      clearDragMarks();
+      dragId = null;
+      moveCard(id, dropIndex);
+      save();
+      render();
+    });
+    document.addEventListener("dragend", function () {
+      dragId = null;
+      clearDragMarks();
+      document.querySelectorAll(".item-card[draggable='true']").forEach(function (el) {
+        el.removeAttribute("draggable");
+      });
+    });
+    document.addEventListener("mouseup", function () {
+      // released the handle without dragging — rearm text selection everywhere
+      document.querySelectorAll(".item-card[draggable='true']").forEach(function (el) {
+        el.removeAttribute("draggable");
+      });
+    });
+  }
+
+  function presetPick(select) {
+    var key = select.value;
+    if (!key || !PRESETS[key]) return;
+    var name = select.options[select.selectedIndex].textContent;
+    if (!window.confirm("Load the " + name + " preset? It replaces the wall — export first if you want to keep it.")) {
+      select.selectedIndex = 0;
+      return;
+    }
+    state = presetCopy(key);
+    save();
+    render();
+    toast(name + " loaded. Study the balance, then make it yours.");
+    select.selectedIndex = 0;
+  }
+
+  /* ---------- boot ---------- */
+
+  function boot() {
+    state = load();
+    if (!state) {
+      state = presetCopy("popup");
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* non-fatal */ }
+    }
+    wireEvents();
+    render();
+  }
+
+  if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot);
+    } else {
+      boot();
+    }
+  }
+
+  /* ---------- test hook (harmless in the browser) ---------- */
+  if (typeof window !== "undefined") {
+    window.ProofWall = {
+      PRESETS: PRESETS,
+      SOURCES: SOURCES,
+      SOURCE_KEYS: SOURCE_KEYS,
+      buildMarkdown: buildMarkdown,
+      buildHtmlDoc: buildHtmlDoc,
+      coachReadout: coachReadout,
+      isAnchored: isAnchored,
+      isSkeptic: isSkeptic,
+      starLine: starLine,
+      initials: initials,
+      hueFor: hueFor,
+      normalizeState: normalizeState,
+      moveCard: moveCard,
+      setState: function (s) { state = s; },
+      getState: function () { return state; },
+      saveNow: saveNow,
+      loadFromStorage: load
+    };
+  }
+})();
+</script>
+</body>
+</html>
