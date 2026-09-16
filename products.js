@@ -47,17 +47,17 @@
    ============================================================================ */
 
 window.GG_PRODUCT = {
-  name: "'Pop-up OS' (working name)",
+  name: "Game design studio (pivoted Day 2) — first game: 'Cupcake Loop'",
   nameConfidence: "medium",
-  oneLiner: "Event-ops software for local restaurants and venues — bookings, morning briefs, menu and review management — born from a planned restaurant pop-up. On Day 2 the physical pop-up event was retired ('There is no pop-up') and the team went product-first: landing page, AEO/SEO, A/B testing, first bookings",
-  stage: "BUILD (Day 2 pivot: pop-up event retired, product-first; lander in staging; no public launch)"
+  oneLiner: "Pivoted live on Day 2 from the restaurant pop-up plan to a GAME DESIGN STUDIO: the first game, Cupcake Loop, is a competitive character-draft game with a short loop, ELO-style matchmaking and live-tunable debug sliders — prototyped potato-mode on localhost within hours of the pivot",
+  stage: "PROTOTYPE (Cupcake Loop playable on localhost; no public launch)"
 };
 
 window.GG_FEATURES = [
   {
     id: "event-builder",
     name: "Event builder",
-    category: "Platform",
+    category: "Pop-up track (Day 1 — retired)",
     status: "BUILD",
     statusHistory: [
       { status: "SPEC", t: "2:07 PM", note: "'user should be able to create their own event: date/time, sessions, venue, staff' read on screen" },
@@ -77,7 +77,7 @@ window.GG_FEATURES = [
   {
     id: "booking-signup",
     name: "Booking & sign-up",
-    category: "Platform",
+    category: "Pop-up track (Day 1 — retired)",
     status: "STAGING",
     statusHistory: [
       { status: "WIREFRAME", t: "4:01 PM", note: "Balsamiq-style wireframe board" },
@@ -97,7 +97,7 @@ window.GG_FEATURES = [
   {
     id: "ticket-badge",
     name: "Ticket & badge design",
-    category: "Revenue",
+    category: "Pop-up track (Day 1 — retired)",
     status: "SHIPPED",
     statusHistory: [
       { status: "BUILD", t: "4:19 PM", note: "ticket designs in progress on the canvas" },
