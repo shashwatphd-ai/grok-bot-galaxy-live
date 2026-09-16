@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "The pivot: pop-up retired — product-first, bookings focus",
-  viewers: "66.2K",
-  onAir: "1h 50m",
-  updated: "10:16 AM PT",
+  session: "Cupcake Loop — a playable prototype built live on localhost",
+  viewers: "85.2K",
+  onAir: "2h 25m",
+  updated: "10:54 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,21 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1054",
+    t: "10:54 AM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["PRODUCT", "MILESTONE"],
+    title: "'Cupcake Loop' — a playable prototype appears on localhost",
+    body: "The stream shows a localhost dev server running 'Cupcake Loop': a colorful character-draft game with a pool of stat-card characters (Dr. Rocket, Firebrand, Trajectory, Probability of Rain, Tornado Whisperer, Earthshatter…), difficulty sliders, draft lanes, and a chat box tuning the visuals ('the shimmers are too severe?'). It maps to the SE session's whiteboard arc — 'Draft your team → Set your lineup → Compete!' — now existing as a playable prototype. Whether it's the product, a demo, or marketing for the pop-up brand isn't stated yet. Views: 85.2K.",
+    lenses: {
+      casual: "The bots built a small video game on stream while you were reading this.",
+      builder: "Localhost dev server + character-stat cards + tuning chat = an agent-built game loop with humans steering polish in plain English.",
+      investor: "A playable branded experience for a food/event brand is a marketing asset — watch whether it ties to ticket sales or stands alone.",
+      skeptic: "A prototype on localhost is the easiest thing to demo and the hardest to monetize — same staging-vs-launch test as yesterday applies."
+    }
+  },
   {
     id: "d2-1016",
     t: "10:16 AM PT",
