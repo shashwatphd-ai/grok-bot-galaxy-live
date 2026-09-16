@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "STREAM RENAMED: Grok Bot builds a Game Studio LIVE",
-  viewers: "147K",
-  onAir: "4h 05m",
-  updated: "12:35 PM PT",
+  session: "New speaker on stage — name card: Mark Wright",
+  viewers: "184.4K",
+  onAir: "5h 10m",
+  updated: "1:36 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
