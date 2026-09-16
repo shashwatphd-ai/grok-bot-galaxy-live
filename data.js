@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Late-afternoon build — the fleet keeps shipping",
-  viewers: "298.7K",
-  onAir: "6h 51m",
-  updated: "3:21 PM PT",
+  session: "Roundtable on the main stage — Game Studio LIVE",
+  viewers: "312.6K",
+  onAir: "7h 00m",
+  updated: "3:30 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
