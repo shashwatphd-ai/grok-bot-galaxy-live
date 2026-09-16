@@ -39,9 +39,9 @@ window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
   session: "Game Studio LIVE — guest interview full screen",
-  viewers: "262.1K",
-  onAir: "6h 25m",
-  updated: "3:00 PM PT",
+  viewers: "271.9K",
+  onAir: "6h 45m",
+  updated: "3:20 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
