@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Sales Engineering — building the Vision Deck pitch",
-  viewers: "37.4K",
-  onAir: "1h 25m",
-  updated: "9:35 AM PT",
+  session: "Sales track on the main stage — live audience, agent docs on screen",
+  viewers: "58.8K",
+  onAir: "1h 30m",
+  updated: "9:57 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
