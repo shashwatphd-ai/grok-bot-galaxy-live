@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Cupcake Loop battle screen — human-directed bot iteration",
-  viewers: "122K",
-  onAir: "2h 35m",
-  updated: "11:04 AM PT",
+  session: "Image Gen locks the landing hero; Cupcake Eng joins",
+  viewers: "132.2K",
+  onAir: "2h 55m",
+  updated: "11:20 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1120",
+    t: "11:20 AM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["PRODUCT", "FLEET"],
+    title: "Image Gen locked the landing hero; Cupcake Eng joins the roster",
+    body: "The Image Gen bot's settings panel on screen (illustration/marketing/editor label; gro-magic-image-v2 model; multi-ref; aspect-ratio aware; URL or b64 responses) — and the human locked the decision: Founding Eng uses the isometric transparent icon for the Thursday lander. A 'Cupcake Eng' bot also appears on the roster — the game has its own engineer now. Views: 132.2K."
+  },
   {
     id: "d2-1104",
     t: "11:04 AM PT",
