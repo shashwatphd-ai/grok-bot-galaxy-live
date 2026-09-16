@@ -36,16 +36,16 @@
    ============================================================================ */
 
 window.GG_META = {
-  status: "ENDED",
-  day: "Day 1 of 3 — Tue Sep 15, 2026 (stream resumes Wed 8:30 AM PT)",
-  session: "Day 1 ended — full recap and transcript below; Day 2 opens with Sales Engineering at 9:00 AM PT",
-  viewers: "1.1M",
-  onAir: "9h 00m",
-  updated: "9:35 PM PT",
-  stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
+  status: "LIVE",
+  day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
+  session: "Day 2 opening — hold screen; Sales Engineering at 9:00 AM PT",
+  viewers: "—",
+  onAir: "0h 05m",
+  updated: "8:30 AM PT",
+  stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
-window.GG_MOMENT = "";
+window.GG_MOMENT = "Day 2 begins: the bot fleet's second day — today it has to sell, not just build.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
@@ -75,6 +75,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-0830",
+    t: "8:30 AM PT",
+    day: 2,
+    type: "STAGE",
+    tags: ["MILESTONE"],
+    title: "Day 2 opens: the sales track — today the fleet has to sell, not just build",
+    body: "Hold screen up on the new Day 2 broadcast; the stream opens with Grok Bot for Sales Engineering at 9:00 (Amrita Venkatraman), then Sales at 12:30, SDRs at 2:30 (Simon Lackowski), and Customer Support at 4:00 (David Gan). The question of the day: can the bot fleet that built a pop-up business in one day also sell it?"
+  },
   {
     id: "d1-1930",
     t: "9:30 PM PT",
