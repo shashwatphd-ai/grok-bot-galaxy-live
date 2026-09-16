@@ -130,7 +130,7 @@ window.GG_FEATURES = [
     numbers: [
       "'Glider Checklist' PDF: $5–10",
       "Gear-guide bundle: ~$25",
-      "Profit rollout target: $30k (merch + digital)"
+      "Profit rollout target: $30k (stated ambition, no sales yet)"
     ],
     notes: "Second revenue line: concepts first, catalog in-thread, plush iterated against official art. Humans steer taste; bots do catalog, pricing, copy, imagery."
   },
@@ -222,12 +222,12 @@ window.GG_FEATURES = [
       { t: "4:10 PM", what: "Glider flight economics: $250 per flight, 3–6 flights per weekend, roughly $2,500 over a summer" }
     ],
     numbers: [
-      "$250 / flight",
+      "$250 / flight (sample data)",
       "3–6 flights / weekend",
       "~$2,500 summer",
-      "One weekend: ≈ $5,869"
+      "One weekend: ≈ $5,869 (sample data)"
     ],
-    notes: "The best-documented revenue line — the $5,869 weekend is the number the scoreboard anchors on."
+    notes: "Session sample data, not the trio's build — kept because the $250/$5,869 figures were the day's most-quoted economics. Provenance: presenter demo screens."
   },
   {
     id: "seo-work-order",
@@ -377,7 +377,7 @@ window.GG_SESSIONS = [
 window.GG_DAY1_NUMBERS = [
   { label: "Viewers", value: "832K → 1.1M", sub: "coverage start to Day 1 close" },
   { label: "Fleet", value: "11 → 30+ bots", sub: "10 archived across the day" },
-  { label: "Best weekend", value: "$5,869", sub: "glider-flight revenue" },
-  { label: "Profit target", value: "$30k", sub: "merch + digital rollout" },
+  { label: "Best weekend", value: "$5,869", sub: "sample data — no real sales yet" },
+  { label: "Profit target", value: "$30k", sub: "stated ambition — staging data" },
   { label: "Wireframe → staging", value: "~45 min", sub: "sign-up page in preview by 4:19 PM" }
 ];
