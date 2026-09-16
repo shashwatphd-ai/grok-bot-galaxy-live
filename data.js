@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Sales Engineering — product walkthrough (Sales Outreach demo)",
-  viewers: "30.9K",
-  onAir: "1h 05m",
-  updated: "9:20 AM PT",
+  session: "Sales Engineering — building the Vision Deck pitch",
+  viewers: "37.4K",
+  onAir: "1h 25m",
+  updated: "9:35 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-0935",
+    t: "9:35 AM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["KEYNOTE"],
+    title: "Building the Vision Deck live: 'Why SpaceXAI?'",
+    body: "Amrita's Google Slides window ('Amrita SpaceXAI Vision Deck') goes on screen as she presents the pitch-narrative skill: a 'Why SpaceXAI?' slide with a dark cinematic background, deck outline in the sidebar, presenter view live. The sales-engineering lesson in progress: the deck is being assembled and delivered in the same session. Views: 37.4K."
+  },
   {
     id: "d2-0910",
     t: "9:10 AM PT",
