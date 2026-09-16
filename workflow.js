@@ -50,7 +50,15 @@ window.GG_WORKFLOW = {
     /* ── Day 2 — Wed Sep 16: the sales track ── */
     { t: "8:33 AM",  lane: "human", actor: "Lauren · Roshan · Matt", act: "Opened Day 2: the selling day", detail: "New broadcast, same mission: yesterday the fleet built a pop-up business — today the humans have to sell it. Sales track ahead: Sales Engineering, Sales, SDRs, Customer Support.", day: 2 },
     { t: "9:10 AM",  lane: "human", actor: "Sales Engineering (Amrita Venkatraman)", act: "Whiteboarded the customer demo arc", detail: "Diagram tool on screen: 'Grok Bot Template → Draft your team → Set your lineup → Compete!' — a four-step customer demo arc for selling the bot-built product, with notes on showing 'how we build a complicated product with bots.'", day: 2 },
-    { t: "9:35 AM",  lane: "human", actor: "Amrita Venkatraman", act: "Built the Vision Deck pitch live", detail: "Google Slides on screen ('Amrita SpaceXAI Vision Deck'): a 'Why SpaceXAI?' narrative slide assembled and delivered in the same session — deck-building as a sales-engineering skill.", day: 2 }
+    { t: "9:35 AM",  lane: "human", actor: "Amrita Venkatraman", act: "Built the Vision Deck pitch live", detail: "Google Slides on screen ('Amrita SpaceXAI Vision Deck'): a 'Why SpaceXAI?' narrative slide assembled and delivered in the same session — deck-building as a sales-engineering skill.", day: 2 },
+    { t: "9:50 AM",  lane: "human", actor: "Roshan", act: "Pointed his agent at Lauren's plan (shared context)", detail: "'Hey, take a look at that document — that's going to be our game.' Cross-agent context sharing: one agent reads another's plan doc and proposes the lander stack.", day: 2 },
+    { t: "9:57 AM",  lane: "ai", actor: "grokbot", act: "Spun up the landing page while the design was still being argued", detail: "'We have our lander getting spun up' — the landing page build started in parallel with the Vision Deck discussion. Build never waits for the meeting to end.", day: 2 },
+    { t: "10:00 AM", lane: "ai", actor: "Creative Director bot", act: "Prototyped game visuals with slider-tunable SVG assets", detail: "Researched how game visuals work ('I've never built a video game before… a total noob to game design'), then built a Dia-toolkit-style asset customizer with flat SVG token sliders — iterate looks before code.", day: 2 },
+    { t: "10:05 AM", lane: "ai", actor: "Steve · dr. eggbot", act: "Orchestrated the agent org: Steve supervises, dr. eggbot creates engineers", detail: "dr. eggbot spawned an engineering bot to orchestrate P-stack/potato-mode cloud agents and supervise their work — the org chart staffing itself on demand.", day: 2 },
+    { t: "10:09 AM", lane: "ai", actor: "Knowledge Base bot", act: "Updated the Notion company doc to document the pivot", detail: "'We're documenting the pivot and eventually what our go-to-market strategy might be' — the company doc now records the game-studio direction, kept current by a bot.", day: 2 },
+    { t: "10:40 AM", lane: "ai", actor: "engineering bots", act: "Shipped the Cupcake Loop prototype (localhost)", detail: "Character-draft prototype live on a localhost dev server: stat-card character pool, draft lanes, difficulty sliders, debug panels with input boxes to tweak game constants. Skip sign-in, skip database — 'we don't need login yet when we don't even know if the game is fun.'", day: 2 },
+    { t: "10:45 AM", lane: "human", actor: "Roshan", act: "Designed the competitive loop: ELO-style matchmaking", detail: "Short competitive loop with an ELO-like rating ('almost like a chess rating') where match difficulty scales score gains; matchmaking kept simple for the prototype, iterated later.", day: 2 },
+    { t: "10:50 AM", lane: "human", actor: "Lauren · Roshan", act: "Set the north-star metric: 'shorten the time to fun'", detail: "'The point of the game is that it's fun. Everything else is not important if the game isn't fun.' Debug sliders let them tweak in-game constants (e.g., the charisma-vs-deck 20% bonus) and replay instantly — no waiting for agents.", day: 2 }
   ],
 
   deliverables: [
@@ -61,7 +69,14 @@ window.GG_WORKFLOW = {
     { id: "menu",    t: "4:15 PM",  name: "Price menu with web-sourced imagery", status: "SHIPPED", detail: "Tiered offers with photos and pricing, pending the human taste call." },
     { id: "tickets", t: "4:22 PM",  name: "Ticket stubs, badges and lanyards", status: "SHIPPED", detail: "Night-market stub designs in CSS, tier A/B/C, OfficePass Plus badge. Designs only — no checkout yet." },
     { id: "email",   t: "4:28 PM",  name: "Email marketing channel", status: "SHIPPED", detail: "Tee Bot drafting and sending promo emails with best-seller banners." },
-    { id: "seo",     t: "4:55 PM",  name: "SEO work order with dated execution plan", status: "SHIPPED", detail: "Keyword plan, page-weight and form fixes, FAQ — execution timeline dated through Thu Sep 17." }
+    { id: "seo",     t: "4:55 PM",  name: "SEO work order with dated execution plan", status: "SHIPPED", detail: "Keyword plan, page-weight and form fixes, FAQ — execution timeline dated through Thu Sep 17.", day: 1 },
+
+    /* ── Day 2 deliverables ── */
+    { id: "pivot-doc", t: "10:09 AM", name: "Company doc updated: the pivot documented", status: "SHIPPED", detail: "Knowledge Base bot rewrote the Notion company doc for the game-studio direction; 'Oct 15 venue/host/dining tracks are retired.'", day: 2 },
+    { id: "engineer-org", t: "10:05 AM", name: "On-demand engineering org", status: "SHIPPED", detail: "dr. eggbot spawned an engineer bot that orchestrates potato-mode cloud agents — the org chart staffing itself when asked.", day: 2 },
+    { id: "cupcake-proto", t: "10:40 AM", name: "Cupcake Loop playable prototype", status: "SHIPPED", detail: "Character-draft game prototype on localhost: stat-card pool, draft lanes, difficulty sliders, debug panels for live tuning. Skip sign-in — prove the fun first.", day: 2 },
+    { id: "competitive-loop", t: "10:45 AM", name: "Competitive loop + ELO matchmaking design", status: "PITCHED", detail: "Short competitive loop, ELO-like rating scaled by opponent strength; matchmaking kept simple for the prototype.", day: 2 },
+    { id: "asset-sliders", t: "10:00 AM", name: "SVG asset customizer (visual prototyping)", status: "SHIPPED", detail: "Creative Director bot's flat-SVG-token sliders for prototyping game visuals before code.", day: 2 }
   ],
 
   stats: {
