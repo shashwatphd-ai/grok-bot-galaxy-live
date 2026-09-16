@@ -60,10 +60,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Founders session — 'Optimizing Costs' (browser-use economics)",
+  session: "Build resumes — whiteboard planning at the table",
   viewers: "1M",
-  onAir: "8h 00m",
-  updated: "4:50 PM PT",
+  onAir: "8h 30m",
+  updated: "5:22 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
