@@ -2094,19 +2094,33 @@
     renderTimeline();
     if (activeTab === "now") window.scrollTo(0, sy);
   }
-  function pull() {
-    fetch(dataPath + "?cb=" + Date.now(), { cache: "no-store" })
+  function renderCurrentTab() {
+    if (activeTab === "product") renderProduct();
+    else if (activeTab === "timeline") renderTimeline();
+    else if (activeTab === "screens") renderScreens();
+    else if (activeTab === "workflow") renderWorkflow();
+    else if (activeTab === "now") renderNow();
+  }
+  function fetchEval(name) {
+    return fetch(name + "?cb=" + Date.now(), { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
-      .then(function (text) {
-        if (setData(text)) {
-          if (rp) { connLine(true, "live · checked " + new Date().toLocaleTimeString()); return; }
-          renderAll();
-          connLine(true, "live · checked " + new Date().toLocaleTimeString());
-        } else {
-          connLine(false, "data error — will retry in 30s");
-        }
-      })
-      .catch(function () { connLine(false, "reconnecting…"); });
+      .then(function (t) { return setData(t); });
+  }
+  function pull() {
+    fetchEval(dataPath).then(function (dataOk) {
+      var others = ["products.js", "workflow.js", "screens.js", "research.js"];
+      return Promise.all(others.map(function (n) { return fetchEval(n).catch(function () { return false; }); }))
+        .then(function (res) { return dataOk && res.every(Boolean); });
+    }).then(function (ok) {
+      if (ok) {
+        renderAll();
+        renderCurrentTab();
+        if (rp) { connLine(true, "live · checked " + new Date().toLocaleTimeString()); return; }
+        connLine(true, "live · checked " + new Date().toLocaleTimeString());
+      } else {
+        connLine(false, "data error — will retry in 30s");
+      }
+    }).catch(function () { connLine(false, "reconnecting…"); });
   }
   function startPolling() {
     if (timer) clearInterval(timer);
