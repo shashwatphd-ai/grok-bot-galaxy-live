@@ -29,6 +29,8 @@ Built during Day 1 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where 
 
 Grok Bot Galaxy's Day 1 didn't just build a company live — it *merchandised* one. Agents assembled price menus with real unit economics and asked the human to pick; they drafted a $5–$299 digital catalog and a merch line; by end of day a "Tee Bot" was running the email channel for it. The weekend's most viral moment wasn't code, it was a price list and a question. Every solo founder watching now needs to put offers in front of buyers — in a DM, an email, a landing page — and the tools for that are either heavyweight e-commerce or a blank text box. MenuForge is the tiny offline middle: structure, ladder coaching, and both exports a founder actually pastes somewhere.
 
+And the day's closing arc doubled down: the demo company's site went live with account creation ~45 minutes after the first wireframe, a bot-written SEO audit shipped as a *dated work order* to drive pilot sign-ups, and the founders closed on a slide titled "Optimizing Costs — browser use is powerful (and expensive!)" — by the 1M-views mark, pricing was the day's running theme. When a fleet can build the store in an afternoon, the founder's job is deciding what's on the menu and at what price. That's the job MenuForge shrinks to one file.
+
 ## Files
 
 | File | Purpose |
