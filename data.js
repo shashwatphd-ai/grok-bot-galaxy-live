@@ -38,7 +38,7 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Cupcake Loop — a playable prototype built live on localhost",
+  session: "Cupcake Loop prototype + the pivot — product-first day",
   viewers: "85.2K",
   onAir: "2h 25m",
   updated: "10:54 AM PT",
