@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shashwatphd-ai.github.io/grok-bot-galaxy-live/sitemap.xml
