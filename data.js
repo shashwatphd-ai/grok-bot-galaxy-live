@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Sales track on the main stage — live audience, agent docs on screen",
-  viewers: "58.8K",
-  onAir: "1h 30m",
-  updated: "9:57 AM PT",
+  session: "Chief of Staff bot runs staffing pipeline + weekly routines",
+  viewers: "63K",
+  onAir: "1h 40m",
+  updated: "10:06 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,15 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1006",
+    t: "10:06 AM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["FLEET", "PRODUCT"],
+    title: "The Chief of Staff bot is running the company's hiring pipeline",
+    body: "On screen: the Chief of Staff thread manages a host-finder people list ('in motion — don't rebuild it'), routes new-bot creation and onboarding through dr. eggbot, and keeps a scheduled 'Weekly priority board' routine set for Wednesdays 8:00 AM. Knowledge Base Manager threads run alongside. The fleet now runs recurring management rituals — the bot org has an operations cadence of its own. Views: 63K."
+  },
   {
     id: "d2-0935",
     t: "9:35 AM PT",
