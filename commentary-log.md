@@ -159,4 +159,12 @@ Five cards: **Easy as iMessage** (bots DM you status/approvals — Sales Outreac
 - Stream state: guest interview full screen, Day 1 close. 1M views.
 - Agent fleet status: entrepreneur shift #4 running (Day 2 prep: MenuForge README refresh, CrewChart hint, WhoDoIAsk build); shifts 1–3 complete (CrewChart v2, MenuForge shipped + published at /menuforge); format editor complete (v2 adopted); Day 2–3 automation scheduled 10:25 AM CDT Sep 16+17 with 2-minute cadence.
 
+**[5:58 PM PT] — 🔄 TWO CORRECTIONS at the Day 1 close.**
+1. **Business identity.** The user, who can hear the stream, reports the stage discussing **venues and food**. Combined with our visual record (cabin bundles, family party bookings, glider flights, pilot lessons), the best read is an **event-venue business**: hosting events with catering, cabin lodging, and activities. "Travel business" was too narrow; "restaurant-delivery ops agent" (the Gemini recap) remains unsupported.
+2. **Website.** Downgraded. A sign-up page did appear on screen in a browser (~4:20 PM PT), but the URL was never legible, the page itself said results are coming soon, and web search finds nothing indexed under the name I read ("Woothills Cabins" — itself an uncertain OCR). It was a staging/preview build. My "the site is LIVE" call at 4:46 was wrong; no public launch has happened.
+- Both corrections published to the live page (primer, scoreboard, revision entry).
+- **Page infrastructure fix:** the public page now pulls fresh data.js every 30 seconds with cache-busting (GitHub Pages had been serving a 10-minute browser cache, which is why it looked frozen). No page reload needed; scroll position survives.
+- **Entrepreneur shift #4 delivered:** WhoDoIAsk (support-routing cheat sheet, 62/62 QA assertions) shipped as the third venture; MenuForge README refreshed with Day 1 intel; CrewChart now cross-links MenuForge. All three ventures published to the site.
+- Stream: split-screen guest interview + table, 1.1M views, final minutes of Day 1.
+
 ---
