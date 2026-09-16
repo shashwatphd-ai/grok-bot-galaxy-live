@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grok Bot Galaxy — Live Commentary</title>
-<meta name="description" content="Live ball-by-ball commentary on xAI's Grok Bot Galaxy (Sept 15–17): three employees build an entire company live with a team of AI agents. Scoreboard, moment-by-moment, and analysis for casual, builder, investor and skeptic audiences.">
-<meta property="og:title" content="Grok Bot Galaxy — Live Commentary">
-<meta property="og:description" content="Three employees are building an entire company live on stream with a team of AI agents. Live scoreboard, play-by-play and audience-lens analysis.">
+<title>Grok Bot Galaxy — Product Tracker</title>
+<meta name="description" content="Follow what xAI's bot fleet is building live at Grok Bot Galaxy (Sept 15–17) without watching the stream: a product tracker for the demo company — every feature from spec to shipped, the bot roster, session recaps, and the full merged timeline.">
+<meta property="og:title" content="Grok Bot Galaxy — Product Tracker">
+<meta property="og:description" content="The demo company, tracked. Every feature from spec to shipped, every bot on the roster, the full event timeline — no stream required.">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <style>
@@ -15,6 +15,7 @@
     --text: #e8e8f0; --muted: #9a9ab0; --dim: #6f6f88;
     --accent: #ff2d78; --accent2: #4fc3f7; --gold: #ffc857;
     --green: #38e07b; --purple: #b39dff;
+    --mono: ui-monospace, Consolas, "Courier New", monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -25,6 +26,7 @@
   }
   a { color: var(--accent2); }
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 18px 80px; }
+  .wrapwide { max-width: 1040px; margin: 0 auto; padding: 0 18px 80px; }
 
   /* ── sticky topbar ─────────────────────────────────────── */
   .topbar {
@@ -46,18 +48,36 @@
   .topbar .grow { flex: 1; }
   .topbar .sess { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 320px; }
 
+  /* ── tab nav ───────────────────────────────────────────── */
+  .tabs {
+    position: sticky; top: 41px; z-index: 49;
+    background: rgba(10,10,15,.95); border-bottom: 1px solid var(--line);
+    padding: 8px 18px; backdrop-filter: blur(6px);
+  }
+  .tabs .inner { max-width: 1040px; margin: 0 auto; display: flex; gap: 7px; overflow-x: auto; }
+  .tabbtn {
+    font-family: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer;
+    letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap;
+    color: var(--muted); background: transparent; border: 1px solid var(--line);
+    border-radius: 20px; padding: 7px 16px;
+  }
+  .tabbtn:hover { color: var(--text); border-color: var(--dim); }
+  .tabbtn.on { color: #fff; background: var(--accent); border-color: var(--accent); }
+  .tab.off { display: none; }
+
   /* ── header ────────────────────────────────────────────── */
   header {
     border-bottom: 1px solid var(--line);
     background: linear-gradient(180deg, #14141f 0%, var(--bg) 100%);
     padding: 20px 18px 14px;
   }
-  header .inner { max-width: 880px; margin: 0 auto; }
+  header .inner { max-width: 1040px; margin: 0 auto; }
   .kicker { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
   h1 { font-size: 26px; font-weight: 800; letter-spacing: -.5px; }
   h1 .galaxy { color: var(--accent); }
   .meta-line { margin-top: 7px; font-size: 13.5px; color: var(--muted); }
   .meta-line b { color: var(--text); }
+  .meta-line .conn { margin: 0 4px; }
   .flash { color: var(--green) !important; transition: color 3s; }
 
   /* ── ticker ────────────────────────────────────────────── */
@@ -75,23 +95,18 @@
     background: linear-gradient(120deg, var(--accent), #ff7aa2 45%, #a24bff);
     box-shadow: 0 0 34px rgba(255,45,120,.18);
   }
-  .moment .in {
-    background: var(--card); border-radius: 12px; padding: 18px 22px 16px;
-  }
+  .moment .in { background: var(--card); border-radius: 12px; padding: 18px 22px 16px; }
   .moment .lbl {
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     font-size: 11px; font-weight: 800; letter-spacing: 2px; color: var(--accent);
     text-transform: uppercase; margin-bottom: 8px;
   }
-  .moment .txt {
-    font-size: clamp(21px, 3.4vw, 30px); font-weight: 800; letter-spacing: -.4px;
-    line-height: 1.3;
-  }
+  .moment .txt { font-size: clamp(21px, 3.4vw, 30px); font-weight: 800; letter-spacing: -.4px; line-height: 1.3; }
   .moment .share { font-size: 12.5px; margin-top: 10px; }
   .moment .share a { color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px; }
   .moment .share a:hover { color: var(--text); border-color: var(--accent); }
 
-  /* ── scoreboard ────────────────────────────────────────── */
+  /* ── scoreboard / generic board ────────────────────────── */
   .board { margin-top: 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px 14px; }
   .board-title {
     display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
@@ -120,7 +135,7 @@
     color: var(--accent2); list-style: none; display: flex; gap: 10px; align-items: center;
   }
   .primer summary::-webkit-details-marker { display: none; }
-  .primer summary::before { content: "▸"; transition: transform .15s; }
+  .primer summary::before { content: "\25B8"; transition: transform .15s; }
   .primer[open] summary::before { transform: rotate(90deg); }
   .primer .body { padding: 0 18px 16px; }
   .primer p { font-size: 14px; line-height: 1.65; color: #c9c9da; margin-bottom: 9px; }
@@ -135,7 +150,7 @@
   .day-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
   .entry {
     background: var(--card); border: 1px solid var(--line); border-radius: 12px;
-    padding: 15px 18px 14px; margin-bottom: 14px; scroll-margin-top: 90px;
+    padding: 15px 18px 14px; margin-bottom: 14px; scroll-margin-top: 130px;
   }
   .entry.fresh { border-color: var(--accent); box-shadow: 0 0 22px rgba(255,45,120,.1); }
   .etype {
@@ -199,7 +214,7 @@
   .qcard .qt { font-family: Georgia, "Times New Roman", serif; font-style: italic; font-size: 18.5px; line-height: 1.5; color: #f0ecf6; }
   .qcard .qt::before { content: "\201C"; color: var(--accent); font-size: 34px; font-style: normal; margin-right: 2px; vertical-align: -8px; }
   .qcard .qw { margin-top: 7px; font-size: 12.5px; color: var(--muted); }
-  .qcard .qw::before { content: "— "; color: var(--dim); }
+  .qcard .qw::before { content: "\2014 "; color: var(--dim); }
 
   /* delta rows */
   .drow { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; padding: 7px 0; border-bottom: 1px dashed var(--line); }
@@ -209,95 +224,438 @@
   .drow .arr { color: var(--dim); }
   .drow .to { color: var(--green); font-weight: 800; font-variant-numeric: tabular-nums; }
 
-  .conn { margin-top: 10px; font-size: 12px; color: var(--dim); }
+  .conn { font-size: 12px; color: var(--dim); }
   .conn.ok { color: var(--green); }
+
+  /* ══ v3: PRODUCT tab ═══════════════════════════════════ */
+  .p-head-card { margin-top: 22px; }
+  .p-name { font-size: clamp(19px, 3vw, 25px); font-weight: 800; letter-spacing: -.3px; line-height: 1.35; }
+  .conf {
+    font-size: 10px; font-weight: 800; letter-spacing: 1.2px; padding: 2px 9px;
+    border-radius: 10px; border: 1px solid; margin-left: 10px; vertical-align: 4px;
+    white-space: nowrap; text-transform: uppercase;
+  }
+  .conf-low    { color: var(--gold);    border-color: rgba(255,200,87,.5);  background: rgba(255,200,87,.07); }
+  .conf-medium { color: var(--accent2); border-color: rgba(79,195,247,.5);  background: rgba(79,195,247,.07); }
+  .conf-high   { color: var(--green);   border-color: rgba(56,224,123,.5);  background: rgba(56,224,123,.07); }
+  .p-oneline { margin-top: 9px; font-size: 14.5px; line-height: 1.6; color: #c9c9da; }
+  .p-stage { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+  .p-stage b { color: var(--gold); }
+
+  .pfilter-row { display: flex; gap: 9px; flex-wrap: wrap; margin-bottom: 11px; }
+  #pf-search, #pf-cat {
+    background: var(--card2); border: 1px solid var(--line); color: var(--text);
+    border-radius: 8px; padding: 9px 12px; font-family: inherit; font-size: 14px;
+  }
+  #pf-search { flex: 1; min-width: 210px; }
+  #pf-search::placeholder { color: var(--dim); }
+  #pf-search:focus, #pf-cat:focus { outline: none; border-color: var(--accent2); }
+  .fchips { display: flex; gap: 7px; flex-wrap: wrap; }
+  .fchip {
+    font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;
+    background: var(--card2); color: var(--muted); border: 1px solid var(--line);
+    border-radius: 20px; padding: 5px 13px;
+  }
+  .fchip b { margin-left: 6px; opacity: .75; font-variant-numeric: tabular-nums; }
+  .fchip:hover { color: var(--text); border-color: var(--dim); }
+  .fchip.on { color: #fff; background: rgba(255,45,120,.15); border-color: var(--accent); }
+  .fchip.fc-STAGING.on  { color: var(--gold);    background: rgba(255,200,87,.13);  border-color: var(--gold); }
+  .fchip.fc-BUILD.on    { color: var(--accent2); background: rgba(79,195,247,.13); border-color: var(--accent2); }
+  .fchip.fc-SHIPPED.on  { color: var(--green);   background: rgba(56,224,123,.13);  border-color: var(--green); }
+  .fchip.fc-WIREFRAME.on{ color: var(--purple);  background: rgba(179,157,255,.13); border-color: var(--purple); }
+
+  .cat-head {
+    display: flex; align-items: center; gap: 12px; margin: 28px 0 14px;
+    color: var(--accent2); font-size: 12.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .cat-head::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .cat-n { color: var(--dim); letter-spacing: .5px; text-transform: none; font-weight: 400; }
+
+  .featgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; margin-bottom: 10px; }
+  .feat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 16px 15px; scroll-margin-top: 130px;
+  }
+  .feat.fresh { border-color: var(--accent); box-shadow: 0 0 22px rgba(255,45,120,.12); }
+  .feat-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .feat h3 { font-size: 17px; font-weight: 700; letter-spacing: -.2px; line-height: 1.3; }
+  .feat-cat { font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); margin: 5px 0 4px; }
+
+  .pill {
+    display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 1.2px;
+    padding: 2px 9px; border-radius: 5px; border: 1px solid; text-transform: uppercase;
+    line-height: 1.6; white-space: nowrap;
+  }
+  .pill.big { font-size: 12.5px; padding: 4px 13px; letter-spacing: 1.6px; }
+  .pill.st-SPEC      { color: var(--muted);   border-color: rgba(154,154,176,.5); background: rgba(154,154,176,.07); }
+  .pill.st-WIREFRAME { color: var(--purple);  border-color: rgba(179,157,255,.5); background: rgba(179,157,255,.07); }
+  .pill.st-BUILD     { color: var(--accent2); border-color: rgba(79,195,247,.5);  background: rgba(79,195,247,.07); }
+  .pill.st-STAGING   { color: var(--gold);    border-color: rgba(255,200,87,.5);  background: rgba(255,200,87,.07); }
+  .pill.st-SHIPPED   { color: var(--green);   border-color: rgba(56,224,123,.5);  background: rgba(56,224,123,.07); }
+  .pill.st-PITCHED   { color: var(--accent);  border-color: rgba(255,45,120,.5);  background: rgba(255,45,120,.07); }
+  .pill.st-KILLED    { color: var(--dim);     border-color: rgba(111,111,136,.6); background: rgba(111,111,136,.1); text-decoration: line-through; }
+
+  .ftl { margin: 12px 0 2px 3px; border-left: 2px solid var(--line); padding-left: 15px; display: flex; flex-direction: column; gap: 9px; }
+  .ftl-item { position: relative; }
+  .ftl-dot { position: absolute; left: -20px; top: 5px; width: 8px; height: 8px; border-radius: 50%; }
+  .dotc-SPEC { background: var(--muted); } .dotc-WIREFRAME { background: var(--purple); }
+  .dotc-BUILD { background: var(--accent2); } .dotc-STAGING { background: var(--gold); }
+  .dotc-SHIPPED { background: var(--green); } .dotc-PITCHED { background: var(--accent); }
+  .dotc-KILLED { background: var(--dim); }
+  .ftl-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .ftl-t { color: var(--gold); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .ftl-note { font-size: 12.5px; color: var(--muted); line-height: 1.5; margin-top: 2px; }
+
+  .chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+  .chips-l { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 800; margin-right: 2px; }
+  .botchip {
+    display: inline-block; padding: 3px 10px; font-size: 12px; font-weight: 700;
+    background: rgba(179,157,255,.09); border: 1px solid rgba(179,157,255,.35);
+    border-radius: 20px; color: var(--purple);
+  }
+
+  .fev { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 9px; }
+  .fev-l, .fev-l2 { display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); font-weight: 800; margin-bottom: 4px; }
+  .fev-row { display: flex; gap: 9px; padding: 4px 0; font-size: 13px; color: #c9c9da; line-height: 1.5; }
+  .fev-t { color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 92px; font-size: 12px; padding-top: 2px; }
+
+  .fnum { margin-top: 12px; background: var(--card2); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; }
+  .numline { font-family: var(--mono); font-size: 12.5px; color: var(--green); padding: 4px 0; border-bottom: 1px dashed var(--line); line-height: 1.5; }
+  .numline:last-child { border-bottom: 0; }
+  .fnote { margin-top: 12px; font-size: 12.5px; color: var(--muted); border-left: 3px solid var(--gold); padding: 2px 0 2px 10px; line-height: 1.55; }
+  .pmiss { color: var(--muted); font-size: 14px; padding: 12px 2px; line-height: 1.6; }
+
+  .tbl-scroll { overflow-x: auto; }
+  .roster { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  .roster th {
+    text-align: left; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--dim); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  .roster td { padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.5; }
+  .roster tr:last-child td { border-bottom: 0; }
+  .roster .rname { font-weight: 700; color: var(--text); white-space: nowrap; }
+  .roster .rfs { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+  .roster .rnote { color: var(--muted); font-size: 12.5px; min-width: 200px; }
+  .rst-Working    { color: var(--green);   border-color: rgba(56,224,123,.5);  background: rgba(56,224,123,.07); }
+  .rst-Active     { color: var(--accent2); border-color: rgba(79,195,247,.5);  background: rgba(79,195,247,.07); }
+  .rst-Consulting { color: var(--gold);    border-color: rgba(255,200,87,.5);  background: rgba(255,200,87,.07); }
+  .rst-Archived   { color: var(--dim);     border-color: rgba(111,111,136,.6); background: rgba(111,111,136,.1); }
+  .av { width: 13px; height: 13px; display: inline-block; margin-right: 8px; vertical-align: -2px; }
+  .av.s0 { border-radius: 50%; }
+  .av.s1 { border-radius: 3px; }
+  .av.s2 { transform: rotate(45deg) scale(.82); border-radius: 2px; }
+  .av.s3 { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .av.c0 { background: var(--accent); } .av.c1 { background: var(--accent2); }
+  .av.c2 { background: var(--gold); }   .av.c3 { background: var(--green); }
+  .av.c4 { background: var(--purple); }
+
+  .sessgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .sesscard { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .sess-day { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); margin-bottom: 7px; }
+  .sess-top { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 5px; }
+  .sess-time { font-family: var(--mono); color: var(--gold); font-weight: 700; font-size: 13px; white-space: nowrap; }
+  .sesscard h3 { font-size: 16px; font-weight: 700; letter-spacing: -.2px; }
+  .sess-who { font-size: 12.5px; color: var(--accent2); margin-bottom: 8px; }
+  .sess-recap { font-size: 13.5px; color: #c9c9da; line-height: 1.6; }
+
+  /* ══ v3: TIMELINE tab ══════════════════════════════════ */
+  .tl-note { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+  .tl-hour-h {
+    display: flex; align-items: center; gap: 12px; margin: 20px 0 10px;
+    color: var(--gold); font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  }
+  .tl-hour-h::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .tl-item {
+    display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap;
+    padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px;
+    margin-bottom: 8px; background: var(--card);
+  }
+  .tl-time { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; min-width: 88px; padding-top: 2px; }
+  .tl-main { flex: 1; min-width: 220px; }
+  .tl-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 3px; }
+  .tl-top .etype { margin-bottom: 0; }
+  .tl-fname { color: var(--text); font-size: 14px; }
+  .tl-fcat { font-size: 10.5px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+  .tl-txt { font-size: 13.5px; color: #c9c9da; line-height: 1.55; }
+  .tl-txt.tl-moment { color: #fff; font-weight: 700; }
+  .tl-go {
+    font-family: inherit; font-size: 12px; color: var(--accent2); background: none;
+    border: 1px solid var(--line); border-radius: 14px; padding: 3px 11px; cursor: pointer;
+    white-space: nowrap; align-self: center;
+  }
+  .tl-go:hover { border-color: var(--accent2); }
+
+  /* ══ v3: DEEP DIVES tab ════════════════════════════════ */
+  .dd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 6px; }
+  .dd-card {
+    display: block; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 16px; text-decoration: none; color: var(--text);
+  }
+  .dd-card:hover { border-color: var(--accent2); }
+  .dd-kind { font-size: 10px; font-weight: 800; letter-spacing: 1.6px; color: var(--gold); text-transform: uppercase; margin-bottom: 7px; }
+  .dd-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; letter-spacing: -.2px; }
+  .dd-card p { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
   footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; padding: 18px; line-height: 1.7; }
-  footer .inner { max-width: 880px; margin: 0 auto; }
+  footer .inner { max-width: 1040px; margin: 0 auto; }
   footer b { color: var(--text); }
   noscript div { max-width: 680px; margin: 30px auto; padding: 16px 20px; border: 1px solid var(--accent); border-radius: 10px; font-size: 15px; }
+
+  @media (max-width: 640px) {
+    .featgrid, .sessgrid, .dd-grid { grid-template-columns: 1fr; }
+    .tabs { top: 76px; }
+    .fev-t { min-width: 70px; }
+  }
 </style>
 </head>
 <body>
 
 <div class="topbar" id="topbar"></div>
 
-<noscript><div><b>JavaScript is off.</b> This live page pulls fresh data every 30 seconds using JavaScript. Enable it, or read the plain-text log: <a href="commentary-log.md">commentary-log.md</a>.</div></noscript>
+<noscript><div><b>JavaScript is off.</b> This tracker uses JavaScript to switch tabs and pull fresh feed data every 30 seconds. Enable it, or read the plain-text log: <a href="commentary-log.md">commentary-log.md</a>.</div></noscript>
 
 <header>
   <div class="inner">
     <div class="kicker" id="meta-day"></div>
-    <h1>Grok Bot Galaxy <span class="galaxy">— Live Commentary</span></h1>
+    <h1>Grok Bot Galaxy <span class="galaxy">— Product Tracker</span></h1>
     <div class="meta-line">
-      Updated <b id="meta-updated">—</b> · <span id="meta-refresh-note">Live data pulls fresh every 30s · no reload needed</span> ·
-      <a id="meta-stream" href="#" target="_blank" rel="noopener">Watch the stream ↗</a> ·
+      Updated <b id="meta-updated">—</b> · <span id="conn" class="conn"></span> ·
+      <a id="meta-stream" href="https://x.com/i/broadcasts/1AxRnZbVpjaxl" target="_blank" rel="noopener">Watch the stream ↗</a> ·
       <a href="https://x.ai/galaxy" target="_blank" rel="noopener">Schedule ↗</a>
     </div>
   </div>
 </header>
 
+<nav class="tabs" id="tabs">
+  <div class="inner">
+    <button class="tabbtn on" data-tab="now" type="button">Now</button>
+    <button class="tabbtn" data-tab="product" type="button">Product tracker</button>
+    <button class="tabbtn" data-tab="timeline" type="button">Timeline</button>
+    <button class="tabbtn" data-tab="deep" type="button">Deep dives</button>
+  </div>
+</nav>
+
 <div class="ticker"><span id="ticker-text">Loading feed…</span></div>
 
-<div class="wrap">
-  <div id="moment"></div>
-  <div id="board"></div>
-  <details class="primer" id="primer" open>
-    <summary>New here? The 60-second catch-up</summary>
-    <div class="body" id="primer-body"></div>
-  </details>
-  <div id="feed"></div>
-</div>
+<!-- ══ TAB: NOW — the v2 live feed, kept working ══ -->
+<section class="tab" id="tab-now">
+  <div class="wrap">
+    <div id="moment"></div>
+    <div id="board"></div>
+    <details class="primer" id="primer" open>
+      <summary>New here? The 60-second catch-up</summary>
+      <div class="body" id="primer-body"></div>
+    </details>
+    <div id="feed"></div>
+  </div>
+</section>
+
+<!-- ══ TAB: PRODUCT — the Product Tracker ══ -->
+<section class="tab off" id="tab-product">
+  <div class="wrapwide">
+    <div id="p-head"></div>
+    <div id="p-numbers"></div>
+    <div class="board">
+      <div class="board-title">
+        <span>Filter the board</span>
+        <span class="upd" id="pf-count"></span>
+      </div>
+      <div class="pfilter-row">
+        <input id="pf-search" type="search" placeholder="Search features, bots, evidence, numbers…">
+        <select id="pf-cat"></select>
+      </div>
+      <div class="fchips" id="pf-status-chips"></div>
+    </div>
+    <div id="pf-groups"></div>
+    <div id="p-bots"></div>
+    <div id="p-sessions"></div>
+  </div>
+</section>
+
+<!-- ══ TAB: TIMELINE — feed entries + product status changes, merged ══ -->
+<section class="tab off" id="tab-timeline">
+  <div class="wrap">
+    <div class="board">
+      <div class="board-title"><span>◈ Full event timeline — oldest first</span></div>
+      <p class="tl-note">Every feed entry plus every product status change, merged into one clock and grouped by hour. Click "view" on a row to jump to its full card. Times are Day 1 PT (product-tracker evidence uses video-replay times; wall-clock PT ≈ video + 9:07 AM).</p>
+    </div>
+    <div id="tl-body"></div>
+  </div>
+</section>
+
+<!-- ══ TAB: DEEP DIVES ══ -->
+<section class="tab off" id="tab-deep">
+  <div class="wrapwide">
+    <div class="board">
+      <div class="board-title"><span>◉ Deep dives — the written record and the ventures</span></div>
+      <p class="tl-note">Long-form companions to this page. The repo files sit next to this page on GitHub Pages; the ventures are the three demos built live on stream.</p>
+      <div class="dd-grid">
+        <a class="dd-card" data-root="commentary-log.md" href="commentary-log.md">
+          <div class="dd-kind">Repo file</div>
+          <h3>Commentary log</h3>
+          <p>The full running log in plain text — every entry ever published, with the time-correction audit trail.</p>
+        </a>
+        <a class="dd-card" data-root="retro-day1.md" href="retro-day1.md">
+          <div class="dd-kind">Repo file</div>
+          <h3>Day 1 retrospective</h3>
+          <p>What Day 1 proved, what it didn't, and the two corrections issued at close (business read; staging, not launched).</p>
+        </a>
+        <a class="dd-card" data-root="transcript-day1-visual.md" href="transcript-day1-visual.md">
+          <div class="dd-kind">Repo file · posts later</div>
+          <h3>Day 1 visual transcript</h3>
+          <p>Frame-by-frame record of what was visible on screen during Day 1 — the source behind this tracker's evidence timestamps. Linked ahead of posting.</p>
+        </a>
+        <a class="dd-card" href="/crewchart">
+          <div class="dd-kind">Venture</div>
+          <h3>CrewChart</h3>
+          <p>The fleet as an org chart — every bot, role and status, and the 11 → 30+ hiring arc from Day 1, explorable.</p>
+        </a>
+        <a class="dd-card" href="/menuforge">
+          <div class="dd-kind">Venture</div>
+          <h3>MenuForge</h3>
+          <p>The venue activities menu as a product — instructor flights, Summit Flight, Night Launch Pro, and the pricing behind them.</p>
+        </a>
+        <a class="dd-card" href="/whodoiask">
+          <div class="dd-kind">Venture</div>
+          <h3>WhoDoIAsk</h3>
+          <p>Which bot owns which job — a directory of the fleet's roles and responsibilities, built from the Day 1 roster.</p>
+        </a>
+        <a class="dd-card" id="dd-stream" href="https://x.com/i/broadcasts/1AxRnZbVpjaxl" target="_blank" rel="noopener">
+          <div class="dd-kind">Watch</div>
+          <h3>The stream ↗</h3>
+          <p>The X broadcast. The replay is where this tracker's video-replay evidence timestamps come from.</p>
+        </a>
+        <a class="dd-card" href="https://x.ai/galaxy" target="_blank" rel="noopener">
+          <div class="dd-kind">Official</div>
+          <h3>x.ai/galaxy ↗</h3>
+          <p>The official event page — schedule and details for all three days (Sept 15–17, 2026).</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="inner">
-    <b>About this page:</b> Ball-by-ball commentary on xAI's Grok Bot Galaxy event (Sept 15–17, 2026, The Howard, San Francisco) —
-    three employees building an entire company live with a team of Grok Bot agents. Updated continuously by an automated
-    commentary agent watching the stream. Play-by-play entries reflect what is visible on stream plus public reporting;
-    spoken audio is reconstructed from slides and coverage.
+    <b>About this page:</b> v3 Product Tracker for xAI's Grok Bot Galaxy (Sept 15–17, 2026, The Howard, San Francisco) —
+    follow what the bot fleet is building without watching the stream. <b>NOW</b> carries the live commentary feed ·
+    <b>PRODUCT</b> tracks every feature from spec to shipped, the bot roster, and session recaps ·
+    <b>TIMELINE</b> merges feed entries and product status changes into one clock · <b>DEEP DIVES</b> links the written record and the ventures.
     <br><br>
-    <b>Reading the feed:</b> <span style="color:var(--accent2)">PLAY-BY-PLAY</span> = what just happened ·
-    <span style="color:var(--accent)">MOMENT</span> = the one thing to look at right now ·
-    <span style="color:var(--gold)">WHY IT MATTERS</span> = the analysis ·
-    <span style="color:var(--purple)">AUDIENCE LENSES</span> = the same news for casual / builder / investor / skeptic readers ·
-    <span style="color:var(--green)">SCOREBOARD DELTA</span> = what the numbers did.
+    Feature evidence timestamps are Day 1 video-replay times; wall-clock PT ≈ video + 9:07 AM. The company name is read off-screen and unconfirmed.
+    Play-by-play reflects what is visible on stream plus public reporting; spoken audio is reconstructed from slides and coverage.
     <br><br>
-    You're viewing the <b>v2 broadcast format</b> · Full log: <a href="commentary-log.md">commentary-log.md</a> ·
-    Day 1 retrospective: <a href="retro-day1.md">retro-day1.md</a> ·
+    Full log: <a data-root="commentary-log.md" href="commentary-log.md">commentary-log.md</a> ·
+    Day 1 retro: <a data-root="retro-day1.md" href="retro-day1.md">retro-day1.md</a> ·
     Schedule &amp; stream: <a href="https://x.ai/galaxy" target="_blank" rel="noopener">x.ai/galaxy</a>
   </div>
 </footer>
 
+<script src="data.js"></script>
+<script src="products.js"></script>
 <script>
 (function () {
   var KNOWN_TAGS = { REVENUE:1, PRODUCT:1, FLEET:1, KEYNOTE:1, CHAT:1, MILESTONE:1, HOLD:1 };
   var TYPE_LABELS = { PBP:"Play-by-play", MOMENT:"Moment", WHY:"Why it matters", LENSES:"Audience lenses", QUOTE:"Pull-quote", DELTA:"Scoreboard delta" };
   var DAY_NAMES = { 1: "Tue Sep 15, 2026", 2: "Wed Sep 16, 2026", 3: "Thu Sep 17, 2026" };
-  var lastFeedHtml = "";
-  var timer = null;
+  var STATUS_ORDER = ["SPEC", "WIREFRAME", "BUILD", "STAGING", "SHIPPED", "PITCHED", "KILLED"];
+  var CAT_ORDER = ["Platform", "Revenue", "Growth", "Ops", "Infra"];
+  var TABS = ["now", "product", "timeline", "deep"];
 
+  var activeTab = "now";
+  var dataPath = "data.js";
+  var subpath = false;
+  var timer = null;
+  var F = { status: "", cat: "", q: "" };
+
+  /* ── helpers ─────────────────────────────────────────── */
   function el(tag, cls, text) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
     if (text !== undefined && text !== null) n.textContent = text;
     return n;
   }
-  function xIntent(text) {
-    return "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text + " — Grok Bot Galaxy live blog: " + location.href.split("#")[0]);
-  }
   function anchorId(id) { return "e-" + String(id).replace(/[^a-zA-Z0-9_-]/g, ""); }
+  function featId(id) { return "feat-" + String(id).replace(/[^a-zA-Z0-9_-]/g, ""); }
+  function statusCls(s) { return STATUS_ORDER.indexOf(s) >= 0 ? s : "SPEC"; }
+  function typeLabel(t) { return TYPE_LABELS[t] || "Update"; }
+  function lensColor(key) {
+    return { casual:"#4fc3f7", builder:"#b39dff", investor:"#ffc857", skeptic:"#ff2d78" }[key] || "var(--muted)";
+  }
+  function xIntent(text) {
+    return "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text + " — Grok Bot Galaxy product tracker: " + location.href.split("#")[0]);
+  }
   function firstStat(label) {
     var s = window.GG_SCOREBOARD && window.GG_SCOREBOARD.stats || [];
     for (var i = 0; i < s.length; i++) if (s[i].label === label) return s[i].value;
     return null;
   }
-  function typeLabel(t) { return TYPE_LABELS[t] || "Update"; }
-  function lensColor(key) {
-    return { casual:"#4fc3f7", builder:"#b39dff", investor:"#ffc857", skeptic:"#ff2d78" }[key] || "var(--muted)";
+  function parseTime(t) {
+    var s = String(t || "");
+    /* matches "4:37 PM", "9 AM", and range starts ("9:00–10:00 AM" → 9:00 AM) */
+    var m = /(\d{1,2})(?::(\d{2}))?(?:\s*(?:–|-|to)\s*(\d{1,2})(?::(\d{2}))?)?\s*(am|pm)/i.exec(s);
+    if (!m) return null;
+    var h = parseInt(m[1], 10) % 12;
+    if (/pm/i.test(m[5])) h += 12;
+    return h * 60 + (m[2] ? parseInt(m[2], 10) : 0);
+  }
+  function hourLabel(min) {
+    var h = Math.floor(min / 60);
+    var h12 = (h % 12 === 0) ? 12 : h % 12;
+    return h12 + ":00 " + (h < 12 ? "AM" : "PM");
+  }
+  function flash(node) {
+    if (!node) return;
+    node.classList.add("fresh");
+    setTimeout(function () { node.classList.remove("fresh"); }, 2600);
   }
 
-  function render() {
+  /* ── tabs ────────────────────────────────────────────── */
+  function showTab(name, setHash) {
+    if (TABS.indexOf(name) < 0) name = "now";
+    activeTab = name;
+    TABS.forEach(function (t) {
+      var sec = document.getElementById("tab-" + t);
+      if (sec) sec.classList.toggle("off", t !== name);
+    });
+    [].forEach.call(document.querySelectorAll("#tabs .tabbtn"), function (b) {
+      b.classList.toggle("on", b.getAttribute("data-tab") === name);
+    });
+    if (setHash) {
+      try { history.replaceState(null, "", "#" + name); } catch (e) {}
+    }
+    window.scrollTo(0, 0);
+    if (name === "timeline") renderTimeline();
+  }
+  function goEntry(id) {
+    showTab("now", false);
+    var n = document.getElementById(anchorId(id));
+    if (n) requestAnimationFrame(function () { n.scrollIntoView({ block: "start" }); flash(n); });
+  }
+  function goFeature(fid) {
+    showTab("product", false);
+    var n = document.getElementById(featId(fid));
+    if (n) requestAnimationFrame(function () { n.scrollIntoView({ block: "start" }); flash(n); });
+  }
+  function showTabFromHash() {
+    var h = (location.hash || "").replace("#", "");
+    if (TABS.indexOf(h) >= 0) { showTab(h, false); return; }
+    if (/^e-/.test(h)) {
+      showTab("now", false);
+      setTimeout(function () {
+        var n = document.getElementById(h);
+        if (n) { n.scrollIntoView({ block: "start" }); flash(n); }
+      }, 80);
+      return;
+    }
+    showTab("now", false);
+  }
+
+  /* ── NOW tab: ported v2 render ───────────────────────── */
+  function renderNow() {
     var M = window.GG_META || {}, E = window.GG_ENTRIES || [];
     var LIVE = M.status === "LIVE";
-    document.title = (LIVE ? "🔴 " : "") + "Grok Bot Galaxy — Live Commentary";
+    document.title = (LIVE ? "LIVE · " : "") + "Grok Bot Galaxy — Product Tracker";
 
     /* topbar */
     var tb = document.getElementById("topbar");
@@ -314,7 +672,10 @@
     var upd = document.getElementById("meta-updated");
     upd.textContent = M.updated || "—";
     upd.classList.remove("flash"); void upd.offsetWidth; upd.classList.add("flash");
-    document.getElementById("meta-stream").href = M.stream || "#";
+    if (M.stream) {
+      document.getElementById("meta-stream").href = M.stream;
+      document.getElementById("dd-stream").href = M.stream;
+    }
 
     /* ticker */
     var tick = "LATEST — ";
@@ -385,15 +746,14 @@
 
     /* feed */
     var feed = document.getElementById("feed");
-    var scrollTop = window.scrollY;
     feed.innerHTML = "";
     var lastDay = null;
-    E.forEach(function (e, i) {
+    E.forEach(function (e) {
       if (e.day !== lastDay) {
         lastDay = e.day;
         feed.appendChild(el("div", "day-head", "Day " + e.day + (DAY_NAMES[e.day] ? " — " + DAY_NAMES[e.day] : "") + " · newest first"));
       }
-      var d = el("div", "entry e-" + e.type + (i === 0 ? " fresh" : ""));
+      var d = el("div", "entry e-" + e.type);
       d.id = anchorId(e.id);
       var top = el("div", "entry-top");
       top.appendChild(el("span", "etype", typeLabel(e.type)));
@@ -436,6 +796,7 @@
           if (!lenses[key]) return;
           picked = picked || { key: key, label: label, who: who };
           var btn = el("button", null, label);
+          btn.type = "button";
           btn.addEventListener("click", function () {
             panel.innerHTML = "";
             var w = el("span", "who", who); w.style.color = lensColor(key);
@@ -460,33 +821,417 @@
       }
       feed.appendChild(d);
     });
-    if (!E.length) feed.appendChild(el("p", null, "No entries yet — standby."));
-    window.scrollTo(0, scrollTop);
+    if (!E.length) feed.appendChild(el("p", "pmiss", "No entries yet — standby."));
   }
 
+  /* ── PRODUCT tab ─────────────────────────────────────── */
+  function renderProduct() {
+    var P = window.GG_PRODUCT || null;
+    var feats = window.GG_FEATURES || [];
+    var bots = window.GG_BOTS || [];
+    var sess = window.GG_SESSIONS || [];
+    var nums = window.GG_DAY1_NUMBERS || [];
+
+    /* company header */
+    var head = document.getElementById("p-head");
+    head.innerHTML = "";
+    if (!P) {
+      head.appendChild(el("p", "pmiss", "Product data (products.js) did not load — the NOW feed still works."));
+    } else {
+      var card = el("div", "board p-head-card");
+      var kl = el("div", "board-title");
+      kl.appendChild(el("span", null, "◉ The demo company"));
+      card.appendChild(kl);
+      var nameline = el("div", "p-name");
+      nameline.appendChild(el("span", null, P.name || "Unnamed"));
+      if (P.nameConfidence) nameline.appendChild(el("span", "conf conf-" + P.nameConfidence, P.nameConfidence + " confidence"));
+      card.appendChild(nameline);
+      if (P.oneLiner) card.appendChild(el("p", "p-oneline", P.oneLiner));
+      if (P.stage) {
+        var st = el("div", "p-stage");
+        st.appendChild(el("span", null, "Stage: "));
+        st.appendChild(el("b", null, P.stage));
+        card.appendChild(st);
+      }
+      head.appendChild(card);
+    }
+
+    /* Day 1 numbers strip */
+    var numsEl = document.getElementById("p-numbers");
+    numsEl.innerHTML = "";
+    if (nums.length) {
+      var nb = el("div", "board");
+      var nt = el("div", "board-title");
+      nt.appendChild(el("span", null, "▦ Day 1 numbers"));
+      nb.appendChild(nt);
+      var tiles = el("div", "tiles");
+      nums.forEach(function (n) {
+        var t = el("div", "tile");
+        t.appendChild(el("div", "l", n.label));
+        t.appendChild(el("div", "v", n.value));
+        if (n.sub) t.appendChild(el("div", "s", n.sub));
+        tiles.appendChild(t);
+      });
+      nb.appendChild(tiles);
+      numsEl.appendChild(nb);
+    }
+
+    buildFilters(feats);
+    renderFeatures(feats);
+    renderBots(bots);
+    renderSessions(sess);
+  }
+
+  function buildFilters(feats) {
+    var chips = document.getElementById("pf-status-chips");
+    chips.innerHTML = "";
+    var counts = {};
+    feats.forEach(function (f) { counts[f.status] = (counts[f.status] || 0) + 1; });
+    function chip(label, key, cls, count) {
+      var c = el("button", "fchip" + (cls ? " " + cls : "") + (F.status === key ? " on" : ""));
+      c.type = "button";
+      c.appendChild(el("span", null, label));
+      c.appendChild(el("b", null, String(count)));
+      c.addEventListener("click", function () {
+        F.status = key;
+        var fs = window.GG_FEATURES || [];
+        buildFilters(fs);
+        renderFeatures(fs);
+      });
+      chips.appendChild(c);
+    }
+    chip("All", "", "", feats.length);
+    STATUS_ORDER.forEach(function (s) { if (counts[s]) chip(s, s, "fc-" + s, counts[s]); });
+
+    var sel = document.getElementById("pf-cat");
+    sel.innerHTML = "";
+    var cats = [];
+    feats.forEach(function (f) { if (cats.indexOf(f.category) < 0) cats.push(f.category); });
+    var optAll = el("option", null, "All categories");
+    optAll.value = "";
+    sel.appendChild(optAll);
+    CAT_ORDER.forEach(function (c) {
+      if (cats.indexOf(c) < 0) return;
+      var o = el("option", null, c); o.value = c; sel.appendChild(o);
+    });
+    cats.forEach(function (c) {
+      if (CAT_ORDER.indexOf(c) >= 0) return;
+      var o = el("option", null, c); o.value = c; sel.appendChild(o);
+    });
+    sel.value = F.cat;
+    if (sel.value !== F.cat) { F.cat = ""; sel.value = ""; }
+
+    var search = document.getElementById("pf-search");
+    if (!search.getAttribute("data-wired")) {
+      search.setAttribute("data-wired", "1");
+      search.addEventListener("input", function () {
+        F.q = search.value;
+        renderFeatures(window.GG_FEATURES || []);
+      });
+      sel.addEventListener("change", function () {
+        F.cat = sel.value;
+        renderFeatures(window.GG_FEATURES || []);
+      });
+    }
+  }
+
+  function matchFeature(f) {
+    if (F.status && f.status !== F.status) return false;
+    if (F.cat && f.category !== F.cat) return false;
+    if (F.q) {
+      var hay = [f.name, f.category, f.status, f.notes]
+        .concat(f.builtBy || [])
+        .concat((f.evidence || []).map(function (e) { return e.what; }))
+        .concat(f.numbers || [])
+        .concat((f.statusHistory || []).map(function (s) { return s.note; }))
+        .join(" ").toLowerCase();
+      if (hay.indexOf(F.q.toLowerCase()) < 0) return false;
+    }
+    return true;
+  }
+
+  function renderFeatures(feats) {
+    var wrap = document.getElementById("pf-groups");
+    var cnt = document.getElementById("pf-count");
+    wrap.innerHTML = "";
+    cnt.textContent = "showing " + feats.filter(matchFeature).length + " of " + feats.length + " features";
+    if (!feats.length) {
+      wrap.appendChild(el("p", "pmiss", "No features recorded yet."));
+      return;
+    }
+    var shown = feats.filter(matchFeature);
+    if (!shown.length) {
+      wrap.appendChild(el("p", "pmiss", "No features match the current filters — clear the search box or chips above."));
+      return;
+    }
+    var cats = [];
+    shown.forEach(function (f) { if (cats.indexOf(f.category) < 0) cats.push(f.category); });
+    cats.sort(function (a, b) {
+      var ia = CAT_ORDER.indexOf(a), ib = CAT_ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
+    cats.forEach(function (cat) {
+      var inCat = shown.filter(function (f) { return f.category === cat; });
+      var head = el("div", "cat-head");
+      head.appendChild(el("span", null, cat));
+      head.appendChild(el("span", "cat-n", inCat.length + (inCat.length === 1 ? " feature" : " features")));
+      wrap.appendChild(head);
+      var grid = el("div", "featgrid");
+      inCat.forEach(function (f) { grid.appendChild(featureCard(f)); });
+      wrap.appendChild(grid);
+    });
+  }
+
+  function featureCard(f) {
+    var d = el("div", "feat");
+    d.id = featId(f.id);
+    var top = el("div", "feat-top");
+    top.appendChild(el("h3", null, f.name));
+    top.appendChild(el("span", "pill big st-" + statusCls(f.status), f.status));
+    d.appendChild(top);
+    d.appendChild(el("div", "feat-cat", f.category));
+
+    var hist = f.statusHistory || [];
+    if (hist.length) {
+      var tl = el("div", "ftl");
+      hist.forEach(function (s) {
+        var it = el("div", "ftl-item");
+        it.appendChild(el("span", "ftl-dot dotc-" + statusCls(s.status)));
+        var line = el("div", "ftl-line");
+        var lt = el("div", "ftl-top");
+        lt.appendChild(el("span", "pill st-" + statusCls(s.status), s.status));
+        if (s.t) lt.appendChild(el("span", "ftl-t", s.t));
+        line.appendChild(lt);
+        if (s.note) line.appendChild(el("div", "ftl-note", s.note));
+        it.appendChild(line);
+        tl.appendChild(it);
+      });
+      d.appendChild(tl);
+    }
+
+    if ((f.builtBy || []).length) {
+      var ch = el("div", "chips");
+      ch.appendChild(el("span", "chips-l", "Built by"));
+      f.builtBy.forEach(function (b) { ch.appendChild(el("span", "botchip", b)); });
+      d.appendChild(ch);
+    }
+
+    if ((f.evidence || []).length) {
+      var ev = el("div", "fev");
+      ev.appendChild(el("span", "fev-l", "Evidence — seen on stream"));
+      f.evidence.forEach(function (e2) {
+        var r = el("div", "fev-row");
+        r.appendChild(el("span", "fev-t", e2.t));
+        r.appendChild(el("span", "fev-w", e2.what));
+        ev.appendChild(r);
+      });
+      d.appendChild(ev);
+    }
+
+    if ((f.numbers || []).length) {
+      var nu = el("div", "fnum");
+      f.numbers.forEach(function (n) { nu.appendChild(el("div", "numline", n)); });
+      d.appendChild(nu);
+    }
+
+    if (f.notes) d.appendChild(el("div", "fnote", f.notes));
+    return d;
+  }
+
+  function renderBots(bots) {
+    var wrap = document.getElementById("p-bots");
+    wrap.innerHTML = "";
+    var head = el("div", "cat-head");
+    head.appendChild(el("span", null, "The fleet"));
+    head.appendChild(el("span", "cat-n", bots.length + " named on the roster · 10 archived across Day 1 · 11 at open, 30+ by 4:24 PM"));
+    wrap.appendChild(head);
+    if (!bots.length) {
+      wrap.appendChild(el("p", "pmiss", "Roster data did not load."));
+      return;
+    }
+    var scroll = el("div", "tbl-scroll");
+    var t = el("table", "roster");
+    var thead = el("thead"), trh = el("tr");
+    ["Bot", "Role", "Status", "First seen", "Notes"].forEach(function (h) { trh.appendChild(el("th", null, h)); });
+    thead.appendChild(trh);
+    t.appendChild(thead);
+    var tb = el("tbody");
+    bots.forEach(function (b, i) {
+      var tr = el("tr");
+      var tdN = el("td");
+      var nm = el("span", "rname");
+      nm.appendChild(el("span", "av s" + (i % 4) + " c" + (i % 5)));
+      nm.appendChild(document.createTextNode(b.name || ""));
+      tdN.appendChild(nm);
+      tr.appendChild(tdN);
+      tr.appendChild(el("td", null, b.role || ""));
+      var tdS = el("td");
+      var stKey = String(b.status || "Active").replace(/[^A-Za-z]/g, "");
+      tdS.appendChild(el("span", "pill rst-" + stKey, b.status || "Active"));
+      tr.appendChild(tdS);
+      tr.appendChild(el("td", "rfs", b.firstSeen || ""));
+      tr.appendChild(el("td", "rnote", b.notes || ""));
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+    scroll.appendChild(t);
+    wrap.appendChild(scroll);
+  }
+
+  function renderSessions(sess) {
+    var wrap = document.getElementById("p-sessions");
+    wrap.innerHTML = "";
+    var head = el("div", "cat-head");
+    head.appendChild(el("span", null, "Sessions & recaps"));
+    head.appendChild(el("span", "cat-n", sess.length + (sess.length === 1 ? " block" : " blocks") + " on Day 1"));
+    wrap.appendChild(head);
+    if (!sess.length) {
+      wrap.appendChild(el("p", "pmiss", "Session data did not load."));
+      return;
+    }
+    var grid = el("div", "sessgrid");
+    sess.forEach(function (s) {
+      var c = el("div", "sesscard");
+      c.appendChild(el("div", "sess-day", s.day || ""));
+      var tt = el("div", "sess-top");
+      tt.appendChild(el("span", "sess-time", s.time || ""));
+      tt.appendChild(el("h3", null, s.title || ""));
+      c.appendChild(tt);
+      if (s.who) c.appendChild(el("div", "sess-who", s.who));
+      if (s.recap) c.appendChild(el("div", "sess-recap", s.recap));
+      grid.appendChild(c);
+    });
+    wrap.appendChild(grid);
+  }
+
+  /* ── TIMELINE tab ────────────────────────────────────── */
+  function buildTimelineItems() {
+    var items = [];
+    (window.GG_ENTRIES || []).forEach(function (e) {
+      items.push({ min: parseTime(e.t), day: e.day || 1, kind: "entry", e: e });
+    });
+    (window.GG_FEATURES || []).forEach(function (f) {
+      (f.statusHistory || []).forEach(function (s) {
+        items.push({ min: parseTime(s.t), day: 1, kind: "feature", f: f, s: s });
+      });
+    });
+    items.forEach(function (it, i) {
+      it.i = i;
+      if (it.min == null) it.min = -1;
+    });
+    items.sort(function (a, b) {
+      return (a.day - b.day) || (a.min - b.min) || (a.i - b.i);
+    });
+    return items;
+  }
+
+  function tlItem(it) {
+    var row = el("div", "tl-item");
+    if (it.kind === "entry") {
+      var e = it.e;
+      row.appendChild(el("span", "tl-time", e.t || ""));
+      var main = el("div", "tl-main");
+      var top = el("div", "tl-top");
+      top.appendChild(el("span", "etype", typeLabel(e.type)));
+      (e.tags || []).forEach(function (tg) {
+        top.appendChild(el("span", "etag etag-" + (KNOWN_TAGS[tg] ? tg : "OTHER"), tg));
+      });
+      main.appendChild(top);
+      var txt = e.title || (e.quote && e.quote.text) || "";
+      if (txt.length > 180) txt = txt.slice(0, 177) + "…";
+      var tn = el("div", "tl-txt" + (e.type === "MOMENT" ? " tl-moment" : ""), txt);
+      main.appendChild(tn);
+      row.appendChild(main);
+      var go = el("button", "tl-go", "View in feed →");
+      go.type = "button";
+      go.addEventListener("click", function () { goEntry(e.id); });
+      row.appendChild(go);
+    } else {
+      row.appendChild(el("span", "tl-time", it.s.t || ""));
+      var main2 = el("div", "tl-main");
+      var top2 = el("div", "tl-top");
+      top2.appendChild(el("span", "pill st-" + statusCls(it.s.status), it.s.status));
+      top2.appendChild(el("b", "tl-fname", it.f.name));
+      top2.appendChild(el("span", "tl-fcat", it.f.category));
+      main2.appendChild(top2);
+      if (it.s.note) main2.appendChild(el("div", "tl-txt", it.s.note));
+      row.appendChild(main2);
+      var go2 = el("button", "tl-go", "View card →");
+      go2.type = "button";
+      go2.addEventListener("click", function () { goFeature(it.f.id); });
+      row.appendChild(go2);
+    }
+    return row;
+  }
+
+  function renderTimeline() {
+    var wrap = document.getElementById("tl-body");
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    var all = buildTimelineItems();
+    var items = all.filter(function (it) { return it.min >= 0; });
+    var skipped = all.length - items.length;
+    if (!items.length) {
+      wrap.appendChild(el("p", "pmiss", "No dated events yet — this timeline fills as feed entries and feature status changes land."));
+      return;
+    }
+    var counts = {};
+    items.forEach(function (it) {
+      var k = Math.floor(it.min / 60);
+      counts[k] = (counts[k] || 0) + 1;
+    });
+    var curHour = null, bucket = null;
+    items.forEach(function (it) {
+      var hk = Math.floor(it.min / 60);
+      if (hk !== curHour) {
+        curHour = hk;
+        var h = el("div", "tl-hour");
+        var hh = el("div", "tl-hour-h");
+        hh.appendChild(el("span", null, hourLabel(hk * 60)));
+        hh.appendChild(el("span", "cat-n", counts[hk] + (counts[hk] === 1 ? " event" : " events")));
+        h.appendChild(hh);
+        bucket = el("div", "tl-list");
+        h.appendChild(bucket);
+        wrap.appendChild(h);
+      }
+      bucket.appendChild(tlItem(it));
+    });
+    if (skipped > 0) {
+      wrap.appendChild(el("p", "pmiss", skipped + (skipped === 1 ? " event" : " events") + " had no readable time and are left out here."));
+    }
+  }
+
+  /* ── deep dives: root-relative links work from / and /v3/ ── */
+  function fixRootHrefs() {
+    var pre = subpath ? "../" : "";
+    [].forEach.call(document.querySelectorAll("a[data-root]"), function (a) {
+      a.href = pre + a.getAttribute("data-root");
+    });
+  }
+
+  /* ── data loading (data.js first, polled every 30s like v2) ── */
   function setData(text) {
-    /* data.js assigns window.GG_*; evaluate freshly fetched source */
     try { (new Function(text))(); return true; }
     catch (err) { return false; }
   }
-
   function connLine(ok, msg) {
     var c = document.getElementById("conn");
-    if (!c) {
-      c = el("div", "conn", "");
-      c.id = "conn";
-      document.getElementById("meta-refresh-note").parentNode.appendChild(c);
-    }
+    if (!c) return;
     c.className = "conn" + (ok ? " ok" : "");
     c.textContent = msg;
   }
-
+  function renderAll() {
+    var sy = activeTab === "now" ? window.scrollY : 0;
+    renderNow();
+    renderTimeline();
+    if (activeTab === "now") window.scrollTo(0, sy);
+  }
   function pull() {
-    fetch("data.js?cb=" + Date.now(), { cache: "no-store" })
+    fetch(dataPath + "?cb=" + Date.now(), { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
       .then(function (text) {
         if (setData(text)) {
-          render();
+          renderAll();
           connLine(true, "● live link ok — last checked " + new Date().toLocaleTimeString());
         } else {
           connLine(false, "data error — will retry in 30s");
@@ -494,13 +1239,53 @@
       })
       .catch(function () { connLine(false, "reconnecting…"); });
   }
+  function startPolling() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(pull, 30000);
+  }
+  function loadScript(src, ok, fail) {
+    var s = document.createElement("script");
+    s.src = src;
+    s.onload = ok;
+    s.onerror = fail;
+    document.head.appendChild(s);
+  }
 
-  /* static script src for the very first paint, then no-store polling */
-  var s = document.createElement("script");
-  s.src = "data.js";
-  s.onload = function () { render(); pull(); timer = setInterval(pull, 30000); };
-  s.onerror = function () { connLine(false, "waiting for data…"); timer = setInterval(pull, 10000); };
-  document.head.appendChild(s);
+  function boot() {
+    [].forEach.call(document.querySelectorAll("#tabs .tabbtn"), function (b) {
+      b.addEventListener("click", function () { showTab(b.getAttribute("data-tab"), true); });
+    });
+    showTabFromHash();
+    renderProduct();
+    fixRootHrefs();
+
+    if (window.GG_META || (window.GG_ENTRIES && window.GG_ENTRIES.length)) {
+      /* data.js loaded as a static script tag (site-root deployment) */
+      renderAll();
+      pull();
+      startPolling();
+    } else {
+      /* /v3/ subpath preview: data.js lives one level up */
+      loadScript("../data.js", function () {
+        dataPath = "../data.js";
+        subpath = true;
+        fixRootHrefs();
+        renderAll();
+        startPolling();
+        connLine(true, "● live link ok (parent data.js) — last checked " + new Date().toLocaleTimeString());
+      }, function () {
+        connLine(false, "waiting for data…");
+        loadScript("data.js", function () {
+          renderAll();
+          startPolling();
+        }, function () {
+          connLine(false, "no data.js found — NOW and TIMELINE on standby; PRODUCT tab still works");
+        });
+      });
+    }
+  }
+
+  boot();
 })();
 </script>
 </body>
