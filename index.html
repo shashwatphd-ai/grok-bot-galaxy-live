@@ -1643,6 +1643,7 @@
       c.style.height = Math.max(0, y2 - y1) + "px";
     });
   }
+  var WF_DAY = 0; // 0 = latest day with data
   function renderWorkflow() {
     var W = window.GG_WORKFLOW;
     var sum = document.getElementById("wf-summary");
@@ -1654,8 +1655,16 @@
       boardEl.appendChild(el("p", "pmiss", "Workflow data (workflow.js) did not load. The other tabs still work."));
       return;
     }
-    var steps = W.steps || [];
-    var dels = (W.deliverables || []).slice().sort(function (a, b) {
+    var allSteps = W.steps || [];
+    var days = [];
+    allSteps.concat(W.deliverables || []).forEach(function (x) {
+      var d = x.day || 1;
+      if (days.indexOf(d) === -1) days.push(d);
+    });
+    days.sort();
+    if (WF_DAY === 0 || days.indexOf(WF_DAY) === -1) WF_DAY = days[days.length - 1];
+    var steps = allSteps.filter(function (s) { return (s.day || 1) === WF_DAY; });
+    var dels = (W.deliverables || []).filter(function (d) { return (d.day || 1) === WF_DAY; }).sort(function (a, b) {
       return (parseTime(a.t) || 0) - (parseTime(b.t) || 0);
     });
     var delByStep = {};
@@ -1670,13 +1679,15 @@
     /* summary strip */
     var sb = el("div", "board");
     var st = el("div", "board-title");
-    st.appendChild(el("span", null, "Who did what"));
+    st.appendChild(el("span", null, "Who did what — Day " + WF_DAY));
     st.appendChild(el("span", "upd", "every step on one clock, 8:30 AM to 6:00 PM PT"));
     sb.appendChild(st);
+    var hum = steps.filter(function (s) { return s.lane === "human"; }).length;
+    var aiN = steps.length - hum;
     var tiles = el("div", "tiles");
-    [["Humans", (W.stats && W.stats.humanMoves) || 0, "moves by the trio on stage"],
-     ["AI employees", (W.stats && W.stats.aiMoves) || 0, "moves by the bot fleet"],
-     ["Deliverables", (W.stats && W.stats.deliverables) || dels.length, "things that actually materialized"]].forEach(function (n) {
+    [["Humans", hum, "moves by the trio"],
+     ["AI employees", aiN, "moves by the bot fleet"],
+     ["Deliverables", dels.length, "things that actually materialized"]].forEach(function (n) {
       var t = el("div", "tile");
       t.appendChild(el("div", "l", n[0]));
       t.appendChild(el("div", "v", String(n[1])));
@@ -1684,6 +1695,18 @@
       tiles.appendChild(t);
     });
     sb.appendChild(tiles);
+    if (days.length > 1) {
+      var dch = el("div", "fchips");
+      days.forEach(function (d) {
+        var on = WF_DAY === d;
+        var c = el("button", "fchip" + (on ? " on" : ""));
+        c.type = "button";
+        c.appendChild(el("span", null, "Day " + d + (d === days[days.length - 1] ? " (latest)" : "")));
+        c.addEventListener("click", function () { WF_DAY = d; renderWorkflow(); });
+        dch.appendChild(c);
+      });
+      sb.appendChild(dch);
+    }
     if (W.stats && W.stats.note) sb.appendChild(el("p", "wf-note", W.stats.note));
     if (W.footnote) sb.appendChild(el("p", "wf-footnote", W.footnote));
     sum.appendChild(sb);
@@ -1852,7 +1875,7 @@
   }
 
   /* ── SCREENS tab: gallery, filters, lightbox ─────────── */
-  var SF = { kind: "" };
+  var SF = { kind: "", day: 0 };
   var lbIdx = 0, lbReturn = null, lbAll = false;
   function findScreen(id) {
     var S = window.GG_SCREENS || [];
@@ -1860,6 +1883,7 @@
     return null;
   }
   function scrMatch(s) {
+    if (SF.day && (s.day || 1) !== SF.day) return false;
     if (SF.kind && s.kind !== SF.kind) return false;
     if (Q) {
       var hay = [s.title, s.caption, s.kind, s.wall, s.t].join(" ").toLowerCase();
@@ -1895,12 +1919,30 @@
       c.addEventListener("click", function () { SF.kind = key; renderScreens(); });
       chips.appendChild(c);
     }
-    chip("All", "", S.length);
+    function dayOk(s) { return !SF.day || (s.day || 1) === SF.day; }
+    chip("All", "", S.filter(dayOk).length);
     ["product", "session", "build", "stage"].forEach(function (k) {
-      var n = S.filter(function (s) { return s.kind === k; }).length;
+      var n = S.filter(function (s) { return s.kind === k && dayOk(s); }).length;
       if (n) chip(k.charAt(0).toUpperCase() + k.slice(1), k, n);
     });
     bd.appendChild(chips);
+    var dd = el("div", "fchips");
+    var days = [];
+    S.forEach(function (s) { var d = s.day || 1; if (days.indexOf(d) === -1) days.push(d); });
+    days.sort();
+    if (days.length > 1) {
+      function dchip(label, key) {
+        var on = (SF.day === key) || (!SF.day && key === 0);
+        var c = el("button", "fchip" + (on ? " on" : ""));
+        c.type = "button";
+        c.appendChild(el("span", null, label));
+        c.addEventListener("click", function () { SF.day = key; renderScreens(); });
+        dd.appendChild(c);
+      }
+      dchip("All days", 0);
+      days.forEach(function (d) { dchip("Day " + d, d); });
+      bd.appendChild(dd);
+    }
     head.appendChild(bd);
     var shown = S.filter(scrMatch);
     if (!shown.length) {
