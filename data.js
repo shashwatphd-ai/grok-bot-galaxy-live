@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Roundtable — Game Studio LIVE (333.4K watching)",
-  viewers: "333.4K",
-  onAir: "7h 35m",
-  updated: "4:04 PM PT",
+  session: "Roundtable — Game Studio LIVE",
+  viewers: "343.4K",
+  onAir: "8h 05m",
+  updated: "4:35 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
