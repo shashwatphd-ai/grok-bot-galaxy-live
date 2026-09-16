@@ -58,17 +58,16 @@
    ============================================================================ */
 
 window.GG_META = {
-  status: "LIVE",
-  day: "Day 1 of 3 — Tue Sep 15, 2026",
-  session: "Day 1 close — guest interview, final minutes",
+  status: "ENDED",
+  day: "Day 1 of 3 — Tue Sep 15, 2026 (stream resumes Wed 8:30 AM PT)",
+  session: "Day 1 ended — full recap below; Day 2 opens with Sales Engineering at 9:00 AM PT",
   viewers: "1.1M",
-  onAir: "8h 55m",
-  updated: "5:58 PM PT",
+  onAir: "9h 00m",
+  updated: "6:05 PM PT",
   stream: "https://x.com/i/broadcasts/1AxRnZbVpjaxl"
 };
 
-window.GG_MOMENT =
-  "Day 1 closes at 1.1M views. The build looks like an event-venue business — venue, food, cabin lodging, glider flights — and no public website has launched yet.";
+window.GG_MOMENT = "";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, San Francisco): three xAI employees build an entire real company live on stream using a team of AI agents — Grok Bot — while the internet watches. If the agents can't carry a real business in public, everyone watches it fail.",
@@ -91,7 +90,7 @@ window.GG_SCOREBOARD = {
     { label: "Products on the board", value: "Sign-up page (staging) · Price menu · Merch + PDF catalog · Email channel (Tee Bot) · SEO work order (dated)", wide: true }
   ],
   deltas: [
-    "Viewers: 1M → 1.1M",
+    "Viewers: 832K at coverage start → 1.1M at close",
     "Correction: 'site live' downgraded to staging — no public launch",
     "Correction: business reads as event venue + food + cabins + flights"
   ]
@@ -99,6 +98,21 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d1-1805",
+    t: "6:05 PM PT",
+    day: 1,
+    type: "WHY",
+    tags: ["MILESTONE"],
+    title: "Day 1 is a wrap: what was actually built, and what it proved",
+    body: "Nine hours on air, 1.1M views, and a company that now exists in artifacts: a metrics dashboard, pricing RFCs with linked data, a price menu, a merch and PDF catalog, a bot-run email channel, a dated SEO work order, and a staging sign-up page. What Day 1 proved: the agents work as parallel staff (30+ bots, titled roles, churn and all), and artifacts rather than chat are the unit of work. What it did not prove: a public product launch (the sign-up page is staging), how the agents handle being wrong, and whether any of the revenue numbers survive contact with real customers. Day 2 opens at 9:00 AM PT with Sales Engineering, then Sales, SDRs, and Customer Support. Full schedule at x.ai/galaxy.",
+    lenses: {
+      casual: "A fake company with AI employees got a real website, real prices, and real marketing, on live TV, in one day.",
+      builder: "The stack on display: chat as management layer, RFCs as decisions, dashboards as memory, per-agent scoped context, browser-use agents driving real SaaS. The pattern is reproducible without xAI; the fleet ergonomics are the moat they are claiming.",
+      investor: "Two revenue lines in day one with a $30k target is marketing math, not GAAP. The real business is Grok Bot subscriptions and, later, a marketplace of shareable bot templates with a take rate. Watch Day 2 for sales-side proof and any pricing language.",
+      skeptic: "Every impressive artifact today was self-graded by the same system that produced it. No customer touched the sign-up page on camera, the revenue numbers came from the demo company's own database, and 'built in 45 minutes' skips whatever happened off-camera. Staging pages are not product-market fit."
+    }
+  },
   {
     id: "d1-1758",
     t: "5:58 PM PT",
