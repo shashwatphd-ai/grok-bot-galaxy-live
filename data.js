@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Grok Bot for Sales Engineering — whiteboarding the pitch flow",
-  viewers: "25.3K",
-  onAir: "0h 45m",
-  updated: "9:10 AM PT",
+  session: "Sales Engineering — product walkthrough (Sales Outreach demo)",
+  viewers: "30.9K",
+  onAir: "1h 05m",
+  updated: "9:20 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
