@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Chief of Staff bot runs staffing pipeline + weekly routines",
-  viewers: "63K",
-  onAir: "1h 40m",
-  updated: "10:06 AM PT",
+  session: "The pivot: pop-up retired — product-first, bookings focus",
+  viewers: "66.2K",
+  onAir: "1h 50m",
+  updated: "10:16 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -49,7 +49,7 @@ window.GG_MOMENT = "Day 2 begins: the bot fleet's second day — today it has to
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
-  company: "The company they chose live on Day 1: a restaurant pop-up — 'Pop-up OS' (working name). The plan: run a real pop-up dining event in San Francisco with a partnering chef and venue, ticket it, and turn the operating software (morning briefs, reservations, menu and review management, ticketing) into a product for local restaurants.",
+  company: "The company they chose live on Day 1: ops software born from a restaurant pop-up plan — 'Pop-up OS' (working name). On Day 2 the physical pop-up event itself was retired ('There is no pop-up'), and the focus went product-first: landing page, AEO/SEO, A/B testing, and getting first customer bookings for the event-ops software.",
   sofar: "By end of Day 1 the trio had: chosen the idea through agent dialogue, bought a domain and deployed a staging lander, set up a multi-agent engineering pipeline (PRs, reviews, deploys via Cursor Cloud Agents), created marketing assets with guest Cody Sanchez, and designed event supplies — night-market ticket stubs, badges and lanyards, plus Grok Bot plush concepts. The sessions meanwhile demoed Grok Bot itself: onboarding, a bot marketplace, integrations (GitHub, Notion, Figma, Slack), the AI Maturity Curve, and agent cost economics.",
   watchfor: "Day 2 is Sales/SDR/Support day (9:00 AM Sales Engineering, 12:30 Sales, 2:30 SDRs, 4:00 Customer Support). Watch for: the real chef and venue partnership, the ticketed event going public, first sign-ups, and how the sales sessions shape their go-to-market."
 };
@@ -75,6 +75,21 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1016",
+    t: "10:16 AM PT",
+    day: 2,
+    type: "WHY",
+    tags: ["MILESTONE"],
+    title: "The pivot, live: 'There is no pop-up' — Oct 15 tracks retired, product-first",
+    body: "A Notion workspace on screen settles the company's direction: 'There is no pop-up. Oct 15 venue / host / dining tracks are retired.' The real-world pop-up event — the Day 1 plan to run a physical dinner with a partnering chef — is dropped. What remains is the software: the project doc now tracks a landing page, AEO/SEO, A/B testing, marketing, and an ads-infra 'game', with Cody Sanchez's notes anchored on 'Get our first customers — Bookings.' A browser tab reads 'ship by thursday.' So the demo company pivoted from throwing the event to shipping the booking product first — the classic startup move, made on camera. Views: 66.2K.",
+    lenses: {
+      casual: "They cancelled the party to focus on shipping the app.",
+      builder: "Scope cut on camera: the event was customer-zero theater; the product (event ops software) survives as the actual offer.",
+      investor: "Retiring the physical event removes the messiest ops risk and turns it into a pure software story — right before a sales-focused day. Deliberate or not, it plays.",
+      skeptic: "A pivot announced without a customer's voice is still a plan, not traction. 'Bookings' so far means a Docs page."
+    }
+  },
   {
     id: "d2-1006",
     t: "10:06 AM PT",
