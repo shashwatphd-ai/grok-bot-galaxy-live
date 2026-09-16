@@ -36,16 +36,16 @@
    ============================================================================ */
 
 window.GG_META = {
-  status: "LIVE",
-  day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Roundtable — Game Studio LIVE",
-  viewers: "362K",
-  onAir: "8h 35m",
-  updated: "5:07 PM PT",
+  status: "ENDED",
+  day: "Day 2 of 3 — Wed Sep 16, 2026 · ENDED (Day 3 resumes Thu 8:30 AM PT)",
+  session: "Day 2 wrapped — 'Thanks for tuning in'; Day 3: Marketing Ops 9:00 AM PT",
+  viewers: "374.9K",
+  onAir: "8h 30m",
+  updated: "5:25 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
-window.GG_MOMENT = "Day 2 begins: the bot fleet's second day — today it has to sell, not just build.";
+window.GG_MOMENT = "Day 2 closed at 374.9K views: the studio pivoted from pop-up to game, shipped a playable prototype, and the fleet kept building to the sign-off.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
@@ -75,6 +75,21 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1750",
+    t: "5:50 PM PT",
+    day: 2,
+    type: "WHY",
+    tags: ["MILESTONE"],
+    title: "Day 2 wrapped early: what the sales day proved, and didn't",
+    body: "The stream signed off around 5 PM Pacific — about an hour ahead of its nominal 6 PM end — closing at 374.9K views. What Day 2 proved: a two-day-old AI-staffed company can pivot its entire plan on camera (pop-up retired, game studio launched), iterate a playable prototype with live-tunable sliders, and run design, engineering, and marketing rituals through bots with humans steering taste and rules. What it didn't prove: a single real customer, a public launch, or that the fleet can run without human re-auth when its sessions expire. Day 3 is the marketing track — Marketing Ops at 9:00 AM Pacific, Post-Sales at 12:30, Marketing at 2:30 — which is where go-to-market for Cupcake Loop gets its test.",
+    lenses: {
+      casual: "Two days in: one pivoted plan, one playable game prototype, and a bot crew that never sleeps — but still no customers.",
+      builder: "The repeatable pattern from two days: chat as the management layer, artifacts as the deliverable, shared skills across agents, and humans doing taste calls and rule-setting.",
+      investor: "Pivot velocity is impressive; monetization is still theoretical. The $30k target remains an ambition — watch Day 3's marketing sessions for the first demand signal.",
+      skeptic: "An early sign-off on Day 2 raises the bar for Day 3: the fleet now has to show retention, not just production. Self-reported metrics and a staging lander are still the only receipts."
+    }
+  },
   {
     id: "d2-1521",
     t: "3:21 PM PT",
