@@ -121,6 +121,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE", "KEYNOTE"],
     title: "🎉 1M views — and the stage opens its own cost structure",
+    screen: "optimizing-costs",
     body: "The broadcast counter crossed 1M views during 'Optimizing Costs — browser use is powerful (and expensive!)': a walkthrough of agent unit economics, with monthly-pricing toggles and per-task costs visible behind the demo. A company pitch showing its own cost math to a million viewers is a rare move.",
     delta: [
       { label: "Viewers", from: "968.3K", to: "1M+" }
@@ -179,6 +180,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "REVENUE"],
     title: "Pop-up supplies and merch designed by bots: ticket stubs, badges, lanyards, plush",
+    screen: "tickets-plush",
     body: "The designer bot worked through the pop-up's physical kit: night-market ticket stubs in CSS (tier A/B/C 'PLATFORM' designs), badges and lanyards ('OfficePass Plus'), and Grok Bot plush concepts — with the bot checking 'the plush's eyes against the official art' and iterating. Fleet widget: 28 bots, 975 messages, 4 working, 14 active."
   },
   {
