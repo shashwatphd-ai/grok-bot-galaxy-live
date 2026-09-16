@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Remote team member segment — Game Studio LIVE",
-  viewers: "289.4K",
-  onAir: "6h 45m",
-  updated: "3:13 PM PT",
+  session: "Late-afternoon build — the fleet keeps shipping",
+  viewers: "298.7K",
+  onAir: "6h 51m",
+  updated: "3:21 PM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
@@ -75,6 +75,24 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1521",
+    t: "3:21 PM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["FLEET"],
+    title: "An agent hits the wall: session timeout mid-people-search",
+    body: "One of the fleet's browsers shows a Stanford Alumni Directory 'You are now logged out' page — the host-finder agent's session expired mid-task while it was working the people list. The oversight question made concrete: when an agent's session dies unattended, the work pauses until a human re-authenticates. No broadcast answer yet on how the fleet handles expired sessions at scale. Views: 298.7K."
+  },
+  {
+    id: "d2-1519",
+    t: "3:19 PM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["FLEET"],
+    title: "Late-afternoon build continues: the fleet keeps shipping while the stage talks",
+    body: "The build bots keep iterating on Cupcake Loop and the landing page through the afternoon — design iterations, copy passes, and ticket updates landing in the bot threads while the stage wraps its sessions. The fleet's steady-state rhythm: continuous small ships, human check-ins between. Views: 298.7K."
+  },
   {
     id: "d2-1235",
     t: "12:35 PM PT",
