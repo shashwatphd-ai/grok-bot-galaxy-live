@@ -38,10 +38,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 2 of 3 — Wed Sep 16, 2026 (the sales track)",
-  session: "Day 2 opening — hold screen; Sales Engineering at 9:00 AM PT",
-  viewers: "—",
-  onAir: "0h 05m",
-  updated: "8:30 AM PT",
+  session: "Day 2 LIVE — opening moments; Sales Engineering at 9:00 AM PT",
+  viewers: "2,649",
+  onAir: "0h 06m",
+  updated: "8:36 AM PT",
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
