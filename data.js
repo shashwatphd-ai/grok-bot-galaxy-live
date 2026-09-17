@@ -68,7 +68,7 @@ window.GG_SCOREBOARD = {
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Pop-up OS", sub: "event-ops software for restaurants and venues — unchanged since Day 1", wide: true },
     { label: "'Cupcake' demo", value: "1 bug to playable", sub: "the Day 2 side demo at close: X login + leaderboard wired; 'I can't actually add any bots yet' — 4:45 PM, on air", wide: true },
-    { label: "Bots online", value: "30+", sub: "Day 1 fleet; Day 2 added Cupcake Eng, Steve, ping, tones, 3D bots" },
+    { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
     { label: "Viewers", value: "72K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
     { label: "On air", value: "18h 48m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 1h 40m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
@@ -86,6 +86,19 @@ window.GG_SCOREBOARD = {
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
+  {
+    id: "d3-1046",
+    t: "10:46 AM PT",
+    day: 3,
+    type: "DELTA",
+    tags: ["FLEET", "PRODUCT"],
+    title: "Wiring day: six integrations connected, fleet at 43",
+    body: "The studio block walked through the workspace's 'Manage plugins and skills' screen: Vercel, Notion, Slack, X, PlanetScale and Clerk all show Connected — the same stack the build has leaned on since Day 2 (hosting, docs and the knowledge base, alerts, distribution, the database, auth). The fleet widget reads 43 bots online, 4 working now, 11 archived. Views: 83.8K.",
+    delta: [
+      { label: "Bots online", from: "30+ (Day 1 close)", to: "43" },
+      { label: "Archived", from: "10 (Day 1)", to: "11" }
+    ]
+  },
   {
     id: "d3-1040",
     t: "10:40 AM PT",
