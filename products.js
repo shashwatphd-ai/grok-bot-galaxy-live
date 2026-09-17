@@ -64,7 +64,8 @@ window.GG_FEATURES = [
       { status: "BUILD", t: "10:03 AM", note: "The first playable draft ran on localhost from marketplace-bot seed data, with a stat bug fixed live (on air)" },
       { status: "BUILD", t: "4:45 PM", note: "X login worked, the leaderboard was wired but empty, and the ratings read a placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" },
       { status: "DEPLOYED", t: "10:52 AM", note: "Day 3: the first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
-      { status: "DEPLOYED", t: "10:58 AM", note: "The final name goes on screen: THURSDAY ARENA — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); the public URL sat in the address bar but was not yet legible on stream" }
+      { status: "DEPLOYED", t: "10:58 AM", note: "The final name goes on screen: THURSDAY ARENA — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); the public URL sat in the address bar but was not yet legible on stream" },
+      { status: "DEPLOYED", t: "1:19 PM", note: "The public URL becomes legible on stream and live: thursdayarena.com — wordmark, Play button, character cards on the deployed site" }
     ],
     builtBy: ["dr. eggbot's engineering bot", "Cupcake Eng", "founding engineer bot"],
     evidence: [
