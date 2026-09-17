@@ -1,8 +1,7 @@
 # Day 2 — rolling live transcript
 
-*Machine-transcribed near-live with faster-whisper while the broadcast runs. Sequences from 3801 onward; earlier morning audio is covered in the Day 2 morning entries.*
+*Machine-transcribed with faster-whisper while the broadcast ran. Sequences from 3801 onward; the earlier morning audio is in the Day 2 audio transcript.*
 
-*(The live-transcript agent is populating this file — first blocks land within ~10 minutes.)*
 ## [02:08:23–02:10:19]
 [02:08:23] with the game around where round one, Dr. Eggbot actually lost with the 22% advantage since it was like Dex versus Int. And so Projects Managers, Int went up to 18.3 because of the advantage. And so it won. So I feel like the base logic kind of makes sense to me.
 [02:08:49] Yeah, I think so too. I think we have the like core logic loop here. Maybe cool to figure out like how do we start to translate this into like something that is a bit more of an actual prototype that we could play. So maybe that would be the next thing. Yeah, I'm really wondering if we can do a workflow like, you know, use image generation to come up with mock game screens for a game. I guess like
