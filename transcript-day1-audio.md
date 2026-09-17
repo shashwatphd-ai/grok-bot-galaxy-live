@@ -3,7 +3,7 @@
 **Source:** complete 8h45m broadcast recording, transcribed locally with faster-whisper (small model, int8).
 **Timestamps:** [hh:mm:ss] from the start of the broadcast. Wall-clock Pacific ≈ timestamp + 8:30 AM (broadcast opened ~8:30 AM PDT).
 **Accuracy note:** machine transcription — expect word errors, especially product names ("Grok Bot", "Cursor", "P-Stack") and proper nouns. Speaker labels are not identified by the model; identify speakers from context (opening intros, session handoffs, guest segments).
-**Known corrections:** "Graphot/Grockbot/Brock bot/GROC bot/GrogFod" = Grok Bot; "SpaceX AI" = xAI; "Versailles" = Vercel; "P-Stack" ≈ their stack tooling; "Contra in capital" ≈ Contrarian Capital.
+**Garble decoder:** "Graphot/Grockbot/Brock bot/GROC bot/GrogFod" = Grok Bot; "SpaceX AI" = xAI; "Versailles" = Vercel; "P-Stack" ≈ their stack tooling; "Contra in capital" ≈ Contrarian Capital.
 
 ## Session map (audio time → content)
 
