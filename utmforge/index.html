@@ -142,6 +142,7 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       <option value="galaxy">Grok Bot Galaxy Launch</option>
       <option value="evergreen">Evergreen Newsletter</option>
     </select>
+    <button id="importCsvBtn" type="button" title="Import a CSV of the tagged links you already have — the doctor grades existing chaos against your rules">Import CSV</button>
     <button id="exportCsvBtn" type="button" title="Export the batch as CSV — for the spreadsheet your team opens">Copy CSV</button>
     <button id="exportMdBtn" type="button" class="primary" title="Export the batch as a markdown table — for the launch doc">Markdown</button>
     <button id="newSheetBtn" type="button" class="ghost" data-act="new-sheet" title="Clear the sheet and start over">New sheet</button>
@@ -219,7 +220,9 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
     <div class="modal-foot">
       <button id="modalCopy" type="button" class="primary">Copy to clipboard</button>
       <button id="modalDownload" type="button">Download file</button>
-      <span class="note">If clipboard is blocked, select the text and copy manually &mdash; it's all here.</span>
+      <button id="modalFileBtn" type="button" style="display:none">Load a .csv file</button>
+      <input type="file" id="modalFile" accept=".csv,text/csv,text/plain" hidden>
+      <span class="note" id="modalNote">If clipboard is blocked, select the text and copy manually &mdash; it's all here.</span>
     </div>
   </div>
 </div>
@@ -646,6 +649,8 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       });
     });
     var kindCount = Object.keys(kinds).length;
+    var clean = 0;
+    rows.forEach(function (r, i) { if (!perRow[i].length) clean++; });
     var verdict;
     if (!rows.length) {
       verdict = "No links yet \u2014 add a row and the doctor reads it live.";
@@ -653,10 +658,10 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       verdict = rows.length + " links \u00B7 0 drift. Every one on convention \u2014 ship the batch.";
       items.push({ ok: true, kind: "clean", text: "All " + rows.length + " rows match the house rules \u2014 casing, separators, required fields, duplicates." });
     } else {
-      verdict = rows.length + " links \u00B7 " + total + " flag" + (total === 1 ? "" : "s") + " across " + kindCount +
+      verdict = rows.length + " links \u00B7 " + clean + " clean \u00B7 " + total + " flagged across " + kindCount +
         " kind" + (kindCount === 1 ? "" : "s") + " \u2014 this is spreadsheet rot, caught before the report. One-line fixes below.";
     }
-    return { verdict: verdict, items: items, total: total, kinds: kindCount, perRow: perRow };
+    return { verdict: verdict, items: items, total: total, kinds: kindCount, clean: clean, perRow: perRow };
   }
 
   /* ---------- exports ---------- */
@@ -717,6 +722,135 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       ? "_Exported with " + dr.total + " doctor flag" + (dr.total === 1 ? "" : "s") + " open \u2014 UTMForge reads the rules so the report doesn\u2019t rot._"
       : "_Exported clean \u2014 0 doctor flags. UTMForge: one file, offline._");
     return L.join("\n");
+  }
+
+  /* ---------- CSV import (audit mode) ---------- */
+
+  // A small RFC-4180-shaped parser: quoted fields, escaped quotes (""),
+  // embedded commas and newlines, \r\n or \n line endings, BOM stripped.
+  function parseCsvText(text) {
+    var s = String(text == null ? "" : text).replace(/^\uFEFF/, "");
+    var rows = [];
+    var row = [];
+    var cell = "";
+    var inQ = false;
+    for (var i = 0; i < s.length; i++) {
+      var ch = s.charAt(i);
+      if (inQ) {
+        if (ch === '"') {
+          if (s.charAt(i + 1) === '"') { cell += '"'; i++; }
+          else inQ = false;
+        } else cell += ch;
+      } else if (ch === '"') {
+        inQ = true;
+      } else if (ch === ",") {
+        row.push(cell); cell = "";
+      } else if (ch === "\n" || ch === "\r") {
+        if (ch === "\r" && s.charAt(i + 1) === "\n") i++;
+        row.push(cell); cell = "";
+        rows.push(row); row = [];
+      } else cell += ch;
+    }
+    if (cell !== "" || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+
+  // Flexible header names — matched on letters-and-digits only, so
+  // "utm_source", "UTM Source" and "utm-source" all read the same.
+  // Anything unrecognized (full_url, status, notes…) is ignored.
+  var HEADER_ALIASES = {
+    dest: ["destination", "dest", "url", "page", "link", "landingpage", "landingurl", "targeturl"],
+    source: ["utmsource", "source", "src", "channel"],
+    medium: ["utmmedium", "medium", "med"],
+    campaign: ["utmcampaign", "campaign", "campaignname", "camp"],
+    content: ["utmcontent", "content", "creative"],
+    term: ["utmterm", "term", "keyword", "keywords"]
+  };
+  var ROW_FIELDS = ["dest", "source", "medium", "campaign", "content", "term"];
+
+  function headerKey(cell) {
+    return String(cell == null ? "" : cell).toLowerCase().replace(/[^a-z0-9]/g, "");
+  }
+
+  // Pulls utm_* params out of a raw tagged URL: returns the cleaned
+  // destination (other query params and the hash kept) plus the five tag
+  // values. Returns null when the URL carries no utm_ params.
+  function splitTaggedUrl(u) {
+    var s = String(u == null ? "" : u).trim();
+    var q = s.indexOf("?");
+    if (q < 0) return null;
+    var h = s.indexOf("#", q);
+    var qs = h >= 0 ? s.slice(q + 1, h) : s.slice(q + 1);
+    var tail = h >= 0 ? s.slice(h) : "";
+    var keep = [];
+    var tags = {};
+    var sawUtm = false;
+    qs.split("&").forEach(function (p) {
+      if (!p) return;
+      var eq = p.indexOf("=");
+      var k = eq < 0 ? p : p.slice(0, eq);
+      var v = eq < 0 ? "" : p.slice(eq + 1);
+      if (/^utm_(source|medium|campaign|content|term)$/i.test(k)) {
+        var dec = v;
+        try { dec = decodeURIComponent(v); } catch (e) { dec = v; }
+        tags[k.slice(4).toLowerCase()] = dec;
+        sawUtm = true;
+        return;
+      }
+      keep.push(p);
+    });
+    if (!sawUtm) return null;
+    var dest = s.slice(0, q);
+    if (keep.length) dest += "?" + keep.join("&");
+    return { dest: dest + tail, tags: tags };
+  }
+
+  // CSV text → state-shaped rows. A header row is recognized when any cell
+  // matches a known header name; without one, columns are read positionally
+  // in the app's own export order (destination, source, medium, campaign,
+  // content, term). Missing columns become empty fields, extra cells are
+  // ignored, blank lines are skipped, and a raw tagged URL in the
+  // destination column donates its utm_ params to any field its row's
+  // columns left empty. The rows come back through the same normalizeState
+  // path as typed rows, so the doctor grades them identically.
+  function csvToRows(text) {
+    var grid = parseCsvText(text).filter(function (r) {
+      return r.some(function (c) { return String(c == null ? "" : c).trim() !== ""; });
+    });
+    if (!grid.length) return { rows: [], hadHeader: false };
+    var colMap = {};
+    var hits = 0;
+    grid[0].forEach(function (cell, idx) {
+      var k = headerKey(cell);
+      ROW_FIELDS.forEach(function (field) {
+        if (colMap[field] === undefined && HEADER_ALIASES[field].indexOf(k) >= 0) {
+          colMap[field] = idx;
+          hits++;
+        }
+      });
+    });
+    var hadHeader = hits > 0;
+    if (!hadHeader) {
+      ROW_FIELDS.forEach(function (field, i) { colMap[field] = i; });
+    }
+    var dataRows = hadHeader ? grid.slice(1) : grid;
+    var raw = [];
+    dataRows.forEach(function (cells) {
+      var o = { dest: "", source: "", medium: "", campaign: "", content: "", term: "" };
+      ROW_FIELDS.forEach(function (field) {
+        var idx = colMap[field];
+        if (idx !== undefined) o[field] = String(cells[idx] == null ? "" : cells[idx]).trim();
+      });
+      var split = splitTaggedUrl(o.dest);
+      if (split) {
+        o.dest = split.dest;
+        ROW_FIELDS.forEach(function (field) {
+          if (field !== "dest" && !o[field] && split.tags[field]) o[field] = split.tags[field];
+        });
+      }
+      raw.push(o);
+    });
+    return { rows: normalizeState({ rows: raw }).rows, hadHeader: hadHeader };
   }
 
   /* ---------- rendering: convention panel ---------- */
@@ -874,14 +1008,32 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
 
   /* ---------- export modal ---------- */
 
-  var exportKind = null; // "csv" | "md"
+  var modalMode = null; // "csv" | "md" | "import"
+
+  var EXPORT_NOTE = "If clipboard is blocked, select the text and copy manually \u2014 it's all here.";
+  var IMPORT_NOTE = "One link per row: destination + the five utm columns. Flexible headers, quoted fields, and missing columns all tolerated; utm_ params inside a raw tagged URL count too. Grading replaces the batch \u2014 your convention rules stay.";
+
+  function setModalChrome(mode) {
+    var importing = mode === "import";
+    var box = document.getElementById("modalText");
+    var copy = document.getElementById("modalCopy");
+    var dl = document.getElementById("modalDownload");
+    var fb = document.getElementById("modalFileBtn");
+    var note = document.getElementById("modalNote");
+    if (box) box.readOnly = !importing;
+    if (copy) copy.textContent = importing ? "Grade it" : "Copy to clipboard";
+    if (dl) dl.style.display = importing ? "none" : "";
+    if (fb) fb.style.display = importing ? "" : "none";
+    if (note) note.textContent = importing ? IMPORT_NOTE : EXPORT_NOTE;
+  }
 
   function openExport(kind) {
     if (!state.rows.length) {
       toast("Nothing to export yet \u2014 add a link row first.");
       return;
     }
-    exportKind = kind;
+    modalMode = kind;
+    setModalChrome(kind);
     var text = kind === "csv" ? buildCsv() : buildMarkdown();
     var title = document.getElementById("modalTitle");
     var box = document.getElementById("modalText");
@@ -896,10 +1048,52 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
     if (box) { box.focus(); box.select(); }
   }
 
+  function openImport() {
+    modalMode = "import";
+    setModalChrome("import");
+    var title = document.getElementById("modalTitle");
+    var box = document.getElementById("modalText");
+    if (title) title.textContent = "Import CSV \u2014 the doctor grades existing chaos";
+    if (box) {
+      box.value = "";
+      box.placeholder = "destination,utm_source,utm_medium,utm_campaign,utm_content,utm_term\nhttps://popup-os.example.com/tickets,x,social,launch-week,founder-thread,\nhttps://popup-os.example.com/menu,LinkedIn,email,Launch_Week,hero-banner,";
+    }
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.add("open");
+    if (box) box.focus();
+  }
+
+  // Audit mode: the pasted CSV becomes the batch, and the doctor grades it
+  // against the saved convention exactly as it grades typed rows.
+  function doImport() {
+    var box = document.getElementById("modalText");
+    if (!box) return;
+    var parsed = csvToRows(box.value);
+    if (!parsed.rows.length) {
+      toast("Nothing gradable in there \u2014 paste CSV with a header row (destination + the five utm columns), or raw tagged URLs one per line.");
+      return;
+    }
+    if (state.rows.length) {
+      var ok = window.confirm("Grade the pasted CSV? It replaces the current " + state.rows.length +
+        " row" + (state.rows.length === 1 ? "" : "s") + " \u2014 your convention rules stay. Export first if you want to keep this batch.");
+      if (!ok) return;
+    }
+    state.rows = parsed.rows;
+    save();
+    renderRows();
+    renderRight();
+    var dr = doctorReadout();
+    var line = dr.total
+      ? dr.clean + " clean \u00B7 " + dr.total + " flagged across " + dr.kinds + " kinds"
+      : "0 flagged \u2014 ship the batch";
+    closeExport();
+    toast("Report card: " + parsed.rows.length + " links \u00B7 " + line + ". The doctor reads on below.");
+  }
+
   function closeExport() {
     var backdrop = document.getElementById("modalBackdrop");
     if (backdrop) backdrop.classList.remove("open");
-    exportKind = null;
+    modalMode = null;
   }
 
   function fallbackCopy(box) {
@@ -932,17 +1126,17 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
 
   function downloadCurrent() {
     var box = document.getElementById("modalText");
-    if (!box || !exportKind) return;
+    if (!box || !modalMode || modalMode === "import") return;
     try {
-      var blob = new Blob([box.value], { type: exportKind === "csv" ? "text/csv" : "text/markdown" });
+      var blob = new Blob([box.value], { type: modalMode === "csv" ? "text/csv" : "text/markdown" });
       var a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = exportKind === "csv" ? "utmforge-links.csv" : "utmforge-links.md";
+      a.download = modalMode === "csv" ? "utmforge-links.csv" : "utmforge-links.md";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
-      toast(exportKind === "csv" ? "utmforge-links.csv saved." : "utmforge-links.md saved \u2014 paste it into the launch doc.");
+      toast(modalMode === "csv" ? "utmforge-links.csv saved." : "utmforge-links.md saved \u2014 paste it into the launch doc.");
     } catch (e) {
       toast("Download blocked \u2014 copy the text instead.");
     }
@@ -1089,8 +1283,28 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
 
     document.getElementById("exportCsvBtn").addEventListener("click", function () { openExport("csv"); });
     document.getElementById("exportMdBtn").addEventListener("click", function () { openExport("md"); });
-    document.getElementById("modalCopy").addEventListener("click", copyCurrent);
+    document.getElementById("importCsvBtn").addEventListener("click", openImport);
+    document.getElementById("modalCopy").addEventListener("click", function () {
+      if (modalMode === "import") doImport(); else copyCurrent();
+    });
     document.getElementById("modalDownload").addEventListener("click", downloadCurrent);
+    document.getElementById("modalFileBtn").addEventListener("click", function () {
+      var inp = document.getElementById("modalFile");
+      if (!inp) return;
+      inp.value = "";
+      inp.click();
+    });
+    document.getElementById("modalFile").addEventListener("change", function (e) {
+      var file = e.target && e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        var box = document.getElementById("modalText");
+        if (box) box.value = String(reader.result == null ? "" : reader.result);
+      };
+      reader.onerror = function () { toast("Could not read that file \u2014 paste the CSV text instead."); };
+      reader.readAsText(file);
+    });
     document.getElementById("modalClose").addEventListener("click", closeExport);
     document.getElementById("modalBackdrop").addEventListener("click", function (e) {
       if (e.target === this) closeExport();
@@ -1152,6 +1366,9 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       mechanicalFixDest: mechanicalFixDest,
       applyMechanicalFixes: function () { return applyMechanicalFixes(); },
       doctorReadout: function () { return doctorReadout(); },
+      parseCsvText: parseCsvText,
+      csvToRows: csvToRows,
+      splitTaggedUrl: splitTaggedUrl,
       buildCsv: function () { return buildCsv(); },
       buildMarkdown: function () { return buildMarkdown(); },
       setState: function (s) { state = s; },
