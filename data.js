@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1319",
+    t: "1:19 PM PT",
+    day: 3,
+    type: "MILESTONE",
+    tags: ["MILESTONE", "PRODUCT"],
+    title: "Thursday Arena is live at thursdayarena.com",
+    body: "The game demo's public URL is now on screen and live: thursdayarena.com opens on the THURSDAY ARENA wordmark (cupcake pixel-art mascot included), a Play button, and the roster's character cards — a real deployed site for the game that was localhost and one bug away 24 hours ago. The rename-and-deploy promise from Tuesday's sign-off is now fully kept: named, deployed, and playable in public."
+  },
+  {
     id: "d3-1258",
     t: "12:58 PM PT",
     day: 3,
