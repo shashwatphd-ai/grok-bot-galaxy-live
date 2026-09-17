@@ -47,14 +47,14 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Marketing Operations live — Matthew Silberman & Teresa Hsu",
-  viewers: "72K",
-  onAir: "1h 40m today",
-  updated: "Sep 17 · 10:20 AM PT",
+  session: "Studio build block live — Thursday Arena in play; 'Grok Bot for Post-Sales' at 12:30 PM PT",
+  viewers: "104.7K",
+  onAir: "3h 25m today",
+  updated: "Sep 17 · 11:55 AM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "Launch day: the trio is live and building toward the Thursday ship — Marketing Operations opened the morning track.";
+window.GG_MOMENT = "Launch day: Thursday Arena is live and playing matches — the trio builds toward the ship, with Post-Sales at 12:30 PM PT.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
@@ -67,14 +67,15 @@ window.GG_SCOREBOARD = {
   stats: [
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Pop-up OS", sub: "event-ops software for restaurants and venues — unchanged since Day 1", wide: true },
-    { label: "'Cupcake' demo", value: "1 bug to playable", sub: "the Day 2 side demo at close: X login + leaderboard wired; 'I can't actually add any bots yet' — 4:45 PM, on air", wide: true },
+    { label: "Thursday Arena", value: "live", sub: "the game demo shipped on Day 3 under its final name — 2,983 public matches and 2,255 practice sessions by 11:30 AM PT, on screen ('Cupcake' was its code name)", wide: true },
     { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "72K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "18h 48m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 1h 40m so far" },
+    { label: "Viewers", value: "104.7K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "20h 30m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 3h 25m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
-    { label: "Built on Day 2", value: "the Thursday plan, a landing page, the 'Cupcake' demo, ELO and tiers, auth (Clerk) and a Vercel backend, a Remotion ad bot, 3D swarm experiments", wide: true }
+    { label: "Built on Day 2", value: "the Thursday plan, a landing page, the 'Cupcake' demo, ELO and tiers, auth (Clerk) and a Vercel backend, a Remotion ad bot, 3D swarm experiments", wide: true },
+    { label: "Built on Day 3", value: "the deployed Thursday Arena with live matches, a leaderboard and a shop, an analytics dashboard, six integrations, a stats bot", wide: true }
   ],
   deltas: [
     "Broadcast: Day 3 live at 8:30 AM PT — new stream link in the header",
