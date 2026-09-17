@@ -88,6 +88,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1612",
+    t: "4:12 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "The official rules, coached by dr. eggbot",
+    body: "The final design, stated plainly in a bot chat: a match is best-of-3, each round runs shop → auto battle, up to 3 bots with the leftmost fighting first, bots and apples persist between rounds and the 'potato' is temporary. The shop gives 10 tokens a round — unspent tokens vanish, sell refunds 1, reroll costs 1, and freezing keeps an offer across shops. Dr. eggbot holds the 'ask to review this chat and coach' role — the mascot literally teaches its own game."
+  },
+  {
     id: "d3-1550",
     t: "3:50 PM PT",
     day: 3,
