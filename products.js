@@ -92,7 +92,7 @@ window.GG_FEATURES = [
     builtBy: ["grokbot", "growth engineer bot"],
     evidence: [
       { t: "9:29 AM", what: "Discipline on air: 'subtract before you add… removing auth, removing a waitlist. We literally just want like a V1'" },
-      { t: "9:40 AM", what: "Roadmap on air: landing page → AEO/SEO → A/B testing → lean into existing distribution → ads infrastructure" }
+      { t: "9:40 AM", what: "The go-to-market roadmap spoken on air ran from the landing page through answer-engine and search optimization, then A/B testing, then leaning into existing distribution, and finally ads infrastructure" }
     ],
     numbers: [
       "Ship deadline: Thursday ('we ship a product by Thursday' — 4:41 PM, on air)"
@@ -156,7 +156,7 @@ window.GG_FEATURES = [
     numbers: [
       "Fields on spec: date/time · sessions · venue · staff"
     ],
-    notes: "The product's core loop, kept past the October event's retirement. Kept for the record: the spec was authored by an agent."
+    notes: "The product's core loop survived the October event's retirement, and the spec itself was authored by an agent."
   },
   {
     id: "booking-signup",
@@ -309,7 +309,7 @@ window.GG_FEATURES = [
       "~$2,500 summer",
       "One weekend: ≈ $5,869 (sample data)"
     ],
-    notes: "Session sample data — kept because these were the day's most-quoted economics. Provenance: presenter demo screens."
+    notes: "Session sample data, kept because these were the day's most-quoted economics; the figures came from the presenter's demo screens."
   },
   {
     id: "seo-work-order",
@@ -334,7 +334,7 @@ window.GG_FEATURES = [
     category: "Infra",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "1:27 PM", note: "PR → deploy with logs → review queue, demonstrated end to end" }
+      { status: "SHIPPED", t: "1:27 PM", note: "the PR-to-deploy-to-review loop demonstrated end to end" }
     ],
     builtBy: ["tater", "Sage", "hashbrown"],
     evidence: [
@@ -444,7 +444,7 @@ window.GG_SESSIONS = [
     time: "~10:15–11:00 AM",
     title: "Idea-selection chat",
     who: "The agent team, in chat",
-    recap: "Agents propose company concepts; 'pop-up OS for restaurants' wins mid-morning (spoken ~3×, on air). The company is named: Ship by Thursday."
+    recap: "Agents propose company concepts; 'pop-up OS for restaurants' wins mid-morning (spoken ~3×, on air). The company is named Ship by Thursday."
   },
   {
     day: "Day 1 — Tue Sep 15, 2026",
@@ -458,7 +458,7 @@ window.GG_SESSIONS = [
     time: "12:30–2:00 PM",
     title: "Grok Bot for Engineering",
     who: "Lingxi Li per the schedule",
-    recap: "Fully autonomous agents; tool connections (GitHub + Notion/Slack/Figma/Gmail connectors); first-party Cursor Cloud Agents management; memory and routines. Multi-agent demo: PR finished → Sage deploy with logs → review queue; tater posts PR #10. Lauren's no-PRs rule and steve's ~2,000-line PR (on air). A stuck cloud agent debugged live: 'still chasing the PR, not the spinner.'"
+    recap: "Fully autonomous agents; tool connections (GitHub + Notion/Slack/Figma/Gmail connectors); first-party Cursor Cloud Agents management; memory and routines. The multi-agent demo ran a finished PR into a Sage deploy with logs and back into the review queue; tater posts PR #10. Lauren's no-PRs rule and steve's ~2,000-line PR (on air). A stuck cloud agent debugged live: 'still chasing the PR, not the spinner.'"
   },
   {
     day: "Day 1 — Tue Sep 15, 2026",
