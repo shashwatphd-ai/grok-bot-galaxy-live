@@ -88,6 +88,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1527",
+    t: "3:27 PM PT",
+    day: 3,
+    type: "MILESTONE",
+    tags: ["MILESTONE", "PRODUCT"],
+    title: "The public leaderboard is carrying real matches",
+    body: "On thursdayarena.com's leaderboard: named players with Elo ratings and win-loss records — a Gold-rated player at 1447 sitting at rank #51, others from 1142 to 1299 with double-digit win counts. The ratings system that started Day 2 as 'we're both gold at 1000' placeholders is now ranking real public play. Views: 154.1K."
+  },
+  {
     id: "d3-1516",
     t: "3:16 PM PT",
     day: 3,
