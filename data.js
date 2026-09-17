@@ -87,12 +87,36 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1258",
+    t: "12:58 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "FLEET"],
+    title: "The self-improvement scan: Gus diffs its drafts against what the human actually sent",
+    body: "The session's standout routine ran live: a weekly self-improvement scan with two jobs — a system audit that spotted a firing-routine gap and proposed exactly one concrete fix ('don't implement unless I say yes'), and a voice-learning pass that diffs Gus's drafted messages against the versions the manager actually sent (tone, wording, closings, banned phrases, warmth), logging the patterns as memory. Governance closed the loop: the bot learns, but the human's edits count as truth, and the fix ships only on approval. The manager also asked Gus to convene a staff meeting about what to prioritize with three hours of the day — 'staff meeting is live,' it replied."
+  },
+  {
+    id: "d3-1251",
+    t: "12:51 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "FLEET"],
+    title: "Gus the chief-of-staff files the post-sales digest — risks, blockers, promises",
+    body: "The session demoed 'Gus,' a chief-of-staff bot for a post-sales org (on Flylo's demo team, not the trio's build): a status digest covering Risk (a QBR that 'gets ugly,' a training-suite answer due Friday, an account kept 'soft, not a P0'), People flags, Blockers (access pending for three named reps), and Open promises with owners and dates — plus a space-party joke, 'because life is not that serious.' Underneath, Gus's routines run on a schedule: a daily brief at 8:30, call prep every 15 minutes on weekdays, weekly unattended-promises sweeps, ask watch, and visibility watch.",
+    lenses: {
+      casual: "A bot reads all the threads so the manager walks in already knowing what's on fire — and it tells jokes.",
+      builder: "The pattern is digest-plus-routines: scheduled sweeps (promises, asks, visibility) writing into one brief, each routine a cron-shaped config with an owner and a scope.",
+      investor: "Post-sales is where renewal revenue lives; a chief-of-staff bot that surfaces at-risk renewals weekly is a retention tool disguised as an assistant.",
+      skeptic: "The digest is only as good as its integrations — 'access pending' blockers suggest the bot already hit the permission walls every real deployment hits."
+    }
+  },
+  {
     id: "d3-1238",
     t: "12:38 PM PT",
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE", "PRODUCT"],
-    title: "Post-Sales/Customer Success session opens on the Marketplace",
+    title: "The Post-Sales session opens with a tour of community-built bots",
     body: "The 12:30 session took the stage and went straight to the bot Marketplace: featured community bots (Lauren Tan's dr.eggbot, Lenny Rachitsky's Overheard, Claire Vo's Tradbot, Eric Zakgaiman's Projects Manager) beside team plugins — pastack (used by 88 teammates), Atlassian MCP (52), GitHub, and the Flylo demo environment. The lesson taking shape: a post-sales team assembles from installed specialists, not job posts. Views: 113.5K."
   },
   {
@@ -101,7 +125,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["FLEET", "PRODUCT"],
-    title: "Season 1 reports: a Data bot files the game's stats on a schedule",
+    title: "A data bot now reports the game's stats on a schedule",
     body: "A bot named Data is posting 'Season 1' session reports into a channel — practice counts, a 46.7% overall win rate, public-match totals, open versus fixed bugs, and feedback volume — with mini-charts inline. The hosts asked it live to 'add total user count over time,' and the report shape grew a new chart on request. A stats routine, not a slide deck: the numbers refresh themselves. Views: 109K."
   },
   {
@@ -110,7 +134,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
-    title: "'Standing up marketing operations' — starting from the Marketplace",
+    title: "The company staffs its marketing by installing a bot from the Marketplace",
     body: "The studio block's new thread is captioned 'Standing up marketing operations,' and the screen shows a Marketplace listing for 'Cerebro' by Marinos — a community-built GTM bot with duplicate and download buttons. The move echoes the event's own pitch: the fastest way to staff a function may be installing a specialist template, then teaching it your house rules. Views: 107K."
   },
   {
@@ -119,7 +143,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "DELTA",
     tags: ["PRODUCT", "FLEET"],
-    title: "The game's funnel, on a dashboard: 2,255 practice sessions, 2,983 public matches",
+    title: "The game's dashboard counts 2,983 public matches so far",
     body: "A 'Funnel snapshot (practice → convert → play)' chart on the studio screen: 2,255 practice sessions opened, 742 completed, 268 converted to the game, a fourth bar at 193 account creations, and 2,983 public matches. The fleet is now measuring its own game like a product funnel — whether those numbers reflect public traffic or seeded test data isn't stated on screen. Views: 98.7K."
   },
   {
@@ -128,7 +152,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "Thursday Arena grows a shop — and the items are GTM jokes",
+    title: "The game adds a shop whose items are jokes about the sales world",
     body: "The build block's newest screen: a SHOP tab with buyable cards at 3 gold each — 'The Morning Newspaper' (pass it back: buff two friends from your bench), 'Hiring Signals' (backfire: deal 1 damage to the lowest-health enemy), and 'GTM Connections' (spot: give 50% of its ATK to the lowest-health ally). The auto-battler now has an economy, and the flavor is pure go-to-market. Views: 96.3K."
   },
   {
@@ -137,7 +161,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "MILESTONE",
     tags: ["MILESTONE", "PRODUCT"],
-    title: "The demo game has its final name: Thursday Arena",
+    title: "The game's final name is Thursday Arena",
     body: "On screen during the studio block: a deployed front page titled THURSDAY ARENA — the game demo's name, revealed one day after 'maybe think of an actual good name.' The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels; a teammate's browser shows the matchmaking front end beside a deploy diff in the editor. The game's public URL is visible in the address bar but not yet legible on stream; the rename-and-deploy promise from Tuesday's sign-off is now on the record as kept."
   },
   {
@@ -146,7 +170,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "MOMENT",
     tags: ["MILESTONE", "PRODUCT"],
-    title: "First live match on the Day 3 stream: 'You took round 1'",
+    title: "The hosts play a live match and take round 1",
     body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Tuesday's sign-off. The match-result screen reads 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. Views: 86.7K."
   },
   {
@@ -155,7 +179,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "DELTA",
     tags: ["FLEET", "PRODUCT"],
-    title: "Wiring day: six integrations connected, fleet at 43",
+    title: "The bots connect six company tools as the fleet reaches 43",
     body: "The studio block walked through the workspace's 'Manage plugins and skills' screen: Vercel, Notion, Slack, X, PlanetScale and Clerk all show Connected — the same stack the build has leaned on since Day 2 (hosting, docs and the knowledge base, alerts, distribution, the database, auth). The fleet widget reads 43 bots online, 4 working now, 11 archived. Views: 83.8K.",
     delta: [
       { label: "Bots online", from: "30+ (Day 1 close)", to: "43" },
@@ -168,7 +192,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
-    title: "Studio block: a stats bot reads live match data from the game demo",
+    title: "A stats bot checks the game's balance from live match data",
     body: "Back from the break, the build screen showed a stats thread with a 'Launch dashboard — Session 1' card stamped 10:54 AM PT — practice and match activity, plus a bug list (two fixed, two open). Asked for 'basic game stats like win rates, difficulty, etc. to validate the game engine,' a bot named Sake replied that it is pulling win-rate and difficulty signals from live match data — the side-demo game is now producing real play data that the fleet analyzes. Views: 81.3K."
   },
   {
@@ -177,7 +201,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE"],
-    title: "The day's shape, from the broadcast's own agenda panel",
+    title: "The broadcast shows the final day's agenda",
     body: "A live-agenda panel on the player lays out the day: 'Build: A Game Studio' blocks alternating with two sessions — Grok Bot for Customer Success (the 12:30 PM slot) and Grok Bot for Marketing (2:30 PM). The final showcase is set for 4:30 PM.",
   },
   {
@@ -186,7 +210,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "Back from the break: the trio is heads-down at the laptops",
+    title: "Back from the break, the trio works heads-down",
     body: "After the Marketing Ops session and a short hold, the stream returned to the main studio. Lauren and Matt Palmer are working at their laptops with cameras live; Roshan beside them. The morning's agenda is the build toward the Thursday ship, with Post-Sales at 12:30 PM and Marketing at 2:30 PM still to come. Views: 72K."
   },
   {
@@ -195,7 +219,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE", "CHAT"],
-    title: "The Starbase challenge, now with steps",
+    title: "The viewer contest shows how to enter for a Starship trip",
     body: "A slide spelled out the viewer contest: 'Show us how you've integrated Grok Bot into your work' — quote the challenge post on X, explain what your Bot does, include a link to your shared Bot template, and follow @Grok and @Bot. The prize is a trip to Starbase for a Starship launch; entries run through Sept 29.",
     lenses: {
       casual: "Post about your bot on X and you could win a trip to watch a Starship launch.",
@@ -210,7 +234,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
-    title: "Juno the GTM bot: one line in, a lead-review app spec out",
+    title: "A bot turns one sentence into a plan for a sales app",
     body: "In the Marketing Ops demo, Matthew briefed a bot named Juno — 'a GTM product bot' that clarifies requirements one question at a time, writes the product spec, and hands it to a build flow. Fed 'I want to build an internal app for sales reps to review their leads more easily and quickly,' Juno specced a swipe-the-card interface: swipe left to reject a lead in the CRM with a reason, swipe right to accept and add it to a follow-up sequence, with auth flagged as a day-one requirement."
   },
   {
@@ -219,7 +243,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
-    title: "Territory Planner: a bot referees a rep dispute",
+    title: "A bot referees two sales reps fighting over one account",
     body: "The session's live screen showed a 'Territory Planner' bot working an inbox: it drafted a stakeholder email, then surfaced a Path task — two AEs, Jordan (West) and Sam (Central), both claiming the Acme Logistics account, filed 8:44 AM. The proposed path: a territory-map sync Tuesday, a written ruling by Friday. The approval card offered 'Approve' or 'Hold — digest only.'",
     lenses: {
       casual: "A bot read the email thread, spotted the fight over one account, and proposed a fair way to settle it — human just clicks approve.",
@@ -234,7 +258,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE"],
-    title: "Marketing Operations opens with six RevOps & MarOps use cases",
+    title: "The Marketing session opens with six ways bots help marketing teams",
     body: "Matthew Silberman and Teresa Hsu's session opened on a use-case map: a self-completing to-do list (monitor inboxes, refresh CRM tables, route tickets); build tools, not just rules (bots maintain dashboards and query systems); perfect the marketing–sales handoff; make GTM data truly self-serve (a bot anyone on the team can query); territory planning from CRM accounts, pipeline and rep performance; and cleaning CRM duplicates once and for all."
   },
   {
@@ -243,7 +267,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "MOMENT",
     tags: ["KEYNOTE"],
-    title: "Day 3 is live: ship day begins",
+    title: "The final day begins: today the company ships",
   },
   {
     id: "d2-1653",
@@ -266,7 +290,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "Customer Support session: a four-bot support org, demoed end to end",
+    title: "The Support session demos a four-bot customer-service team",
     body: "David Gan (software engineer, xAI user ops) demoed a four-bot support team on xAI's demo airline Flylo, which sells $20-a-month in-flight wifi: build handles infrastructure, reply answers tickets in Plain and Slack, alert flags urgent cases to Slack, and tune improves the system. The stack combined the Plain ticketing tool, a Notion knowledge base holding public docs plus an internal 14-day refund policy, a Supabase database, and Stripe. In the live demo a password reset was answered with a citation to the exact public doc; an SSO question about Okta hit no documentation, so the bot reported low confidence, handed off to a human, and raised a Slack alert ('exactly what we wanted'); and refunds were granted for Carter, who had just subscribed, and denied for Damon, who was about 20 days in and outside policy, all without leaking the internal policy. The rollout ladder is crawl-walk-run: the bots start read-only, then draft answers for review, then answer directly. The economics stated on air were $1–2 per medium ticket and about 20 cents for a scripted one, versus '$1… one to ten dollars' for competitors. A demo org on a demo airline — not the trio's build.",
     lenses: {
       casual: "They showed bots answering real-looking support tickets and issuing refunds — and refusing, politely, when the policy said no.",
@@ -281,7 +305,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
-    title: "Scrappy mode: tests deleted, backend on Vercel, a 3D swarm, and 'mashed'",
+    title: "The team deletes its own tests to ship faster",
     body: "In the late-afternoon build the prototype became a Next.js app with a client/server split — 'you can just modify the client and cheat,' so matchmaking resolves server-side. A global leaderboard appeared, though it was not fully wired. The 'cupcake board' Notion kanban ('we've made our own little ticketing system') tracked the playtest, the backend, login (built on the auth service Clerk), and a 3D client experiment; a 3D prototyping bot spawned through the Cupcake repo ran Cursor cloud agents in Potato Mode ('glow 3d' picked the 'match and fight' lane); and the backend went to Vercel serverless with 'delete all the tests. We'll push it to main… true scrappy mode.' Two more things shipped mid-block: a 1Password integration and a sound-design bot named 'tones.' A Cursor Projects demo showed a coordinator agent managing subagents and saying 'mashed' for merge.",
     lenses: {
       casual: "The bots deleted their own tests to ship faster — true scrappy mode.",
@@ -296,7 +320,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["KEYNOTE"],
-    title: "SDR session: Simon's 'soldiers' — a sub-agent army at 50 prospects a day",
+    title: "The outbound-sales session shows a bot army pitching 50 prospects a day",
     body: "Simon (xAI SDR, go-to-market — Simon Lackowski per the schedule) ran the SDR block, which applies the chief-of-staff pattern to outbound sales: a swarm of 'Simon soldiers' sub-agents works a routine of 50 prospects a day, demoed on the Flylo account. The pitch in one line is that the SDR's job becomes editing the bot's drafts, not writing them.",
     lenses: {
       casual: "The demo is one SDR plus an army of mini-mes, grinding prospect lists all day.",
@@ -311,7 +335,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["PRODUCT", "REVENUE"],
-    title: "The ad pipeline: a Remotion bot writes 6,000 lines of Cupcake ads",
+    title: "A video-ad bot writes 6,000 lines of code for the game's ads",
     body: "The chief of staff and dr. eggbot onboarded 'a remotion ads bot for a Cupcake' — an agent that wrote roughly 6,000 lines of code in Remotion, a framework for building video programmatically, across 12 files to generate video ads, with a localhost conflict debugged on air. The output was spots in 9:16 and 16:9 formats for LinkedIn, Instagram and X. The stadium idea from earlier got its marketplace framing — in-game billboards and sponsored lobbies — which was modeled and then parked ('honestly, it seems a little too complex… a sprint for tomorrow').",
     lenses: {
       casual: "The bots are now making the ads for the game the bots made.",
@@ -326,7 +350,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["CHAT", "PRODUCT"],
-    title: "The first 'forward-deployed intern' — a student's bot suite, live",
+    title: "A Stanford intern shows bots that hunt recruiters and fix cover letters",
     body: "Shardul Marathe, a Stanford CS rising junior introduced as the first forward-deployed intern, demoed his own bot suite: a recruiter-finder built on a LinkedIn page plus an Apollo extension, an email finder that works the Stanford alumni directory ('I really hope Stanford University is not watching this'), a cover-letter writer, a 'cover letter critic,' and 'Sweet Job App'lier. He took a live X-profile and portfolio roast from the hosts, with virality advice that leaned on word of mouth, niche subreddits, and the first two to three seconds of a TikTok.",
     lenses: {
       casual: "The intern built himself a job-hunting fleet. It's very college-student-as-a-service.",
@@ -368,7 +392,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["KEYNOTE"],
-    title: "Sales session: Chris and Mark's go-to-market bot lineup",
+    title: "The Sales session shows bots updating decks and records during live calls",
     body: "Chris Dillettes and Mark Wright (xAI go-to-market) ran the Sales block under one banner: 'pipeline, pipeline, pipeline.' The session demoed its bot lineup live. Echo updates the pitch deck live while you are on the call, working from the Granola meeting feed in about two minutes while Gong's feed lags behind; Olive is a chief-of-staff bot that preps meetings and drafts email replies; a connector pushes Salesforce updates from Granola and Gong call notes; a Customer Expert keeps Notion account plans current; a PG (personalization) agent picks five accounts from your Salesforce book and pulls personal hooks like 'your CTO posted on X'; and a growth bot scans your Gmail to match your writing voice. The demo ran on the Flylo sample data.",
     lenses: {
       casual: "Bots that sit in your sales calls, fix your slides while you talk, and write follow-ups in your voice.",
@@ -383,7 +407,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "'It's just a code name' — Cupcake gets a logo, not a verdict",
+    title: "'It's just a code name' — the game gets a cupcake logo",
     body: "The game's name came up on air: 'We may need to start thinking of a name… It's just a code name.' A cupcake logo was designed on screen, and the final name was explicitly deferred — at sign-off they still said 'maybe think of an actual good name for this game.' The name 'Cupcake' had first appeared around 11:58 AM, in the line 'who's the best cupcake battler.' Meanwhile the art pipeline kept moving, generating ability icons with the image-gen bot and cleaning them with background removal ('only use [Grok] Imagine for the skills')."
   },
   {
@@ -407,7 +431,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["CHAT", "FLEET"],
-    title: "Guest Karen Cheng: morning newspapers, split-flap trackers — and the VM login plea",
+    title: "Guest Karen Cheng shows her morning-newspaper bot",
     body: "Karen (X) Cheng — creative technologist and filmmaker, 3M+ followers — brought her agent projects: a morning-newspaper bot at newspaper.karenx.com that formats a daily PDF and auto-discovers printers on the Wi-Fi, and a Vestaboard split-flap package tracker. Her feature request for xAI was better VM login lifecycle for the bots, which is the fleet's own pain point, as the trio agreed on air ('things are always getting logged out on the virtual machine').",
     lenses: {
       casual: "Her bots print a daily newspaper on whatever printer they find. The future is charmingly weird.",
@@ -422,7 +446,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["CHAT"],
-    title: "Customer story: Icon Coffee's Rex — 'an extra hour or two in my day'",
+    title: "A coffee-shop owner says his bot wins him 'an extra hour or two' a day",
     body: "A produced customer segment featured Marcel, co-owner of Icon Coffee in San Francisco's Potrero Hill. His Grok Bot, named Rex ('kind of like my chief of staff'), triages his son's school email through the parent portal, has API access to the cafe's POS for reports and metrics on his phone, and optimized the menu from a photo of what was selling. Why it matters to him: 'My son's about to be 10. That time is so precious… an extra hour, two hours in my day.'",
     lenses: {
       casual: "A real coffee-shop owner, a bot named Rex, and his evenings back.",
@@ -437,7 +461,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "MOMENT",
     tags: ["PRODUCT", "MILESTONE"],
-    title: "First playable prototype: draft your marketplace bots",
+    title: "The first game prototype works — you draft a team of marketplace bots",
     body: "The game existed. Built since 9:50 with the brakes deliberately on — 'we don't need login yet when we don't even know if the game is fun… no DB required' — a vanilla HTML/CSS/JS prototype ran locally with three UI variants and the xAI bot marketplace as its seed data. The first play began, 'I'm gonna of course pick Dr. Eggbot… we have three common bots.' The cards are marketplace bots: an outbound-prospecting sales bot ('72 charisma… the ability is hustle and it's dexterity based'), a Project Manager bot, and Dr. Eggbot with 'Riz.' A stat-total bug was caught and fixed live; the debug panel got sliders to 'tune the advantage'; and matches were decided instantly with animation on top — 'Dr. Eggbot used Rizz.' Round one observed a 22% dexterity-versus-intelligence advantage, and the underdog won.",
     lenses: {
       casual: "The bots built a video game whose characters are the bots themselves — meta, and fast.",
@@ -452,7 +476,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "MILESTONE",
     tags: ["MILESTONE"],
-    title: "The 'game design studio' reframing at 9:39",
+    title: "The company document is rewritten around a game studio",
     body: "The knowledge-base bot updated the company doc in Notion, and Matt narrated it: 'we also have our knowledge base bot that started working on updating our Notion with our company doc. So now we're working on our game design studio. We still have some objectives, but we're documenting the pivot and eventually like what our go-to-market strategy might be.' Two minutes later he told newcomers, 'If you're just joining in, we're working on our game studio and our first game,' and at 9:42 he said, 'You're watching us spend 72 hours building a game studio and a game for the game studio.' What the Notion screen retired was the October pop-up event — 'There is no pop-up. Oct 15 venue / host / dining tracks are retired' — while the ops-software product line continued toward Thursday's ship. The go-to-market roadmap spoken on air ran from the landing page through answer-engine and search optimization, then A/B testing, then leaning into existing distribution, and finally ads infrastructure.",
     delta: [
       { label: "The October pop-up event", from: "planned (venue/host/dining tracks)", to: "retired in Notion" }
@@ -501,7 +525,7 @@ window.GG_ENTRIES = [
     type: "SLIDE",
     tags: ["KEYNOTE"],
     screen: "d2-se-usecases",
-    title: "Sales Engineer use cases: the 2×2",
+    title: "The Sales Engineering session maps four ways bots help sales engineers",
     body: "The SE session's use-case slide laid out four quadrants. Engineer is a technical resource drafted in seconds; the Customer Expert knows the product inside out (Codebricks, PlayerScale) and flags unusual usage and power users; Echo updates the deck live during calls with Granola and Gong follow-up; and Competitive Intel uses competitors' own products to keep battlecards current. The view counter read about 49.7K around this point.",
     lenses: {
       casual: "One slide holds the four jobs a sales engineer would clone themselves for.",
@@ -516,7 +540,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "STAGE",
     tags: ["KEYNOTE", "PRODUCT"],
-    title: "Sales Engineering opens: Amrita (Cursor) on the Flylo demo app",
+    title: "Sales Engineering opens with bots booking travel on a demo airline",
     body: "Day 2's first session opened with an introduction: 'My name is Amrita. I am a field engineer here at Cursor.' Her demos ran on Flylo, xAI's own demo booking app ('a booking app that we at xAI just created as a demo project'), which sells flight cabins with a Postgres-backed guarantee that 'Flylo doesn't let two different customers confirm the same last cabin' and a 10-minute checkout hold. The demo bots were Mimi, who builds customer case-study slides with a problem, a solution, an impact and a quote; Sherlock, a technical expert with repository access through Cursor Cloud Agents, which spawned three more bots live (Battlecard Blair, Demo Drake and AI Radar); and Serena, who runs competitive intel and tested Southwest and Spirit booking flows. Among the facts that landed: Grok Bot runs Grok 4.6, its virtual machines are Linux-only, and her bot-built deck cost '$20 to $30' versus 'four or five hours' by hand. A Google Slides window titled as her vision deck was on screen, and views held around 50K through the morning.",
     lenses: {
       casual: "The morning class: how to sell with a bot team, taught on a fake airline.",
@@ -531,7 +555,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "STAGE",
     tags: ["MILESTONE"],
-    title: "Day 2 opens: 'how could we MVP this?' — then straight to the sales track",
+    title: "Day 2 opens with ninety seconds of planning, then the sales sessions",
     body: "The day opened with the trio already planning: 'Lauren, do you want to take us through some of the thoughts on how we could MVP this?' Lauren had a rough plan built with her P-Stack planning playbook of checklists, pseudo-code and data structures. Ninety seconds later the stream cut to the first session, and the sales track — Sales Engineering, Sales, SDRs, Customer Support — would alternate with the build all day.",
     delta: [
       { label: "Views", from: "2.6K at open", to: "374.9K at close" }
@@ -545,7 +569,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "WHY",
     tags: ["REVENUE"],
-    title: "Where do the dollar figures come from? Not from customers — yet",
+    title: "The money numbers so far are goals and samples — no customer has paid",
     body: "The company has no launched product and no paying customers, so every dollar on this page needs a source. Three kinds appear. Figures the agents quoted on stream, such as $250 per flight or a $5,869 weekend, came from the staging database the agents seeded themselves. The $30k profit figure was an on-screen rollout ambition, not a result. And the session presenters' screens (cabins, glider flights, family bookings) ran on clearly separate sample data for teaching the workflows — the sessions named their demo environment on air: Fly Low Airlines. Treat all of it as a demo economy: internally consistent, externally unproven.",
     lenses: {
       casual: "The money numbers are from the company's own practice database — nobody real has paid anything yet.",
@@ -560,7 +584,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "WHY",
     tags: ["MILESTONE"],
-    title: "Day 1 wrapped ~5:30 PM: a company named, a domain live, an idea still moving",
+    title: "Day 1 ends with a company named, a domain live, and the idea still moving",
     body: "The trio announced 'we're going to wrap it at 5:30' and left the air close to it, after about 8h 45m. They opened the day with no idea, chose a restaurant pop-up with 'Pop-up OS' ops software by mid-morning, named the company 'Ship by Thursday', and bought the domain — shipbythursday.day went live on Vercel that afternoon as a 'throwaway prototype' ('don't submit yet'). The idea kept drifting: by late afternoon, with guest Eric, the plan leaned toward a Grok Bot-themed pop-up covering merch, venue and ticketing, with the platform a stretch goal. At close they admitted, 'we might still be shifting.' Overnight, long-running agents were left working on a budget bot, venue-scout outreach drafts, and invite-list sourcing. The counter read 1.1M views at the end.",
     lenses: {
       casual: "Nine hours produced one named company, a live domain, three versions of the idea — and a warning to viewers not to use the site yet.",
@@ -589,7 +613,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE", "KEYNOTE"],
     screen: "optimizing-costs",
-    title: "🎉 1M views — and the stage opens its own cost structure",
+    title: "🎉 The stream passes one million views as xAI shows what agents cost to run",
     body: "The broadcast counter crossed 1M views during 'Optimizing Costs — browser use is powerful (and expensive!)', a walkthrough of agent unit economics with monthly-pricing toggles and per-task costs visible behind the demo. On air: 'browser use is super powerful… it's also expensive to run multiple times.' A company pitch showing its own cost math to a million viewers is a rare move.",
     delta: [
       { label: "Viewers", from: "968.3K", to: "1M+" }
@@ -631,7 +655,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "WHY",
     tags: ["KEYNOTE"],
-    title: "The 'AI Maturity Curve': xAI names the land grab",
+    title: "xAI shows its 'AI Maturity Curve' — from chatbots to bot-run teams",
     body: "The founders keynote charted the industry's progression on air, from chatbots to 'ephemeral agents that finish a task' to 'bots that automate your jobs' to companies that 'fully automate a staff function.' xAI places Grok Bot on the top rung, where a bot roster IS the company's staff function. The day's demos, from 30+ titled agents to RFCs and fleet stats, are presented as rung-4 evidence.",
     lenses: {
       casual: "Chatbots do homework, copilots do tasks, bots do jobs — and a bot team does a whole department.",
@@ -646,7 +670,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "DELTA",
     tags: ["FLEET"],
-    title: "Fleet crosses 30 bots; titled roles work through the panel",
+    title: "The bot fleet passes 30 as new specialists join",
     body: "While the founders panel ran, the roster widget showed role-titled bots grinding: Founding Eng (green dot, working), Growth Eng, Operator Research, and more. The org chart is the product.",
     delta: [
       { label: "Bots online", from: "26", to: "30+" },
@@ -660,7 +684,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "REVENUE"],
     screen: "tickets-plush",
-    title: "Pop-up supplies designed on screen: ticket stubs, badges, plush concepts",
+    title: "The bots design the pop-up's tickets, badges and plush toys",
     body: "On screen, the design canvas worked through the pop-up's physical kit: ticket-stub designs with tier badges, lanyards, and Grok Bot plush concepts — the plush designs got the most on-air attention of the physical kit, iterated 'against the official art.'",
     lenses: {
       casual: "The bots designed the merch. Of course they did.",
@@ -675,7 +699,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "PBP",
     tags: ["REVENUE"],
-    title: "The merch email channel opens, bot-run",
+    title: "The merch email channel opens — written and sent by bots",
     body: "On screen, a 'Tee Bot' thread ran the merch channel: promo email drafts with best-seller banners woven in, generic roundup formats deliberately avoided, and a side panel of copy variants. The merch bot's name on air was 'drop.'",
     lenses: {
       casual: "There is now a bot whose whole job is selling t-shirts politely.",
@@ -690,7 +714,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "DELTA",
     tags: ["FLEET"],
-    title: "Fleet widget: 26 bots, 880 requests, 10 archived",
+    title: "The fleet dashboard counts 26 bots online and 10 already retired",
     body: "The live fleet widget showed the org's pulse: 26 bots online, 880 web requests handled, only 1 bot actively working, and 10 archived — the roster churns staff like a real company. Ops chat showed QA picking up PRs and a Darcy-bot redeploy. Views: 908.7K.",
     delta: [
       { label: "Bots online", from: "11", to: "26" },
@@ -703,7 +727,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "PBP",
     tags: ["PRODUCT", "MILESTONE"],
-    title: "The idea keeps moving: toward a Grok Bot pop-up",
+    title: "The plan shifts again, toward a Grok Bot-themed pop-up",
     body: "With guest Eric (co-founder and CEO of Carrot Financial) pushing 'build for ourselves first,' the plan drifted from the restaurant pop-up toward a Grok Bot-themed pop-up: 'we're going to try and start a grok pop-up' — scoped to merch, venue and ticketing, with the ops platform demoted to a stretch goal. The talk covered 100–200 guests, catered hot food, no alcohol, and an October 15 date. Earlier, an art-exhibition concept had briefly won the room ('I think I like an art exhibition'). At the day's close they admitted, 'we might still be shifting.'",
     lenses: {
       casual: "The business plan changed twice after lunch. It's a live brainstorm with a budget.",
@@ -718,7 +742,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "PM session: inside the agents' Slack-style 'Bot team' chat (sample data)",
+    title: "The PM session demos a bot team chat running on sample data",
     body: "The PM demo ran on the session's sample venue data: a human asks the room about a winter pricing bundle; Ashley (Data/Analyst) updates the Pricing RFC, links the live metrics dashboard into it, and Core (Chief of Staff) moves the thread to Pixel (Designer). The session names its demo environment on air: 'everything you're seeing here is tied to a demo environment… called Fly Low Airlines.' A popup offered to open the RFC in the agents' work surface — chat is the management layer.",
     quote: {
       text: "Not one omniscient bot, but a full roster of teammates.",
@@ -731,7 +755,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "PM session opens: booking dashboard walkthrough (sample data)",
+    title: "The PM session opens with a booking dashboard on sample data",
     body: "The session opened with a full-screen demo of an agent-built analytics dashboard. It showed 377 family bookings, which is 35.0% of 1,063 purchases; 1,187 family passengers out of 2,663 total; an average party size of 3.2; and mobile-versus-web splits — with the agent roster in the sidebar acting as the operating departments. Views: 842.6K.",
     lenses: {
       casual: "Pretty dashboards! For a company that isn't this one.",
@@ -747,7 +771,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
     screen: "eng-debug",
-    title: "Engineering session: debugging a stuck cloud agent, live",
+    title: "The Engineering session debugs a stuck cloud agent live",
     body: "steve's thread debugged a stuck agent ('is it actually moving or just sitting there… it's using a subagent… still chasing the PR, not the spinner'), tater posted PR #10 to for-review via a cursor.com/agents link, and the product spec was visible in the thread: 'user should be able to create their own event — events have a date/time, sessions, venue, staff.' Sidebar: a PlanetScale bot flagging schema drift.",
     lenses: {
       casual: "The most honest moment of the day was watching engineers poke a hung AI like a printer.",
@@ -763,7 +787,7 @@ window.GG_ENTRIES = [
     type: "SLIDE",
     tags: ["KEYNOTE", "PRODUCT"],
     screen: "eng-keynote",
-    title: "Engineering session: 'Introducing Grok Bot' — the real integration list",
+    title: "The Engineering keynote introduces Grok Bot's integrations",
     body: "The Engineering keynote (Lingxi Li per the schedule) laid out the platform: 'a team of fully autonomous agents'; connections to the tools teams use (GitHub and friends, shown with Notion, Slack, Figma and Gmail connectors in the PM session); first-party management of Cursor Cloud Agents; and memory and routines.",
     delta: [
       { label: "Confirmed integrations", from: "implied", to: "GitHub · Notion · Figma · Slack · Cursor" }
@@ -775,7 +799,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "PBP",
     tags: ["FLEET", "PRODUCT"],
-    title: "Engineering session demo: agents file PRs, deploy, and queue legal docs",
+    title: "A demo shows agents shipping code end to end",
     body: "The 'Oren' thread showed the multi-agent loop end to end: a finished PR changing button text, a Sage-bot deploy with config and logs, a review-queue suggestion to the team, a TX designer agent on t-shirt designs, and a legal-docs agent held 'In Queue' by a Worker. Work moves between agents as queued, owned items.",
     lenses: {
       casual: "One bot codes, one deploys, one does legal, one makes shirts — a company in a group chat.",
@@ -824,7 +848,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE", "PRODUCT"],
     screen: "idea-thread",
-    title: "The idea locks (for now): a restaurant pop-up — 'Pop-up OS'",
+    title: "The trio picks its idea: a restaurant pop-up run by ops software",
     body: "Through agent dialogue — a 'platform for creators', small-business angles, pop-up concepts — the trio landed on 'pop-up OS for restaurants': they would run a real pop-up in San Francisco with a partnering chef, ticket it as an experiential dinner, and build the operating software — 'build an OS for running pop-ups, this meta product.' The company behind it got its name the same hour: Ship by Thursday. (This direction itself kept moving after lunch — see 3:25 PM.)",
     delta: [
       { label: "Company idea", from: "blank slate", to: "restaurant pop-up ('Pop-up OS')" },
@@ -838,7 +862,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT"],
     screen: "onboarding",
-    title: "Grok Bot 101: onboarding, marketplace, email handling",
+    title: "The opening tutorial shows how to set up your first bot",
     body: "The 101 hour (Roman and Amrita on stage) walked the product surfaces: creating your first bot through onboarding categories; a bot Marketplace with community creators' bots and Install buttons (community creators named on air: Lenny, Clairvaux, Eric-from-Cursor); and an email demo, in which a coffee-survey summary was sent on the bot's own initiative while the screen showed a supplier shipment confirmation and a logistics memo draft.",
     lenses: {
       casual: "It's an app store where the apps are coworkers.",
@@ -869,7 +893,7 @@ window.GG_ENTRIES = [
     type: "STAGE",
     tags: ["KEYNOTE"],
     screen: "opening-trio",
-    title: "Opening: intros, run of show, and a Starship-trip contest",
+    title: "The stream opens with a contest: a trip to see a Starship launch",
     body: "The trio introduced themselves — Lauren ('potato' on Twitter), Roshan, and Matt Palmer (developer experience) — from a studio next to Dreamforce at Moscone. They admitted on air that they didn't yet know what company they'd build. They announced a viewer contest ending Sept 29: share how you integrated Grok Bot with a template link, and the grand prize is a trip to watch a Starship launch at Starbase, Texas, with runners-up getting a SpaceX rocket-factory tour in Hawthorne.",
     quote: {
       text: "We actually don't even know what idea we're gonna build yet. We're still working on it.",
