@@ -1,15 +1,15 @@
 # Day 2 — Full Audio Transcript (September 16, 2026)
 
-**Source:** complete Day 2 broadcast audio (8h23m; 8:30 AM–4:53 PM Pacific), machine-transcribed with faster-whisper (small, batched) in two passes — morning slice (9:07–10:36 AM PT) and rolling continuation (10:38 AM–4:53 PM PT), stitched at the boundary. Timestamps are broadcast-elapsed; wall Pacific ≈ audio + 8:30 AM.
+**Source:** complete Day 2 broadcast audio (8h23m; 8:30 AM–4:53 PM Pacific), machine-transcribed with faster-whisper (small, batched) in two passes — morning slice (8:30–10:38 AM PT) and rolling continuation (10:38 AM–4:53 PM PT), stitched at the boundary. Timestamps are broadcast-elapsed; wall Pacific ≈ audio + 8:30 AM.
 
 **Accuracy:** machine transcription — product names garble ("Grockbot" = Grok Bot, "P stack" = P-Stack). No speaker labels; identify from context. Small-model word errors are left as transcribed.
 
-**Session map (audio time → content; times corrected Sept 17 against the inline timestamps — the original map's session window was offset):**
+**Session map (audio time → content):**
 - 00:00–00:01 — morning build block opens: MVP planning via Lauren's P-Stack planning playbook
 - 00:01:34–00:55 — Grok Bot for Sales Engineering (Amrita, field engineer at Cursor): Mimi/Sherlock/Serena demos on the Flylo booking app
-- 00:55–03:59 — the build block: pivot documented in Notion (01:09), prototype rules, first playable draft, Icon Coffee story, guest Karen Cheng, battle-screen whiteboard, "Cupcake" code name, guest Matt Berman, intern segment
+- 00:55–03:59 — the build block: the 'game design studio' reframe in Notion (01:09), prototype rules, first playable draft, Icon Coffee story, guest Karen Cheng, battle-screen whiteboard, "Cupcake" code name
 - 03:59–04:32 — Grok Bot for Sales (Chris Dillettes & Mark Wright, go-to-market): pipeline, Echo, Olive, Salesforce updates, PG agent, voice-matching
-- 04:32–05:59 — afternoon build: Remotion ad pipeline, stadium/ads concepts; Starbase giveaway re-runs
+- 04:32–05:59 — afternoon build and guests: Matt Berman, intern Shardul Marathe, the Remotion ad pipeline, stadium/ads concepts; Starbase giveaway re-runs
 - 05:59–06:39 — Grok Bot for SDRs (Simon): "Simon soldiers" sub-agent army, 50-prospects-a-day routine
 - 06:39–07:30 — scrappy mode: client/server split, leaderboard, cupcake-board kanban, 3D swarm, Vercel backend, Cursor Projects autopilot
 - 07:30–08:19 — Grok Bot for Customer Support (David Gan): four-bot support org, Plain/Notion/Supabase/Stripe demo, refund decisions, guard rails
@@ -17,7 +17,7 @@
 
 ---
 
-## Morning slice (broadcast 00:37–02:08)
+## Morning slice (broadcast 00:00–02:08)
 
 [00:00:00] Cool. Lauren, do you want to take us through some of the thoughts on how we could MVP this? Because I feel like maybe... Yes, actually I was typing while you were talking. Prompting while we were talking. And I have a rough plan if we look at my screen. Cool.
 [00:00:21] Yeah, so we'll get Lauren's screen up. This is yeah, while we wait, I guess I'll just talk to it. But yeah, so we did some discussion earlier. So I had some idea of what the plan would be. And I used P stack again to do my so P stack. If you're not aware is my plug in that has a bunch of my skills that I've developed for doing engineering work. And one of the things that P stack includes is a planning playbook.
