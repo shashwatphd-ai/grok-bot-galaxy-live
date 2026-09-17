@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1503",
+    t: "3:03 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE"],
+    title: "Marketing session's takeaways: scope, trust, invest",
+    body: "The session's 'What we learned' slide closed its argument in three lines: scope bots properly (bloating context and responsibilities slows them down — 'scope like a job description'); then trust your bots (a proactive, ambitious teammate gets tools, access and context, and room to run); and invest in your bots while copying others — give feedback like you would a teammate, and lean on the marketplace's shared templates. Views: 148.9K."
+  },
+  {
     id: "d3-1450",
     t: "2:50 PM PT",
     day: 3,
