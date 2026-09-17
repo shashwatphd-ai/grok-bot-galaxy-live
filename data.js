@@ -38,7 +38,7 @@
 window.GG_META = {
   status: "ENDED",
   day: "Day 2 of 3 — Wed Sep 16, 2026 · ENDED (Day 3 resumes Thu 8:30 AM PT)",
-  session: "Day 2 wrapped — 'Thanks for tuning in'; Day 3: Marketing Ops 9:00 AM PT",
+  session: "Day 2 wrapped — Sales Engineering, Sales, SDRs, Customer Support complete",
   viewers: "374.9K",
   onAir: "8h 30m",
   updated: "5:25 PM PT",
@@ -75,6 +75,21 @@ window.GG_SCOREBOARD = {
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above. */
 window.GG_ENTRIES = [
+  {
+    id: "d2-1650",
+    t: "4:50 PM PT",
+    day: 2,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "Customer Support session: the four-bot support team, demoed end to end",
+    body: "The Customer Support session (David Gan) demoed a four-bot support org — build (infrastructure), reply (answers tickets in Plain and Slack), alert (posts urgent flags to Slack), tune (improves the system) — on the Flylo demo: a $20/month in-flight wifi subscription with a Notion knowledge base (public docs + internal refund SOP) and Stripe connected. Live: a password reset answered citing the exact doc; an SSO/Okta question hit no docs → low confidence → handoff to human + Slack alert, exactly as designed; refund tickets — granted Carter's (inside 14 days), denied Damon's (outside) without leaking the internal SOP. Crawl-walk-run advice: start read-only, add drafts, then let it answer. Views: ~300K.",
+    lenses: {
+      casual: "They showed a bot answering real support tickets and issuing Stripe refunds — and refusing when it wasn't sure.",
+      builder: "The reply bot's loop (read ticket → consult knowledge → reply or hand off → act) is a clean agent pattern; the alert bot posting to Slack closes the human-visibility gap.",
+      investor: "Support automation is the most immediate ROI story of the event — ticket volume is the most measurable cost line, and the crawl-walk-run path directly addresses the trust problem.",
+      skeptic: "The demo tickets were pre-seeded examples; no real angry customer was on the other end. The refund policy judgment (14-day rule) was hard-coded into an SOP — the hard part is what happens when policy is ambiguous."
+    }
+  },
   {
     id: "d2-1750",
     t: "5:50 PM PT",
