@@ -88,6 +88,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1214",
+    t: "12:14 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET", "PRODUCT"],
+    title: "Season 1 reports: a Data bot files the game's stats on a schedule",
+    body: "A bot named Data is posting 'Season 1' session reports into a channel — practice counts, a 46.7% overall win rate, public-match totals, open versus fixed bugs, and feedback volume — with mini-charts inline. The hosts asked it live to 'add total user count over time,' and the report shape grew a new chart on request. A stats routine, not a slide deck: the numbers refresh themselves. Views: 109K."
+  },
+  {
     id: "d3-1204",
     t: "12:04 PM PT",
     day: 3,
