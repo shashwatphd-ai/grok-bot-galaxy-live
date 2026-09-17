@@ -183,3 +183,14 @@ The session's "What we learned" slide made the morning's argument in three lines
 
 **[10:25 AM PT] — Break, then back to the studio.**
 After the session, a "Be right back" card, then the trio back at the build table — Lauren and Matt Palmer at their laptops with Roshan alongside — for the stretch between sessions. Views hovered near 78K.
+
+**[10:40 AM PT] — The fleet reads the game's telemetry.**
+Back in the studio, the build screen showed a stats thread with a "Launch dashboard — Session 1" card stamped 10:54 AM PT: practice and match activity, and a bug list with two fixed and two still open. Asked for "basic game stats like win rates, difficulty, etc. to validate the game engine," a bot named Sake replied it was "pulling win rates and difficulty signals from live match data" — the game the fleet built is now producing real play data that other bots analyze. The workspace's "Manage plugins and skills" screen got a walkthrough too: Vercel, Notion, Slack, X, PlanetScale and Clerk all Connected. The fleet widget read 43 bots online, 4 working, 11 archived — up from 30+ at the Day 1 close.
+
+**[10:52 AM PT] — "You took round 1": first live match of Day 3.**
+One of Tuesday's sign-off promises was to play matches live with chat. It happened: the match-result screen — "You took round 1" with a Play Again button — sat on the main display while the hosts played. Team cards carry the charisma-vs-dexterity bars; several still read "no image provided," with an Image Gen bot active in the roster. A day earlier the same demo was one bug short of adding any bots at all.
+
+**[10:58 AM PT] — The game has a name: Thursday Arena.**
+On screen: a deployed front page titled THURSDAY ARENA — the demo game's final name, landing a day after "maybe think of an actual good name." The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a "priority queue: eng" banner, and Leaderboard / Your matches / Tips / Read handbook panels. A teammate's screen showed the matchmaking front end beside a deploy diff in the editor. The site's address was visible in the address bar but not yet legible on stream. The day's agenda, shown on the player: "Build: A Game Studio" blocks around Grok Bot for Customer Success (12:30) and Grok Bot for Marketing (2:30), with a final showcase at 4:30.
+
+**[11:10 AM PT] — Break.** Views: 93.9K.
