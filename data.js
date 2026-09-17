@@ -45,48 +45,57 @@
    ============================================================================ */
 
 window.GG_META = {
-  status: "LIVE",
-  day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Final showcase live — the hosts play a ranked match against a viewer on the public site, with hundreds playing along",
-  viewers: "163K",
-  onAir: "7h 20m today",
-  updated: "Sep 17 · 3:48 PM PT",
+  status: "ENDED",
+  day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day (complete)",
+  session: "Day 3 ended at 4:28 PM PT — the deadline kept: Thursday Arena live at thursdayarena.com",
+  viewers: "173.4K",
+  onAir: "7h 58m today",
+  updated: "Sep 17 · 4:28 PM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "Thursday Arena is live at thursdayarena.com — 677 people were playing at once while the hosts faced a viewer in the final showcase.";
+window.GG_MOMENT = "Three days, one deadline kept: Thursday Arena is live at thursdayarena.com, with 4,898 public matches played on launch day.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
   company: "The company is Ship by Thursday — the name was spoken on the Day 1 broadcast, and its domain (shipbythursday.day) went live on Vercel that afternoon, pre-launch. What they are building and shipping is Thursday Arena: a character-draft battler whose cards are xAI bot-marketplace bots, with ELO skill ratings (the chess-style ranking number), charisma-versus-dexterity counters, and live-tunable debug sliders. It began on Day 1 as Pop-up OS — event-ops software for a restaurant pop-up — and the prototype the fleet built under the code name 'Cupcake' became the build itself, named and deployed as Thursday Arena on launch day.",
-  sofar: "Day 1 ran from no idea at the open to a named company by the close: the humans chose a restaurant pop-up with 'Pop-up OS' operations software, the domain went live, and the bot fleet grew past 30. Day 2 retired the October pop-up event ('There is no pop-up') and the code-named 'Cupcake' game prototype became the build — one bug short of playable matches at the 4:53 PM close, 374.9K views. Day 3 is ship day: the build launched as Thursday Arena, deployed and playing live matches with a shop and its own funnel dashboard, and the morning's Marketing Operations session showed a Territory Planner bot ruling on a rep dispute and 'Juno', a GTM product bot that turned a one-line request into a spec for an internal lead-review app.",
-  watchfor: "Day 3 closes with the Marketing session (live now) and one more game-studio build block, then the livestream wrap and final showcase at 3:15 PM Pacific. The build is live as Thursday Arena at thursdayarena.com — watch the 'make it go viral' push, with the landing page running a live ticker of X posts from players. The open question nobody has answered is what happens when an agent teammate is wrong — audit trails, rollback, and accountability are still missing."
+  sofar: "Day 1 ran from no idea at the open to a named company by the close: the humans chose a restaurant pop-up with 'Pop-up OS' operations software, the domain went live, and the bot fleet grew past 30. Day 2 retired the October pop-up event ('There is no pop-up') and the code-named 'Cupcake' game prototype became the build — one bug short of playable matches at the 4:53 PM close, 374.9K views. Day 3 was ship day: the build launched as Thursday Arena at thursdayarena.com, playing live matches with a leaderboard, a shop and its own funnel dashboard; the marketing track ran its sessions on bot-staffed teams; and the day closed after 7h 58m with 4,898 public matches played, a peak of 677 concurrent players, and the deadline kept.",
+  watchfor: "The event is over — the company shipped Thursday Arena on the day it promised, live at thursdayarena.com. Still open beyond the stream: the viewer contest runs through Sept 29 with a Starship-launch trip as the prize, and the question nobody answered on air — what happens when an agent teammate is wrong — now belongs to the shipped product."
 };
 
 window.GG_SCOREBOARD = {
   stats: [
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Thursday Arena", sub: "live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS; the code-named 'Cupcake' demo became the build and shipped on launch day", wide: true },
-    { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "163K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "24h 25m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 7h 20m so far" },
-    { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
+    { label: "Bots online", value: "43", sub: "2 working at close · 6 archived — final fleet widget" },
+    { label: "Milestones", value: "76", sub: "fleet milestones logged across the three days" },
+    { label: "Viewers", value: "173.4K", sub: "Day 3 close (Day 1: 1.1M · Day 2: 374.9K)" },
+    { label: "On air", value: "25h 06m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 7h 58m" },
+    { label: "Ship deadline", value: "Met — Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — promised on air Day 1, kept on Day 3" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
     { label: "Built on Day 2", value: "the Thursday plan, a landing page, the 'Cupcake' demo, ELO and tiers, auth (Clerk) and a Vercel backend, a Remotion ad bot, 3D swarm experiments", wide: true },
     { label: "Built on Day 3", value: "the deployed Thursday Arena with live matches, a leaderboard and a shop, an analytics dashboard, six integrations, a stats bot", wide: true }
   ],
   deltas: [
-    "Thursday Arena: live at thursdayarena.com — leaderboard, shop, 2,983 matches by 11:30 AM",
-    "Marketing track: Territory Planner, 'Juno', and Gus the post-sales chief of staff",
-    "Finale: 'Livestream Wrap and Final Showcase' at 3:15 PM PT, per the on-screen agenda",
-    "Showcase opens on the numbers: 4,898 public matches, 4,500 practice sessions, 47.6% win rate"
+    "Thursday Arena: shipped and live at thursdayarena.com — 4,898 public matches, 677 peak concurrent players",
+    "Three days on air: 25 hours, three broadcasts, a fleet of 43 bots",
+    "The deadline was kept: 'we ship a product by Thursday' — and they did"
   ]
 };
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
+  {
+    id: "d3-1628",
+    t: "4:28 PM PT",
+    day: 3,
+    type: "MILESTONE",
+    tags: ["MILESTONE"],
+    title: "Day 3 ends with the deadline met and the game shipped",
+    body: "After 7h 58m on air, the third day closed on the 'Thanks for joining!' card at 173.4K views. The final fleet widget read 43 bots, 76 milestones logged, 2 working, 6 archived. The day kept the promise the whole event was named for — 'we ship a product by Thursday': Thursday Arena launched at thursdayarena.com with a leaderboard, a shop, and live ranked play; the showcase put the day's numbers on the board (4,898 public matches, 4,500 practice sessions, a 47.6% overall win rate, a peak of 677 concurrent players); and the hosts ended the event facing a viewer across the table in a ranked match. Three days earlier there was no company, no product, and no code — at close there was a named business, a live game with real players, and a fleet of 43 agents that built it on camera."
+  },
   {
     id: "d3-1612",
     t: "4:12 PM PT",
