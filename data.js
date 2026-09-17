@@ -45,21 +45,21 @@
    ============================================================================ */
 
 window.GG_META = {
-  status: "STANDBY",
-  day: "Day 3 of 3 — Thu Sep 17, 2026 · live (marketing track)",
-  session: "Marketing track: Marketing Ops 9:00 AM · Post-Sales 12:30 PM · Marketing 2:30 PM (PT)",
-  viewers: "374.9K at Day 2 close",
-  onAir: "Day 2: 8h 23m",
-  updated: "Sep 17 · 9:10 AM PT",
-  stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
+  status: "LIVE",
+  day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
+  session: "Marketing Operations live — Matthew Silberman & Teresa Hsu",
+  viewers: "72K",
+  onAir: "1h 40m today",
+  updated: "Sep 17 · 10:20 AM PT",
+  stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "On Day 2 the Pop-up OS product kept building toward Thursday while the code-named 'Cupcake' demo became the showpiece.";
+window.GG_MOMENT = "Launch day: the trio is live and building toward the Thursday ship — Marketing Operations opened the morning track.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
   company: "The company is Ship by Thursday — the name was spoken on the Day 1 broadcast, and its domain (shipbythursday.day) went live on Vercel that afternoon, pre-launch. The product is Pop-up OS: event-ops software for restaurants and venues, with a real pop-up as its first run — the core direction has not changed since Day 1. A game prototype called 'Cupcake' (a code name) was built on Day 2 as a side demo of Grok Bot's prototyping speed. It drafts teams from xAI bot-marketplace bots, with ELO skill ratings (the chess-style ranking number), charisma-versus-dexterity counters, and live-tunable debug sliders — but it is not the company's product.",
-  sofar: "Day 1 ran from no idea at the open to a named company by the close. The agents proposed candidate businesses and the humans chose a restaurant pop-up with 'Pop-up OS' operations software, a phrase spoken about three times. The domain went live, an engineering pipeline ran, ticket and plush designs appeared, and an email channel opened; by late afternoon the plan had drifted toward a Grok Bot-themed pop-up built on merch, venue and ticketing. Day 1 closed near 5:30 PM at 1.1M views. On Day 2 the Notion workspace retired the October pop-up event ('There is no pop-up') while the software product kept building toward the stated deadline, 'we ship a product by Thursday.' The 'Cupcake' demo, framed on air as a 'game design studio', became the day's showpiece, and sales-track sessions filled the gaps: Sales Engineering with Cursor's Amrita on the Flylo demo app, the Sales session, the SDR session, and a four-bot Customer Support org. The day added an ads pipeline, 3D experiments, and login plus backend work, and signed off at 4:53 PM at 374.9K views with the demo one bug short of playable matches.",
+  sofar: "Day 1 ran from no idea at the open to a named company by the close: the humans chose a restaurant pop-up with 'Pop-up OS' operations software, the domain went live, and the bot fleet grew past 30. Day 2 retired the October pop-up event ('There is no pop-up') while the software kept building toward 'we ship a product by Thursday', and the code-named 'Cupcake' game demo became the showpiece — one bug short of playable matches at the 4:53 PM close, 374.9K views. Day 3 is ship day. The morning opened with Marketing Operations: a live demo of a Territory Planner bot ruling on a rep dispute, and 'Juno', a GTM product bot that turned a one-line request into a spec for an internal lead-review app. The trio is back in the studio building toward the launch.",
   watchfor: "Day 3 is the marketing track: Marketing Ops at 9:00 AM, Post-Sales at 12:30 PM, and Marketing at 2:30 PM Pacific. Watch whether Thursday's ship is the Pop-up OS launch. The trio also promised to deploy and rename the demo game, play matches live with chat, 'make it go viral — we have one day to grow our business,' and sprint an ads marketplace. The open question nobody has answered is what happens when an agent teammate is wrong — audit trails, rollback, and accountability are still missing."
 };
 
@@ -69,23 +69,88 @@ window.GG_SCOREBOARD = {
     { label: "The product", value: "Pop-up OS", sub: "event-ops software for restaurants and venues — unchanged since Day 1", wide: true },
     { label: "'Cupcake' demo", value: "1 bug to playable", sub: "the Day 2 side demo at close: X login + leaderboard wired; 'I can't actually add any bots yet' — 4:45 PM, on air", wide: true },
     { label: "Bots online", value: "30+", sub: "Day 1 fleet; Day 2 added Cupcake Eng, Steve, ping, tones, 3D bots" },
-    { label: "Viewers", value: "1.1M", sub: "at Day 1 close (374.9K at Day 2 close)" },
-    { label: "On air", value: "8h 45m + 8h 23m", sub: "Day 1 + Day 2" },
+    { label: "Viewers", value: "72K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "18h 48m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 1h 40m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
-    { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29" },
+    { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
     { label: "Built on Day 2", value: "the Thursday plan, a landing page, the 'Cupcake' demo, ELO and tiers, auth (Clerk) and a Vercel backend, a Remotion ad bot, 3D swarm experiments", wide: true }
   ],
   deltas: [
-    "Product: Pop-up OS — unchanged; the October pop-up event tracks were retired on Day 2",
-    "Company name, on air: 'Ship by Thursday'",
-    "Demo game: 'Cupcake' — code name; final name undecided"
+    "Broadcast: Day 3 live at 8:30 AM PT — new stream link in the header",
+    "Marketing Ops: Territory Planner dispute demo + 'Juno' GTM bot build",
+    "Viewer contest: entry steps on screen at 9:40 AM"
   ]
 };
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
-   Day 2 wall PT = broadcast audio + 8:30 AM. */
+   Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
+  {
+    id: "d3-1020",
+    t: "10:20 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "Back from the break: the trio is heads-down at the laptops",
+    body: "After the Marketing Ops session and a short hold, the stream returned to the main studio. Lauren and Matt Palmer are working at their laptops with cameras live; Roshan beside them. The morning's agenda is the build toward the Thursday ship, with Post-Sales at 12:30 PM and Marketing at 2:30 PM still to come. Views: 72K."
+  },
+  {
+    id: "d3-0940",
+    t: "9:40 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "CHAT"],
+    title: "The Starbase challenge, now with steps",
+    body: "A slide spelled out the viewer contest: 'Show us how you've integrated Grok Bot into your work' — quote the challenge post on X, explain what your Bot does, include a link to your shared Bot template, and follow @Grok and @Bot. The prize is a trip to Starbase for a Starship launch; entries run through Sept 29.",
+    lenses: {
+      casual: "Post about your bot on X and you could win a trip to watch a Starship launch.",
+      builder: "The entry requirement — a shared Bot template link — doubles as marketplace distribution: every entry seeds a reusable agent config.",
+      investor: "UGC as growth loop: contestants market the product to be eligible to win, and template shares compound as free distribution.",
+      skeptic: "Contest mechanics are cheap to copy; the moat is whether shared templates actually keep working for strangers' workflows."
+    }
+  },
+  {
+    id: "d3-0915",
+    t: "9:15 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT", "FLEET"],
+    title: "Juno the GTM bot: one line in, a lead-review app spec out",
+    body: "In the Marketing Ops demo, Matthew briefed a bot named Juno — 'a GTM product bot' that clarifies requirements one question at a time, writes the product spec, and hands it to a build flow. Fed 'I want to build an internal app for sales reps to review their leads more easily and quickly,' Juno specced a swipe-the-card interface: swipe left to reject a lead in the CRM with a reason, swipe right to accept and add it to a follow-up sequence, with auth flagged as a day-one requirement."
+  },
+  {
+    id: "d3-0910",
+    t: "9:10 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT", "FLEET"],
+    title: "Territory Planner: a bot referees a rep dispute",
+    body: "The session's live screen showed a 'Territory Planner' bot working an inbox: it drafted a stakeholder email, then surfaced a Path task — two AEs, Jordan (West) and Sam (Central), both claiming the Acme Logistics account, filed 8:44 AM. The proposed path: a territory-map sync Tuesday, a written ruling by Friday. The approval card offered 'Approve' or 'Hold — digest only.'",
+    lenses: {
+      casual: "A bot read the email thread, spotted the fight over one account, and proposed a fair way to settle it — human just clicks approve.",
+      builder: "This is governed agency in practice: the bot proposes a Path task with evidence and waits; Approve vs 'Hold — digest only' is a per-task autonomy switch.",
+      investor: "RevOps disputes are high-frequency, low-stakes, and full of process — the exact wedge where agent middle-management sticks before it spreads to bigger calls.",
+      skeptic: "A proposed ruling is not a fair ruling: the bot only knows what the CRM and inbox tell it, and territory maps have politics no digest captures."
+    }
+  },
+  {
+    id: "d3-0907",
+    t: "9:07 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE"],
+    title: "Marketing Operations opens with six RevOps & MarOps use cases",
+    body: "Matthew Silberman and Teresa Hsu's session opened on a use-case map: a self-completing to-do list (monitor inboxes, refresh CRM tables, route tickets); build tools, not just rules (bots maintain dashboards and query systems); perfect the marketing–sales handoff; make GTM data truly self-serve (a bot anyone on the team can query); territory planning from CRM accounts, pipeline and rep performance; and cleaning CRM duplicates once and for all."
+  },
+  {
+    id: "d3-0900",
+    t: "9:00 AM PT",
+    day: 3,
+    type: "MOMENT",
+    tags: ["KEYNOTE"],
+    title: "Day 3 is live: ship day begins",
+  },
   {
     id: "d2-1653",
     t: "4:53 PM PT",
