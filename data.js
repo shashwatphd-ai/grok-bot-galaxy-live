@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1449",
+    t: "2:49 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "PRODUCT"],
+    title: "Researcher → marketer: the brief ships itself into the workspace",
+    body: "The pipeline in motion: the Market Researcher surfaced findings from competitor advertising (an airline campaign — 'Make distance feel smaller.' — sat on screen as reference), then the baton passed to the Product Marketer bot, which wrote a positioning brief to a file in the shared workspace and pinged the team — with View PR and Open in Cursor buttons on the message. Marketing as a relay of specialists, ending in a committed artifact rather than a chat reply. Views: 146.6K."
+  },
+  {
     id: "d3-1436",
     t: "2:36 PM PT",
     day: 3,
