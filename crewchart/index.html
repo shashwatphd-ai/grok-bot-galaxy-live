@@ -562,6 +562,7 @@
       <option value="glider">Glider Co. (stream homage)</option>
       <option value="solo">Solo Founder Crew</option>
       <option value="studio">Content Studio</option>
+      <option value="growth">Growth Studio (marketing day)</option>
     </select>
     <button id="importBtn" class="ghost" type="button" title="Import a CrewChart JSON file">Import</button>
     <input type="file" id="importFile" accept=".json,application/json" hidden>
@@ -945,7 +946,38 @@ function presetStudio() {
   };
 }
 
-var PRESETS = { travel: presetTravel, glider: presetGlider, solo: presetSolo, studio: presetStudio };
+function presetGrowth() {
+  var hook = uid("a"), drip = uid("a"), ledger = uid("a"), vivid = uid("a"),
+      relay = uid("a"), fizz = uid("a");
+  return {
+    team: "Growth Studio",
+    agents: [
+      { id: hook,   name: "Hook",   role: "Content Lead",     color: "purple", shape: "blob",     memory: "Owns the message house and the launch calendar; remembers every hook that earned a click.", reportsTo: "" },
+      { id: drip,   name: "Drip",   role: "Lifecycle Email",  color: "green",  shape: "cloud",    memory: "Owns the welcome sequence and the win-backs; remembers which subject lines got opened.", reportsTo: hook },
+      { id: ledger, name: "Ledger", role: "Data / Analyst",   color: "brown",  shape: "round",    memory: "Owns the funnel dashboard: signups, activation, replies, and which channel each came from.", reportsTo: hook },
+      { id: vivid,  name: "Vivid",  role: "Designer",         color: "orange", shape: "diamond",  memory: "Holds the brand kit: palette, type, social cards, and the landing-page hero states.", reportsTo: hook },
+      { id: relay,  name: "Relay",  role: "Distribution",     color: "teal",   shape: "squircle", memory: "Keeps the channel list and the post cadence; remembers which channel carried which launch.", reportsTo: hook },
+      { id: fizz,   name: "Fizz",   role: "Growth Intern",    color: "gray",   shape: "hex",      memory: "Archived after launch week — ran the paid-social experiment; the numbers live in Ledger's dashboard now.", reportsTo: drip, status: "archived" }
+    ],
+    tasks: [
+      { id: uid("t"), agentId: drip,   title: "Draft the launch-week email sequence", status: "running" },
+      { id: uid("t"), agentId: vivid,  title: "Refresh the landing-page hero art",    status: "running" },
+      { id: uid("t"), agentId: ledger, title: "Pull signups by channel for the retro", status: "running" },
+      { id: uid("t"), agentId: hook,   title: "Write the growth retro memo",          status: "queued", ask: ledger },
+      { id: uid("t"), agentId: relay,  title: "Queue the Thursday Arena launch posts", status: "queued" },
+      { id: uid("t"), agentId: drip,   title: "Send the win-back email",              status: "done" }
+    ],
+    offers: [
+      { id: uid("o"), agentId: drip,   title: "Email sequence buildout", price: "$250", unit: "per sequence" },
+      { id: uid("o"), agentId: vivid,  title: "Landing-page concept",    price: "$180", unit: "per concept" },
+      { id: uid("o"), agentId: ledger, title: "Funnel deep-dive",        price: "$95",  unit: "per report" },
+      { id: uid("o"), agentId: relay,  title: "Channel launch push",     price: "$150", unit: "per launch" },
+      { id: uid("o"), agentId: hook,   title: "Hook bank, 20 openings",  price: "$75",  unit: "per batch" }
+    ]
+  };
+}
+
+var PRESETS = { travel: presetTravel, glider: presetGlider, solo: presetSolo, studio: presetStudio, growth: presetGrowth };
 
 /* ---------------- exports ---------------- */
 
