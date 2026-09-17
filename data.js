@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1436",
+    t: "2:36 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "PRODUCT"],
+    title: "Marketing session: the Market Researcher brief",
+    body: "The final session (Josh Kim) opened with a 'Market Researcher' bot and a single briefing message: research the product by reading its own website, understand the market it operates in, then a competitive analysis — 'identify and deeply understand 3 competitors,' list their marketing strategies and what's worked, and surface where we can strategically and competitively position ourselves. A marketing fleet waits in the sidebar: Market Eval, Product Marketer, performance and strategy bots. Views: 143.9K."
+  },
+  {
     id: "d3-1414",
     t: "2:14 PM PT",
     day: 3,
