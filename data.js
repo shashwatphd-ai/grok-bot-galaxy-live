@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1406",
+    t: "2:06 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT", "CHAT"],
+    title: "The landing page runs a live ticker of X posts — and players are on the board",
+    body: "The deployed landing page now shows the full pitch — THURSDAY ARENA, cupcake mascot, Play and Practice buttons, character cards fanned out — plus a live ticker of X posts where viewers are posting the teams they're building and the bugs they hit. A signed-in player profile on screen carries paired Elo ratings (1400 · 1347). The 'make it go viral' loop — play, post, pull others in — is wired into the site itself. Views: 134.9K."
+  },
+  {
     id: "d3-1335",
     t: "1:35 PM PT",
     day: 3,
