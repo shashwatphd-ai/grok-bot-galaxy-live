@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1119",
+    t: "11:19 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "Thursday Arena grows a shop — and the items are GTM jokes",
+    body: "The build block's newest screen: a SHOP tab with buyable cards at 3 gold each — 'The Morning Newspaper' (pass it back: buff two friends from your bench), 'Hiring Signals' (backfire: deal 1 damage to the lowest-health enemy), and 'GTM Connections' (spot: give 50% of its ATK to the lowest-health ally). The auto-battler now has an economy, and the flavor is pure go-to-market. Views: 96.3K."
+  },
+  {
     id: "d3-1058",
     t: "10:58 AM PT",
     day: 3,
