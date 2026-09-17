@@ -191,6 +191,10 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       <div class="section-head">
         <h2>Convention doctor</h2>
         <span class="hint">Reads the batch against your own rules &mdash; live, before the report rots.</span>
+        <button id="fixAllBtn" type="button" class="mini" data-act="fix-all"
+                title="One pass over every flagged row: casing, separators, stray spaces, missing https://. Judgment calls &mdash; off-list values, pattern rewrites, required fields, duplicates &mdash; stay flagged.">
+          Fix all mechanical
+        </button>
       </div>
       <div id="doctor" class="doctor-box" role="status" aria-live="polite"></div>
     </section>
@@ -557,6 +561,61 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
         fix: "if both ship, change utm_content so the placements tell themselves apart \u2014 or delete the ghost." });
     });
     return out;
+  }
+
+  /* ---------- fix all mechanical ---------- */
+
+  // Any scheme at all (https:, http:, ftp:, mailto:) means the destination
+  // prefix is a judgment call, not a mechanical one — the audit only accepts
+  // http(s), so anything else stays flagged for a human.
+  var ANY_SCHEME_RE = /^[a-z][a-z0-9+.\-]*:/i;
+
+  function mechanicalFixValue(v, conv) {
+    var s = String(v == null ? "" : v);
+    var fixed = s.replace(/^\s+|\s+$/g, "");
+    // Internal whitespace runs collapse to one separator character. Under a
+    // chosen house convention that's the house separator; under "any" the
+    // value's own dominant separator wins, defaulting to dashes (what the
+    // doctor's fix text suggests).
+    var sepChar = conv.separator === "underscore" ? "_" : "-";
+    if (conv.separator === "any") {
+      var hasUnd = fixed.indexOf("_") >= 0;
+      var hasDash = fixed.indexOf("-") >= 0;
+      if (hasUnd && !hasDash) sepChar = "_";
+    }
+    fixed = fixed.replace(/\s+/g, sepChar);
+    if (conv.separator === "dash") fixed = fixed.replace(/_/g, "-");
+    else if (conv.separator === "underscore") fixed = fixed.replace(/-/g, "_");
+    if (conv.lowercase) fixed = fixed.toLowerCase();
+    return fixed === s ? null : fixed; // null = nothing mechanical to change
+  }
+
+  function mechanicalFixDest(v) {
+    var s = String(v == null ? "" : v);
+    var fixed = s.replace(/^\s+|\s+$/g, "");
+    if (fixed && !ANY_SCHEME_RE.test(fixed)) fixed = "https://" + fixed;
+    return fixed === s ? null : fixed;
+  }
+
+  // Applies only the unambiguous fixes to every row, in place. Returns the
+  // number of rows touched. Judgment flags — off-list values, pattern breaks,
+  // missing required fields, duplicates, mixed separators under the "any"
+  // convention — are left exactly as the human wrote them.
+  function applyMechanicalFixes() {
+    var conv = state.convention;
+    var changed = 0;
+    state.rows.forEach(function (row) {
+      var rowChanged = false;
+      var d = mechanicalFixDest(row.dest);
+      if (d !== null) { row.dest = d; rowChanged = true; }
+      FIELD_KEYS.forEach(function (fk) {
+        var k = FIELD_ROWKEY[fk];
+        var f = mechanicalFixValue(row[k], conv);
+        if (f !== null) { row[k] = f; rowChanged = true; }
+      });
+      if (rowChanged) changed++;
+    });
+    return changed;
   }
 
   function doctorReadout() {
@@ -1006,6 +1065,18 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
         var u = buildUrl(row);
         if (!u) { toast("Nothing to copy yet \u2014 give the row a destination."); return; }
         copyText(u, "Link copied \u2014 paste it where the click happens.");
+      } else if (act === "fix-all") {
+        if (!state.rows.length) { toast("Nothing to fix \u2014 the batch is empty."); return; }
+        var fixedCount = applyMechanicalFixes();
+        if (!fixedCount) {
+          toast("Nothing mechanical to fix \u2014 anything still flagged below is a judgment call, yours to make.");
+          return;
+        }
+        save();
+        renderRows();
+        renderRight();
+        toast("Fixed " + fixedCount + " row" + (fixedCount === 1 ? "" : "s") +
+          " \u2014 casing, separators, spaces, schemes. Judgment calls stay flagged.");
       } else if (act === "new-sheet") {
         if (window.confirm("Clear the sheet and start over? Export first if you want to keep this batch.")) {
           state = normalizeState({ convention: defaultConvention(), rows: [blankRow()] });
@@ -1077,6 +1148,9 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       buildUrl: buildUrl,
       auditRow: auditRow,
       crossRowFlags: crossRowFlags,
+      mechanicalFixValue: mechanicalFixValue,
+      mechanicalFixDest: mechanicalFixDest,
+      applyMechanicalFixes: function () { return applyMechanicalFixes(); },
       doctorReadout: function () { return doctorReadout(); },
       buildCsv: function () { return buildCsv(); },
       buildMarkdown: function () { return buildMarkdown(); },
