@@ -88,6 +88,21 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1630",
+    t: "4:30 PM PT",
+    day: 3,
+    type: "WHY",
+    tags: ["MILESTONE"],
+    title: "Grok Bot Galaxy, the whole event: three days from nothing to a shipped game",
+    body: "Day 1 (8h 45m, 1.1M views at close): candidate businesses debated live, a restaurant pop-up chosen with 'Pop-up OS' operations software, the company named Ship by Thursday, its domain live by afternoon, a bot fleet past 30, tickets and plush and an email channel designed. Day 2 (8h 23m, 374.9K): the October pop-up event retired ('There is no pop-up'), a game prototype under the code name 'Cupcake' became the build, and the day's sales track — Sales Engineering, Sales, SDRs, Customer Support — filled the playbook while the build went from playground to Next.js app with auth and a leaderboard, one bug short of playable at close. Day 3 (7h 58m, 173.4K): the marketing track ran (Territory Planner ruling on disputes, the Juno brief-writer, Gus the post-sales chief of staff and his self-improvement scan, a researcher-to-strategist marketing relay), and the build shipped as Thursday Arena at thursdayarena.com — leaderboard, shop, live ranked matches, 4,898 public matches and a 677-player peak by showcase, the hosts closing the event playing a viewer live. 25 hours on air; the deadline in the company's name, met.",
+    lenses: {
+      casual: "Three days ago there was no company. It ended with a live game anyone can play and a leaderboard of real players — and you watched every step of the build.",
+      builder: "The stack that shipped: marketplace-bot specialists assembled per function, governed agency (Approve/Hold, drift flags, human-edits-as-truth), routines over one-off prompts, and PRs with test evidence — 'delete all the tests' matured into bots that write their own.",
+      investor: "The event was the go-to-market: 25 hours of watched development created distribution, a template marketplace doubled as a partner ecosystem, and the ship deadline itself became the marketing hook — a case study for agents-as-workforce economics.",
+      skeptic: "A tiny game with placeholder ratings shipped on stream — real players and real play data are the receipt, but durability is unproven, the accountability question (what happens when an agent teammate is wrong) got guardrails rather than an answer, and much of what the sessions demoed ran on sample data, not the trio's own build."
+    }
+  },
+  {
     id: "d3-1628",
     t: "4:28 PM PT",
     day: 3,
