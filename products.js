@@ -37,8 +37,8 @@
    window.GG_SESSIONS — session list with recaps
      [{ day, time, title, who, recap }]
 
-   window.GG_DAY1_NUMBERS — the numbers strip atop the Product tab
-     [{ label, value, sub }]
+   window.GG_EVENT_NUMBERS — the event numbers strip atop the Product tab
+     [{ label, value, sub }] — per-day totals plus event-wide stats.
 
    NOTE ON TIMES: Day 1 feature times are video-replay reads (wall PT ≈ video
    + 8:36 AM); Day 2 feature times follow the broadcast clock (wall PT = tape
@@ -171,7 +171,7 @@ window.GG_FEATURES = [
     builtBy: ["Emily's team", "Sage"],
     evidence: [
       { t: "4:19 PM", what: "Sign-up page in a preview browser: name / email / password / ZIP + cookie consent (screen)" },
-      { t: "Late Day 1", what: "Tape: the URL (shipbythursday.day) spoken on air; 'the domain is live… I hooked it up to our database'" }
+      { t: "Late Day 1", what: "On air, the URL (shipbythursday.day) was spoken; 'the domain is live… I hooked it up to our database'" }
     ],
     numbers: [
       "Domain: shipbythursday.day — live, pre-launch",
@@ -339,8 +339,8 @@ window.GG_FEATURES = [
     builtBy: ["tater", "Sage", "hashbrown"],
     evidence: [
       { t: "1:27 PM", what: "PR finished, Sage deploy with logs, review queue; tater posted PR #10 to for-review via cursor.com/agents" },
-      { t: "1:00 PM", what: "Tape: Lauren's no-PRs rule after steve's ~2,000-line PR; hashbrown created to review tater's PRs" },
-      { t: "Day 2, 3:20 PM", what: "Tape: Cursor Projects — a coordinator agent managing subagents; Potato Mode 'Full Autopilot'; fuzz agents 'simulating like real users'" }
+      { t: "1:00 PM", what: "On air, Lauren's no-PRs rule after steve's ~2,000-line PR; hashbrown created to review tater's PRs" },
+      { t: "Day 2, 3:20 PM", what: "On air, Cursor Projects — a coordinator agent managing subagents; Potato Mode 'Full Autopilot'; fuzz agents 'simulating like real users'" }
     ],
     numbers: [
       "PR #10 posted to for-review via cursor.com/agents",
@@ -361,7 +361,7 @@ window.GG_FEATURES = [
     evidence: [
       { t: "3:55 PM", what: "Fleet widget: 26 bots, 880 requests, 10 archived" },
       { t: "4:19 PM", what: "Fleet widget: 28 bots, 975 messages, 4 working, 14 active" },
-      { t: "Day 2, 3:04 PM", what: "Tape: a bot-written 'fleet pulse' doc — 'a roll-up of durable facts from active ship-by-Thursday bots'" }
+      { t: "Day 2, 3:04 PM", what: "On air, a bot-written 'fleet pulse' doc — 'a roll-up of durable facts from active ship-by-Thursday bots'" }
     ],
     numbers: [
       "Bots: 26 → 28 (30+ by 4:24 PM)",
@@ -553,11 +553,13 @@ window.GG_SESSIONS = [
   }
 ];
 
-window.GG_DAY1_NUMBERS = [
-  { label: "Viewers", value: "832K → 1.1M", sub: "coverage start to Day 1 close" },
-  { label: "Fleet", value: "11 → 30+ bots", sub: "10 archived across Day 1" },
-  { label: "Day 1 close", value: "~5:30 PM PT", sub: "'We're going to wrap it at 5:30' — on air" },
-  { label: "Best weekend", value: "$5,869", sub: "sample data — no real sales yet" },
+window.GG_EVENT_NUMBERS = [
+  { label: "Viewers · Day 1", value: "1.1M at close", sub: "opened at 832K; closed ~5:30 PM PT" },
+  { label: "Viewers · Day 2", value: "374.9K at close", sub: "opened at 2.6K; signed off 4:53 PM PT" },
+  { label: "On air so far", value: "17h 08m", sub: "8h 45m on Day 1 plus 8h 23m on Day 2" },
+  { label: "Fleet", value: "11 to 30+ bots", sub: "10 archived on Day 1; Day 2 added the Cupcake org bots" },
+  { label: "Ship deadline", value: "Thursday", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air" },
+  { label: "'Cupcake' demo", value: "1 bug to playable", sub: "at Day 2 close: login and leaderboard wired, ratings placeholder" },
   { label: "Profit target", value: "$30k", sub: "on screen, Day 1 — stated ambition, no sales" },
-  { label: "Wireframe → sign-up", value: "~45 min", sub: "on screen, 4:01 → 4:19 PM" }
+  { label: "Wireframe to live sign-up", value: "~45 min", sub: "Day 1, on screen, 4:01 to 4:19 PM" }
 ];
