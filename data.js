@@ -47,10 +47,10 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Marketing session live — the Market Researcher brief; the livestream wrap and final showcase come at 3:15 PM PT",
-  viewers: "143.9K",
-  onAir: "6h today",
-  updated: "Sep 17 · 2:36 PM PT",
+  session: "Marketing session live — a relay of bots takes the research to a brief to a landing page; the final showcase comes at 3:15 PM PT",
+  viewers: "147.1K",
+  onAir: "6h 20m today",
+  updated: "Sep 17 · 2:50 PM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
@@ -68,8 +68,8 @@ window.GG_SCOREBOARD = {
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Thursday Arena", sub: "live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS; the code-named 'Cupcake' demo became the build and shipped on launch day", wide: true },
     { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "143.9K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "23h 05m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 6h so far" },
+    { label: "Viewers", value: "147.1K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "23h 25m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 6h 20m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
@@ -86,6 +86,15 @@ window.GG_SCOREBOARD = {
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
+  {
+    id: "d3-1450",
+    t: "2:50 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE"],
+    title: "A marketing bot takes a three-step order and reports back with screenshots",
+    body: "The Marketing session's demo put a 'Website Ops' bot over a landing-page build in the session's own workspace: the human's message read like a work order — make the landing page from the brief the Product Marketer bot just drafted, update the FAQs for the most common user questions, and send screenshots as you go so I can monitor progress. The bot answered that it was pulling the latest brief and opening a PR with progress screenshots as it worked. The sidebar showed the rest of the session's marketing fleet (Product Wiki, Website 101, Relocation) waiting for their own briefs. Views: 147.1K."
+  },
   {
     id: "d3-1449",
     t: "2:49 PM PT",
