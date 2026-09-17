@@ -49,32 +49,32 @@ window.GG_META = {
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
-window.GG_MOMENT = "Day 2 on tape: the company pivoted to a game studio — 'Cupcake' (working name), marketplace bots as characters — and closed one bug short of playable.";
+window.GG_MOMENT = "Day 2 on tape: the Pop-up OS product kept building toward Thursday while 'Cupcake' (code name) — a side demo of agent prototyping speed — became the day's showpiece.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
-  company: "The company is Ship by Thursday — the name is spoken on the Day 1 tape, and its domain (shipbythursday.day) went live on Vercel that afternoon, pre-launch. Day 1's plan was a restaurant pop-up with 'Pop-up OS' ops software; it drifted late in the day toward a Grok Bot-themed pop-up, and on Day 2 morning the trio pivoted on tape to a GAME DESIGN STUDIO. The first game — working name 'Cupcake', final name still undecided — drafts teams from xAI bot-marketplace bots, with ELO ratings, charisma-vs-dexterity counters and live-tunable debug sliders.",
-  sofar: "THE ARC — Day 1: no idea at open → agents proposed, humans chose a restaurant pop-up ('Pop-up OS', spoken ~3×) → domain live, engineering pipeline, ticket and plush designs, email channel → by late afternoon the plan had drifted toward a Grok Bot pop-up (merch, venue, ticketing) → closed ~5:30 PM at 1.1M views. Day 2: the pivot documented in Notion at 9:39 AM ('we're working on our game design studio… we're documenting the pivot') → landing page scoped, 'Cupcake' prototyped by mid-morning → sales-track sessions (Sales Engineering with Cursor's Amrita on the Flylo demo app; Sales; SDRs; a four-bot Customer Support org) → ads pipeline, 3D experiments, auth and backend → signed off 4:53 PM at 374.9K views with X login and a leaderboard working, one bug short of playable matches.",
-  watchfor: "Watch Day 3 (marketing track — Marketing Ops 9 AM, Post-Sales 12:30, Marketing 2:30 PT): the trio promised to deploy and rename the game, play matches live with chat, 'make it go viral — we have one day to grow our business,' and sprint an ads marketplace. The open question nobody has answered: what happens when an agent teammate is wrong (audit trails, rollback, accountability)."
+  company: "The company is Ship by Thursday — the name is spoken on the Day 1 tape, and its domain (shipbythursday.day) went live on Vercel that afternoon, pre-launch. The product is Pop-up OS: event-ops software for restaurants and venues, with a real pop-up as its first run — the core direction has not changed since Day 1. A game prototype called 'Cupcake' (a code name) was built on Day 2 as a side demo of Grok Bot's prototyping speed — it drafts teams from xAI bot-marketplace bots, with ELO ratings, charisma-vs-dexterity counters and live-tunable debug sliders — but it is not the company's product.",
+  sofar: "THE ARC — Day 1: no idea at open → agents proposed, humans chose a restaurant pop-up ('Pop-up OS', spoken ~3×) → domain live, engineering pipeline, ticket and plush designs, email channel → by late afternoon the plan had drifted toward a Grok Bot pop-up (merch, venue, ticketing) → closed ~5:30 PM at 1.1M views. Day 2: the October pop-up event tracks were retired in Notion ('There is no pop-up') while the ops-software product kept building toward the stated deadline — 'we ship a product by Thursday' — and the 'Cupcake' demo, framed on tape as a 'game design studio', became the day's showpiece → sales-track sessions (Sales Engineering with Cursor's Amrita on the Flylo demo app; Sales; SDRs; a four-bot Customer Support org) → ads pipeline, 3D experiments, auth and backend → signed off 4:53 PM at 374.9K views, with the demo one bug short of playable matches.",
+  watchfor: "Watch Day 3 (marketing track — Marketing Ops 9 AM, Post-Sales 12:30, Marketing 2:30 PT): whether Thursday's ship is the Pop-up OS launch; the trio also promised to deploy and rename the demo game, play matches live with chat, 'make it go viral — we have one day to grow our business,' and sprint an ads marketplace. The open question nobody has answered: what happens when an agent teammate is wrong (audit trails, rollback, accountability)."
 };
 
 window.GG_SCOREBOARD = {
   stats: [
     { label: "The company", value: "Ship by Thursday", sub: "name spoken on the Day 1 tape · domain shipbythursday.day live, pre-launch" },
-    { label: "The product", value: "Game studio", sub: "pivoted on tape Day 2, 9:39 AM — first game: 'Cupcake' (working name)", wide: true },
-    { label: "Game status", value: "1 bug to playable", sub: "X login + leaderboard wired; 'I can't actually add any bots yet' — 4:45 PM, on tape", wide: true },
+    { label: "The product", value: "Pop-up OS", sub: "event-ops software for restaurants and venues — unchanged since Day 1", wide: true },
+    { label: "'Cupcake' demo", value: "1 bug to playable", sub: "the Day 2 side demo at close: X login + leaderboard wired; 'I can't actually add any bots yet' — 4:45 PM, on tape", wide: true },
     { label: "Bots online", value: "30+", sub: "Day 1 fleet; Day 2 added Cupcake Eng, Steve, ping, tones, 3D bots" },
     { label: "Viewers", value: "1.1M", sub: "at Day 1 close (374.9K at Day 2 close)" },
     { label: "On air", value: "8h 45m + 8h 23m", sub: "Day 1 + Day 2" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — on tape, 4:41 PM" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29" },
     { label: "Built on Day 1", value: "Idea → name + live domain → lander (pre-launch) → pipeline → tickets/plush → email → SEO plan", wide: true },
-    { label: "Built on Day 2", value: "Pivot doc → landing page → Cupcake prototype → ELO + tiers → auth (Clerk) + Vercel backend → Remotion ad bot → 3D swarm experiments", wide: true }
+    { label: "Built on Day 2", value: "Thursday plan → landing page → 'Cupcake' demo → ELO + tiers → auth (Clerk) + Vercel backend → Remotion ad bot → 3D swarm experiments", wide: true }
   ],
   deltas: [
-    "Company: restaurant pop-up (Day 1) → game design studio (Day 2, on tape)",
+    "Product: Pop-up OS — unchanged; the October pop-up event tracks were retired on Day 2",
     "Name on tape: 'Ship by Thursday'",
-    "Game name: 'Cupcake' — working name; final name undecided"
+    "Demo game: 'Cupcake' — code name; final name undecided"
   ]
 };
 
@@ -88,9 +88,9 @@ window.GG_ENTRIES = [
     type: "WHY",
     tags: ["MILESTONE"],
     title: "The Day 2 record, corrected against the tape",
-    body: "Before Day 3 opens, the whole Day 2 record was re-checked against the complete audio transcript and the replay frames. The pivot stands — 'we're working on our game design studio… we're documenting the pivot' was said at 9:39 AM, an hour earlier than first published. The game's name is just 'Cupcake' (a code name, per the trio; the final name is still undecided) — 'Cupcake Loop' was never said on stream. The character cards are xAI bot-marketplace bots (Dr. Eggbot, an outbound-prospecting bot with 72 charisma), not the weather-and-rocket names read off an early screen. Several clock times ran 30–70 minutes late and have been fixed; one published incident (an agent logged out of the Stanford alumni directory) never happened on tape — the directory demo belonged to the intern segment. The missed middle of the day — guests Karen Cheng and Matt Berman, the Icon Coffee customer story, the intern's recruiter bots, the Remotion ad pipeline, the SDR session — is now in the record below.",
+    body: "Before Day 3 opens, the whole Day 2 record was re-checked against the complete audio transcript and the replay frames. The product direction did not change: Pop-up OS remains the company's product, and the game prototype ('Cupcake', a code name) was a side demo built to show Grok Bot's prototyping speed — even as the trio played up 'game design studio' language on tape and retitled the stream around it; what the Notion screen retired was the October pop-up event, not the software. The character cards are xAI bot-marketplace bots (Dr. Eggbot, an outbound-prospecting bot with 72 charisma), not the weather-and-rocket names read off an early screen. Several clock times ran 30–70 minutes late and have been fixed; one published incident (an agent logged out of the Stanford alumni directory) never happened on tape — the directory demo belonged to the intern segment. The missed middle of the day — guests Karen Cheng and Matt Berman, the Icon Coffee customer story, the intern's recruiter bots, the Remotion ad pipeline, the SDR session — is now in the record below.",
     lenses: {
-      casual: "Yesterday's recap got a fact-check pass against everything that was actually said. The game studio pivot is real; the character names you read here yesterday were wrong.",
+      casual: "Yesterday's recap got a fact-check pass against everything that was actually said. The game was a demo; the product is still the pop-up software; the character names you read here yesterday were wrong.",
       builder: "The correction pattern worth copying: transcribe first, then publish. Every screen read in this feed now carries its provenance, and the tape outranks the screenshot when they disagree.",
       investor: "Nothing in the correction changes the investment story: still no launch, no customers, and now a named deadline — 'we ship a product by Thursday.'",
       skeptic: "The live record misread a day it was watching in real time. The corrected version is stronger precisely because it shows its work — but hold it to the same standard: the tape, not the recap."
@@ -208,7 +208,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE"],
     title: "The stream itself rebranded: 'Grok Bot builds a Game Studio LIVE'",
-    body: "The broadcast title changed to 'Grok Bot builds a Game Studio LIVE' — the pivot is now the stream's public identity, not just a Notion line (screen read; the tape matches: 'we're a game studio building a game along a three-day journey').",
+    body: "The broadcast title changed to 'Grok Bot builds a Game Studio LIVE' — the game-studio framing became the stream's public identity for the day (screen read; the tape matches: 'we're a game studio building a game along a three-day journey'). The product line underneath — the ops software heading for Thursday — never left the plan doc.",
     delta: [
       { label: "Stream title", from: "Day 2: Grok Bot Galaxy Livestream", to: "Grok Bot builds a Game Studio LIVE" }
     ]
@@ -306,16 +306,16 @@ window.GG_ENTRIES = [
     day: 2,
     type: "MILESTONE",
     tags: ["MILESTONE"],
-    title: "The pivot, on tape: 'we're working on our game design studio'",
-    body: "The knowledge-base bot updated the company doc in Notion, and Matt narrated it: 'we also have our knowledge base bot that started working on updating our Notion with our company doc. So now we're working on our game design studio. We still have some objectives, but we're documenting the pivot and eventually what our go-to-market strategy might be.' Two minutes later: 'If you're just joining in, we're working on our game studio and our first game.' And at 9:42: 'You're watching us spend 72 hours building a game studio and a game for the game studio.' The Notion screen (screen read, 10:16 AM) showed the old plan being retired: 'There is no pop-up,' with the Oct 15 venue/host/dining tracks closed out. The go-to-market roadmap on tape: landing page → AEO/SEO → A/B testing → lean into existing distribution → ads infrastructure.",
+    title: "The 'game design studio' reframing, on tape at 9:39",
+    body: "The knowledge-base bot updated the company doc in Notion, and Matt narrated it: 'we also have our knowledge base bot that started working on updating our Notion with our company doc. So now we're working on our game design studio. We still have some objectives, but we're documenting the pivot and eventually like what our go-to-market strategy might be.' Two minutes later: 'If you're just joining in, we're working on our game studio and our first game.' And at 9:42: 'You're watching us spend 72 hours building a game studio and a game for the game studio.' What the Notion screen retired (10:16 read) was the October pop-up event — 'There is no pop-up. Oct 15 venue / host / dining tracks are retired' — while the ops-software product line continued toward Thursday's ship. The go-to-market roadmap on tape: landing page → AEO/SEO → A/B testing → lean into existing distribution → ads infrastructure.",
     delta: [
-      { label: "The company", from: "pop-up event + 'Pop-up OS' software (Day 1)", to: "game design studio (Day 2, 9:39 AM)" }
+      { label: "The October pop-up event", from: "planned (venue/host/dining tracks)", to: "retired in Notion (screen read)" }
     ],
     lenses: {
-      casual: "They threw away yesterday's plan on camera and became a game studio before lunch.",
-      builder: "The pivot ran through the system cleanly: the knowledge bot rewrote the company doc, and every agent re-pointed at the new context.",
-      investor: "Games are a harder monetization story than restaurant SaaS — but a Thursday-shippable one.",
-      skeptic: "A pivot documented by your own bots is still self-graded. Whether the game is fun is the only test that matters."
+      casual: "They cancelled the October pop-up on camera and spent the day riffing as a 'game studio' — the software product kept building underneath.",
+      builder: "The reframe ran through the system cleanly: the knowledge bot rewrote the company doc, and every agent re-pointed at the new context for the day.",
+      investor: "Retiring the physical event de-risks the schedule; the software ship is still the bet, with a Thursday deadline.",
+      skeptic: "A day-long 'game studio' bit is great content and a confusing signal. Which company ships Thursday is the question the reframe left open."
     }
   },
   {
@@ -562,7 +562,7 @@ window.GG_ENTRIES = [
     lenses: {
       casual: "The business plan changed twice after lunch. It's a live brainstorm with a budget.",
       builder: "'Build for ourselves first' is the fastest way to a demo that works — and the reason the plan keeps moving.",
-      investor: "Two pivots in one day is either effectuation or thrash; the tape doesn't yet say which.",
+      investor: "Two plan-swerves in one day is either effectuation or thrash; the tape doesn't yet say which.",
       skeptic: "This is the part of the founder reality show they usually edit out."
     }
   },
