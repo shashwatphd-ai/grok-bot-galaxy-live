@@ -2,7 +2,7 @@
 
 **Campaign links on convention. Tag it once, report it forever.**
 
-UTMForge is a single-file, offline web app for the least glamorous artifact in marketing: the tagged campaign link. You write your naming convention once — which values are allowed in `utm_source` and `utm_medium`, whether `utm_campaign` follows a pattern, whether everything is lowercase, dashes or underscores — then build the whole launch batch as rows and let the URLs assemble themselves. The centerpiece is the **convention doctor**: it reads every row against your own rules and flags the drift — uppercase leakage, mixed separators, missing required fields, the same campaign booked under three spellings — each flag with a one-line fix. Export the batch as CSV (for the spreadsheet your team actually opens) or a markdown table (for the launch doc).
+UTMForge is a single-file, offline web app for the least glamorous artifact in marketing: the tagged campaign link. You write your naming convention once — which values are allowed in `utm_source` and `utm_medium`, whether `utm_campaign` follows a pattern, whether everything is lowercase, dashes or underscores — then build the whole launch batch as rows and let the URLs assemble themselves. The centerpiece is the **convention doctor**: it reads every row against your own rules and flags the drift — uppercase leakage, mixed separators, missing required fields, the same campaign booked under three spellings — each flag with a one-line fix. One click applies every unambiguous fix to the whole batch (**Fix all mechanical**: casing, separators, stray spaces, missing `https://`); the judgment calls — off-list values, pattern rewrites, required fields, duplicates — stay flagged for a human. Export the batch as CSV (for the spreadsheet your team actually opens) or a markdown table (for the launch doc).
 
 Built during Day 2 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026) — the selling day — and shipped for Day 3, the marketing track (Marketing Operations / Post-Sales / Marketing). Day 1's demo company already ran the exact workflow this tool serves: a "Tee Bot" drafting campaign emails with best-seller banners, a marketing bot created live on air seeded with Cody Sanchez's distribution advice, and a bot-written SEO work order whose dated first task is, literally, a link going out ("Thu 2026-09-17 08:00 CT — ships staging link for pilot sign-up"). Every click those generate arrives as a tagged URL, and every tagged URL is a fresh chance for `LinkedIn`, `linkedin`, and `LI` to become three different channels in the report. UTMForge is the convention as a file, with a doctor on duty.
 
@@ -12,6 +12,7 @@ Built during Day 2 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026) — the
 - **Batch row builder** — one row = destination URL + the five field values; the tagged URL assembles live, params in canonical order, empties skipped, values URL-encoded, existing query strings handled. Duplicate a row when only the placement (`utm_content`) changes.
 - **The convention doctor** — the reason this demo opens on a flag, not a form. Live checks against your own rules, each with a one-line fix: uppercase leakage (`LinkedIn` becomes a second channel in reports), separator drift and mixed separators, spaces that break the URL, missing required fields, values not in your own allowed list, values breaking your own pattern, destinations without `https://`, the same campaign booked under different casings *or separators* (`grok-bot-galaxy` vs `Grok_Bot_Galaxy` — your report splits it in two), and exact-duplicate links (copy-paste ghosts). Broken rules get flagged too: an empty allowed-list nothing can pass, a pattern that doesn't compile.
 - **Copy per row, export the batch** — a copy button on every row and every rendered link; the whole sheet exports as CSV (destination, all five fields, the full URL, and the doctor's status per row) or a markdown table that opens with the convention summarized in the header. Both via a dialog with Copy and Download.
+- **Fix all mechanical** — one button above the doctor that applies every unambiguous fix to every flagged row in one pass: casing per the lowercase rule, separator normalization per the house convention, internal whitespace collapsed to the house separator, `https://` prefixed to scheme-less destinations, and a trim on every field. It changes nothing it can't prove: off-list values, pattern breaks, missing required fields, duplicate links, and mixed separators under the "don't care" convention are judgment calls and stay flagged. Idempotent by construction — a second pass changes zero rows.
 - **Presets** — "Grok Bot Galaxy Launch": five launch links for the event's demo company, built the way three well-meaning people actually build them — the doctor opens flagging 7 pieces of drift across 4 kinds, which is the demo. "Evergreen Newsletter": a clean, boring, beautiful sheet that coaches green on load — what the same links look like after the doctor's been through.
 - **Zero setup** — one HTML file, no dependencies, no backend, no network calls, runs straight from `file://`. Autosaves to localStorage as you type.
 
@@ -32,6 +33,7 @@ Day 3 of Grok Bot Galaxy is the marketing track — Marketing Operations / Post-
 | File | Purpose |
 | --- | --- |
 | `index.html` | The entire app — markup, styles, logic in one dependency-free file |
+| `tests.js` | Headless fix-all test suite — `node tests.js` (no dependencies) |
 
 ## Data
 
@@ -41,7 +43,6 @@ State lives under localStorage key `utmforge.v1`: `{ format, version, convention
 
 - JSON save/load so a convention can be shared across a team — the file *is* the convention.
 - Import a CSV of raw tagged links and let the doctor grade existing chaos — the audit direction.
-- A "fix all" pass: apply every one-line fix mechanically (case, separators), leave the judgment calls flagged.
 - Paste-a-URL parser: drop a tagged link in, get the five fields back out.
 - Per-field separator conventions (campaign dashes, content underscores — some houses do both).
 
@@ -52,4 +53,4 @@ State lives under localStorage key `utmforge.v1`: `{ format, version, convention
 - Duplicate-campaign detection keys on the campaign field alone — two legitimately identical campaigns pointing at different destinations pass; it's the casing and separator variants it catches.
 - The generated URL is never fetched — UTMForge can't validate that a destination exists. Offline is the feature; typos in the path are on you.
 - One sheet per browser (localStorage holds a single save; use the exports to keep versions).
-- Clipboard can be blocked on some `file://` setups; the export dialog always allows manual copy, plus Download. Desktop-first; verified via static checks, a 106-assertion logic smoke test, and a 13-assertion DOM-stubbed boot test — not a full-browser click-through.
+- Clipboard can be blocked on some `file://` setups; the export dialog always allows manual copy, plus Download. Desktop-first; verified via static checks, a 106-assertion logic smoke test, a 13-assertion DOM-stubbed boot test (both run ephemerally on Day 2), and the persistent 55-assertion fix-all suite in `tests.js` — not a full-browser click-through.
