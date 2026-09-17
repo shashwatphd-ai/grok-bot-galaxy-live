@@ -47,14 +47,14 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Marketing session live — a relay of bots takes the research to a brief to a landing page; the final showcase comes at 3:15 PM PT",
-  viewers: "147.1K",
-  onAir: "6h 20m today",
-  updated: "Sep 17 · 2:50 PM PT",
+  session: "Final showcase live — the game's day-one numbers on screen (4,898 public matches); the stream wraps after the showcase",
+  viewers: "152.4K",
+  onAir: "6h 45m today",
+  updated: "Sep 17 · 3:16 PM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "The company shipped: Thursday Arena is live and playable at thursdayarena.com. The final showcase takes the stream at 3:15 PM PT.";
+window.GG_MOMENT = "The company shipped: Thursday Arena is live at thursdayarena.com — and its final showcase is on now, with 4,898 public matches played on day one.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
@@ -68,8 +68,8 @@ window.GG_SCOREBOARD = {
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Thursday Arena", sub: "live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS; the code-named 'Cupcake' demo became the build and shipped on launch day", wide: true },
     { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "147.1K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "23h 25m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 6h 20m so far" },
+    { label: "Viewers", value: "152.4K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "23h 50m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 6h 45m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
@@ -79,13 +79,23 @@ window.GG_SCOREBOARD = {
   deltas: [
     "Thursday Arena: live at thursdayarena.com — leaderboard, shop, 2,983 matches by 11:30 AM",
     "Marketing track: Territory Planner, 'Juno', and Gus the post-sales chief of staff",
-    "Finale: 'Livestream Wrap and Final Showcase' at 3:15 PM PT, per the on-screen agenda"
+    "Finale: 'Livestream Wrap and Final Showcase' at 3:15 PM PT, per the on-screen agenda",
+    "Showcase opens on the numbers: 4,898 public matches, 4,500 practice sessions, 47.6% win rate"
   ]
 };
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
+  {
+    id: "d3-1516",
+    t: "3:16 PM PT",
+    day: 3,
+    type: "MOMENT",
+    tags: ["MILESTONE", "PRODUCT", "KEYNOTE"],
+    title: "The final showcase opens on the game's live numbers",
+    body: "The closing segment arrived on schedule and opened on the game's own metrics dashboard: 4,898 public matches played — up from 2,983 at 11:30 AM — alongside 4,500 practice sessions, 1,650 X logins, an 8.0% practice-to-login conversion (388 players), a 47.6% public win rate, and 332 feedback items. Four people sat at the studio table to walk through the day-one numbers. Views: 152.4K."
+  },
   {
     id: "d3-1503",
     t: "3:03 PM PT",
@@ -110,7 +120,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE", "PRODUCT"],
-    title: "Researcher → marketer: the brief ships itself into the workspace",
+    title: "The Product Marketer bot commits its brief to the workspace",
     body: "The pipeline in motion: the Market Researcher surfaced findings from competitor advertising (an airline campaign — 'Make distance feel smaller.' — sat on screen as reference), then the baton passed to the Product Marketer bot, which wrote a positioning brief to a file in the shared workspace and pinged the team — with View PR and Open in Cursor buttons on the message. Marketing as a relay of specialists, ending in a committed artifact rather than a chat reply. Views: 146.6K."
   },
   {
