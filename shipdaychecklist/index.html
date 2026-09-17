@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShipDayChecklist — launch day command center</title>
+<meta name="description" content="An offline, single-file launch day command center for founders shipping today: a live countdown to your launch hour, a pre-ship checklist, a sudden-death kill-list, and a first-hour funnel watch with computed conversion percentages. Zero dependencies.">
+<style>
+/* ============================================================
+ShipDayChecklist — theme
+Same dark "live event" family as its siblings. System fonts,
+no dependencies, runs from file://.
+============================================================ */
+:root { --bg: #0d1017; --bg-soft: #12161f; --panel: #171c27; --panel-2: #1d2330; --line: #2a3142; --text: #e8ecf4; --muted: #97a0b3; --faint: #6b7488; --accent: #8b93ff; --accent-soft: rgba(139, 147, 255, 0.14); --amber: #f2b13d; --teal: #2fbfb3; --red: #f6543f; --green: #4cc38a; --radius: 14px; --radius-sm: 9px; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: radial-gradient(900px 500px at 85% -10%, rgba(139, 147, 255, 0.09), transparent 60%), radial-gradient(700px 420px at -10% 15%, rgba(47, 191, 179, 0.08), transparent 55%), var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.45; min-height: 100vh; }
+::placeholder { color: var(--faint); }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+/* ---------- header ---------- */
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 16px 22px; border-bottom: 1px solid var(--line); background: rgba(13, 16, 23, 0.78); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: 6px; }
+.brand .logo { width: 34px; height: 34px; flex: none; background: linear-gradient(135deg, #4cc38a, #2fbfb3); border-radius: 30%; box-shadow: 0 0 0 4px rgba(76, 195, 138, 0.14); display: flex; align-items: center; justify-content: center; }
+.brand .logo b { font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: -0.3px; color: rgba(13, 16, 23, 0.9); }
+.brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+.brand .sub { font-size: 12px; color: var(--muted); margin-top: -2px; }
+.spacer { flex: 1; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+select, button { font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 12px; cursor: pointer; }
+select:hover, button:hover { background: var(--panel-2); }
+select:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #0b0d1c; font-weight: 600; }
+button.primary:hover { background: #a3aaff; }
+button.ghost { background: transparent; }
+button:disabled { opacity: 0.45; cursor: default; }
+/* ---------- hero: the clock ---------- */
+main { max-width: 1280px; margin: 0 auto; padding: 22px; }
+.hero { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px 16px; margin-bottom: 26px; }
+.hero-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.hero-top .name { flex: 1; min-width: 240px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); padding: 9px 12px; font: inherit; font-weight: 600; }
+.hero-top .when { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; color: var(--muted); font-size: 13.5px; }
+.hero-top .when input { background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); padding: 8px 10px; font: inherit; font-size: 13.5px; }
+.hero-top .when input[type="date"], .hero-top .when input[type="time"] { color-scheme: dark; }
+.cd { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: clamp(34px, 6vw, 52px); font-weight: 700; letter-spacing: 2px; text-align: center; color: var(--accent); padding: 6px 0 2px; }
+.cd.live { color: var(--green); }
+.cd.live::after { content: ""; display: inline-block; width: 11px; height: 11px; margin-left: 14px; border-radius: 50%; background: var(--green); animation: pulse 1.6s ease-in-out infinite; vertical-align: 6px; }
+.cd.unset { color: var(--faint); }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+.cd-status { text-align: center; font-size: 13px; color: var(--muted); }
+.cd-status .mono { color: var(--text); }
+/* ---------- layout ---------- */
+.cols { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr); gap: 26px; align-items: start; }
+.col-main { min-width: 0; }
+.col-watch { min-width: 0; position: sticky; top: 96px; }
+@media (max-width: 980px) { .cols { grid-template-columns: 1fr; } .col-watch { position: static; } }
+section { margin-bottom: 30px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 0 0 12px; flex-wrap: wrap; }
+.section-head h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0; }
+.section-head .hint { font-size: 12.5px; color: var(--faint); }
+.summary { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 9px 13px; font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+.summary b { color: var(--text); }
+.summary.all-done { border-left-color: var(--green); }
+/* ---------- checklist rows ---------- */
+#checksHost, #killsHost { display: grid; gap: 8px; }
+.check { display: flex; align-items: center; gap: 9px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 10px; }
+.check input[type="checkbox"] { width: 17px; height: 17px; flex: none; accent-color: var(--green); cursor: pointer; }
+.check .txt { flex: 1; min-width: 0; background: transparent; border: 1px solid transparent; border-radius: 6px; color: var(--text); padding: 6px 8px; font: inherit; }
+.check .txt:hover { border-color: var(--line); background: var(--bg-soft); }
+.check.done .txt { color: var(--faint); text-decoration: line-through; }
+.check .rowbtn { border: none; background: transparent; color: var(--faint); font-size: 14px; line-height: 1; padding: 6px 8px; border-radius: 6px; }
+.check .rowbtn:hover { color: var(--text); background: var(--panel-2); }
+.check .rowbtn.del:hover { color: #ff8a7a; background: rgba(246, 84, 63, 0.1); }
+/* ---------- kill-list rows ---------- */
+.kill { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: var(--radius-sm); padding: 9px 10px; display: grid; gap: 7px; }
+.kill.call-ship { border-left-color: var(--green); }
+.kill.call-kill { border-left-color: var(--red); }
+.kill-top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.kill-top .feat { flex: 1; min-width: 180px; background: transparent; border: 1px solid transparent; border-radius: 6px; color: var(--text); padding: 6px 8px; font: inherit; font-weight: 600; }
+.kill-top .feat:hover { border-color: var(--line); background: var(--bg-soft); }
+.calls { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; flex: none; }
+.calls button { border: none; border-radius: 0; background: transparent; color: var(--faint); font-size: 11px; font-weight: 800; letter-spacing: 0.8px; padding: 6px 12px; }
+.calls button:hover { background: var(--panel-2); color: var(--text); }
+.calls button.on-ship { background: rgba(76, 195, 138, 0.18); color: #8fe6bd; }
+.calls button.on-kill { background: rgba(246, 84, 63, 0.18); color: #ffb0a3; }
+.calls button.on-open { background: rgba(242, 177, 61, 0.16); color: #ffce8a; }
+.kill .reason { background: transparent; border: 1px solid transparent; border-radius: 6px; color: var(--muted); padding: 6px 8px; font: inherit; font-size: 13px; width: 100%; }
+.kill .reason:hover { border-color: var(--line); background: var(--bg-soft); }
+.kill .rowbtn { border: none; background: transparent; color: var(--faint); font-size: 14px; line-height: 1; padding: 6px 8px; border-radius: 6px; }
+.kill .rowbtn:hover { color: var(--text); background: var(--panel-2); }
+.kill .rowbtn.del:hover { color: #ff8a7a; background: rgba(246, 84, 63, 0.1); }
+.add-card { width: 100%; border: 1px dashed var(--line); background: transparent; color: var(--muted); border-radius: var(--radius-sm); padding: 10px; cursor: pointer; margin-top: 8px; }
+.add-card:hover { color: var(--text); background: var(--panel); border-style: solid; }
+/* ---------- first hour watch ---------- */
+.watch { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: grid; gap: 12px; }
+.wrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.wrow .wlabel { flex: none; width: 76px; font-size: 12px; text-transform: uppercase; letter-spacing: 1.1px; color: var(--muted); }
+.wrow .wnum { flex: none; min-width: 64px; text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 24px; font-weight: 700; color: var(--text); }
+.steppers { display: inline-flex; gap: 4px; margin-left: auto; }
+.steppers button { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; padding: 5px 9px; min-width: 40px; }
+.wconv { display: grid; gap: 4px; padding: 0 0 0 86px; }
+.wconv .wline { display: flex; justify-content: space-between; font-size: 12px; color: var(--faint); }
+.wconv .wline .wpct { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; color: var(--accent); font-size: 13px; }
+.wconv .wline.overall .wpct { color: var(--teal); }
+.wbar { height: 5px; background: var(--bg-soft); border-radius: 999px; overflow: hidden; }
+.wbar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--teal)); border-radius: 999px; transition: width 0.25s ease; }
+.wverdict { background: var(--bg-soft); border: 1px dashed var(--line); border-radius: var(--radius-sm); padding: 9px 12px; font-size: 13px; color: var(--text); }
+.wverdict ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 5px; }
+.wverdict li { padding-left: 20px; position: relative; color: #ffce8a; font-size: 12.5px; }
+.wverdict li::before { content: "\2717"; position: absolute; left: 0; top: 0; color: var(--amber); font-weight: 700; }
+.wfoot { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.wfoot .note { font-size: 12px; color: var(--faint); }
+/* ---------- modal ---------- */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(5, 7, 12, 0.72); display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+.modal-backdrop.open { display: flex; }
+.modal { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); width: min(880px, 100%); max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; }
+.modal-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.modal-head h3 { margin: 0; font-size: 15px; }
+.modal-head .x { margin-left: auto; border: none; background: transparent; color: var(--faint); font-size: 16px; padding: 4px 9px; border-radius: 6px; cursor: pointer; }
+.modal-head .x:hover { color: var(--text); background: var(--panel-2); }
+.modal textarea { flex: 1; margin: 14px 16px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.55; padding: 12px; resize: none; min-height: 300px; white-space: pre; overflow: auto; }
+.modal-foot { display: flex; gap: 10px; padding: 0 16px 16px; flex-wrap: wrap; }
+.modal-foot .note { font-size: 12px; color: var(--faint); align-self: center; }
+/* ---------- toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(8px); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; color: var(--text); font-size: 13.5px; padding: 10px 18px; opacity: 0; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; z-index: 60; max-width: min(560px, 90vw); text-align: center; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 12px; color: var(--faint); text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><b>sd</b></div>
+    <div>
+      <h1>ShipDayChecklist</h1>
+      <div class="sub">launch day command center &mdash; the clock, the checks, the calls, the first hour</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="toolbar">
+    <select id="presetSelect" title="Load a starter launch — replaces what's here" aria-label="Load a preset launch">
+      <option value="" disabled selected>Presets&hellip;</option>
+      <option value="arena">Thursday Arena (ship-day homage)</option>
+    </select>
+    <button id="exportMdBtn" type="button" class="primary" title="Export the whole board as markdown — paste it where the team argues">Export markdown</button>
+    <button id="newLaunchBtn" type="button" class="ghost" data-act="new-launch" title="Clear the board and start over">New launch</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-label="Launch countdown">
+    <div class="hero-top">
+      <input id="launchName" class="name" type="text" data-act="launch-name" placeholder="Name the launch — e.g. Thursday Arena" aria-label="Launch name">
+      <div class="when">
+        <span>launches</span>
+        <input id="launchDate" type="date" data-act="launch-date" aria-label="Launch date">
+        <span>at</span>
+        <input id="launchTime" type="time" data-act="launch-time" aria-label="Launch hour">
+      </div>
+    </div>
+    <div id="cdMain" class="cd unset" role="timer" aria-live="off">--:--:--</div>
+    <div id="cdStatus" class="cd-status">Set the launch date and hour &mdash; the countdown is the discipline.</div>
+  </section>
+
+  <div class="cols">
+    <div class="col-main">
+
+      <section aria-label="Pre-ship checks">
+        <div class="section-head">
+          <h2>Pre-ship checks</h2>
+          <span class="hint">What a launch page owes a stranger. Add your own; reorder until the top one is the scary one.</span>
+        </div>
+        <div id="checksProgress" class="summary" role="status" aria-live="polite"></div>
+        <div id="checksHost"></div>
+        <button id="addCheckBtn" type="button" class="add-card" data-act="add-check">+ Add a check</button>
+      </section>
+
+      <section aria-label="Kill-list">
+        <div class="section-head">
+          <h2>Kill-list</h2>
+          <span class="hint">Sudden-death calls. Mark each feature SHIP or KILL with a reason you can say out loud.</span>
+        </div>
+        <div id="killsSummary" class="summary" role="status" aria-live="polite"></div>
+        <div id="killsHost"></div>
+        <button id="addKillBtn" type="button" class="add-card" data-act="add-kill">+ Add a kill-list row</button>
+      </section>
+
+    </div>
+
+    <aside class="col-watch" aria-label="First hour watch">
+      <section>
+        <div class="section-head">
+          <h2>First hour watch</h2>
+          <span class="hint">Tick the funnel by hand while it's live.</span>
+        </div>
+        <div class="watch">
+          <div class="wrow">
+            <span class="wlabel">visits</span>
+            <span class="wnum" id="watchVisits">0</span>
+            <div class="steppers">
+              <button type="button" data-act="watch-bump" data-field="visits" data-step="-10" aria-label="Subtract ten visits">&minus;10</button>
+              <button type="button" data-act="watch-bump" data-field="visits" data-step="-1" aria-label="Subtract one visit">&minus;1</button>
+              <button type="button" data-act="watch-bump" data-field="visits" data-step="1" aria-label="Add one visit">+1</button>
+              <button type="button" data-act="watch-bump" data-field="visits" data-step="10" aria-label="Add ten visits">+10</button>
+            </div>
+          </div>
+          <div class="wconv">
+            <div class="wline"><span>tried / visits</span><span class="wpct" id="pctTried">&mdash;</span></div>
+            <div class="wbar"><i id="barTried"></i></div>
+          </div>
+          <div class="wrow">
+            <span class="wlabel">tried</span>
+            <span class="wnum" id="watchTried">0</span>
+            <div class="steppers">
+              <button type="button" data-act="watch-bump" data-field="tried" data-step="-10" aria-label="Subtract ten tries">&minus;10</button>
+              <button type="button" data-act="watch-bump" data-field="tried" data-step="-1" aria-label="Subtract one try">&minus;1</button>
+              <button type="button" data-act="watch-bump" data-field="tried" data-step="1" aria-label="Add one try">+1</button>
+              <button type="button" data-act="watch-bump" data-field="tried" data-step="10" aria-label="Add ten tries">+10</button>
+            </div>
+          </div>
+          <div class="wconv">
+            <div class="wline"><span>activated / tried</span><span class="wpct" id="pctActivated">&mdash;</span></div>
+            <div class="wbar"><i id="barActivated"></i></div>
+          </div>
+          <div class="wrow">
+            <span class="wlabel">activated</span>
+            <span class="wnum" id="watchActivated">0</span>
+            <div class="steppers">
+              <button type="button" data-act="watch-bump" data-field="activated" data-step="-10" aria-label="Subtract ten activations">&minus;10</button>
+              <button type="button" data-act="watch-bump" data-field="activated" data-step="-1" aria-label="Subtract one activation">&minus;1</button>
+              <button type="button" data-act="watch-bump" data-field="activated" data-step="1" aria-label="Add one activation">+1</button>
+              <button type="button" data-act="watch-bump" data-field="activated" data-step="10" aria-label="Add ten activations">+10</button>
+            </div>
+          </div>
+          <div class="wconv">
+            <div class="wline overall"><span>visit &rarr; activated</span><span class="wpct" id="pctOverall">&mdash;</span></div>
+            <div class="wbar"><i id="barOverall"></i></div>
+          </div>
+          <div id="watchVerdict" class="wverdict" role="status" aria-live="polite"></div>
+          <div class="wfoot">
+            <button id="resetWatchBtn" type="button" class="ghost" data-act="reset-watch" title="Zero all three counters">Reset the hour</button>
+            <span class="note">Counted by hand, on purpose &mdash; no analytics script could care this much.</span>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">Ship-day checklist</h3>
+      <button type="button" class="x" id="modalClose" title="Close" aria-label="Close export dialog">&#10005;</button>
+    </div>
+    <textarea id="modalText" readonly spellcheck="false" aria-label="Exported content"></textarea>
+    <div class="modal-foot">
+      <button id="modalCopy" type="button" class="primary">Copy to clipboard</button>
+      <button id="modalDownload" type="button">Download file</button>
+      <span class="note">If clipboard is blocked, select the text and copy manually &mdash; it's all here.</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  ShipDayChecklist &middot; built live during Grok Bot Galaxy, Day 3 &mdash; the shipping day &middot;
+  one file, offline, zero dependencies &middot; your launch day never leaves this machine.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     ShipDayChecklist — logic
+     One state object, autosaved to localStorage. Everything below
+     runs offline from file:// — no network, no dependencies.
+     Built the hour thursdayarena.com went live: a company that
+     spent three days building in public, measured its own funnel,
+     and chased bugs on the live site with check-agents. Ship day
+     is a clock, a checklist, a kill-list, and a first hour you
+     count by hand.
+     ============================================================ */
+
+  var STORAGE_KEY = "shipdaychecklist.v1";
+  var state = null;
+  var saveTimer = null;
+  var toastTimer = null;
+  var wasLive = null;
+
+  /* ---------- date + time math — local, never UTC ----------
+     new Date("YYYY-MM-DD") parses as UTC midnight and slides a
+     day in negative-offset timezones, so parse the parts into a
+     local Date. The launch hour rides the same local rail. */
+
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+
+  function parseISODate(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s == null ? "" : s).trim());
+    if (!m) return null;
+    var y = Number(m[1]);
+    var mo = Number(m[2]);
+    var d = Number(m[3]);
+    var dt = new Date(y, mo - 1, d); // local midnight — the whole point
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null; // rejects 2026-02-31
+    return dt;
+  }
+
+  function parseTimeOfDay(s) {
+    var m = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(String(s == null ? "" : s).trim());
+    if (!m) return null;
+    return { h: Number(m[1]), m: Number(m[2]) };
+  }
+
+  function parseLaunchAt(s) {
+    var d = parseISODate(s.launchDate);
+    var t = parseTimeOfDay(s.launchTime);
+    if (!d || !t) return null;
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), t.h, t.m, 0, 0);
+  }
+
+  /* The default launch hour is the next top of the hour after
+     "now", so the clock is honestly ticking whenever the file is
+     first opened — a hardcoded time would go stale tonight. */
+
+  function defaultLaunch() {
+    var n = new Date();
+    var d = new Date(n.getFullYear(), n.getMonth(), n.getDate(), n.getHours() + 1, 0, 0, 0);
+    return { date: d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()), time: pad2(d.getHours()) + ":00" };
+  }
+
+  function countdownTo(launch, now) {
+    var ms = launch.getTime() - now.getTime();
+    var abs = Math.abs(ms);
+    var s = Math.floor(abs / 1000);
+    return {
+      live: ms <= 0,
+      d: Math.floor(s / 86400),
+      h: Math.floor((s % 86400) / 3600),
+      m: Math.floor((s % 3600) / 60),
+      s: s % 60
+    };
+  }
+
+  function fmtCountdown(cd) {
+    var body = pad2(cd.h) + ":" + pad2(cd.m) + ":" + pad2(cd.s);
+    if (cd.d > 0) body = cd.d + "d " + body;
+    return (cd.live ? "LIVE +" : "T\u2212") + body;
+  }
+
+  function fmtElapsedHuman(cd) {
+    if (cd.d > 0) return cd.d + "d " + cd.h + "h";
+    if (cd.h > 0) return cd.h + "h " + cd.m + "m";
+    if (cd.m > 0) return cd.m + "m";
+    return cd.s + "s";
+  }
+
+  function fmtTimeHuman(hhmm) {
+    var t = parseTimeOfDay(hhmm);
+    if (!t) return "";
+    var h = t.h % 12;
+    if (h === 0) h = 12;
+    return h + ":" + pad2(t.m) + (t.h < 12 ? " AM" : " PM");
+  }
+
+  function fmtLaunchDay(launch) {
+    return launch.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+  }
+
+  /* ---------- state plumbing ---------- */
+
+  var CALLS = ["ship", "kill", "open"];
+  var WATCH_FIELDS = ["visits", "tried", "activated"];
+
+  function uid() {
+    return "s-" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function blankCheck(text) {
+    return { id: uid(), text: typeof text === "string" ? text : "", done: false };
+  }
+
+  function blankKill(feature, call, reason) {
+    return { id: uid(), feature: typeof feature === "string" ? feature : "", call: CALLS.indexOf(call) >= 0 ? call : "open", reason: typeof reason === "string" ? reason : "" };
+  }
+
+  /* The defaults a launch page owes a stranger — one line, a
+     button, a signup, counted events, a money path, a rollback. */
+
+  var DEFAULT_CHECKS = [
+    "The site answers \u201cwhat is this\u201d in one line a stranger can repeat back.",
+    "A play or demo button sits above the fold — the promise is touchable, not described.",
+    "Someone can sign up — the form submits, and the signup lands somewhere you can see it.",
+    "Analytics events are firing — the funnel can be counted from minute one.",
+    "The shop or link path works end to end — whatever takes money takes it in one piece.",
+    "The rollback plan is named — one command, one owner, not a document nobody opens."
+  ];
+
+  var DEFAULT_KILLS = [
+    ["Guest checkout", "ship", "every screen between a stranger and the thing is a chance to leave."],
+    ["Live chat widget", "kill", "a chat bubble with nobody home is worse than no chat at all."],
+    ["Referral program", "open", "sounds like launch day, behaves like week two — decide before the hour decides for you."]
+  ];
+
+  function defaultState() {
+    var dl = defaultLaunch();
+    return normalizeState({
+      launchName: "",
+      launchDate: dl.date,
+      launchTime: dl.time,
+      checks: DEFAULT_CHECKS.map(function (t) { return blankCheck(t); }),
+      kills: DEFAULT_KILLS.map(function (k) { return blankKill(k[0], k[1], k[2]); }),
+      watch: { visits: 0, tried: 0, activated: 0 }
+    });
+  }
+
+  function normalizeState(raw) {
+    var s = raw && typeof raw === "object" ? raw : {};
+    var out = {
+      format: "shipdaychecklist",
+      version: 1,
+      launchName: typeof s.launchName === "string" ? s.launchName : "",
+      launchDate: parseISODate(s.launchDate) ? String(s.launchDate).trim() : "",
+      launchTime: parseTimeOfDay(s.launchTime) ? String(s.launchTime).trim() : "",
+      checks: [],
+      kills: [],
+      watch: { visits: 0, tried: 0, activated: 0 }
+    };
+    if (Object.prototype.toString.call(s.checks) === "[object Array]") {
+      out.checks = s.checks.map(function (r) {
+        var o = r && typeof r === "object" ? r : {};
+        var c = blankCheck(o.text);
+        if (typeof o.id === "string" && o.id) c.id = o.id;
+        c.done = !!o.done;
+        return c;
+      });
+    }
+    if (Object.prototype.toString.call(s.kills) === "[object Array]") {
+      out.kills = s.kills.map(function (r) {
+        var o = r && typeof r === "object" ? r : {};
+        var k = blankKill(o.feature, o.call, o.reason);
+        if (typeof o.id === "string" && o.id) k.id = o.id;
+        return k;
+      });
+    }
+    if (s.watch && typeof s.watch === "object") {
+      WATCH_FIELDS.forEach(function (f) {
+        var n = Number(s.watch[f]);
+        if (isFinite(n) && n > 0) out.watch[f] = Math.floor(n);
+      });
+    }
+    return out;
+  }
+
+  /* Presets — the launch the stream actually shipped, with its
+     funnel measured in public and its bugs chased live. */
+
+  var PRESETS = {
+    arena: function () {
+      var dl = defaultLaunch();
+      return normalizeState({
+        launchName: "Thursday Arena — thursdayarena.com",
+        launchDate: dl.date,
+        launchTime: dl.time,
+        checks: [
+          { text: "The pitch reads in one breath — \u201cPick a captain. Take two mystery teammates. Fight three rounds.\u201d", done: true },
+          { text: "A practice match sits above the fold — the game is the demo.", done: true },
+          { text: "Signups work end to end — the account lands where the fleet can see it.", done: false },
+          { text: "Match analytics are firing — practice sessions and public matches both count.", done: true },
+          { text: "The stats bot can pull win rates from live match data — marketing with receipts.", done: false },
+          { text: "Rollback named — check-agents are chasing bugs on the live site; know the one command that undoes a bad deploy.", done: false }
+        ],
+        kills: [
+          { feature: "Mystery teammates", call: "ship", reason: "the surprise is the product — drafting blind is why anyone talks about it." },
+          { feature: "Fourth sudden-death round", call: "kill", reason: "three rounds already crowns a winner; a fourth just makes the loser quit." },
+          { feature: "Ranked ladder at launch", call: "open", reason: "ladders need players — at day-one traffic it's a ghost town with a scoreboard." }
+        ],
+        watch: { visits: 0, tried: 0, activated: 0 }
+      });
+    }
+  };
+
+  function presetCopy(key) {
+    return PRESETS[key] ? PRESETS[key]() : null;
+  }
+
+  function byId(list, id) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return list[i];
+    }
+    return null;
+  }
+
+  function idxOf(list, id) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].id === id) return i;
+    }
+    return -1;
+  }
+
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveNow, 250);
+  }
+
+  function saveNow() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      toast("Browser storage is full — export the markdown before experimenting further.");
+    }
+  }
+
+  function load() {
+    var raw = null;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { raw = null; }
+    if (!raw) return null;
+    try { return normalizeState(JSON.parse(raw)); } catch (e) { return null; }
+  }
+
+  /* ---------- checklist + kill-list ops ---------- */
+
+  function moveItem(list, id, delta) {
+    var idx = idxOf(list, id);
+    if (idx < 0) return false;
+    var to = idx + delta;
+    if (to < 0 || to >= list.length) return false;
+    var tmp = list[idx];
+    list[idx] = list[to];
+    list[to] = tmp;
+    return true;
+  }
+
+  function killCounts(list) {
+    var out = { ship: 0, kill: 0, open: 0 };
+    (list || state.kills).forEach(function (k) { out[k.call]++; });
+    return out;
+  }
+
+  function checksSummary() {
+    var n = state.checks.length;
+    var done = state.checks.filter(function (c) { return c.done; }).length;
+    if (!n) return { text: "No checks yet — add what a stranger needs, not what the team wants to hear.", done: done, n: n };
+    if (done === n) return { text: "<b>" + done + " of " + n + " done</b> — every check holds. Textbook page.", done: done, n: n };
+    if (done === 0) return { text: "<b>0 of " + n + " done</b> — the list is the launch; work it top down.", done: done, n: n };
+    return { text: "<b>" + done + " of " + n + " done</b> — the unchecked ones are the meeting.", done: done, n: n };
+  }
+
+  function killsSummary() {
+    var kc = killCounts();
+    var n = state.kills.length;
+    if (!n) return { text: "An empty kill-list is a scope you haven't argued with yet.", counts: kc };
+    var head = "<b>" + kc.ship + " SHIP</b> \u00b7 <b>" + kc.kill + " KILL</b> \u00b7 <b>" + kc.open + " OPEN</b> — ";
+    var tail = kc.open > 0
+      ? "an open call is a decision the launch hour will make for you."
+      : "every call is made. Stop editing and ship.";
+    return { text: head + tail, counts: kc };
+  }
+
+  /* ---------- funnel math ---------- */
+
+  function pct(part, whole) {
+    if (!(whole > 0)) return null;
+    return (part / whole) * 100;
+  }
+
+  function fmtPct(x) {
+    return x === null ? "\u2014" : Math.round(x) + "%";
+  }
+
+  function watchReadout() {
+    var w = state.watch;
+    var tV = pct(w.tried, w.visits);
+    var aT = pct(w.activated, w.tried);
+    var aV = pct(w.activated, w.visits);
+    var items = [];
+    if (w.visits <= 0) {
+      return { verdict: "Nothing to read yet — the watch starts when the clock flips.", items: items, tV: null, aT: null, aV: null };
+    }
+    if (w.tried > w.visits) {
+      items.push({ ok: false, text: "Tried exceeds visits — either the counting is double-firing or the labels are swapped." });
+    }
+    if (w.visits >= 20 && tV !== null && tV < 25) {
+      items.push({ ok: false, text: "Strangers are landing and leaving without touching it — the one-liner or the button isn't doing its job." });
+    }
+    if (w.tried >= 8 && aT !== null && aT < 25) {
+      items.push({ ok: false, text: "They reach for it and let go — the first click dead-ends somewhere. Go click it yourself, slowly." });
+    }
+    if (!items.length) {
+      if (aV !== null && aV >= 25) {
+        return { verdict: "A quarter of strangers activated in the first hour — screenshot the numbers before they move.", items: [{ ok: true, text: "Both steps convert; the page kept its promises." }], tV: tV, aT: aT, aV: aV };
+      }
+      return { verdict: "The funnel is breathing — watch it, don't fiddle.", items: [], tV: tV, aT: aT, aV: aV };
+    }
+    return { verdict: "The flags below are your next ten minutes.", items: items, tV: tV, aT: aT, aV: aV };
+  }
+
+  function applyBump(field, step) {
+    if (WATCH_FIELDS.indexOf(field) < 0) return null;
+    var delta = Number(step);
+    if (!isFinite(delta) || delta === 0) return null;
+    var next = state.watch[field] + delta;
+    if (next < 0) next = 0;
+    state.watch[field] = Math.floor(next);
+    return state.watch[field];
+  }
+
+  /* ---------- exports: the markdown board ---------- */
+
+  function mdCell(v) {
+    return String(v == null ? "" : v).replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
+  }
+
+  function todayLabel() {
+    var n = new Date();
+    return n.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  }
+
+  function buildMarkdown() {
+    var launch = parseLaunchAt(state);
+    var cd = launch ? countdownTo(launch, new Date()) : null;
+    var ck = checksSummary();
+    var kc = killCounts();
+    var w = state.watch;
+    var wr = watchReadout();
+    var L = [];
+
+    L.push("# Ship-day checklist — " + (state.launchName || "the launch"));
+    L.push("");
+    L.push("_Generated " + todayLabel() + " \u00b7 Launch: " +
+      (launch ? state.launchDate + " at " + state.launchTime + " (" + fmtCountdown(cd) + " at export)" : "hour not set") +
+      " \u00b7 checks " + ck.done + "/" + ck.n +
+      " \u00b7 calls " + kc.ship + " SHIP, " + kc.kill + " KILL, " + kc.open + " open_");
+    L.push("");
+
+    L.push("## The clock");
+    if (launch) {
+      L.push("- Launch hour: " + state.launchDate + " at " + state.launchTime + " (local) — " + fmtTimeHuman(state.launchTime) + " on " + fmtLaunchDay(launch) + ".");
+      L.push(cd.live
+        ? "- At export: " + fmtCountdown(cd) + " — live for " + fmtElapsedHuman(cd) + "."
+        : "- At export: " + fmtCountdown(cd) + " — " + fmtElapsedHuman(cd) + " to go.");
+    } else {
+      L.push("- Launch hour not set — the clock is waiting on you.");
+    }
+    L.push("");
+
+    L.push("## Pre-ship checks (" + ck.done + " of " + ck.n + " done)");
+    if (state.checks.length) {
+      state.checks.forEach(function (c) {
+        L.push("- [" + (c.done ? "x" : " ") + "] " + mdCell(c.text || "untitled check"));
+      });
+    } else {
+      L.push("- none yet");
+    }
+    L.push("");
+
+    L.push("## Kill-list — the sudden-death calls");
+    if (state.kills.length) {
+      L.push("| Feature | Call | Reason |");
+      L.push("| --- | --- | --- |");
+      state.kills.forEach(function (k) {
+        L.push("| " + mdCell(k.feature || "untitled feature") + " | " + k.call.toUpperCase() + " | " + mdCell(k.reason || "\u2014") + " |");
+      });
+      L.push("");
+      L.push("Calls made: " + kc.ship + " SHIP \u00b7 " + kc.kill + " KILL \u00b7 " + kc.open + " still open" +
+        (kc.open > 0 ? " — the open ones become tomorrow's 10 AM." : "."));
+    } else {
+      L.push("_No calls logged yet — an empty kill-list is a scope you haven't argued with._");
+    }
+    L.push("");
+
+    L.push("## First hour watch");
+    L.push("- Visits: " + w.visits);
+    L.push("- Tried: " + w.tried + " (" + fmtPct(wr.tV) + " of visits)");
+    L.push("- Activated: " + w.activated + " (" + fmtPct(wr.aT) + " of tried \u00b7 " + fmtPct(wr.aV) + " of visits)");
+    L.push("");
+    L.push("_Watch verdict: " + wr.verdict + "_");
+    wr.items.forEach(function (it) { L.push("_\u2717 " + it.text + "_"); });
+    L.push("");
+    L.push("_Ship-day discipline: the clock, the checks, the calls, the first hour. One file, offline._");
+    return L.join("\n");
+  }
+
+  /* ---------- rendering ---------- */
+
+  function checkRowHtml(c) {
+    return '<div class="check' + (c.done ? " done" : "") + '" data-id="' + c.id + '">' +
+      '<input type="checkbox" data-act="check-done" data-id="' + c.id + '"' + (c.done ? " checked" : "") +
+        ' title="Hold when a stranger could pass this" aria-label="Check done">' +
+      '<input type="text" class="txt" data-act="check-field" data-id="' + c.id + '" value="' + esc(c.text) + '"' +
+        ' placeholder="What a stranger needs — in one sentence" aria-label="Check text">' +
+      '<button type="button" class="rowbtn" data-act="check-up" data-id="' + c.id + '" title="Move up" aria-label="Move check up">\u2191</button>' +
+      '<button type="button" class="rowbtn" data-act="check-down" data-id="' + c.id + '" title="Move down" aria-label="Move check down">\u2193</button>' +
+      '<button type="button" class="rowbtn del" data-act="del-check" data-id="' + c.id + '" title="Remove check" aria-label="Remove check">\u2715</button>' +
+    '</div>';
+  }
+
+  function killRowHtml(k) {
+    return '<div class="kill call-' + k.call + '" data-id="' + k.id + '">' +
+      '<div class="kill-top">' +
+        '<input type="text" class="feat" data-act="kill-field" data-id="' + k.id + '" value="' + esc(k.feature) + '"' +
+          ' placeholder="The feature on the block" aria-label="Feature name">' +
+        '<div class="calls" role="group" aria-label="The call">' +
+          '<button type="button" data-act="call" data-call="ship" data-id="' + k.id + '" class="' + (k.call === "ship" ? "on-ship" : "") + '">SHIP</button>' +
+          '<button type="button" data-act="call" data-call="kill" data-id="' + k.id + '" class="' + (k.call === "kill" ? "on-kill" : "") + '">KILL</button>' +
+          '<button type="button" data-act="call" data-call="open" data-id="' + k.id + '" class="' + (k.call === "open" ? "on-open" : "") + '">OPEN</button>' +
+        '</div>' +
+        '<button type="button" class="rowbtn" data-act="kill-up" data-id="' + k.id + '" title="Move up" aria-label="Move kill-list row up">\u2191</button>' +
+        '<button type="button" class="rowbtn" data-act="kill-down" data-id="' + k.id + '" title="Move down" aria-label="Move kill-list row down">\u2193</button>' +
+        '<button type="button" class="rowbtn del" data-act="del-kill" data-id="' + k.id + '" title="Remove row" aria-label="Remove kill-list row">\u2715</button>' +
+      '</div>' +
+      '<input type="text" class="reason" data-act="kill-reason" data-id="' + k.id + '" value="' + esc(k.reason) + '"' +
+        ' placeholder="The reason you can say out loud" aria-label="Reason">' +
+    '</div>';
+  }
+
+  function renderChecks() {
+    var host = document.getElementById("checksHost");
+    if (!host) return;
+    host.innerHTML = state.checks.length
+      ? state.checks.map(checkRowHtml).join("")
+      : '<div class="wverdict">No checks yet — add what a stranger needs before you add what the team wants.</div>';
+    var prog = document.getElementById("checksProgress");
+    if (prog) {
+      var s = checksSummary();
+      prog.innerHTML = s.text;
+      prog.classList.toggle("all-done", s.n > 0 && s.done === s.n);
+    }
+  }
+
+  function renderKills() {
+    var host = document.getElementById("killsHost");
+    if (!host) return;
+    host.innerHTML = state.kills.length
+      ? state.kills.map(killRowHtml).join("")
+      : '<div class="wverdict">No calls on the block yet — every feature you might cut today belongs here, decided or not.</div>';
+    var sum = document.getElementById("killsSummary");
+    if (sum) {
+      sum.innerHTML = killsSummary().text;
+      sum.classList.toggle("all-done", state.kills.length > 0 && killCounts().open === 0);
+    }
+  }
+
+  function renderWatch() {
+    var w = state.watch;
+    var wr = watchReadout();
+    var nums = { visits: "watchVisits", tried: "watchTried", activated: "watchActivated" };
+    WATCH_FIELDS.forEach(function (f) {
+      var el = document.getElementById(nums[f]);
+      if (el) el.textContent = String(w[f]);
+    });
+    var pairs = [
+      { txt: "pctTried", bar: "barTried", v: wr.tV },
+      { txt: "pctActivated", bar: "barActivated", v: wr.aT },
+      { txt: "pctOverall", bar: "barOverall", v: wr.aV }
+    ];
+    pairs.forEach(function (p) {
+      var t = document.getElementById(p.txt);
+      if (t) t.textContent = fmtPct(p.v);
+      var b = document.getElementById(p.bar);
+      if (b && b.style) b.style.width = (p.v === null ? 0 : Math.min(100, Math.round(p.v))) + "%";
+    });
+    var verdict = document.getElementById("watchVerdict");
+    if (verdict) {
+      var list = wr.items.map(function (it) { return "<li>" + esc(it.text) + "</li>"; }).join("");
+      verdict.innerHTML = esc(wr.verdict) + (list ? "<ul>" + list + "</ul>" : "");
+    }
+  }
+
+  function renderCountdown() {
+    var main = document.getElementById("cdMain");
+    var status = document.getElementById("cdStatus");
+    if (!main && !status) return;
+    var launch = parseLaunchAt(state);
+    if (!launch) {
+      if (main) { main.textContent = "--:--:--"; main.className = "cd unset"; }
+      if (status) status.innerHTML = "Set the launch date and hour — the countdown is the discipline.";
+      wasLive = null;
+      return;
+    }
+    var cd = countdownTo(launch, new Date());
+    if (main) {
+      main.textContent = fmtCountdown(cd);
+      main.className = "cd" + (cd.live ? " live" : "");
+    }
+    if (status) {
+      if (cd.live) {
+        status.innerHTML = "Live for <span class='mono'>" + esc(fmtElapsedHuman(cd)) + "</span>" +
+          (cd.h >= 1 ? " — the first hour is over; write down what it taught you." : " — tick the watch on the right, not the code.");
+      } else {
+        status.innerHTML = "Launch: " + esc(fmtLaunchDay(launch)) + " at " + esc(fmtTimeHuman(state.launchTime)) +
+          " (local) — the hour moves whether you're ready or not.";
+      }
+    }
+    if (wasLive === false && cd.live) toast("The clock flipped — the first hour is the product now.");
+    wasLive = cd.live;
+  }
+
+  function render() {
+    var n = document.getElementById("launchName");
+    if (n && n.value !== state.launchName) n.value = state.launchName;
+    var d = document.getElementById("launchDate");
+    if (d && d.value !== state.launchDate) d.value = state.launchDate;
+    var t = document.getElementById("launchTime");
+    if (t && t.value !== state.launchTime) t.value = state.launchTime;
+    renderChecks();
+    renderKills();
+    renderWatch();
+    renderCountdown();
+  }
+
+  /* ---------- export modal ---------- */
+
+  function openExport() {
+    var box = document.getElementById("modalText");
+    var text = buildMarkdown();
+    if (!text.trim()) {
+      toast("Nothing to export yet — the board is empty.");
+      return;
+    }
+    var title = document.getElementById("modalTitle");
+    if (title) title.textContent = "Ship-day checklist — markdown";
+    if (box) box.value = text;
+    var dl = document.getElementById("modalDownload");
+    if (dl) dl.textContent = "Download .md";
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.add("open");
+    if (box) { box.focus(); box.select(); }
+  }
+
+  function closeExport() {
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.remove("open");
+  }
+
+  function fallbackCopy(box) {
+    var ok = false;
+    try {
+      box.focus();
+      box.select();
+      ok = document.execCommand("copy");
+    } catch (e) { ok = false; }
+    return ok;
+  }
+
+  function copyText(text, okMsg, box) {
+    function fallback() {
+      if (box && fallbackCopy(box)) { toast(okMsg); return; }
+      toast("Clipboard blocked — select the text and copy manually. It's right there.");
+    }
+    if (typeof navigator !== "undefined" && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { toast(okMsg); }, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function copyCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box) return;
+    copyText(box.value, "Checklist copied — paste it where the team argues.", box);
+  }
+
+  function downloadCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box) return;
+    try {
+      var blob = new Blob([box.value], { type: "text/markdown" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "shipday-checklist.md";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
+      toast("shipday-checklist.md saved — the board, on the record.");
+    } catch (e) {
+      toast("Download blocked — copy the text instead.");
+    }
+  }
+
+  /* ---------- toast ---------- */
+
+  function toast(msg) {
+    var el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3400);
+  }
+
+  /* ---------- event wiring ---------- */
+
+  function wireEvents() {
+    document.addEventListener("input", function (e) {
+      var el = e.target && e.target.closest ? e.target.closest("[data-act]") : null;
+      if (!el) return;
+      var act = el.getAttribute("data-act");
+      if (act === "launch-name") {
+        state.launchName = el.value;
+        save();
+      } else if (act === "check-field") {
+        var c = byId(state.checks, el.getAttribute("data-id"));
+        if (!c) return;
+        c.text = el.value;
+        save();
+      } else if (act === "kill-field" || act === "kill-reason") {
+        var k = byId(state.kills, el.getAttribute("data-id"));
+        if (!k) return;
+        k[act === "kill-field" ? "feature" : "reason"] = el.value;
+        save();
+      }
+    });
+
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (!t || !t.getAttribute) return;
+      var act = t.getAttribute("data-act");
+      if (act === "launch-date" || act === "launch-time") {
+        state[act === "launch-date" ? "launchDate" : "launchTime"] = t.value;
+        save();
+        renderCountdown();
+      } else if (act === "check-done") {
+        var c = byId(state.checks, t.getAttribute("data-id"));
+        if (!c) return;
+        c.done = t.checked;
+        save();
+        var row = t.closest ? t.closest(".check") : null;
+        if (row && row.classList) row.classList.toggle("done", c.done);
+        var prog = document.getElementById("checksProgress");
+        if (prog) {
+          var s = checksSummary();
+          prog.innerHTML = s.text;
+          prog.classList.toggle("all-done", s.n > 0 && s.done === s.n);
+        }
+      } else if (t.id === "presetSelect") { presetPick(t); }
+    });
+
+    document.addEventListener("click", function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest("[data-act]") : null;
+      if (!btn) return;
+      var act = btn.getAttribute("data-act");
+      var id = btn.getAttribute("data-id");
+      if (act === "add-check") {
+        state.checks.push(blankCheck());
+        save();
+        renderChecks();
+        toast("Check added — write what a stranger needs, not what the team wants to hear.");
+      } else if (act === "del-check") {
+        state.checks = state.checks.filter(function (x) { return x.id !== id; });
+        save();
+        renderChecks();
+        toast("Check removed.");
+      } else if (act === "check-up" || act === "check-down") {
+        if (!moveItem(state.checks, id, act === "check-up" ? -1 : 1)) return;
+        save();
+        renderChecks();
+      } else if (act === "add-kill") {
+        state.kills.push(blankKill());
+        save();
+        renderKills();
+        toast("Kill-list row added — SHIP it or KILL it, but say why.");
+      } else if (act === "del-kill") {
+        state.kills = state.kills.filter(function (x) { return x.id !== id; });
+        save();
+        renderKills();
+        toast("Row removed. The scope remembers, even if you don't.");
+      } else if (act === "kill-up" || act === "kill-down") {
+        if (!moveItem(state.kills, id, act === "kill-up" ? -1 : 1)) return;
+        save();
+        renderKills();
+      } else if (act === "call") {
+        var k = byId(state.kills, id);
+        if (!k) return;
+        var call = btn.getAttribute("data-call");
+        if (CALLS.indexOf(call) < 0 || call === k.call) return;
+        k.call = call;
+        save();
+        renderKills();
+        toast(call === "kill"
+          ? "Killed — the reason is now part of the record."
+          : call === "ship"
+            ? "Shipping — hold that line at the door."
+            : "Reopened — decide before the hour does.");
+      } else if (act === "watch-bump") {
+        if (applyBump(btn.getAttribute("data-field"), btn.getAttribute("data-step")) === null) return;
+        save();
+        renderWatch();
+      } else if (act === "reset-watch") {
+        if (!window.confirm("Zero all three counters? The first hour only happens once.")) return;
+        state.watch = { visits: 0, tried: 0, activated: 0 };
+        save();
+        renderWatch();
+        toast("Watch zeroed — fresh hour, fresh numbers.");
+      } else if (act === "new-launch") {
+        if (!window.confirm("Clear the board and start over? Export the markdown first if you want to keep this launch.")) return;
+        state = defaultState();
+        wasLive = null;
+        save();
+        render();
+        toast("Fresh launch — the defaults are yours to break.");
+      }
+    });
+
+    var exportBtn = document.getElementById("exportMdBtn");
+    if (exportBtn) exportBtn.addEventListener("click", openExport);
+    var modalCopy = document.getElementById("modalCopy");
+    if (modalCopy) modalCopy.addEventListener("click", copyCurrent);
+    var modalDownload = document.getElementById("modalDownload");
+    if (modalDownload) modalDownload.addEventListener("click", downloadCurrent);
+    var modalClose = document.getElementById("modalClose");
+    if (modalClose) modalClose.addEventListener("click", closeExport);
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.addEventListener("click", function (e) {
+      if (e.target === this) closeExport();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeExport();
+    });
+
+    if (typeof setInterval === "function") {
+      setInterval(renderCountdown, 1000);
+    }
+  }
+
+  function presetPick(select) {
+    var key = select.value;
+    if (!key || !PRESETS[key]) return;
+    var name = select.options[select.selectedIndex].textContent;
+    if (!window.confirm("Load the " + name + " preset? It replaces the board — export the markdown first if you want to keep this launch.")) {
+      select.selectedIndex = 0;
+      return;
+    }
+    state = presetCopy(key);
+    wasLive = null;
+    save();
+    render();
+    toast(name + " loaded — the checks are the homage; make the calls yours.");
+    select.selectedIndex = 0;
+  }
+
+  /* ---------- boot ---------- */
+
+  function boot() {
+    state = load();
+    if (!state) {
+      state = defaultState();
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* non-fatal */ }
+    }
+    wireEvents();
+    render();
+  }
+
+  if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot);
+    } else {
+      boot();
+    }
+  }
+
+  /* ---------- test hook (harmless in the browser) ---------- */
+  if (typeof window !== "undefined") {
+    window.ShipDay = {
+      STORAGE_KEY: STORAGE_KEY,
+      DEFAULT_CHECKS: DEFAULT_CHECKS,
+      PRESET_KEYS: Object.keys(PRESETS),
+      defaultState: defaultState,
+      defaultLaunch: defaultLaunch,
+      normalizeState: normalizeState,
+      presetCopy: presetCopy,
+      parseISODate: parseISODate,
+      parseTimeOfDay: parseTimeOfDay,
+      parseLaunchAt: parseLaunchAt,
+      countdownTo: countdownTo,
+      fmtCountdown: fmtCountdown,
+      fmtElapsedHuman: fmtElapsedHuman,
+      fmtTimeHuman: fmtTimeHuman,
+      moveItem: moveItem,
+      killCounts: function (list) { return killCounts(list); },
+      checksSummary: function () { return checksSummary(); },
+      killsSummary: function () { return killsSummary(); },
+      pct: pct,
+      fmtPct: fmtPct,
+      watchReadout: function () { return watchReadout(); },
+      applyBump: function (field, step) { return applyBump(field, step); },
+      buildMarkdown: function () { return buildMarkdown(); },
+      openExport: openExport,
+      setState: function (s) { state = s; },
+      getState: function () { return state; },
+      saveNow: saveNow,
+      loadFromStorage: load
+    };
+  }
+})();
+</script>
+</body>
+</html>
