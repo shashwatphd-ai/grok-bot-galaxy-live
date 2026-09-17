@@ -85,7 +85,7 @@ window.GG_FEATURES = [
   },
   {
     id: "thursday-lander",
-    name: "Landing page → the deployed front page",
+    name: "The landing page, now the game's front page",
     category: "Growth (Day 2–3)",
     status: "SHIPPED",
     statusHistory: [
@@ -494,14 +494,14 @@ window.GG_SESSIONS = [
   {
     day: "Day 1 — Tue Sep 15, 2026",
     time: "~5:00–5:30 PM",
-    title: "Guest: Jenny + close",
+    title: "Guest Jenny, then the Day 1 close",
     who: "VC/creator (Gemma Media) + the trio",
     recap: "Jenny's 22-bot event-production suite (venue scouting, permits, budgets, invite lists) reshapes the pop-up plan in the final hour. 'We're going to wrap it at 5:30' (on air) — off the air ~5:30 PM at 1.1M views, with overnight agents left running."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "8:30–8:31 AM",
-    title: "Open: MVP planning",
+    title: "Open: ninety seconds of planning",
     who: "The trio",
     recap: "Ninety seconds of planning before the first session: Lauren's P-Stack planning playbook — checklists, pseudo-code, data structures (on air)."
   },
@@ -515,7 +515,7 @@ window.GG_SESSIONS = [
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "9:25 AM–12:29 PM",
-    title: "The build block: reframe → demo",
+    title: "The build block: from reframe to a playable demo",
     who: "The trio + the fleet",
     recap: "The company doc rewritten at 9:39 around the 'game design studio' framing; the landing page scoped; dr. eggbot told to spawn and supervise cloud agents; the asset playground; the 'Cupcake' demo playable by 10:03 with marketplace bots as cards; Icon Coffee customer story (10:42); guest Karen Cheng (11:09); the battle-screen whiteboard (11:41); 'Cupcake' confirmed as a code name (12:16)."
   },
@@ -579,5 +579,5 @@ window.GG_EVENT_NUMBERS = [
   { label: "Ship deadline", value: "today", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air; the Day 3 broadcast is titled 'launching today'" },
   { label: "Thursday Arena", value: "shipped", sub: "named and deployed on Day 3; 2,983 public matches by 11:30 AM PT, on screen" },
   { label: "Profit target", value: "$30k", sub: "on screen, Day 1 — stated ambition, no sales" },
-  { label: "Wireframe to live sign-up", value: "~45 min", sub: "Day 1, on screen, 4:01 to 4:19 PM" }
+  { label: "From sketch to live sign-up", value: "~45 min", sub: "Day 1, on screen, 4:01 to 4:19 PM" }
 ];
