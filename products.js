@@ -55,14 +55,16 @@ window.GG_PRODUCT = {
 window.GG_FEATURES = [
   {
     id: "cupcake-prototype",
-    name: "The 'Cupcake' demo (code name)",
-    category: "Side demo (Day 2)",
-    status: "BUILD",
+    name: "Thursday Arena (the game demo — revealed Day 3; 'Cupcake' was its code name)",
+    category: "Side demo (Day 2–3)",
+    status: "DEPLOYED",
     statusHistory: [
       { status: "SPEC", t: "9:27 AM", note: "'That's going to be our game' — Matt points the fleet at the planning doc (on air)" },
       { status: "BUILD", t: "9:50 AM", note: "prototype rules set: skip sign-in, no database, debug sliders — 'we don't need login yet when we don't even know if the game is fun' (on air)" },
       { status: "BUILD", t: "10:03 AM", note: "first playable draft on localhost from marketplace-bot seed data; stat bug fixed live (on air)" },
-      { status: "BUILD", t: "4:45 PM", note: "X login works, leaderboard wired (empty), ratings placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" }
+      { status: "BUILD", t: "4:45 PM", note: "X login works, leaderboard wired (empty), ratings placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" },
+      { status: "DEPLOYED", t: "10:52 AM", note: "Day 3: first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
+      { status: "DEPLOYED", t: "10:58 AM", note: "final name on screen: THURSDAY ARENA — matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); public URL shown in the address bar but not yet legible on stream" }
     ],
     builtBy: ["dr. eggbot's engineering bot", "Cupcake Eng", "founding engineer bot"],
     evidence: [
