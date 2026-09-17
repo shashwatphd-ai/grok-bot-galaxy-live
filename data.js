@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1130",
+    t: "11:30 AM PT",
+    day: 3,
+    type: "DELTA",
+    tags: ["PRODUCT", "FLEET"],
+    title: "The game's funnel, on a dashboard: 2,255 practice sessions, 2,983 public matches",
+    body: "A 'Funnel snapshot (practice → convert → play)' chart on the studio screen: 2,255 practice sessions opened, 742 completed, 268 converted to the game, a fourth bar at 193 account creations, and 2,983 public matches. The fleet is now measuring its own game like a product funnel — whether those numbers reflect public traffic or seeded test data isn't stated on screen. Views: 98.7K."
+  },
+  {
     id: "d3-1119",
     t: "11:19 AM PT",
     day: 3,
