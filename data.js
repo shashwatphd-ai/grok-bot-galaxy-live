@@ -47,14 +47,14 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Final showcase live — the game's day-one numbers on screen (4,898 public matches); the stream wraps after the showcase",
-  viewers: "152.4K",
-  onAir: "6h 45m today",
-  updated: "Sep 17 · 3:16 PM PT",
+  session: "Final showcase live — the hosts play a ranked match against a viewer on the public site, with hundreds playing along",
+  viewers: "163K",
+  onAir: "7h 20m today",
+  updated: "Sep 17 · 3:48 PM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "The company shipped: Thursday Arena is live at thursdayarena.com — and its final showcase is on now, with 4,898 public matches played on day one.";
+window.GG_MOMENT = "Thursday Arena is live at thursdayarena.com — 677 people were playing at once while the hosts faced a viewer in the final showcase.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
@@ -68,8 +68,8 @@ window.GG_SCOREBOARD = {
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Thursday Arena", sub: "live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS; the code-named 'Cupcake' demo became the build and shipped on launch day", wide: true },
     { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "152.4K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "23h 50m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 6h 45m so far" },
+    { label: "Viewers", value: "163K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "24h 25m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 7h 20m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
@@ -95,6 +95,15 @@ window.GG_ENTRIES = [
     tags: ["FLEET", "PRODUCT"],
     title: "A bot-authored pull request, with its own test report and verdict",
     body: "The studio screen showed GitHub pull request #274 — a leaderboard fix — written by the fleet: a description of what changed and what was deliberately not touched, a Tests section running through the suite (leaderboard and contest tests, fixtures, page-HTML checks), and a verdict line: 'All green.' The 'delete all the tests' scrappy mode of Day 2 has grown into bots that write their own test evidence. Views: 162.7K."
+  },
+  {
+    id: "d3-1541",
+    t: "3:41 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "Six hundred and seventy-seven people are playing the game as the hosts face a viewer",
+    body: "Mid-match in the showcase: the hosts led the viewer @maxnewworld 1-0 in the best-of-three, Round 2 under way with the coin toss done and an opponent's card on the table — while the public site's own banner read 677 people playing now. The game built over three days was carrying live concurrent play while its makers competed inside it. Views: 161.5K."
   },
   {
     id: "d3-1538",
