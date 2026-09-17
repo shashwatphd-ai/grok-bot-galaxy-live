@@ -73,8 +73,8 @@ window.GG_SCOREBOARD = {
     { label: "On air", value: "8h 45m + 8h 23m", sub: "Day 1 + Day 2" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29" },
-    { label: "Built on Day 1", value: "Idea → name + live domain → lander (pre-launch) → pipeline → tickets/plush → email → SEO plan", wide: true },
-    { label: "Built on Day 2", value: "Thursday plan → landing page → 'Cupcake' demo → ELO + tiers → auth (Clerk) + Vercel backend → Remotion ad bot → 3D swarm experiments", wide: true }
+    { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
+    { label: "Built on Day 2", value: "the Thursday plan, a landing page, the 'Cupcake' demo, ELO and tiers, auth (Clerk) and a Vercel backend, a Remotion ad bot, 3D swarm experiments", wide: true }
   ],
   deltas: [
     "Product: Pop-up OS — unchanged; the October pop-up event tracks were retired on Day 2",
