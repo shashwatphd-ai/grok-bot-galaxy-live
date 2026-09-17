@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1238",
+    t: "12:38 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "PRODUCT"],
+    title: "Post-Sales/Customer Success session opens on the Marketplace",
+    body: "The 12:30 session took the stage and went straight to the bot Marketplace: featured community bots (Lauren Tan's dr.eggbot, Lenny Rachitsky's Overheard, Claire Vo's Tradbot, Eric Zakgaiman's Projects Manager) beside team plugins — pastack (used by 88 teammates), Atlassian MCP (52), GitHub, and the Flylo demo environment. The lesson taking shape: a post-sales team assembles from installed specialists, not job posts. Views: 113.5K."
+  },
+  {
     id: "d3-1214",
     t: "12:14 PM PT",
     day: 3,
