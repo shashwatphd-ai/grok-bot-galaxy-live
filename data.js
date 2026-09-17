@@ -88,6 +88,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1204",
+    t: "12:04 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT", "FLEET"],
+    title: "'Standing up marketing operations' — starting from the Marketplace",
+    body: "The studio block's new thread is captioned 'Standing up marketing operations,' and the screen shows a Marketplace listing for 'Cerebro' by Marinos — a community-built GTM bot with duplicate and download buttons. The move echoes the event's own pitch: the fastest way to staff a function may be installing a specialist template, then teaching it your house rules. Views: 107K."
+  },
+  {
     id: "d3-1130",
     t: "11:30 AM PT",
     day: 3,
