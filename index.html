@@ -26,11 +26,18 @@
 {"@context":"https://schema.org","@graph":[
 {"@type":"Organization","name":"xAI","url":"https://x.ai"},
 {"@type":"WebSite","name":"Grok Bot Galaxy — Live Commentary & Product Tracker","url":"https://shashwatphd-ai.github.io/grok-bot-galaxy-live/"},
-{"@type":"ItemList","name":"Day 1 sessions","itemListElement":[
+{"@type":"ItemList","name":"Event sessions (Days 1–3)","itemListElement":[
 {"@type":"ListItem","position":1,"name":"Grok Bot 101","url":"https://x.ai/galaxy"},
 {"@type":"ListItem","position":2,"name":"Grok Bot for Engineering","url":"https://x.ai/galaxy"},
 {"@type":"ListItem","position":3,"name":"Grok Bot for Product Managers","url":"https://x.ai/galaxy"},
-{"@type":"ListItem","position":4,"name":"Grok Bot for Founders","url":"https://x.ai/galaxy"}]},
+{"@type":"ListItem","position":4,"name":"Grok Bot for Founders","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":5,"name":"Grok Bot for Sales Engineering","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":6,"name":"Grok Bot for Sales","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":7,"name":"Grok Bot for SDRs","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":8,"name":"Grok Bot for Customer Support","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":9,"name":"Grok Bot for Marketing Operations","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":10,"name":"Grok Bot for Post-Sales","url":"https://x.ai/galaxy"},
+{"@type":"ListItem","position":11,"name":"Grok Bot for Marketing","url":"https://x.ai/galaxy"}]},
 {"@type":"Event","name":"Grok Bot Galaxy","startDate":"2026-09-15","endDate":"2026-09-17","eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","name":"The Howard","address":"661 Howard St, San Francisco, CA"},"performer":{"@type":"Organization","name":"xAI"},"organizer":{"@type":"Organization","name":"xAI"},"isAccessibleForFree":true,"inLanguage":"en","url":"https://x.com/i/broadcasts/1AxRnZbVpjaxl","description":"Three xAI employees build an entire company live over three days using teams of AI agents."}
 ]}
 </script>
@@ -1202,7 +1209,7 @@
     var feats = window.GG_FEATURES || [];
     var bots = window.GG_BOTS || [];
     var sess = window.GG_SESSIONS || [];
-    var nums = window.GG_DAY1_NUMBERS || [];
+    var nums = window.GG_EVENT_NUMBERS || window.GG_DAY1_NUMBERS || [];
 
     /* company header */
     var head = document.getElementById("p-head");
@@ -1228,13 +1235,13 @@
       head.appendChild(card);
     }
 
-    /* Day 1 numbers strip */
+    /* event numbers strip (all days) */
     var numsEl = document.getElementById("p-numbers");
     numsEl.innerHTML = "";
     if (nums.length) {
       var nb = el("div", "board");
       var nt = el("div", "board-title");
-      nt.appendChild(el("span", null, "Day 1 in numbers"));
+      nt.appendChild(el("span", null, "The event in numbers"));
       nb.appendChild(nt);
       var tiles = el("div", "tiles");
       nums.forEach(function (n) {
@@ -1502,7 +1509,11 @@
     wrap.innerHTML = "";
     var head = el("div", "cat-head");
     head.appendChild(el("span", null, "Sessions & recaps"));
-    head.appendChild(el("span", "cat-n", sess.length + (sess.length === 1 ? " block" : " blocks") + " on Day 1"));
+    var days = [];
+    sess.forEach(function (s) { if (s.day && days.indexOf(s.day) < 0) days.push(s.day); });
+    days.sort(function (a, b) { return a - b; });
+    var daySpan = days.length ? " · Day " + days[0] + (days.length > 1 ? "–" + days[days.length - 1] : "") : "";
+    head.appendChild(el("span", "cat-n", sess.length + (sess.length === 1 ? " block" : " blocks") + daySpan));
     wrap.appendChild(head);
     if (!sess.length) {
       wrap.appendChild(el("p", "pmiss", "Session recaps land here as each block wraps."));
@@ -1511,7 +1522,7 @@
     var grid = el("div", "sessgrid");
     sess.forEach(function (s) {
       var c = el("div", "sesscard");
-      c.appendChild(el("div", "sess-day", s.day || ""));
+      c.appendChild(el("div", "sess-day", s.day ? "Day " + s.day : ""));
       var tt = el("div", "sess-top");
       tt.appendChild(el("span", "sess-time", s.time || ""));
       tt.appendChild(el("h3", null, s.title || ""));
@@ -2130,13 +2141,14 @@
     fetchEval(dataPath).then(function (dataOk) {
       var others = ["products.js", "workflow.js", "screens.js", "research.js"];
       return Promise.all(others.map(function (n) { return fetchEval(n).catch(function () { return false; }); }))
-        .then(function (res) { return dataOk && res.every(Boolean); });
-    }).then(function (ok) {
-      if (ok) {
+        .then(function (res) { return { feed: dataOk, panels: res.filter(Boolean).length, total: res.length }; });
+    }).then(function (st) {
+      /* render whenever anything refreshed — one stale file must never freeze the page */
+      if (st.feed || st.panels > 0) {
         renderAll();
         renderCurrentTab();
-        if (rp) { connLine(true, "live · checked " + new Date().toLocaleTimeString()); return; }
-        connLine(true, "live · checked " + new Date().toLocaleTimeString());
+        if (st.feed && st.panels === st.total) connLine(true, "live · checked " + new Date().toLocaleTimeString());
+        else connLine(false, "some data stale — retrying in 30s");
       } else {
         connLine(false, "data error — will retry in 30s");
       }
