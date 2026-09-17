@@ -163,3 +163,23 @@ They closed by saying, "We went from no app to an app… an app with an engine a
 **Day 2, in one paragraph.** The October pop-up event tracks were retired in Notion while the ops-software product kept building toward Thursday, and the day's showpiece was "Cupcake" (a code name) — a side demo of Grok Bot's prototyping speed, a character-draft battler whose cards are xAI marketplace bots, framed all day in "game design studio" language until the stream itself was retitled around it. Around the build, the day carried four sales-track sessions (Sales Engineering with Cursor's Amrita on the Flylo demo app; Sales; SDRs; a four-bot Customer Support org), guests Karen Cheng and Matt Berman, the Icon Coffee customer story, the first forward-deployed intern, and a 6,000-line Remotion ad pipeline, before a sign-off at 4:53 PM with the demo one bug short of playable matches.
 
 **Next: Day 3 (Thu Sept 17) — the marketing track.** Marketing Ops 9:00 AM, Post-Sales 12:30 PM, Marketing 2:30 PM (PT). The open questions are whether Thursday's ship is the Pop-up OS launch, what the demo game gets renamed to, and whether a fleet of agents can go viral on command.
+
+## Day 3 — Thursday, September 17, 2026
+
+**[8:30 AM PT] — Ship day opens.**
+A new broadcast, "Building a company in 3 days - launching today!" — the title itself carries the deadline. The stream opened on the standard hold card with the orbiting bot logos while the studio finished its setup; the first hour stayed on hold cards ("Be right back") until a few minutes after 9.
+
+**[9:05 AM PT] — Marketing Operations: Matthew Silberman & Teresa Hsu.**
+The morning session opened on a six-card use-case map for RevOps and MarOps work: a self-completing to-do list (bots monitoring inboxes, refreshing CRM tables, routing tickets), tools not just rules (bots maintaining dashboards and querying systems), perfecting the marketing–sales handoff, making GTM data truly self-serve (a bot anyone on the team can query in plain English), territory planning fed by CRM accounts, pipeline and rep performance, and a one-time CRM cleanup for duplicates and messy accounts.
+
+**[9:10 AM PT] — The Territory Planner referees a dispute.**
+The live screen showed a "Territory Planner" bot working an inbox: it drafted the stakeholder email, then filed a Path task on a real conflict — two account executives, Jordan (West) and Sam (Central), both claiming the Acme Logistics account (filed 8:44 AM). The proposed path: a territory-map sync Tuesday, a written ruling by Friday, with the approval card offering a human exactly two buttons — Approve, or Hold (digest only). Governed agency in one screenshot: the bot proposes with evidence, the human decides.
+
+**[9:15 AM PT] — Juno turns one line into a spec.**
+Next demo: "Juno," a self-described GTM product bot that clarifies requirements one question at a time, writes the spec, and hands off to a build flow. Fed "I want to build an internal app for sales reps to review their leads more easily and quickly," it specced a swipe-the-card interface — left rejects a lead with a reason recorded in the CRM, right accepts and drops it into a follow-up sequence — and flagged authentication as a day-one requirement unprompted.
+
+**[9:25–9:40 AM PT] — What the session taught, and the Starbase ask.**
+The session's "What we learned" slide made the morning's argument in three lines: staff your dream team like an exec (anyone can hire an unlimited set of specialists with the right context and access); give your bots agency, and guardrails (governed agency beats "ask each time" or "YOLO mode"); and "you are a product manager — your product is revenue" (run the end-to-end GTM machine, not just the marketing-SQL handoff). Then the viewer contest got its mechanics on screen: quote the challenge post on X, explain what your Bot does, link your shared Bot template, follow @Grok and @Bot — Starbase trip, entries through Sept 29.
+
+**[10:25 AM PT] — Break, then back to the studio.**
+After the session, a "Be right back" card, then the trio back at the build table — Lauren and Matt Palmer at their laptops with Roshan alongside — for the stretch between sessions. Views hovered near 78K.
