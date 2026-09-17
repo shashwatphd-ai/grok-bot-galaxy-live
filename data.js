@@ -88,6 +88,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1538",
+    t: "3:38 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT", "MILESTONE"],
+    title: "Hosts versus a viewer: a live ranked match on the public site",
+    body: "The studio laptops are on thursdayarena.com playing a real match against a viewer — Round 1 of 3, coin toss done, an opponent's card on the table, and '@maxnewworld is the lead!' on the scoreboard. The game built in three days is matching its own makers against the public, live. Views: 156.7K."
+  },
+  {
     id: "d3-1527",
     t: "3:27 PM PT",
     day: 3,
