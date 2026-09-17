@@ -87,6 +87,24 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1040",
+    t: "10:40 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT", "FLEET"],
+    title: "Studio block: a stats bot reads live match data from the game demo",
+    body: "Back from the break, the build screen showed a stats thread with a 'Launch dashboard — Session 1' card stamped 10:54 AM PT — practice and match activity, plus a bug list (two fixed, two open). Asked for 'basic game stats like win rates, difficulty, etc. to validate the game engine,' a bot named Sake replied that it is pulling win-rate and difficulty signals from live match data — the side-demo game is now producing real play data that the fleet analyzes. Views: 81.3K."
+  },
+  {
+    id: "d3-1035",
+    t: "10:35 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE"],
+    title: "The day's shape, from the broadcast's own agenda panel",
+    body: "A live-agenda panel on the player lays out the day: 'Build: A Game Studio' blocks alternating with two sessions — Grok Bot for Customer Success (the 12:30 PM slot) and Grok Bot for Marketing (2:30 PM). The final showcase is set for 4:30 PM.",
+  },
+  {
     id: "d3-1020",
     t: "10:20 AM PT",
     day: 3,
