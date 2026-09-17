@@ -45,17 +45,17 @@
    ============================================================================ */
 
 window.GG_PRODUCT = {
-  name: "Ship by Thursday — a game design studio (pivoted Day 2)",
+  name: "Ship by Thursday — Pop-up OS (the product)",
   nameConfidence: "high",
-  oneLiner: "The trio's company — 'Ship by Thursday', named on the Day 1 tape — pivoted on Day 2's tape to a game design studio. Its first game (working name 'Cupcake', final name undecided) is a competitive character-draft battler whose cards are xAI bot-marketplace bots, with ELO ratings, a charisma-vs-dexterity counter bonus and live-tunable debug sliders. At Day 2 close: X login and a leaderboard wired, and one bug blocking playable matches.",
-  stage: "PROTOTYPE (auth + leaderboard wired; bug blocking matches; no public launch — 'we ship a product by Thursday')"
+  oneLiner: "The trio's company — 'Ship by Thursday', named on the Day 1 tape — is building Pop-up OS: event-ops software for restaurants and venues, with a real pop-up as its first run; the core direction is unchanged since Day 1. The Day 2 showpiece was 'Cupcake' (a code name): a side demo of Grok Bot's prototyping speed — a character-draft battler whose cards are xAI bot-marketplace bots — which ended the day one bug short of playable.",
+  stage: "PRE-LAUNCH (domain live on Vercel as a 'throwaway prototype'; the stated deadline — 'we ship a product by Thursday')"
 };
 
 window.GG_FEATURES = [
   {
     id: "cupcake-prototype",
-    name: "The game ('Cupcake', working name)",
-    category: "Game (Day 2 — active)",
+    name: "The 'Cupcake' demo (code name)",
+    category: "Side demo (Day 2)",
     status: "BUILD",
     statusHistory: [
       { status: "SPEC", t: "9:27 AM", note: "'That's going to be our game' — Matt points the fleet at the planning doc (tape)" },
@@ -77,7 +77,7 @@ window.GG_FEATURES = [
       "Playtest rating: 1258 (persistent)",
       "At close: 'gold, 1000' (placeholder)"
     ],
-    notes: "The studio's whole bet: draft three marketplace bots, captains first, resolve with stat counters — 'we need to shorten the time to fun' is the stated north star; the final name is still undecided."
+    notes: "Not the company's product — a demo of prototyping speed: draft three marketplace bots, captains first, resolve with stat counters. 'We need to shorten the time to fun' was its stated north star; the code name was never meant to be final."
   },
   {
     id: "thursday-lander",
@@ -96,7 +96,7 @@ window.GG_FEATURES = [
     numbers: [
       "Ship deadline: Thursday ('we ship a product by Thursday' — tape, 4:41 PM)"
     ],
-    notes: "Landing-page-first is Codie Sanchez's distribution doctrine applied: the front door is the first artifact of every pivot."
+    notes: "Landing-page-first is Codie Sanchez's distribution doctrine applied: the front door ships before the product does."
   },
   {
     id: "ads-pipeline",
@@ -116,7 +116,7 @@ window.GG_FEATURES = [
       "Ad code written by the agent: ~6,000 lines / 12 files",
       "Formats: 9:16 + 16:9"
     ],
-    notes: "The first revenue idea with a shape: an ads marketplace around the game — scheduled as Day 3's sprint."
+    notes: "The first revenue idea with a shape: an ads marketplace around the game demo — scheduled as Day 3's sprint."
   },
   {
     id: "auth-backend",
@@ -140,12 +140,12 @@ window.GG_FEATURES = [
   {
     id: "event-builder",
     name: "Event builder",
-    category: "Pop-up track (Day 1 — retired)",
+    category: "Pop-up OS (the product)",
     status: "BUILD",
     statusHistory: [
       { status: "SPEC", t: "2:07 PM", note: "'user should be able to create their own event: date/time, sessions, venue, staff' read on screen" },
       { status: "WIREFRAME", t: "3:59 PM", note: "event builder — layout, event cards (wireframes)" },
-      { status: "KILLED", t: "Sep 16, 9:39 AM", note: "pivot documented on tape — the pop-up tracks were retired in Notion ('There is no pop-up', screen read)" }
+      { status: "BUILD", t: "Sep 16", note: "the October pop-up event tracks retired in Notion ('There is no pop-up', screen read); the ops-software product line continues toward Thursday" }
     ],
     builtBy: ["grokbot", "Pixel"],
     evidence: [
@@ -155,12 +155,12 @@ window.GG_FEATURES = [
     numbers: [
       "Fields on spec: date/time · sessions · venue · staff"
     ],
-    notes: "The Day 1 core loop, retired by the Day 2 pivot. Kept for the record: the spec was authored by an agent."
+    notes: "The product's core loop, kept past the October event's retirement. Kept for the record: the spec was authored by an agent."
   },
   {
     id: "booking-signup",
     name: "Domain + lander",
-    category: "Pop-up track (Day 1 — retired)",
+    category: "Pop-up OS (the product)",
     status: "STAGING",
     statusHistory: [
       { status: "WIREFRAME", t: "4:01 PM", note: "Balsamiq-style wireframe board (screen)" },
@@ -181,7 +181,7 @@ window.GG_FEATURES = [
   {
     id: "ticket-badge",
     name: "Ticket & badge design",
-    category: "Pop-up track (Day 1 — retired)",
+    category: "Pop-up OS (the product)",
     status: "SHIPPED",
     statusHistory: [
       { status: "BUILD", t: "4:19 PM", note: "ticket designs in progress on the canvas" },
@@ -396,7 +396,7 @@ window.GG_BOTS = [
   { name: "Ops", role: "Operations", status: "Active", firstSeen: "Day 1 PM", notes: "Role-titled bot on the fleet widget." },
   { name: "Prioritizer", role: "Workflow", status: "Active", firstSeen: "Day 1 PM", notes: "Role-titled bot — the name is the job description." },
   { name: "Host Finder", role: "Research", status: "Active", firstSeen: "Day 1 PM", notes: "Role-titled bot on the fleet widget." },
-  { name: "Knowledge Base Manager", role: "Knowledge", status: "Working", firstSeen: "Day 1 PM; named on Day 2 tape", notes: "Day 2, 9:39 AM: updated the Notion company doc that documented the pivot (tape)." },
+  { name: "Knowledge Base Manager", role: "Knowledge", status: "Working", firstSeen: "Day 1 PM; named on Day 2 tape", notes: "Day 2, 9:39 AM: rewrote the Notion company doc around the 'game design studio' framing (tape: 'we're documenting the pivot')." },
   { name: "PlanetScale Bot", role: "Database", status: "Active", firstSeen: "Day 1 PM", notes: "Role-titled bot — database seat; the Day 1 lander was wired to PlanetScale (tape)." },
   { name: "Founding Eng", role: "Engineering", status: "Working", firstSeen: "By 4:04 PM, Day 1; active Day 2 (tape)", notes: "Day 2: preview deploys in the morning, watching GitHub PRs by late afternoon (tape)." },
   { name: "Growth Eng", role: "Growth", status: "Active", firstSeen: "By 4:04 PM, Day 1; active Day 2 (tape)", notes: "Role-titled bot; the landing page is its lane." },
@@ -504,9 +504,9 @@ window.GG_SESSIONS = [
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "9:25 AM–12:29 PM",
-    title: "The build block: pivot → prototype",
+    title: "The build block: reframe → demo",
     who: "The trio + the fleet",
-    recap: "The pivot documented at 9:39 ('we're working on our game design studio'); the landing page scoped; dr. eggbot told to spawn and supervise cloud agents; the asset playground; the first playable prototype by 10:03 with marketplace bots as cards; Icon Coffee customer story (10:42); guest Karen Cheng (11:09); the battle-screen whiteboard (11:41); 'Cupcake' as code name (12:16)."
+    recap: "The company doc rewritten at 9:39 around the 'game design studio' framing; the landing page scoped; dr. eggbot told to spawn and supervise cloud agents; the asset playground; the 'Cupcake' demo playable by 10:03 with marketplace bots as cards; Icon Coffee customer story (10:42); guest Karen Cheng (11:09); the battle-screen whiteboard (11:41); 'Cupcake' confirmed as a code name (12:16)."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
