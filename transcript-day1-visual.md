@@ -2,7 +2,7 @@
 
 **Method:** frame-by-frame review of the full 8h45m replay (every ~20 minutes, plus targeted passes at key demos), reading all on-screen text: slides, chats, documents, dashboards, widgets, and viewer chat. No audio was available; spoken words are not captured. Where text was too small to read reliably it is marked *illegible*. Names are used only where shown on screen or confirmed by the official schedule.
 
-**Clock mapping:** video position 0:00 ≈ 9:07 AM Pacific (derived from the on-screen elapsed clock vs wall time). Wall times below are Pacific and approximate to the minute. Viewer counts are cumulative X broadcast views.
+**Clock mapping:** wall times below are Pacific, aligned to the on-screen elapsed clock, and approximate to the minute. Viewer counts are cumulative X broadcast views.
 
 ---
 
