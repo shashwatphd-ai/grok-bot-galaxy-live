@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1335",
+    t: "1:35 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET", "PRODUCT"],
+    title: "The ops feed: numbered tickets, drift flags, and ads that 'ended'",
+    body: "The studio screen showed a triage thread by the stats bot: numbered work items rolling through — ads campaigns ended with rolling margin figures, leaderboard and shop features landed, a cloud-agent deploy moved to boot-time, and one item carried a 'do-not-merge — retry' drift flag. Each host's tickets got their own status lines. It reads like a standup written by the fleet, for the fleet, while the humans sit at the same table. Views: 133K."
+  },
+  {
     id: "d3-1340",
     t: "1:40 PM PT",
     day: 3,
