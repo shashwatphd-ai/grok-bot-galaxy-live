@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1058",
+    t: "10:58 AM PT",
+    day: 3,
+    type: "MILESTONE",
+    tags: ["MILESTONE", "PRODUCT"],
+    title: "The demo game has its final name: Thursday Arena",
+    body: "On screen during the studio block: a deployed front page titled THURSDAY ARENA — the game demo's name, revealed one day after 'maybe think of an actual good name.' The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels; a teammate's browser shows the matchmaking front end beside a deploy diff in the editor. The game's public URL is visible in the address bar but not yet legible on stream; the rename-and-deploy promise from Tuesday's sign-off is now on the record as kept."
+  },
+  {
     id: "d3-1052",
     t: "10:52 AM PT",
     day: 3,
