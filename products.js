@@ -48,8 +48,8 @@
 window.GG_PRODUCT = {
   name: "Ship by Thursday — Thursday Arena (the build)",
   nameConfidence: "high",
-  oneLiner: "The trio's company is Ship by Thursday, named on the Day 1 broadcast with its domain (shipbythursday.day) live the same afternoon. What they are building and shipping on Thursday is Thursday Arena, a character-draft battler whose cards are xAI bot-marketplace bots — it began Day 1 as Pop-up OS (event-ops software for a restaurant pop-up), and the prototype the fleet built on Day 2 under the code name 'Cupcake' became the build itself: named, deployed and playing live matches on Day 3.",
-  stage: "LAUNCH DAY — Thursday Arena deployed and playing live matches (2,983 public matches by 11:30 AM PT, on screen); the public URL was in the address bar but not yet legible on stream"
+  oneLiner: "The trio's company is Ship by Thursday, named on the Day 1 broadcast with its domain (shipbythursday.day) live the same afternoon. What they built and shipped on Thursday is Thursday Arena, live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS (event-ops software for a restaurant pop-up), and the prototype the fleet built on Day 2 under the code name 'Cupcake' became the build itself: named, deployed and playing live matches on Day 3.",
+  stage: "LIVE — thursdayarena.com is public and playable; 2,983 public matches by 11:30 AM PT (on screen)"
 };
 
 window.GG_FEATURES = [
