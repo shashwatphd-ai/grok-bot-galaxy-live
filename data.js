@@ -45,18 +45,18 @@ window.GG_META = {
   stream: "https://x.com/i/broadcasts/1PKqrNyvmYwGb"
 };
 
-window.GG_MOMENT = "Day 2 closed at 374.9K views: the studio pivoted from pop-up to game, shipped a playable prototype, and the fleet kept building to the sign-off.";
+window.GG_MOMENT = "Day 2 closed at 374.9K views: the pop-up OS team demoed a game prototype, ran four sales-track sessions, and kept building toward Thursday's landing page deadline.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
-  company: "The company pivoted live on Day 2 morning: it is now a GAME DESIGN STUDIO building 'Cupcake Loop' — a competitive character-draft game with a short loop, ELO-style matchmaking, charisma/deck counters, and live-tunable debug sliders ('shorten the time to fun'). Day 1's restaurant pop-up plan was retired on camera ('There is no pop-up — Oct 15 tracks are retired'). The fleet keeps building it: potato-mode prototyping, engineer bots orchestrating cloud agents, a creative director bot on visuals.",
-  sofar: "THE ARC — Day 1: no idea at open → agents proposed, humans chose a restaurant pop-up ('Pop-up OS') → built the scaffolding live (domain, staging lander, multi-agent pipeline, ticket and badge designs, email channel, dated SEO plan) → 1.1M viewers, and the sessions taught the product (onboarding, bot Marketplace, integrations, AI Maturity Curve, cost economics). Day 2 morning: THE PIVOT — 'There is no pop-up', the venue/host/dining tracks retired, and the company became a game design studio. Cupcake Loop, a competitive character-draft game, went from whiteboard arc to playable localhost prototype in about 45 minutes, with debug sliders tuned live to 'shorten the time to fun.' The Sales Engineering session taught the sales-SE workflow on the Flylo demo app; the Chief of Staff bot now runs staffing and a weekly priority-board routine; a bot-staffing pipeline and the landing page build continue. Now: the afternoon sessions — Sales, then SDRs, then Customer Support.",
-  watchfor: "Watch for: whether 'ship by Thursday' holds for the landing page; the first playable Cupcake Loop matches; how the sales sessions shape go-to-market for the game; and the open question nobody has answered — what happens when an agent teammate is wrong (audit trails, rollback, accountability)."
+  company: "The company is building Pop-up OS — event-ops software for local restaurants and venues. The core product direction has not changed since Day 1. A game prototype called 'Cupcake' (code name) was built as a side demo during Day 2 to showcase Grok Bot's prototyping speed, but it is not a company pivot. The pop-up OS remains the primary product.",
+  sofar: "THE ARC — Day 1: no idea at open → agents proposed, humans chose a restaurant pop-up ('Pop-up OS') → built the scaffolding live (domain, staging lander, multi-agent pipeline, ticket and badge designs, email channel, dated SEO plan) → 1.1M viewers, and the sessions taught the product (onboarding, bot Marketplace, integrations, AI Maturity Curve, cost economics). Day 2: the team continued building the pop-up OS product — a game prototype was built as a side demo to showcase prototyping speed, the SE session (Amrita from Cursor) demoed Mimi/Sherlock/Serena bots on the Flylo booking app, the Sales session covered pipeline and live call analysis, and a Support session showed a four-bot support org with crawl-walk-run trust levels. No company pivot occurred — the pop-up OS product direction is unchanged.",
+  watchfor: "Watch for: whether 'ship by Thursday' holds for the landing page; the first playable Cupcake Loop matches; how the sales sessions shape go-to-market for the pop-up OS product; and the open question nobody has answered — what happens when an agent teammate is wrong (audit trails, rollback, accountability)."
 };
 
 window.GG_SCOREBOARD = {
   stats: [
-    { label: "The idea → now", value: "Game design studio", sub: "pivoted Day 2 from 'Pop-up OS' — first game: Cupcake Loop", wide: true },
+    { label: "The product", value: "Pop-up OS", sub: "event-ops software for restaurants and venues — unchanged since Day 1", wide: true },
     { label: "Bots online", value: "30+", sub: "11 named characters at open" },
     { label: "Working now", value: "2–4", sub: "tater · Founding Eng · hashbrown" },
     { label: "Archived", value: "10", sub: "bots already retired" },
@@ -97,11 +97,11 @@ window.GG_ENTRIES = [
     type: "WHY",
     tags: ["MILESTONE"],
     title: "Day 2 wrapped early: what the sales day proved, and didn't",
-    body: "The stream signed off around 5 PM Pacific — about an hour ahead of its nominal 6 PM end — closing at 374.9K views. What Day 2 proved: a two-day-old AI-staffed company can pivot its entire plan on camera (pop-up retired, game studio launched), iterate a playable prototype with live-tunable sliders, and run design, engineering, and marketing rituals through bots with humans steering taste and rules. What it didn't prove: a single real customer, a public launch, or that the fleet can run without human re-auth when its sessions expire. Day 3 is the marketing track — Marketing Ops at 9:00 AM Pacific, Post-Sales at 12:30, Marketing at 2:30 — which is where go-to-market for Cupcake Loop gets its test.",
+    body: "The stream signed off around 5 PM Pacific — about an hour ahead of its nominal 6 PM end — closing at 374.9K views. What Day 2 proved: a two-day-old AI-staffed team can iterate a playable prototype with live-tunable sliders, run design, engineering, and support rituals through bots with humans steering taste and rules, and sustain a 374.9K-view audience while doing it. What it didn't prove: a single real customer, a public launch, or that the fleet can run without human re-auth when its sessions expire. Day 3 is the marketing track — Marketing Ops at 9:00 AM Pacific, Post-Sales at 12:30, Marketing at 2:30 — which is where go-to-market for the pop-up OS product gets its test.",
     lenses: {
-      casual: "Two days in: one pivoted plan, one playable game prototype, and a bot crew that never sleeps — but still no customers.",
+      casual: "Two days in: a playable prototype, a game demo, and a bot crew that never sleeps — but still no customers.",
       builder: "The repeatable pattern from two days: chat as the management layer, artifacts as the deliverable, shared skills across agents, and humans doing taste calls and rule-setting.",
-      investor: "Pivot velocity is impressive; monetization is still theoretical. The $30k target remains an ambition — watch Day 3's marketing sessions for the first demand signal.",
+      investor: "Build velocity is impressive; monetization is still theoretical. The $30k target remains an ambition — watch Day 3's marketing sessions for the first demand signal.",
       skeptic: "An early sign-off on Day 2 raises the bar for Day 3: the fleet now has to show retention, not just production. Self-reported metrics and a staging lander are still the only receipts."
     }
   },
