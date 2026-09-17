@@ -47,14 +47,14 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Studio build block live — Thursday Arena in play; 'Grok Bot for Post-Sales' at 12:30 PM PT",
-  viewers: "104.7K",
-  onAir: "3h 25m today",
-  updated: "Sep 17 · 11:55 AM PT",
+  session: "Ship day, live at thursdayarena.com — 'Grok Bot for Marketing' at 2:30 PM PT",
+  viewers: "126.8K",
+  onAir: "5h 10m today",
+  updated: "Sep 17 · 1:40 PM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "Launch day: Thursday Arena is live and playing matches — the trio builds toward the ship, with Post-Sales at 12:30 PM PT.";
+window.GG_MOMENT = "The company shipped: Thursday Arena is live and playable at thursdayarena.com.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
@@ -66,10 +66,10 @@ window.GG_PRIMER = {
 window.GG_SCOREBOARD = {
   stats: [
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
-    { label: "The product", value: "Thursday Arena", sub: "live and playing matches on launch day — 2,983 public matches by 11:30 AM PT, on screen; it began Day 1 as Pop-up OS, and the code-named 'Cupcake' demo became the build, named and deployed", wide: true },
+    { label: "The product", value: "Thursday Arena", sub: "live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS; the code-named 'Cupcake' demo became the build and shipped on launch day", wide: true },
     { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "104.7K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "20h 30m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 3h 25m so far" },
+    { label: "Viewers", value: "126.8K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "22h 15m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 5h 10m so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
@@ -86,6 +86,15 @@ window.GG_SCOREBOARD = {
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
+  {
+    id: "d3-1340",
+    t: "1:40 PM PT",
+    day: 3,
+    type: "MOMENT",
+    tags: ["PRODUCT"],
+    title: "The live site states the game's pitch: pick a captain, fight three rounds",
+    body: "The public site at thursdayarena.com carries the build's own one-line pitch — 'Pick a captain. Take two mystery teammates. Fight three rounds.' — beside the wordmark and the cupcake mascot. On the stream, the trio is pointing its agents at the live site itself to hunt down a bug in the shop button, directing a check-agent to browse the public URL and reproduce the exact behavior. Views: 126.8K."
+  },
   {
     id: "d3-1319",
     t: "1:19 PM PT",
