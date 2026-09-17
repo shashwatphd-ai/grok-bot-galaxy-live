@@ -1,5 +1,5 @@
 /* ============================================================================
-   GROK BOT GALAXY LIVE — WORKFLOW DATA (Days 1–2, transcript-verified)
+   GROK BOT GALAXY LIVE — WORKFLOW DATA (Days 1–3, transcript-verified)
    ----------------------------------------------------------------------------
    The division of labor: what the THREE HUMANS did versus what the AI
    EMPLOYEES did, on one time axis, with the deliverables that materialized.
@@ -18,7 +18,8 @@
    Session-demo artifacts (the Flylo demo airline and its sample venue data,
    Mimi/Sherlock/Serena, Olive, the four-bot support org) are deliberately
    EXCLUDED — this tracks only the trio's actual build. Day 1 times are
-   replay/visual reads; Day 2 times are audio-verified (tape + 8:30 AM PT).
+   replay/visual reads; Day 2 and Day 3 times are broadcast-clock reads
+   (tape + 8:30 AM PT).
    ============================================================================ */
 
 window.GG_WORKFLOW = {
@@ -48,7 +49,7 @@ window.GG_WORKFLOW = {
     { t: "5:00 PM",  lane: "human", actor: "the trio + guest Jenny", act: "Reshaped the pop-up with a producer's lens", detail: "Jenny's 22-bot event-production suite (venue scout, permits, budgets, invite lists) reframed the plan in the final hour; overnight agents commissioned — budget bot, venue-scout outreach, invite-list sourcing.", day: 1 },
     { t: "5:30 PM",  lane: "human", actor: "all three", act: "Wrapped Day 1 at ~5:30 PM, 1.1M views", detail: "'We're going to wrap it at 5:30' — off the air close to it after ~8h 45m. The counter read 1.1M; the hosts had shown their own agent cost math ('browser use is super powerful… also expensive') as it crossed 1M.", day: 1 },
 
-    /* ── Day 2 — Wed Sep 16: the 'Cupcake' demo becomes the showpiece ── */
+    /* ── Day 2 — Wed Sep 16: the 'Cupcake' demo becomes the build ── */
     { t: "8:30 AM",  lane: "human", actor: "Lauren · Roshan · Matt", act: "Opened Day 2 with the MVP question", detail: "'Lauren, do you want to take us through some of the thoughts on how we could MVP this?' Her answer: a rough plan built with her P-Stack planning playbook — checklists, pseudo-code, data structures.", day: 2 },
     { t: "8:31 AM",  lane: "human", actor: "Sales Engineering (Amrita, Cursor)", act: "Ran the SE session on the Flylo demo app", detail: "'My name is Amrita. I am a field engineer here at Cursor.' Mimi (case-study slides), Sherlock (repo expert that spawned three more bots live), Serena (competitive intel) — on xAI's own demo airline. On air: Grok Bot runs Grok 4.6; VMs are Linux-only; her bot-built deck cost $20–30 vs 4–5 hours.", day: 2 },
     { t: "9:25 AM",  lane: "human", actor: "Matt (Lauren offline)", act: "Took the wheel for the build block", detail: "Lauren's machine went offline; Matt drove with her as 'backseat driver' — 'if you have dr. eggbot installed, you have an engineer bot.'", day: 2 },
@@ -56,7 +57,7 @@ window.GG_WORKFLOW = {
     { t: "9:31 AM",  lane: "ai", actor: "grokbot · growth engineer bot", act: "Spun up the landing page", detail: "'We have our lander getting spun up' — scaffold built in parallel with the design argument, under the rule 'subtract before you add… removing auth, removing a waitlist.'", day: 2, deliverable: "thursday-lander" },
     { t: "9:32 AM",  lane: "ai", actor: "Steve · dr. eggbot · Creative Director", act: "Staffed the org on demand", detail: "Steve holds the project context as chief of staff; dr. eggbot told to 'create an engineering bot… use P-Stack and Potato Mode to spawn cloud agents… orchestrate these cloud agents and supervise them and check their work'; the creative-director bot researched game visuals ('a total noob to video games') into a slider-tunable SVG asset playground.", day: 2, deliverable: "asset-sliders" },
     { t: "9:36 AM",  lane: "human", actor: "Lauren · Matt", act: "Set the game's tuning principles", detail: "The charisma-vs-dexterity counter ('rock paper scissors… the bonus being 20% if you can tweak that on the fly and just replay'), debug sliders in the UI, and the north star: 'we need to shorten the time to fun.'", day: 2 },
-    { t: "9:39 AM",  lane: "ai", actor: "Knowledge Base bot", act: "Rewrote the company doc around the game demo", detail: "'Our knowledge base bot… started working on updating our Notion with our company doc. So now we're working on our game design studio… we're documenting the pivot and eventually what our go-to-market strategy might be.' On screen: 'There is no pop-up' — the October event tracks retired; the ops-software product line continued toward Thursday.", day: 2, deliverable: "pivot-doc" },
+    { t: "9:39 AM",  lane: "ai", actor: "Knowledge Base bot", act: "Rewrote the company doc around the game demo", detail: "'Our knowledge base bot… started working on updating our Notion with our company doc. So now we're working on our game design studio… we're documenting the pivot and eventually what our go-to-market strategy might be.' On screen: 'There is no pop-up' — the October event tracks were retired, and the build's center of gravity moved to the game for good.", day: 2, deliverable: "pivot-doc" },
     { t: "9:50 AM",  lane: "ai", actor: "engineering bots", act: "Built the prototype with the brakes off", detail: "Skip sign-in, no database ('we don't need login yet when we don't even know if the game is fun'), vanilla HTML/CSS/JS, three UI variants, marketplace bots as seed data, debug panels with sliders.", day: 2, deliverable: "cupcake-proto" },
     { t: "10:03 AM", lane: "human", actor: "Matt", act: "Played the first draft and broke it", detail: "'I'm gonna of course pick Dr. Eggbot… we have three common bots.' Caught the stat-total bug live; approved the debug panel ('tune the advantage'); decided matches resolve instantly with animation on top.", day: 2 },
     { t: "10:42 AM", lane: "ai", actor: "customer story (Icon Coffee)", act: "Showed the platform outside the studio", detail: "Marcel, co-owner of Icon Coffee (SF): his bot Rex triages school email, reads the POS via API for metrics, and optimized the menu from a photo — 'an extra hour, two hours in my day.'", day: 2 },
@@ -69,7 +70,18 @@ window.GG_WORKFLOW = {
     { t: "2:30 PM",  lane: "human", actor: "SDRs (Simon)", act: "Ran the SDR session", detail: "The 'Simon soldiers' are a sub-agent army working a 50-prospects-a-day routine, demoed on the Flylo account — the SDR's job becomes editing bot drafts.", day: 2 },
     { t: "3:10 PM",  lane: "ai", actor: "Cupcake Eng · founding engineer bot · glow 3d", act: "Went scrappy: backend, kanban, 3D swarm", detail: "Client/server split ('you can just modify the client and cheat'); the 'cupcake board' kanban ('our own little ticketing system'); auth assigned (Clerk); a 3D prototyping swarm via Potato Mode; backend to Vercel; 'delete all the tests… true scrappy mode.' A coordinator agent in Cursor Projects even said 'mashed' for merge.", day: 2 },
     { t: "4:00 PM",  lane: "human", actor: "Customer Support (David)", act: "Ran the Support session", detail: "The four-bot support org (build/reply/alert/tune) ran on Plain, Notion, Supabase and Stripe over Flylo's $20/month wifi: a password reset cited the doc, an SSO question hit no docs and was handed off at low confidence, and refunds were granted or denied by the 14-day policy without leaking it. The economics stated on air were $1–2 per medium ticket and about $0.20 scripted.", day: 2 },
-    { t: "4:41 PM",  lane: "human", actor: "all three", act: "Set the deadline and signed off", detail: "'72-hour live stream here where we ship a product by Thursday.' Final state: X login works, leaderboard wired but empty, ratings placeholder, 'there's a bug. So I can't actually add any bots yet.' Day 3: deploy, rename, play with chat, 'make it go viral — we have one day to grow our business.'", day: 2 }
+    { t: "4:41 PM",  lane: "human", actor: "all three", act: "Set the deadline and signed off", detail: "'72-hour live stream here where we ship a product by Thursday.' Final state: X login works, leaderboard wired but empty, ratings placeholder, 'there's a bug. So I can't actually add any bots yet.' Day 3: deploy, rename, play with chat, 'make it go viral — we have one day to grow our business.'", day: 2 },
+
+    /* ── Day 3 — Thu Sep 17: ship day — the build launches as Thursday Arena ── */
+    { t: "8:30 AM",  lane: "human", actor: "Lauren · Roshan · Matt", act: "Opened ship day under a launching-today banner", detail: "The final broadcast went live at 8:30 AM PT titled 'Building a company in 3 days — launching today!', with the fleet returning to a demo that had been one bug short of matches the previous evening.", day: 3 },
+    { t: "9:00 AM",  lane: "human", actor: "Marketing Ops (Matthew Silberman & Teresa Hsu)", act: "Ran the Marketing Operations session", detail: "Six RevOps & MarOps plays — a self-completing to-do list, tools not just rules, the marketing–sales handoff, self-serve GTM data, territory planning, a one-time CRM cleanup — then two demos in ten minutes: a Territory Planner bot that filed an AE account dispute as a task with Approve/Hold buttons, and Juno, a GTM product bot, that turned one line of intent into a lead-review app spec. The viewer contest's entry steps went on screen at 9:40.", day: 3 },
+    { t: "10:40 AM", lane: "ai", actor: "Sake", act: "Validated the game engine from live match data", detail: "A 'Launch dashboard — Session 1' card carried a bug list (two fixed, two open) while Sake, a stats bot, pulled win-rate and difficulty signals from live match data to validate the game engine.", day: 3 },
+    { t: "10:46 AM", lane: "ai", actor: "Integrations", act: "Wired the stack and published the kill-list", detail: "One message reported the connections — GitHub with two repos, Slack with three channels, Notion with four databases, Linear with two projects, Vercel and Postgres, plus webhooks — alongside a 'sudden-death feature kill-list' for the ship cut-line, signed 'Ship by Thursday.' The fleet widget read 43 online.", day: 3 },
+    { t: "10:52 AM", lane: "human", actor: "the trio + chat", act: "Played the first live match with the audience", detail: "One of Tuesday's sign-off promises, kept: the hosts played matches live with chat, and the result screen read 'You took round 1' with a Play Again button. The cards carried player pets and a dice-roll RNG mechanic; several still read 'no image provided' while an Image Gen bot sat active in the roster.", day: 3 },
+    { t: "10:58 AM", lane: "human", actor: "the trio", act: "Named the build and shipped it: THURSDAY ARENA", detail: "The rename-and-deploy promise, kept on schedule: a deployed front page went on screen under the final name — a player profile at a 1000 rating, a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels — beside a deploy diff in the editor. The public URL sat in the address bar but was not yet legible on stream.", day: 3, deliverable: "arena-launch" },
+    { t: "11:19 AM", lane: "ai", actor: "the fleet", act: "Opened the in-game shop", detail: "The build grew a shop whose three cards, each priced at 3G, were go-to-market jokes — including a hiring-signals tracker whose sales pitch was 'snipes the hire you just missed.'", day: 3 },
+    { t: "11:30 AM", lane: "ai", actor: "the fleet", act: "Measured its own funnel", detail: "A 'Funnel snapshot (practice → convert → play)' dashboard on the studio screen: 2,255 practice sessions opened, 742 completed, 268 converted, 193 account creations, and 2,983 public matches. Whether the numbers reflect public traffic or seeded test data was not stated on screen.", day: 3, deliverable: "analytics" },
+    { t: "12:04 PM", lane: "ai", actor: "the fleet", act: "Stood up marketing operations from the Marketplace", detail: "The studio block's new thread was captioned 'Standing up marketing operations,' and the screen showed a Marketplace listing for 'Cerebro' by Marinos — a community-built GTM bot with duplicate and download buttons. The fastest way to staff a function, demonstrated on the company's own build: install a specialist template, then teach it your house rules.", day: 3 }
   ],
 
   deliverables: [
@@ -83,17 +95,21 @@ window.GG_WORKFLOW = {
     { id: "seo",     t: "4:55 PM",  name: "SEO work order with dated execution plan", status: "SHIPPED", detail: "Keyword plan, page-weight and form fixes, FAQ — execution timeline dated through Thursday (on screen).", day: 1 },
 
     /* ── Day 2 ── */
-    { id: "pivot-doc", t: "9:39 AM", name: "Company doc rewritten around the game demo", status: "SHIPPED", detail: "'Now we're working on our game design studio… we're documenting the pivot.' The October pop-up event tracks retired in Notion; the ops-software product line continued.", day: 2 },
-    { id: "thursday-lander", t: "9:31 AM", name: "The game's landing page (V1)", status: "BUILD", detail: "'Our first goal is to make a landing page' — scaffolded the same hour, auth and waitlist deliberately removed.", day: 2 },
+    { id: "pivot-doc", t: "9:39 AM", name: "Company doc rewritten around the game demo", status: "SHIPPED", detail: "'Now we're working on our game design studio… we're documenting the pivot.' The October pop-up event tracks were retired in Notion, and the build moved to the game.", day: 2 },
+    { id: "thursday-lander", t: "9:31 AM", name: "The game's landing page (V1)", status: "SHIPPED", detail: "'Our first goal is to make a landing page' — scaffolded the same hour with auth and waitlist deliberately removed, and deployed on launch day as the build's own front page.", day: 2 },
     { id: "asset-sliders", t: "9:32 AM", name: "SVG asset playground (visual prototyping)", status: "SHIPPED", detail: "The creative-director bot's slider-tunable flat-SVG tokens, run locally — iterate looks before code.", day: 2 },
-    { id: "cupcake-proto", t: "9:50 AM", name: "The 'Cupcake' demo (code name)", status: "BUILD", detail: "The side demo of prototyping speed: marketplace-bot draft battler with no login, no DB, debug sliders; first played 10:03; by close X login + leaderboard wired and one bug blocking matches.", day: 2 },
-    { id: "ads-pipeline", t: "2:05 PM", name: "Remotion ad pipeline (~6,000 lines)", status: "SHIPPED", detail: "Agent-written video ads in 9:16 and 16:9 for LinkedIn/Instagram/X; a stadium-billboard marketplace sketched for Day 3.", day: 2 }
+    { id: "cupcake-proto", t: "9:50 AM", name: "The 'Cupcake' prototype → Thursday Arena", status: "SHIPPED", detail: "It began as a brakes-off demo of prototyping speed — marketplace-bot draft battler, no login, no database, debug sliders — and became the company's build: first played 10:03 on Day 2, one bug short of matches at the close, then named, deployed and playing live matches as Thursday Arena on Day 3.", day: 2 },
+    { id: "ads-pipeline", t: "2:05 PM", name: "Remotion ad pipeline (~6,000 lines)", status: "SHIPPED", detail: "Agent-written video ads in 9:16 and 16:9 for LinkedIn/Instagram/X; a stadium-billboard marketplace sketched for Day 3.", day: 2 },
+
+    /* ── Day 3 ── */
+    { id: "arena-launch", t: "10:58 AM", name: "THURSDAY ARENA — the build, named and deployed", status: "SHIPPED", detail: "The final name went on a deployed front page with a Play button and a live leaderboard of named players — the code-named 'Cupcake' demo launched as the company's product on ship day, with 2,983 public matches on the board by 11:30 AM PT.", day: 3 },
+    { id: "analytics", t: "11:30 AM", name: "Launch-day funnel dashboard", status: "SHIPPED", detail: "The build measured itself like a product — practice sessions, conversions, account creations and public matches on one screen.", day: 3 }
   ],
 
   stats: {
-    humanMoves: 23,
-    aiMoves: 19,
-    deliverables: 12,
+    humanMoves: 27,
+    aiMoves: 24,
+    deliverables: 14,
     note: "Humans chose, ruled, tuned, debugged and approved. Bots proposed, produced, deployed and iterated. Every deliverable needed at least one of each."
   },
 
