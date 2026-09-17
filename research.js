@@ -111,7 +111,9 @@ window.GG_RESEARCH_MOMENTS = [
     anchorEntry: "d1-1128",
     papers: [
       { id: "underdog", relation: "aligns", note: "Getting roasted online as fuel for building is the underdog effect, nearly verbatim: doubt creates reactance, reactance creates action." },
-      { id: "b2i-marketing", relation: "pushes back", note: "Cody's costless-signal stunts (2.4M, 5.7M views) work for attention — this theory warns they need costly signals (real traction) underneath to become credible." }
+      { id: "b2i-marketing", relation: "pushes back", note: "Codie's costless-signal stunts (2.4M, 5.7M views) work for attention — this theory warns they need costly signals (real traction) underneath to become credible." },
+      { id: "legitimacy-judgment", relation: "aligns", note: "The 'proof vault' is legitimacy-judgment theory applied by hand: audiences grant legitimacy based on packaged, verifiable proof, not good work itself." },
+      { id: "venture-obsession", relation: "pushes back", note: "'Hire A-players and get out of their way' — applied to bots — is exactly the hands-off pattern this paper warns turns agentic relationships unhealthy." }
     ]
   },
   {
@@ -119,13 +121,6 @@ window.GG_RESEARCH_MOMENTS = [
     papers: [
       { id: "passion-alertness", relation: "extends", note: "The agents supplied the alertness — scanning and proposing concepts — while the humans supplied the affective filter that research says decides which ideas get recognized." },
       { id: "lean-startup-effectuation", relation: "aligns", note: "Choosing a pop-up with their own means and a public deadline is textbook effectuation: affordable loss first, contingencies later." }
-    ]
-  },
-  {
-    anchorEntry: "d1-1755",
-    papers: [
-      { id: "legitimacy-judgment", relation: "aligns", note: "The 'proof vault' is legitimacy-judgment theory applied by hand: audiences grant legitimacy based on packaged, verifiable proof, not good work itself." },
-      { id: "venture-obsession", relation: "pushes back", note: "'Hire A-players and get out of their way' — applied to bots — is exactly the hands-off pattern this paper warns turns agentic relationships unhealthy." }
     ]
   },
   {
