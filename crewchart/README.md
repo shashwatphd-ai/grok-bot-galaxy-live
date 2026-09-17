@@ -12,7 +12,7 @@ Inspired by xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where a company 
 - **Roster** — agent cards with name, role, a character avatar (nine colors, six CSS shapes), a *scoped memory* field, a *reports to* org line, and a lifecycle: **Archive** moves a teammate to alumni (grayed card, stamped, history kept) instead of deleting; **Restore** brings them back.
 - **Board** — one task lane per agent. Click a chip to cycle queued → running → done; the parallelism meter counts active agents only. Every task has a **⇢ ask** button that opens a *Delegate to…* palette: teammates are ranked by role-keyword match against the task title (named-in-task counts most, then role, then scoped memory), and the pick is stamped on the chip. New tasks trigger a one-line suggestion toast.
 - **Menu** — pricing cards per agent: deliverable, price point, unit (e.g. "$220–250 / per flight · 4.9★"). **Price it** suggests a card from the agent's role; **Copy menu** exports the whole sheet as markdown — paste it to a client and ask which one they like.
-- **Presets** — "Travel Co." (event-inspired, ships with one archived alum so churn is visible), "Glider Co." (a direct homage to the stream's glider-flight business: flight logs, $299 Night Launch Pro, $5,869 weekend), "Solo Founder Crew", "Content Studio".
+- **Presets** — "Travel Co." (event-inspired, ships with one archived alum so churn is visible), "Glider Co." (a direct homage to the stream's glider-flight business: flight logs, $299 Night Launch Pro, $5,869 weekend), "Solo Founder Crew", "Content Studio", and "Growth Studio (marketing day)" — a marketing-track crew: Hook (content lead), Drip (lifecycle email), Ledger (analyst), Vivid (designer), Relay (distribution), plus one archived alum, Fizz, the launch-week intern whose viral bet didn't compound while the email list did.
 - **Export** — JSON team spec (version 2: adds `status`, `ask`, `offers`; version-1 files still import cleanly), markdown kickoff prompt (now includes delegation markers and the price menu), markdown price menu.
 - **Zero setup** — one HTML file, no dependencies, no backend, no network calls, works straight from `file://`. Autosaves to localStorage (fleet ticker to its own key).
 
@@ -29,6 +29,7 @@ Inspired by xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where a company 
 | File | Purpose |
 | --- | --- |
 | `index.html` | The entire app — markup, styles, logic in one dependency-free file |
+| `tests.js` | Headless smoke suite — `node tests.js` (no dependencies): preset integrity, imports, exports, delegation |
 
 ## JSON spec shape (version 2)
 
@@ -72,4 +73,4 @@ Inspired by xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where a company 
 - The web-requests counter is a local simulation for demo feel (labeled as such in the UI); nothing networked.
 - The Delegate palette is keyword heuristics, not intelligence — it proposes; you decide.
 - Clipboard copy can be blocked on some `file://` setups; the export dialog always lets you select and copy manually.
-- Tested on current desktop Chrome/Edge/Firefox via static checks + a headless logic smoke test; no mobile-specific polish.
+- Tested on current desktop Chrome/Edge/Firefox via static checks (`node ../verify.js index.html`) plus the persistent headless smoke suite in `tests.js`; no mobile-specific polish.
