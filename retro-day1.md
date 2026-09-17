@@ -20,3 +20,7 @@
 ## What to watch on Days 2 and 3
 
 Day 2 hands the stream to sales: can the agents prospect, pitch and support, or only build? The pop-up's real-world dependencies — chef, venue, permits — are the schedule risk no keynote addressed. And the number to watch is not views: it is whether one real reservation or ticket gets bought by someone who isn't on the payroll.
+
+## Post-script (added Sept 17, after the full-tape audit)
+
+Four things the tape settled after this retro was written. The company was named on air — **"Ship by Thursday"** — and its domain (shipbythursday.day) went live on Vercel wired to PlanetScale that afternoon, with the hosts telling viewers "don't submit yet… throwaway prototype": closer to a launch than "staging" suggested, still not one. The idea itself kept moving after the pop-up locked: an art exhibition briefly won the room mid-afternoon, and by late day, with guest Eric, the plan leaned toward a Grok Bot-themed pop-up — merch, venue, ticketing — with the platform a stretch goal; at close they admitted "we might still be shifting." The close itself was ~5:30 PM ("we're going to wrap it at 5:30"), not 6. And the engineering rule quoted around the water cooler — "no pull requests, we ship to main" — was Lauren's, not Matt's. The drift mattered: it is the thread that pulled all the way into Day 2's on-tape pivot to a game studio.
