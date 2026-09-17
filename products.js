@@ -46,25 +46,25 @@
    ============================================================================ */
 
 window.GG_PRODUCT = {
-  name: "Ship by Thursday — Pop-up OS (the product)",
+  name: "Ship by Thursday — Thursday Arena (the build)",
   nameConfidence: "high",
-  oneLiner: "The trio's company — 'Ship by Thursday', named on the Day 1 broadcast — is building Pop-up OS: event-ops software for restaurants and venues, with a real pop-up as its first run; the core direction is unchanged since Day 1. The Day 2 showpiece was 'Cupcake' (a code name): a side demo of Grok Bot's prototyping speed — a character-draft battler whose cards are xAI bot-marketplace bots — which shipped on Day 3 under its final name, Thursday Arena, deployed and playing live matches.",
-  stage: "PRE-LAUNCH (domain live on Vercel as a 'throwaway prototype'; the stated deadline — 'we ship a product by Thursday')"
+  oneLiner: "The trio's company is Ship by Thursday, named on the Day 1 broadcast with its domain (shipbythursday.day) live the same afternoon. What they are building and shipping on Thursday is Thursday Arena, a character-draft battler whose cards are xAI bot-marketplace bots — it began Day 1 as Pop-up OS (event-ops software for a restaurant pop-up), and the prototype the fleet built on Day 2 under the code name 'Cupcake' became the build itself: named, deployed and playing live matches on Day 3.",
+  stage: "LAUNCH DAY — Thursday Arena deployed and playing live matches (2,983 public matches by 11:30 AM PT, on screen); the public URL was in the address bar but not yet legible on stream"
 };
 
 window.GG_FEATURES = [
   {
     id: "cupcake-prototype",
-    name: "Thursday Arena (the game demo — revealed Day 3; 'Cupcake' was its code name)",
-    category: "Side demo (Day 2–3)",
+    name: "Thursday Arena (the build — 'Cupcake' was its code name)",
+    category: "The build (Day 2–3)",
     status: "DEPLOYED",
     statusHistory: [
       { status: "SPEC", t: "9:27 AM", note: "'That's going to be our game' — Matt points the fleet at the planning doc (on air)" },
-      { status: "BUILD", t: "9:50 AM", note: "prototype rules set: skip sign-in, no database, debug sliders — 'we don't need login yet when we don't even know if the game is fun' (on air)" },
-      { status: "BUILD", t: "10:03 AM", note: "first playable draft on localhost from marketplace-bot seed data; stat bug fixed live (on air)" },
-      { status: "BUILD", t: "4:45 PM", note: "X login works, leaderboard wired (empty), ratings placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" },
-      { status: "DEPLOYED", t: "10:52 AM", note: "Day 3: first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
-      { status: "DEPLOYED", t: "10:58 AM", note: "final name on screen: THURSDAY ARENA — matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); public URL shown in the address bar but not yet legible on stream" }
+      { status: "BUILD", t: "9:50 AM", note: "The prototype rules were set on air — skip sign-in, no database, debug sliders — 'we don't need login yet when we don't even know if the game is fun' (on air)" },
+      { status: "BUILD", t: "10:03 AM", note: "The first playable draft ran on localhost from marketplace-bot seed data, with a stat bug fixed live (on air)" },
+      { status: "BUILD", t: "4:45 PM", note: "X login worked, the leaderboard was wired but empty, and the ratings read a placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" },
+      { status: "DEPLOYED", t: "10:52 AM", note: "Day 3: the first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
+      { status: "DEPLOYED", t: "10:58 AM", note: "The final name goes on screen: THURSDAY ARENA — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); the public URL sat in the address bar but was not yet legible on stream" }
     ],
     builtBy: ["dr. eggbot's engineering bot", "Cupcake Eng", "founding engineer bot"],
     evidence: [
@@ -72,43 +72,46 @@ window.GG_FEATURES = [
       { t: "10:03 AM", what: "First draft: 'I'm gonna of course pick Dr. Eggbot… we have three common bots'; the outbound-prospecting bot has '72 charisma… the ability is hustle and it's dexterity based'" },
       { t: "10:38 AM", what: "Round one: Dr. Eggbot lost despite a 22% advantage — 'Dex versus Int… the base logic kind of makes sense'" },
       { t: "12:23 PM", what: "Playtesting with persistent ratings: 'I'm at 1258… you can see that the ELO persistence'" },
-      { t: "3:45 PM", what: "Next.js client/server split ('you can just modify the client and cheat'); 'delete all the tests… true scrappy mode'; Vercel serverless backend" }
+      { t: "3:45 PM", what: "Next.js client/server split ('you can just modify the client and cheat'); 'delete all the tests… true scrappy mode'; Vercel serverless backend" },
+      { t: "Day 3, 11:30 AM", what: "The build's own funnel dashboard on screen: 2,255 practice sessions, 742 completed, 268 converted, 2,983 public matches" }
     ],
     numbers: [
       "Counter bonus: 20% charisma-vs-dexterity, tunable live",
       "Observed round one: 22% advantage — underdog won",
       "Playtest rating: 1258 (persistent)",
-      "At close: 'gold, 1000' (placeholder)"
+      "Launch-day funnel: 2,983 public matches by 11:30 AM PT (on screen)"
     ],
-    notes: "Not the company's product — a demo of prototyping speed: draft three marketplace bots, captains first, resolve with stat counters. 'We need to shorten the time to fun' was its stated north star; the code name was never meant to be final."
+    notes: "The build began as a demo of prototyping speed — draft three marketplace bots, captains first, resolve with stat counters — and became the company's launch-day product, named and deployed as Thursday Arena. 'We need to shorten the time to fun' stayed its north star throughout."
   },
   {
     id: "thursday-lander",
-    name: "Landing page",
-    category: "Growth (Day 2 — active)",
-    status: "BUILD",
+    name: "Landing page → the deployed front page",
+    category: "Growth (Day 2–3)",
+    status: "SHIPPED",
     statusHistory: [
       { status: "BUILD", t: "9:27 AM", note: "'Our first goal is to make a landing page' (on air)" },
-      { status: "BUILD", t: "9:31 AM", note: "'We have our lander getting spun up' — scaffold built while the design was still argued (on air)" }
+      { status: "BUILD", t: "9:31 AM", note: "'We have our lander getting spun up' — the scaffold was built while the design was still argued (on air)" },
+      { status: "SHIPPED", t: "Day 3, 10:58 AM", note: "The deployed front page goes on screen under the final name — THURSDAY ARENA — with a Play button, a player profile and the Leaderboard / Your matches / Tips / Read handbook panels (on screen)" }
     ],
     builtBy: ["grokbot", "growth engineer bot"],
     evidence: [
       { t: "9:29 AM", what: "Discipline on air: 'subtract before you add… removing auth, removing a waitlist. We literally just want like a V1'" },
-      { t: "9:40 AM", what: "The go-to-market roadmap spoken on air ran from the landing page through answer-engine and search optimization, then A/B testing, then leaning into existing distribution, and finally ads infrastructure" }
+      { t: "9:40 AM", what: "The go-to-market roadmap spoken on air ran from the landing page through answer-engine and search optimization, then A/B testing, then leaning into existing distribution, and finally ads infrastructure" },
+      { t: "Day 3, 10:58 AM", what: "The matchmaking front page deployed under the final name, with a 'priority queue: eng' banner (on screen)" }
     ],
     numbers: [
       "Ship deadline: Thursday ('we ship a product by Thursday' — 4:41 PM, on air)"
     ],
-    notes: "Landing-page-first is Codie Sanchez's distribution doctrine applied: the front door ships before the product does."
+    notes: "Landing-page-first was Codie Sanchez's distribution doctrine applied: the front door shipped before the product did — and on launch day the front door became the game's own front page."
   },
   {
     id: "ads-pipeline",
     name: "Ad pipeline + ads marketplace",
-    category: "Revenue (Day 2 — active)",
+    category: "Revenue (Day 2–3)",
     status: "BUILD",
     statusHistory: [
-      { status: "BUILD", t: "2:05 PM", note: "chief of staff + dr. eggbot onboard 'a remotion ads bot for a Cupcake' — ~6,000 lines across 12 files (on air)" },
-      { status: "PITCHED", t: "3:05 PM", note: "stadium billboards / sponsored-lobby marketplace modeled, then parked — 'a little too complex… a sprint for tomorrow' (on air)" }
+      { status: "BUILD", t: "2:05 PM", note: "The chief of staff and dr. eggbot onboarded 'a remotion ads bot for a Cupcake', which wrote ~6,000 lines across 12 files (on air)" },
+      { status: "PITCHED", t: "3:05 PM", note: "A stadium-billboards and sponsored-lobby marketplace was modeled, then parked — 'a little too complex… a sprint for tomorrow' (on air)" }
     ],
     builtBy: ["chief of staff", "dr. eggbot", "remotion ads bot"],
     evidence: [
@@ -124,31 +127,33 @@ window.GG_FEATURES = [
   {
     id: "auth-backend",
     name: "Auth + server backend",
-    category: "Platform (Day 2 — active)",
-    status: "BUILD",
+    category: "Platform (Day 2–3)",
+    status: "SHIPPED",
     statusHistory: [
-      { status: "BUILD", t: "12:31 PM", note: "auth assigned — 'we need to implement the auth system too' (on air; Clerk named at 3:45 PM)" },
-      { status: "BUILD", t: "3:11 PM", note: "client/server split for anti-cheat; global leaderboard added (not fully wired); backend to Vercel serverless (on air)" }
+      { status: "BUILD", t: "12:31 PM", note: "Auth was assigned on air — 'we need to implement the auth system too' (Clerk named at 3:45 PM)" },
+      { status: "BUILD", t: "3:11 PM", note: "The client/server split was made for anti-cheat, the global leaderboard was added, and the backend moved to Vercel serverless (on air)" },
+      { status: "SHIPPED", t: "Day 3, 10:52 AM", note: "Login and the leaderboard carry real matches on the deployed build — named players with win-loss records and Elo ratings on screen" }
     ],
     builtBy: ["Cupcake Eng", "founding engineer bot"],
     evidence: [
       { t: "3:11 PM", what: "'You do want to have a server… you can just modify the client and cheat' — matchmaking and battles become server-driven" },
-      { t: "3:19 PM", what: "1Password integration announced as newly launched mid-block (on air)" }
+      { t: "3:19 PM", what: "1Password integration announced as newly launched mid-block (on air)" },
+      { t: "Day 3, 10:58 AM", what: "The leaderboard on the deployed build lists named players with records and Elo ratings (on screen)" }
     ],
     numbers: [
       "Auth: Clerk · Hosting: Vercel serverless"
     ],
-    notes: "The production instincts arrived: anti-cheat reasoning, a real backend, and 'delete all the tests… true scrappy mode.'"
+    notes: "The production instincts arrived on Day 2 — anti-cheat reasoning, a real backend, 'delete all the tests… true scrappy mode' — and on Day 3 the leaderboard they justified was carrying live matches."
   },
   {
     id: "event-builder",
     name: "Event builder",
-    category: "Pop-up OS (the product)",
+    category: "Pop-up OS (the Day 1 product)",
     status: "BUILD",
     statusHistory: [
       { status: "SPEC", t: "2:07 PM", note: "'user should be able to create their own event: date/time, sessions, venue, staff' read on screen" },
-      { status: "WIREFRAME", t: "3:59 PM", note: "event builder — layout, event cards (wireframes)" },
-      { status: "BUILD", t: "Sep 16", note: "the October pop-up event tracks retired in Notion ('There is no pop-up', on screen); the ops-software product line continues toward Thursday" }
+      { status: "WIREFRAME", t: "3:59 PM", note: "The event-builder wireframes went on screen — the layout and the event cards" },
+      { status: "BUILD", t: "Sep 16", note: "The October pop-up event tracks were retired in Notion ('There is no pop-up', on screen); the Day 1 product line wound down as the build moved to the game" }
     ],
     builtBy: ["grokbot", "Pixel"],
     evidence: [
@@ -158,17 +163,17 @@ window.GG_FEATURES = [
     numbers: [
       "Fields on spec: date/time · sessions · venue · staff"
     ],
-    notes: "The product's core loop survived the October event's retirement, and the spec itself was authored by an agent."
+    notes: "The Day 1 product's core loop survived the October event's retirement, and the spec itself was authored by an agent."
   },
   {
     id: "booking-signup",
     name: "Domain + lander",
-    category: "Pop-up OS (the product)",
+    category: "Pop-up OS (the Day 1 product)",
     status: "STAGING",
     statusHistory: [
       { status: "WIREFRAME", t: "4:01 PM", note: "Balsamiq-style wireframe board (screen)" },
-      { status: "STAGING", t: "4:19 PM", note: "sign-up page in a preview browser (screen)" },
-      { status: "STAGING", t: "Late Day 1", note: "on air: the domain is live on Vercel wired to PlanetScale — 'don't submit yet… throwaway prototype'" }
+      { status: "STAGING", t: "4:19 PM", note: "The sign-up page ran in a preview browser (on screen)" },
+      { status: "STAGING", t: "Late Day 1", note: "On air, the domain was live on Vercel wired to PlanetScale — 'don't submit yet… throwaway prototype'" }
     ],
     builtBy: ["Emily's team", "Sage"],
     evidence: [
@@ -184,11 +189,11 @@ window.GG_FEATURES = [
   {
     id: "ticket-badge",
     name: "Ticket & badge design",
-    category: "Pop-up OS (the product)",
+    category: "Pop-up OS (the Day 1 product)",
     status: "SHIPPED",
     statusHistory: [
-      { status: "BUILD", t: "4:19 PM", note: "ticket designs in progress on the canvas" },
-      { status: "SHIPPED", t: "4:22 PM", note: "designs shipped on screen: ticket stubs with tier badges, lanyards" }
+      { status: "BUILD", t: "4:19 PM", note: "Ticket designs were in progress on the canvas" },
+      { status: "SHIPPED", t: "4:22 PM", note: "The designs shipped on screen — ticket stubs with tier badges and lanyards" }
     ],
     builtBy: ["Tee Bot", "Pixel"],
     evidence: [
@@ -206,7 +211,7 @@ window.GG_FEATURES = [
     category: "Revenue",
     status: "BUILD",
     statusHistory: [
-      { status: "BUILD", t: "4:21 PM", note: "plush concepts iterated 'against the official art' (screen)" }
+      { status: "BUILD", t: "4:21 PM", note: "The plush concepts were iterated 'against the official art' (on screen)" }
     ],
     builtBy: ["Pixel", "drop"],
     evidence: [
@@ -243,7 +248,7 @@ window.GG_FEATURES = [
     category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "2:52 PM", note: "family-bookings and passenger analytics read out live" }
+      { status: "SHIPPED", t: "2:52 PM", note: "The family-bookings and passenger analytics were read out live" }
     ],
     builtBy: ["Ashley"],
     evidence: [
@@ -263,7 +268,7 @@ window.GG_FEATURES = [
     category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "3:00 PM", note: "winter-bundle RFC with metrics linked into the document" }
+      { status: "SHIPPED", t: "3:00 PM", note: "A winter-bundle RFC was delivered with the metrics linked into the document" }
     ],
     builtBy: ["Ashley", "Core"],
     evidence: [
@@ -280,7 +285,7 @@ window.GG_FEATURES = [
     category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "4:14 PM", note: "activities price menu delivered; human asked the taste call: 'which one do you like?'" }
+      { status: "SHIPPED", t: "4:14 PM", note: "The activities price menu was delivered, and a human was asked the taste call: 'which one do you like?'" }
     ],
     builtBy: ["steve", "Ashley"],
     evidence: [
@@ -299,7 +304,7 @@ window.GG_FEATURES = [
     category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "4:10 PM", note: "unit economics read out on screen" }
+      { status: "SHIPPED", t: "4:10 PM", note: "The unit economics were read out on screen" }
     ],
     builtBy: ["steve"],
     evidence: [
@@ -319,7 +324,7 @@ window.GG_FEATURES = [
     category: "Session demo",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "4:25 PM", note: "audit delivered as a dated work order, not a report (screen)" }
+      { status: "SHIPPED", t: "4:25 PM", note: "The audit was delivered as a dated work order rather than a report (on screen)" }
     ],
     builtBy: ["grokbot"],
     evidence: [
@@ -336,7 +341,7 @@ window.GG_FEATURES = [
     category: "Infra",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "1:27 PM", note: "the PR-to-deploy-to-review loop demonstrated end to end" }
+      { status: "SHIPPED", t: "1:27 PM", note: "The PR-to-deploy-to-review loop was demonstrated end to end" }
     ],
     builtBy: ["tater", "Sage", "hashbrown"],
     evidence: [
