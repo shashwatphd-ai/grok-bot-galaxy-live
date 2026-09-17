@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1052",
+    t: "10:52 AM PT",
+    day: 3,
+    type: "MOMENT",
+    tags: ["MILESTONE", "PRODUCT"],
+    title: "First live match on the Day 3 stream: 'You took round 1'",
+    body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Tuesday's sign-off. The match-result screen reads 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. Views: 86.7K."
+  },
+  {
     id: "d3-1046",
     t: "10:46 AM PT",
     day: 3,
