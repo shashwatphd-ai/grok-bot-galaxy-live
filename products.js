@@ -48,7 +48,7 @@
 window.GG_PRODUCT = {
   name: "Ship by Thursday — Pop-up OS (the product)",
   nameConfidence: "high",
-  oneLiner: "The trio's company — 'Ship by Thursday', named on the Day 1 broadcast — is building Pop-up OS: event-ops software for restaurants and venues, with a real pop-up as its first run; the core direction is unchanged since Day 1. The Day 2 showpiece was 'Cupcake' (a code name): a side demo of Grok Bot's prototyping speed — a character-draft battler whose cards are xAI bot-marketplace bots — which ended the day one bug short of playable.",
+  oneLiner: "The trio's company — 'Ship by Thursday', named on the Day 1 broadcast — is building Pop-up OS: event-ops software for restaurants and venues, with a real pop-up as its first run; the core direction is unchanged since Day 1. The Day 2 showpiece was 'Cupcake' (a code name): a side demo of Grok Bot's prototyping speed — a character-draft battler whose cards are xAI bot-marketplace bots — which shipped on Day 3 under its final name, Thursday Arena, deployed and playing live matches.",
   stage: "PRE-LAUNCH (domain live on Vercel as a 'throwaway prototype'; the stated deadline — 'we ship a product by Thursday')"
 };
 
@@ -416,7 +416,10 @@ window.GG_BOTS = [
   { name: "ping", role: "Slack", status: "Active", firstSeen: "Day 2, 3:17 PM (on air)", notes: "A Slack bot all three hosts voice-created simultaneously on a count of three (on air)." },
   { name: "tones", role: "Sound Design", status: "Active", firstSeen: "Day 2, 3:26 PM (on air)", notes: "Sound-design bot, tasked from chat after viewers suggested game music (on air)." },
   { name: "glow 3d", role: "3D Prototyping", status: "Active", firstSeen: "Day 2, 3:02 PM (on air)", notes: "Picked the 'match and fight' lane for the 3D client experiment (on air)." },
-  { name: "fleet pulse", role: "Status docs", status: "Active", firstSeen: "Day 2, 3:04 PM (on air)", notes: "Writes the roll-up of durable facts from the active ship-by-Thursday bots (on air)." }
+  { name: "fleet pulse", role: "Status docs", status: "Active", firstSeen: "Day 2, 3:04 PM (on air)", notes: "Writes the roll-up of durable facts from the active ship-by-Thursday bots (on air)." },
+  /* ── Day 3 additions ── */
+  { name: "Sake", role: "Stats — game engine validation", status: "Active", firstSeen: "Day 3 studio block, 10:40 AM (on screen)", notes: "Reads live match data — win rates and difficulty signals — to validate the game engine (on screen)." },
+  { name: "Integrations", role: "Connections manager", status: "Active", firstSeen: "Day 3, 10:46 AM (on screen)", notes: "Reported the wired stack in one message: GitHub 2 repos, Slack 3 channels, Notion 4 databases, Linear 2 projects, Vercel + Postgres, webhooks — plus the sudden-death feature kill-list (on screen)." }
 ];
 
 window.GG_SESSIONS = [
@@ -552,16 +555,24 @@ window.GG_SESSIONS = [
     title: "Sign-off",
     who: "The trio",
     recap: "'From no app to an app… with an engine and a bunch of bots that are basically [the] whole workforce today.' One bug short of playable; Day 3 promises: deploy, rename, play with chat, 'make it go viral,' ads sprint — 'we ship a product by Thursday' (on air)."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "9:00–10:30 AM",
+    title: "Grok Bot for Marketing Operations",
+    who: "Matthew Silberman & Teresa Hsu",
+    recap: "Six RevOps & MarOps plays opened the final day: a self-completing to-do list, tools not just rules, the marketing–sales handoff, self-serve GTM data, territory planning, and a one-time CRM cleanup. Two demos in ten minutes showed the same pattern — a Territory Planner bot filing an account dispute as a task with Approve/Hold buttons, and Juno, a GTM product bot, turning one line of intent into a spec for a lead-review app."
   }
 ];
 
 window.GG_EVENT_NUMBERS = [
   { label: "Viewers · Day 1", value: "1.1M at close", sub: "opened at 832K; closed ~5:30 PM PT" },
   { label: "Viewers · Day 2", value: "374.9K at close", sub: "opened at 2.6K; signed off 4:53 PM PT" },
-  { label: "On air so far", value: "17h 08m", sub: "8h 45m on Day 1 plus 8h 23m on Day 2" },
-  { label: "Fleet", value: "11 to 30+ bots", sub: "10 archived on Day 1; Day 2 added the Cupcake org bots" },
-  { label: "Ship deadline", value: "Thursday", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air" },
-  { label: "'Cupcake' demo", value: "1 bug to playable", sub: "at Day 2 close: login and leaderboard wired, ratings placeholder" },
+  { label: "Viewers · Day 3", value: "104.7K midday", sub: "climbing on the final day — the broadcast is titled 'launching today'" },
+  { label: "On air so far", value: "20h+", sub: "8h 45m on Day 1 plus 8h 23m on Day 2, and Day 3 live since 8:30 AM PT" },
+  { label: "Fleet", value: "11 to 43 bots", sub: "10 archived on Day 1; the Day 3 fleet widget shows 43 online" },
+  { label: "Ship deadline", value: "today", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air; the Day 3 broadcast is titled 'launching today'" },
+  { label: "Thursday Arena", value: "shipped", sub: "named and deployed on Day 3; 2,983 public matches by 11:30 AM PT, on screen" },
   { label: "Profit target", value: "$30k", sub: "on screen, Day 1 — stated ambition, no sales" },
   { label: "Wireframe to live sign-up", value: "~45 min", sub: "Day 1, on screen, 4:01 to 4:19 PM" }
 ];
