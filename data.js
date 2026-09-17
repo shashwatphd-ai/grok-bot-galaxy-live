@@ -87,6 +87,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1414",
+    t: "2:14 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET"],
+    title: "Bots propose process, not just code",
+    body: "More from the triage thread: the bot went beyond ticket status and proposed process changes for the build itself — one report per site while conflicts last, a team attribute on every ticket, and consolidating deploys — then shared itself to the team ('Share bot — ask to team by dunes') with View PR and Open in Cursor buttons on its work. The fleet isn't just executing the backlog; it's editing how the backlog runs. Views: 137.9K."
+  },
+  {
     id: "d3-1406",
     t: "2:06 PM PT",
     day: 3,
