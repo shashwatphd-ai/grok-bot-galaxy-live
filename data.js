@@ -88,6 +88,15 @@ window.GG_SCOREBOARD = {
    Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
 window.GG_ENTRIES = [
   {
+    id: "d3-1550",
+    t: "3:50 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET", "PRODUCT"],
+    title: "A bot-authored pull request, with its own test report and verdict",
+    body: "The studio screen showed GitHub pull request #274 — a leaderboard fix — written by the fleet: a description of what changed and what was deliberately not touched, a Tests section running through the suite (leaderboard and contest tests, fixtures, page-HTML checks), and a verdict line: 'All green.' The 'delete all the tests' scrappy mode of Day 2 has grown into bots that write their own test evidence. Views: 162.7K."
+  },
+  {
     id: "d3-1538",
     t: "3:38 PM PT",
     day: 3,
