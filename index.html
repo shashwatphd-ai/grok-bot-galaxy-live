@@ -1511,8 +1511,7 @@
     head.appendChild(el("span", null, "Sessions & recaps"));
     var days = [];
     sess.forEach(function (s) { if (s.day && days.indexOf(s.day) < 0) days.push(s.day); });
-    days.sort(function (a, b) { return a - b; });
-    var daySpan = days.length ? " · Day " + days[0] + (days.length > 1 ? "–" + days[days.length - 1] : "") : "";
+    var daySpan = days.length ? " · " + days.join(" · ") : "";
     head.appendChild(el("span", "cat-n", sess.length + (sess.length === 1 ? " block" : " blocks") + daySpan));
     wrap.appendChild(head);
     if (!sess.length) {
@@ -1522,7 +1521,7 @@
     var grid = el("div", "sessgrid");
     sess.forEach(function (s) {
       var c = el("div", "sesscard");
-      c.appendChild(el("div", "sess-day", s.day ? "Day " + s.day : ""));
+      c.appendChild(el("div", "sess-day", s.day || ""));
       var tt = el("div", "sess-top");
       tt.appendChild(el("span", "sess-time", s.time || ""));
       tt.appendChild(el("h3", null, s.title || ""));
