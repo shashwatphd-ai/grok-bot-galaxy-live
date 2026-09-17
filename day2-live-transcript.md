@@ -987,3 +987,10 @@
 
 ## [08:19:21–08:19:21]
 [08:19:21] become acquainted with all these pots that we've created today. You can follow these steps to get a free month of GrockBot, which is $200 in value, so a free month of GrockBot at a really great tier as well. You just need to duplicate and create a bot with Dr. Eggbot and use this QR code to do so. You will get a free month of GrockBot. This is only available to our first 1,000 users who claim to be offered exclusively for folks who are watching on stream.
+
+## [08:19:44–08:19:44]
+[08:19:44] stream. So if you want some free Grapbot, get in there. Definitely get yourself set up. We'll be back tomorrow to share even more of how we continue to build this app. And I'm excited to finish strong. Sounds good. Thanks, y'all for watching. Thanks, chat. See you tomorrow.
+
+# END OF DAY 2 AUDIO — complete through the sign-off
+
+*Broadcast ended 2026-09-16 ~4:53 PM Pacific (duration 8h 23m). Final audio processed: chunk 14884. Sequences 850-3800 are covered by the separately published morning slice.*
