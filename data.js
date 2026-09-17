@@ -47,20 +47,20 @@
 window.GG_META = {
   status: "LIVE",
   day: "Day 3 of 3 — Thu Sep 17, 2026 · ship day",
-  session: "Ship day, live at thursdayarena.com — 'Grok Bot for Marketing' at 2:30 PM PT",
-  viewers: "126.8K",
-  onAir: "5h 10m today",
-  updated: "Sep 17 · 1:40 PM PT",
+  session: "Marketing session live — the Market Researcher brief; the livestream wrap and final showcase come at 3:15 PM PT",
+  viewers: "143.9K",
+  onAir: "6h today",
+  updated: "Sep 17 · 2:36 PM PT",
   stream: "https://x.com/i/broadcasts/1YGNrbXEeazGw"
 };
 
-window.GG_MOMENT = "The company shipped: Thursday Arena is live and playable at thursdayarena.com.";
+window.GG_MOMENT = "The company shipped: Thursday Arena is live and playable at thursdayarena.com. The final showcase takes the stream at 3:15 PM PT.";
 
 window.GG_PRIMER = {
   event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
   company: "The company is Ship by Thursday — the name was spoken on the Day 1 broadcast, and its domain (shipbythursday.day) went live on Vercel that afternoon, pre-launch. What they are building and shipping is Thursday Arena: a character-draft battler whose cards are xAI bot-marketplace bots, with ELO skill ratings (the chess-style ranking number), charisma-versus-dexterity counters, and live-tunable debug sliders. It began on Day 1 as Pop-up OS — event-ops software for a restaurant pop-up — and the prototype the fleet built under the code name 'Cupcake' became the build itself, named and deployed as Thursday Arena on launch day.",
   sofar: "Day 1 ran from no idea at the open to a named company by the close: the humans chose a restaurant pop-up with 'Pop-up OS' operations software, the domain went live, and the bot fleet grew past 30. Day 2 retired the October pop-up event ('There is no pop-up') and the code-named 'Cupcake' game prototype became the build — one bug short of playable matches at the 4:53 PM close, 374.9K views. Day 3 is ship day: the build launched as Thursday Arena, deployed and playing live matches with a shop and its own funnel dashboard, and the morning's Marketing Operations session showed a Territory Planner bot ruling on a rep dispute and 'Juno', a GTM product bot that turned a one-line request into a spec for an internal lead-review app.",
-  watchfor: "Day 3 is the marketing track: Marketing Ops at 9:00 AM, Post-Sales at 12:30 PM, and Marketing at 2:30 PM Pacific, with a final showcase around 4:30. The build is live as Thursday Arena — watch for the public URL to be spoken or shown legibly, and for the 'make it go viral' push with matches played live against chat. The open question nobody has answered is what happens when an agent teammate is wrong — audit trails, rollback, and accountability are still missing."
+  watchfor: "Day 3 closes with the Marketing session (live now) and one more game-studio build block, then the livestream wrap and final showcase at 3:15 PM Pacific. The build is live as Thursday Arena at thursdayarena.com — watch the 'make it go viral' push, with the landing page running a live ticker of X posts from players. The open question nobody has answered is what happens when an agent teammate is wrong — audit trails, rollback, and accountability are still missing."
 };
 
 window.GG_SCOREBOARD = {
@@ -68,8 +68,8 @@ window.GG_SCOREBOARD = {
     { label: "The company", value: "Ship by Thursday", sub: "named on the Day 1 broadcast · domain shipbythursday.day live, pre-launch" },
     { label: "The product", value: "Thursday Arena", sub: "live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS; the code-named 'Cupcake' demo became the build and shipped on launch day", wide: true },
     { label: "Bots online", value: "43", sub: "4 working now · 11 archived — Day 3 fleet widget" },
-    { label: "Viewers", value: "126.8K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
-    { label: "On air", value: "22h 15m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 5h 10m so far" },
+    { label: "Viewers", value: "143.9K", sub: "live now (Day 1 close 1.1M · Day 2 close 374.9K)" },
+    { label: "On air", value: "23h 05m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 6h so far" },
     { label: "Ship deadline", value: "Thursday", sub: "'72-hour live stream… we ship a product by Thursday' — 4:41 PM, on air" },
     { label: "Prize", value: "Starship trip", sub: "viewer contest, ends Sep 29 — entry steps shared at 9:40 AM" },
     { label: "Built on Day 1", value: "idea, name and live domain, a pre-launch lander, a pipeline, tickets and plush, an email channel, an SEO plan", wide: true },
@@ -77,9 +77,9 @@ window.GG_SCOREBOARD = {
     { label: "Built on Day 3", value: "the deployed Thursday Arena with live matches, a leaderboard and a shop, an analytics dashboard, six integrations, a stats bot", wide: true }
   ],
   deltas: [
-    "Broadcast: Day 3 live at 8:30 AM PT — new stream link in the header",
-    "Marketing Ops: Territory Planner dispute demo + 'Juno' GTM bot build",
-    "Viewer contest: entry steps on screen at 9:40 AM"
+    "Thursday Arena: live at thursdayarena.com — leaderboard, shop, 2,983 matches by 11:30 AM",
+    "Marketing track: Territory Planner, 'Juno', and Gus the post-sales chief of staff",
+    "Finale: 'Livestream Wrap and Final Showcase' at 3:15 PM PT, per the on-screen agenda"
   ]
 };
 
@@ -94,6 +94,15 @@ window.GG_ENTRIES = [
     tags: ["KEYNOTE", "PRODUCT"],
     title: "Marketing session: the Market Researcher brief",
     body: "The final session (Josh Kim) opened with a 'Market Researcher' bot and a single briefing message: research the product by reading its own website, understand the market it operates in, then a competitive analysis — 'identify and deeply understand 3 competitors,' list their marketing strategies and what's worked, and surface where we can strategically and competitively position ourselves. A marketing fleet waits in the sidebar: Market Eval, Product Marketer, performance and strategy bots. Views: 143.9K."
+  },
+  {
+    id: "d3-1429",
+    t: "2:29 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE"],
+    title: "The final showcase is set for 3:15 PM",
+    body: "The stream's agenda board laid out the closing run: the Marketing session, one more game-studio build block at 2:45, then 'Livestream Wrap and Final Showcase' at 3:15 PM PT — an earlier finale than the 4:30 on the morning's agenda. The studio table sat mid-conversation as the board went up, with 141.3K watching."
   },
   {
     id: "d3-1414",
