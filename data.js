@@ -112,13 +112,22 @@ window.GG_ENTRIES = [
     body: "After 7h 58m on air, the third day closed on the 'Thanks for joining!' card at 173.4K views. The final fleet widget read 43 bots, 76 milestones logged, 2 working, 6 archived. The day kept the promise the whole event was named for — 'we ship a product by Thursday': Thursday Arena launched at thursdayarena.com with a leaderboard, a shop, and live ranked play; the showcase put the day's numbers on the board (4,898 public matches, 4,500 practice sessions, a 47.6% overall win rate, a peak of 677 concurrent players); and the hosts ended the event facing a viewer across the table in a ranked match. Three days earlier there was no company, no product, and no code — at close there was a named business, a live game with real players, and a fleet of 43 agents that built it on camera."
   },
   {
+    id: "d3-1615",
+    t: "4:15 PM PT",
+    day: 3,
+    type: "MOMENT",
+    tags: ["PRODUCT"],
+    title: "The day's traffic chart shows the broadcast landing in waves",
+    body: "The showcase closed on the game's own traffic chart, stamped 4:15 PM PT and bucketed in five-minute intervals: practice starts and X signups rising in waves across the whole broadcast day, each wave traceable to something the stream had just done on air. The view counter read 171.4K."
+  },
+  {
     id: "d3-1612",
     t: "4:12 PM PT",
     day: 3,
     type: "PBP",
     tags: ["PRODUCT"],
     title: "The official rules, coached by dr. eggbot",
-    body: "The final design, stated plainly in a bot chat: a match is best-of-3, each round runs shop → auto battle, up to 3 bots with the leftmost fighting first, bots and apples persist between rounds and the 'potato' is temporary. The shop gives 10 tokens a round — unspent tokens vanish, sell refunds 1, reroll costs 1, and freezing keeps an offer across shops. Dr. eggbot holds the 'ask to review this chat and coach' role — the mascot literally teaches its own game."
+    body: "The final design, stated plainly in a bot chat: a match is best-of-3, each round runs a shop phase followed by an auto battle, up to 3 bots with the leftmost fighting first, bots and apples persist between rounds and the 'potato' is temporary. The shop gives 10 tokens a round — unspent tokens vanish, sell refunds 1, reroll costs 1, and freezing keeps an offer across shops. Dr. eggbot holds the 'ask to review this chat and coach' role — the mascot literally teaches its own game."
   },
   {
     id: "d3-1550",
@@ -229,22 +238,22 @@ window.GG_ENTRIES = [
     body: "The deployed landing page now shows the full pitch — THURSDAY ARENA, cupcake mascot, Play and Practice buttons, character cards fanned out — plus a live ticker of X posts where viewers are posting the teams they're building and the bugs they hit. A signed-in player profile on screen carries paired Elo ratings (1400 · 1347). The 'make it go viral' loop — play, post, pull others in — is wired into the site itself. Views: 134.9K."
   },
   {
-    id: "d3-1335",
-    t: "1:35 PM PT",
-    day: 3,
-    type: "PBP",
-    tags: ["FLEET", "PRODUCT"],
-    title: "The ops feed: numbered tickets, drift flags, and ads that 'ended'",
-    body: "The studio screen showed a triage thread by the stats bot: numbered work items rolling through — ads campaigns ended with rolling margin figures, leaderboard and shop features landed, a cloud-agent deploy moved to boot-time, and one item carried a 'do-not-merge — retry' drift flag. Each host's tickets got their own status lines. It reads like a standup written by the fleet, for the fleet, while the humans sit at the same table. Views: 133K."
-  },
-  {
     id: "d3-1340",
     t: "1:40 PM PT",
     day: 3,
     type: "MOMENT",
     tags: ["PRODUCT"],
     title: "The live site states the game's pitch: pick a captain, fight three rounds",
-    body: "The public site at thursdayarena.com carries the build's own one-line pitch — 'Pick a captain. Take two mystery teammates. Fight three rounds.' — beside the wordmark and the cupcake mascot. On the stream, the trio is pointing its agents at the live site itself to hunt down a bug in the shop button, directing a check-agent to browse the public URL and reproduce the exact behavior. Views: 126.8K."
+    body: "The public site at thursdayarena.com carries the build's own one-line pitch — 'Pick a captain. Take two mystery teammates. Fight three rounds.' — beside the wordmark and the cupcake mascot. On the stream, the trio is pointing its agents at the live site itself to hunt down a bug in the shop button, directing a check-agent to browse the public URL and reproduce the exact behavior. The view counter read 126.8K."
+  },
+  {
+    id: "d3-1335",
+    t: "1:35 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET", "PRODUCT"],
+    title: "The ops feed shows numbered tickets, drift flags, and ads that 'ended'",
+    body: "The studio screen showed a triage thread by the stats bot: numbered work items rolling through — ads campaigns ended with rolling margin figures, leaderboard and shop features landed, a cloud-agent deploy moved to boot-time, and one item carried a 'do-not-merge — retry' drift flag. Each host's tickets got their own status lines. It reads like a standup written by the fleet, for the fleet, while the humans sit at the same table. The view counter read 133K."
   },
   {
     id: "d3-1319",
@@ -253,7 +262,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE", "PRODUCT"],
     title: "Thursday Arena is live at thursdayarena.com",
-    body: "The game demo's public URL is now on screen and live: thursdayarena.com opens on the THURSDAY ARENA wordmark (cupcake pixel-art mascot included), a Play button, and the roster's character cards — a real deployed site for the game that was localhost and one bug away 24 hours ago. The rename-and-deploy promise from Tuesday's sign-off is now fully kept: named, deployed, and playable in public."
+    body: "The game demo's public URL is now on screen and live: thursdayarena.com opens on the THURSDAY ARENA wordmark (cupcake pixel-art mascot included), a Play button, and the roster's character cards — a real deployed site for the game that was localhost and one bug away 24 hours ago. The rename-and-deploy promise from Wednesday's sign-off is now fully kept: named, deployed, and playable in public."
   },
   {
     id: "d3-1258",
@@ -331,7 +340,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE", "PRODUCT"],
     title: "The game's final name is Thursday Arena",
-    body: "On screen during the studio block: a deployed front page titled THURSDAY ARENA — the game demo's name, revealed one day after 'maybe think of an actual good name.' The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels; a teammate's browser shows the matchmaking front end beside a deploy diff in the editor. The game's public URL is visible in the address bar but not yet legible on stream; the rename-and-deploy promise from Tuesday's sign-off is now on the record as kept."
+    body: "On screen during the studio block: a deployed front page titled THURSDAY ARENA — the game demo's name, revealed one day after 'maybe think of an actual good name.' The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels; a teammate's browser shows the matchmaking front end beside a deploy diff in the editor. The game's public URL is visible in the address bar but not yet legible on stream; the rename-and-deploy promise from Wednesday's sign-off is now on the record as kept."
   },
   {
     id: "d3-1052",
@@ -340,7 +349,7 @@ window.GG_ENTRIES = [
     type: "MOMENT",
     tags: ["MILESTONE", "PRODUCT"],
     title: "The hosts play a live match and take round 1",
-    body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Tuesday's sign-off. The match-result screen reads 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. Views: 86.7K."
+    body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Wednesday's sign-off. The match-result screen reads 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. Views: 86.7K."
   },
   {
     id: "d3-1046",
@@ -427,7 +436,7 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE"],
-    title: "The Marketing session opens with six ways bots help marketing teams",
+    title: "The Marketing Ops session opens with six ways bots help marketing teams",
     body: "Matthew Silberman and Teresa Hsu's session opened on a use-case map: a self-completing to-do list (monitor inboxes, refresh CRM tables, route tickets); build tools, not just rules (bots maintain dashboards and query systems); perfect the marketing–sales handoff; make GTM data truly self-serve (a bot anyone on the team can query); territory planning from CRM accounts, pipeline and rep performance; and cleaning CRM duplicates once and for all."
   },
   {
