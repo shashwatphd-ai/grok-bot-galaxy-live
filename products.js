@@ -41,15 +41,15 @@
      [{ label, value, sub }] — per-day totals plus event-wide stats.
 
    NOTE ON TIMES: Day 1 feature times are video-replay reads (wall PT ≈ video
-   + 8:36 AM); Day 2 feature times follow the broadcast clock (wall PT = tape
-   + 8:30 AM).
+   + 9:07 AM); Day 2 feature times follow the broadcast clock (wall PT =
+   broadcast clock + 8:30 AM).
    ============================================================================ */
 
 window.GG_PRODUCT = {
   name: "Ship by Thursday — Thursday Arena (the build)",
   nameConfidence: "high",
   oneLiner: "The trio's company is Ship by Thursday, named on the Day 1 broadcast with its domain (shipbythursday.day) live the same afternoon. What they built and shipped on Thursday is Thursday Arena, live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS (event-ops software for a restaurant pop-up), and the prototype the fleet built on Day 2 under the code name 'Cupcake' became the build itself: named, deployed and playing live matches on Day 3.",
-  stage: "SHIPPED — live at thursdayarena.com; by the 4:28 PM PT close: 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, and a peak of 677 concurrent players (on screen)"
+  stage: "SHIPPED — live at thursdayarena.com; by the 4:28 PM PT close: 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, a peak of 677 concurrent players, 1,650 X logins (388 converted at 8.0%), and 332 feedback submissions (on screen)"
 };
 
 window.GG_FEATURES = [
@@ -57,24 +57,24 @@ window.GG_FEATURES = [
     id: "cupcake-prototype",
     name: "Thursday Arena (the build — 'Cupcake' was its code name)",
     category: "The build (Day 2–3)",
-    status: "DEPLOYED",
+    status: "SHIPPED",
     statusHistory: [
       { status: "SPEC", t: "9:27 AM", note: "'That's going to be our game' — Matt points the fleet at the planning doc (on air)" },
       { status: "BUILD", t: "9:50 AM", note: "The prototype rules were set on air — skip sign-in, no database, debug sliders — 'we don't need login yet when we don't even know if the game is fun' (on air)" },
       { status: "BUILD", t: "10:03 AM", note: "The first playable draft ran on localhost from marketplace-bot seed data, with a stat bug fixed live (on air)" },
       { status: "BUILD", t: "4:45 PM", note: "X login worked, the leaderboard was wired but empty, and the ratings read a placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" },
-      { status: "DEPLOYED", t: "10:52 AM", note: "Day 3: the first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
-      { status: "DEPLOYED", t: "10:58 AM", note: "The final name goes on screen: THURSDAY ARENA — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); the public URL sat in the address bar but was not yet legible on stream" },
-      { status: "DEPLOYED", t: "1:19 PM", note: "The public URL becomes legible on stream and live: thursdayarena.com — wordmark, Play button, character cards on the deployed site" }
+      { status: "SHIPPED", t: "Day 3, 10:52 AM", note: "The first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
+      { status: "SHIPPED", t: "Day 3, 10:58 AM", note: "The final name goes on screen: THURSDAY ARENA — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); the public URL sat in the address bar but was not yet legible on stream" },
+      { status: "SHIPPED", t: "Day 3, 1:19 PM", note: "The public URL becomes legible on stream and live: thursdayarena.com — wordmark, Play button, character cards on the deployed site" }
     ],
     builtBy: ["dr. eggbot's engineering bot", "Cupcake Eng", "founding engineer bot"],
     evidence: [
-      { t: "9:36 AM", what: "Counter design on air: 'rock paper scissors… between charisma and dex… the bonus being 20% if you can tweak that on the fly and just replay'" },
-      { t: "10:03 AM", what: "First draft: 'I'm gonna of course pick Dr. Eggbot… we have three common bots'; the outbound-prospecting bot has '72 charisma… the ability is hustle and it's dexterity based'" },
-      { t: "10:38 AM", what: "Round one: Dr. Eggbot lost despite a 22% advantage — 'Dex versus Int… the base logic kind of makes sense'" },
-      { t: "12:23 PM", what: "Playtesting with persistent ratings: 'I'm at 1258… you can see that the ELO persistence'" },
-      { t: "3:45 PM", what: "Next.js client/server split ('you can just modify the client and cheat'); 'delete all the tests… true scrappy mode'; Vercel serverless backend" },
-      { t: "Day 3, 11:30 AM", what: "The build's own funnel dashboard on screen: 2,255 practice sessions, 742 completed, 268 converted, 2,983 public matches" }
+      { t: "9:36 AM", what: "The counter design was argued on air: 'rock paper scissors… between charisma and dex… the bonus being 20% if you can tweak that on the fly and just replay'" },
+      { t: "10:03 AM", what: "The first draft ran on air: 'I'm gonna of course pick Dr. Eggbot… we have three common bots'; the outbound-prospecting bot has '72 charisma… the ability is hustle and it's dexterity based'" },
+      { t: "10:38 AM", what: "In round one Dr. Eggbot lost despite a 22% advantage — 'Dex versus Int… the base logic kind of makes sense'" },
+      { t: "12:23 PM", what: "Playtesting showed persistent ratings — 'I'm at 1258… you can see that the ELO persistence'" },
+      { t: "3:45 PM", what: "The build moved to a Next.js client/server split ('you can just modify the client and cheat'), the hosts called for 'delete all the tests… true scrappy mode,' and the backend moved to Vercel serverless." },
+      { t: "Day 3, 11:30 AM", what: "The build's own funnel dashboard went on screen reading 2,255 practice sessions, 742 completed, 268 converted and 2,983 public matches." }
     ],
     numbers: [
       "Counter bonus: 20% charisma-vs-dexterity, tunable live",
@@ -96,7 +96,7 @@ window.GG_FEATURES = [
     ],
     builtBy: ["grokbot", "growth engineer bot"],
     evidence: [
-      { t: "9:29 AM", what: "Discipline on air: 'subtract before you add… removing auth, removing a waitlist. We literally just want like a V1'" },
+      { t: "9:29 AM", what: "The hosts enforced discipline on air: 'subtract before you add… removing auth, removing a waitlist. We literally just want like a V1'" },
       { t: "9:40 AM", what: "The go-to-market roadmap spoken on air ran from the landing page through answer-engine and search optimization, then A/B testing, then leaning into existing distribution, and finally ads infrastructure" },
       { t: "Day 3, 10:58 AM", what: "The matchmaking front page deployed under the final name, with a 'priority queue: eng' banner (on screen)" }
     ],
@@ -109,14 +109,14 @@ window.GG_FEATURES = [
     id: "ads-pipeline",
     name: "Ad pipeline + ads marketplace",
     category: "Revenue (Day 2–3)",
-    status: "BUILD",
+    status: "PITCHED",
     statusHistory: [
       { status: "BUILD", t: "2:05 PM", note: "The chief of staff and dr. eggbot onboarded 'a remotion ads bot for a Cupcake', which wrote ~6,000 lines across 12 files (on air)" },
       { status: "PITCHED", t: "3:05 PM", note: "A stadium-billboards and sponsored-lobby marketplace was modeled, then parked — 'a little too complex… a sprint for tomorrow' (on air)" }
     ],
     builtBy: ["chief of staff", "dr. eggbot", "remotion ads bot"],
     evidence: [
-      { t: "2:05 PM", what: "9:16 and 16:9 video ads generated for LinkedIn, Instagram and X; a localhost conflict debugged on air" },
+      { t: "2:05 PM", what: "The bot generated 9:16 and 16:9 video ads for LinkedIn, Instagram and X, and a localhost conflict was debugged on air." },
       { t: "3:46 PM", what: "Ads MVP scoped down to 'lobby sponsored billboard'; advertiser/campaign/creative modeling called too complex for now" }
     ],
     numbers: [
@@ -150,16 +150,16 @@ window.GG_FEATURES = [
     id: "event-builder",
     name: "Event builder",
     category: "Pop-up OS (the Day 1 product)",
-    status: "BUILD",
+    status: "KILLED",
     statusHistory: [
       { status: "SPEC", t: "2:07 PM", note: "'user should be able to create their own event: date/time, sessions, venue, staff' read on screen" },
       { status: "WIREFRAME", t: "3:59 PM", note: "The event-builder wireframes went on screen — the layout and the event cards" },
-      { status: "BUILD", t: "Sep 16", note: "The October pop-up event tracks were retired in Notion ('There is no pop-up', on screen); the Day 1 product line wound down as the build moved to the game" }
+      { status: "KILLED", t: "Sep 16", note: "The October pop-up event tracks were retired in Notion ('There is no pop-up', on screen); the Day 1 product line wound down as the build moved to the game" }
     ],
     builtBy: ["grokbot", "Pixel"],
     evidence: [
-      { t: "2:07 PM", what: "Product spec line on screen during the Engineering keynote: create your own event — date/time, sessions, venue, staff" },
-      { t: "3:59 PM", what: "Wireframes on screen: event builder layout and event cards" }
+      { t: "2:07 PM", what: "The product spec line on screen during the Engineering keynote read 'create your own event' with date/time, sessions, venue and staff fields." },
+      { t: "3:59 PM", what: "The event-builder wireframes went on screen, showing the layout and the event cards." }
     ],
     numbers: [
       "Fields on spec: date/time · sessions · venue · staff"
@@ -172,13 +172,13 @@ window.GG_FEATURES = [
     category: "Pop-up OS (the Day 1 product)",
     status: "STAGING",
     statusHistory: [
-      { status: "WIREFRAME", t: "4:01 PM", note: "Balsamiq-style wireframe board (screen)" },
+      { status: "WIREFRAME", t: "4:01 PM", note: "A Balsamiq-style wireframe board went on screen." },
       { status: "STAGING", t: "4:19 PM", note: "The sign-up page ran in a preview browser (on screen)" },
       { status: "STAGING", t: "Late Day 1", note: "On air, the domain was live on Vercel wired to PlanetScale — 'don't submit yet… throwaway prototype'" }
     ],
     builtBy: ["Emily's team", "Sage"],
     evidence: [
-      { t: "4:19 PM", what: "Sign-up page in a preview browser: name / email / password / ZIP + cookie consent (screen)" },
+      { t: "4:19 PM", what: "The sign-up page ran in a preview browser with name, email, password, ZIP and cookie-consent fields (screen)." },
       { t: "Late Day 1", what: "On air, the URL (shipbythursday.day) was spoken; 'the domain is live… I hooked it up to our database'" }
     ],
     numbers: [
@@ -191,10 +191,11 @@ window.GG_FEATURES = [
     id: "ticket-badge",
     name: "Ticket & badge design",
     category: "Pop-up OS (the Day 1 product)",
-    status: "SHIPPED",
+    status: "KILLED",
     statusHistory: [
       { status: "BUILD", t: "4:19 PM", note: "Ticket designs were in progress on the canvas" },
-      { status: "SHIPPED", t: "4:22 PM", note: "The designs shipped on screen — ticket stubs with tier badges and lanyards" }
+      { status: "SHIPPED", t: "4:22 PM", note: "The designs shipped on screen — ticket stubs with tier badges and lanyards" },
+      { status: "KILLED", t: "Sep 16", note: "Retired with the pop-up track when the build moved to the game ('There is no pop-up', on screen)" }
     ],
     builtBy: ["Tee Bot", "Pixel"],
     evidence: [
@@ -210,14 +211,15 @@ window.GG_FEATURES = [
     id: "merch-plush",
     name: "Merch & plush line",
     category: "Revenue",
-    status: "BUILD",
+    status: "KILLED",
     statusHistory: [
-      { status: "BUILD", t: "4:21 PM", note: "The plush concepts were iterated 'against the official art' (on screen)" }
+      { status: "BUILD", t: "4:21 PM", note: "The plush concepts were iterated 'against the official art' (on screen)" },
+      { status: "KILLED", t: "Sep 16", note: "Retired with the pop-up track when the build moved to the game; the $30k ambition never converted to sales" }
     ],
     builtBy: ["Pixel", "drop"],
     evidence: [
-      { t: "4:21 PM", what: "Plush concepts iterated against official art; 'build-a-bot' and stress-ball ideas on air" },
-      { t: "4:19 PM", what: "Merch catalog drafted in-thread on screen: PDF checklists, gear bundles, custom designs" }
+      { t: "4:19 PM", what: "The merch catalog was drafted in-thread on screen with PDF checklists, gear bundles and custom designs." },
+      { t: "4:21 PM", what: "Plush concepts iterated against official art; 'build-a-bot' and stress-ball ideas on air." }
     ],
     numbers: [
       "Merch bot's name on air: 'drop'",
@@ -231,12 +233,12 @@ window.GG_FEATURES = [
     category: "Growth",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "4:15 PM", note: "Tee Bot thread sending promo emails (on screen; the merch bot's name on air is 'drop')" }
+      { status: "SHIPPED", t: "4:15 PM", note: "A Tee Bot thread was sending promo emails (on screen; the merch bot's name on air is 'drop')." }
     ],
     builtBy: ["Tee Bot", "drop"],
     evidence: [
       { t: "10:30 AM", what: "Morning 101 demo: an email digest the bot writes and sends itself (coffee-survey summary)" },
-      { t: "4:15 PM", what: "Screen: promo email drafts with best-seller banners, generic roundup formats deliberately avoided" }
+      { t: "4:15 PM", what: "The screen showed promo email drafts with best-seller banners, with generic roundup formats deliberately avoided." }
     ],
     numbers: [
       "Confirmed on air: 'hello at ship by Thursday' confirmation emails planned"
@@ -278,7 +280,7 @@ window.GG_FEATURES = [
     numbers: [
       "Winter lift: 11.8% vs summer 8.2% (sample data)"
     ],
-    notes: "Decision-making as artifact: an RFC with the data linked — the management pattern the whole event keeps returning to."
+    notes: "The session framed decision-making as an artifact — an RFC with the data linked — and that management pattern is the one the whole event kept returning to."
   },
   {
     id: "activities-menu",
@@ -290,7 +292,7 @@ window.GG_FEATURES = [
     ],
     builtBy: ["steve", "Ashley"],
     evidence: [
-      { t: "4:14 PM", what: "Menu on screen: instructor $220–250/flight (4.9 stars, 26+ reviews); Summit Flight $4,365+; Night Launch Pro $299; human asked 'which one do you like?'" }
+      { t: "4:14 PM", what: "The priced menu went on screen — instructor at $220–250 per flight (4.9 stars, 26+ reviews), Summit Flight at $4,365+ and Night Launch Pro at $299 — and a human was asked 'which one do you like?'" }
     ],
     numbers: [
       "Instructor: $220–250 / flight",
@@ -309,7 +311,7 @@ window.GG_FEATURES = [
     ],
     builtBy: ["steve"],
     evidence: [
-      { t: "4:10 PM", what: "Glider flight economics on screen: $250 per flight, 3–6 flights per weekend, roughly $2,500 over a summer" }
+      { t: "4:10 PM", what: "The glider flight economics went on screen at $250 per flight, 3–6 flights per weekend and roughly $2,500 over a summer." }
     ],
     numbers: [
       "$250 / flight (sample data)",
@@ -329,12 +331,12 @@ window.GG_FEATURES = [
     ],
     builtBy: ["grokbot"],
     evidence: [
-      { t: "4:25 PM", what: "Structured site audit in chat (screen): keyword plan, page-weight cuts, form trimmed, FAQ — ending in a dated execution timeline" }
+      { t: "4:25 PM", what: "A structured site audit landed in chat on screen — keyword plan, page-weight cuts, a trimmed form and FAQ — ending in a dated execution timeline." }
     ],
     numbers: [
       "Dated deadline on the work order: Thursday"
     ],
-    notes: "Not a report: a work order with owners and dates the agent team can execute (on screen)."
+    notes: "The deliverable was not a report but a work order with owners and dates the agent team can execute (on screen)."
   },
   {
     id: "agent-pipeline",
@@ -346,9 +348,9 @@ window.GG_FEATURES = [
     ],
     builtBy: ["tater", "Sage", "hashbrown"],
     evidence: [
-      { t: "1:27 PM", what: "PR finished, Sage deploy with logs, review queue; tater posted PR #10 to for-review via cursor.com/agents" },
+      { t: "1:27 PM", what: "A PR finished, Sage deployed it with logs, and it returned to the review queue; tater posted PR #10 to for-review via cursor.com/agents." },
       { t: "1:00 PM", what: "On air, Lauren's no-PRs rule after steve's ~2,000-line PR; hashbrown created to review tater's PRs" },
-      { t: "Day 2, 3:20 PM", what: "On air, Cursor Projects — a coordinator agent managing subagents; Potato Mode 'Full Autopilot'; fuzz agents 'simulating like real users'" }
+      { t: "Day 2, 3:20 PM", what: "On air, Cursor Projects showed a coordinator agent managing subagents, Potato Mode hit 'Full Autopilot,' and fuzz agents ran 'simulating like real users.'" }
     ],
     numbers: [
       "PR #10 posted to for-review via cursor.com/agents",
@@ -362,19 +364,21 @@ window.GG_FEATURES = [
     category: "Infra",
     status: "SHIPPED",
     statusHistory: [
-      { status: "SHIPPED", t: "3:55 PM", note: "26 bots / 880 requests / 10 archived" },
-      { status: "SHIPPED", t: "4:19 PM", note: "28 bots / 975 messages / 4 working / 14 active" }
+      { status: "SHIPPED", t: "3:55 PM", note: "The widget read 26 bots, 880 requests and 10 archived." },
+      { status: "SHIPPED", t: "4:19 PM", note: "The widget read 28 bots, 975 messages, 4 working and 14 active." },
+      { status: "SHIPPED", t: "Day 3 close", note: "The final fleet widget read 43 bots, 76 milestones, 2 working and 6 archived (on screen)" }
     ],
     builtBy: ["Core"],
     evidence: [
-      { t: "3:55 PM", what: "Fleet widget: 26 bots, 880 requests, 10 archived" },
-      { t: "4:19 PM", what: "Fleet widget: 28 bots, 975 messages, 4 working, 14 active" },
-      { t: "Day 2, 3:04 PM", what: "On air, a bot-written 'fleet pulse' doc — 'a roll-up of durable facts from active ship-by-Thursday bots'" }
+      { t: "3:55 PM", what: "The fleet widget read 26 bots, 880 requests and 10 archived." },
+      { t: "4:19 PM", what: "The fleet widget read 28 bots, 975 messages, 4 working and 14 active." },
+      { t: "Day 2, 3:04 PM", what: "On air, a bot-written 'fleet pulse' doc was shown — 'a roll-up of durable facts from active ship-by-Thursday bots.'" }
     ],
     numbers: [
       "Bots: 26 → 28 (30+ by 4:24 PM)",
       "Requests 880 → 975 messages",
-      "Archived: 10"
+      "Archived: 10",
+      "Final fleet: 43 bots · 76 milestones · 2 working · 6 archived"
     ],
     notes: "The product's own org chart, ticking live — headcount, throughput, churn — and by Day 2 the fleet writes its own status docs."
   }
@@ -393,7 +397,7 @@ window.GG_BOTS = [
   { name: "Pete", role: "Product", status: "Active", firstSeen: "Day 1 open — 'Meet the team' slide", notes: "Original-cast product bot." },
   { name: "Pixel", role: "Designer", status: "Active", firstSeen: "Day 1 open — 'Meet the team' slide", notes: "Event-builder wireframes; ticket & badge designs; plush concepts against official art." },
   { name: "Rex", role: "Researcher", status: "Active", firstSeen: "Day 1 open — 'Meet the team' slide", notes: "Original-cast researcher bot. (An Icon Coffee customer's own bot is also named Rex.)" },
-  { name: "steve", role: "Chief of Staff", status: "Active", firstSeen: "By 4:10 PM, Day 1", notes: "Opened the ~2,000-line PR that broke Lauren's brand-new no-PRs rule (on air); glider ops economics and the venue menu (Day 1 screens)." },
+  { name: "steve", role: "Chief of Staff", status: "Active", firstSeen: "By 4:10 PM, Day 1", notes: "Opened the ~2,000-line PR that broke Lauren's brand-new no-PRs rule (on air); glider ops economics and the venue menu (Day 1 screens); introduced on Day 2 as 'my chief of staff, Steve, with all the context about the project… Steve works with our other bots' (on air)." },
   { name: "tater", role: "Engineer", status: "Working", firstSeen: "1:27 PM — engineering pipeline demo", notes: "Lauren's engineering bot (on air); posted PR #10 to for-review via cursor.com/agents; plush line's biggest fan." },
   { name: "hashbrown", role: "Reviewer", status: "Active", firstSeen: "Day 1 afternoon (on air)", notes: "Created to review the PRs tater opens (on air)." },
   { name: "grokbot", role: "Builder", status: "Active", firstSeen: "2:07 PM — product spec line", notes: "Read the event-creation spec; filed the SEO work order with the dated timeline." },
@@ -414,7 +418,6 @@ window.GG_BOTS = [
   { name: "Tee Bot", role: "Email / Merch", status: "Active", firstSeen: "By 4:15 PM (screen)", notes: "Name read from the merch email thread on screen; the merch bot's name on air is 'drop'. Promo emails without generic formats." },
   { name: "drop", role: "Merch", status: "Active", firstSeen: "Day 1 evening (on air)", notes: "The merch bot's name, said on air." },
   /* ── Day 2 additions ── */
-  { name: "Steve (chief of staff)", role: "Chief of Staff", status: "Working", firstSeen: "Day 2, 9:32 AM (on air)", notes: "'I have my chief of staff, Steve, with all the context about the project… Steve works with our other bots' (on air)." },
   { name: "Cupcake Eng", role: "Engineering", status: "Working", firstSeen: "Day 2, 12:03 PM (on air)", notes: "'High-level context on our game studio, one job, owned engineering outcomes by orchestrating work through P-Stack' (on air)." },
   { name: "Creative Director", role: "Design", status: "Active", firstSeen: "Day 2, 9:31 AM (on air)", notes: "Researched game visuals ('a total noob to video games') and built the slider-tunable SVG asset playground (on air)." },
   { name: "game-designer bot", role: "Game Design", status: "Active", firstSeen: "Day 2, 3:13 PM (on air)", notes: "Spun up via dr. eggbot: researches game design into a Notion doc (on air)." },
@@ -424,6 +427,9 @@ window.GG_BOTS = [
   { name: "glow 3d", role: "3D Prototyping", status: "Active", firstSeen: "Day 2, 3:02 PM (on air)", notes: "Picked the 'match and fight' lane for the 3D client experiment (on air)." },
   { name: "fleet pulse", role: "Status docs", status: "Active", firstSeen: "Day 2, 3:04 PM (on air)", notes: "Writes the roll-up of durable facts from the active ship-by-Thursday bots (on air)." },
   /* ── Day 3 additions ── */
+  /* The final fleet widget at the Day 3 close read 43 bots, 76 milestones,
+     2 working and 6 archived; the roster above names the bots shown on
+     stream across the three days, not the whole final fleet. */
   { name: "Sake", role: "Stats — game engine validation", status: "Active", firstSeen: "Day 3 studio block, 10:40 AM (on screen)", notes: "Reads live match data — win rates and difficulty signals — to validate the game engine (on screen)." },
   { name: "Integrations", role: "Connections manager", status: "Active", firstSeen: "Day 3, 10:46 AM (on screen)", notes: "Reported the wired stack in one message: GitHub 2 repos, Slack 3 channels, Notion 4 databases, Linear 2 projects, Vercel + Postgres, webhooks — plus the sudden-death feature kill-list (on screen)." }
 ];
@@ -441,7 +447,7 @@ window.GG_SESSIONS = [
     time: "9:00–10:00 AM",
     title: "Grok Bot 101",
     who: "Presenters: Roman and Amrita (on air)",
-    recap: "Bot onboarding; the bot Marketplace with community creators (Lenny, Clairvaux, Eric-from-Cursor on air); an email demo — a coffee-survey digest the bot writes and sends itself."
+    recap: "The session onboarded viewers onto bots, toured the bot Marketplace and its community creators (Lenny, Clairvaux and Eric-from-Cursor on air), and closed with an email demo — a coffee-survey digest the bot writes and sends itself."
   },
   {
     day: "Day 1 — Tue Sep 15, 2026",
@@ -483,14 +489,14 @@ window.GG_SESSIONS = [
     time: "~3:17–4:20 PM",
     title: "Guest: Eric (Carrot Financial)",
     who: "Co-founder & CEO",
-    recap: "Pushed 'build for ourselves first' — the plan drifts toward a Grok Bot-themed pop-up: merch, venue, ticketing; platform demoted to stretch goal; Oct 15 floated (on air)."
+    recap: "Eric pushed 'build for ourselves first,' and the plan drifted toward a Grok Bot-themed pop-up with merch, a venue and ticketing, while the platform was demoted to a stretch goal and an Oct 15 date was floated (on air)."
   },
   {
     day: "Day 1 — Tue Sep 15, 2026",
     time: "4:00–5:30 PM",
     title: "Grok Bot for Founders",
     who: "Shub Gaur per the schedule",
-    recap: "The AI Maturity Curve (chatbots → task agents → job bots → 'fully automate a staff function,' on air); the 'Why Grok Bot' grid incl. Shareable Templates (screen); founder use cases; sales-call prep on the fake Northwind app; 'Optimizing Costs' — browser use is powerful and expensive, as the counter crossed 1M views."
+    recap: "The AI Maturity Curve ran from chatbots to task agents to job bots to 'fully automate a staff function' (on air). The 'Why Grok Bot' grid, including Shareable Templates, went on screen, followed by founder use cases and sales-call prep on the fake Northwind app. Under 'Optimizing Costs' the hosts warned that browser use is powerful and expensive, just as the view counter crossed 1M."
   },
   {
     day: "Day 1 — Tue Sep 15, 2026",
@@ -511,28 +517,28 @@ window.GG_SESSIONS = [
     time: "8:31–9:25 AM",
     title: "Grok Bot for Sales Engineering",
     who: "Amrita, field engineer at Cursor (on air)",
-    recap: "Demos on Flylo, xAI's own demo booking app (cabins, Postgres race protection, 10-minute checkout hold). Bots: Mimi (case-study slides), Sherlock (repo expert via Cursor Cloud Agents — spawned three more bots live), Serena (competitive intel vs Southwest/Spirit). Facts on air: Grok Bot runs Grok 4.6; VMs are Linux-only; her bot-built deck cost $20–30 vs 4–5 hours."
+    recap: "Amrita demoed on Flylo, xAI's own demo booking app, with cabins, Postgres race protection and a 10-minute checkout hold. Her bots handled the pre-call work: Mimi built the case-study slides, Sherlock answered repo questions through Cursor Cloud Agents and spawned three more bots live, and Serena pulled competitive intel on Southwest and Spirit. Facts stated on air: Grok Bot runs Grok 4.6, the VMs are Linux-only, and her bot-built deck cost $20–30 against four to five hours of manual work."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "9:25 AM–12:29 PM",
     title: "The build block: from reframe to a playable demo",
     who: "The trio + the fleet",
-    recap: "The company doc rewritten at 9:39 around the 'game design studio' framing; the landing page scoped; dr. eggbot told to spawn and supervise cloud agents; the asset playground; the 'Cupcake' demo playable by 10:03 with marketplace bots as cards; Icon Coffee customer story (10:42); guest Karen Cheng (11:09); the battle-screen whiteboard (11:41); 'Cupcake' confirmed as a code name (12:16)."
+    recap: "The company doc was rewritten at 9:39 around the 'game design studio' framing, the landing page was scoped, and dr. eggbot was told to spawn and supervise cloud agents. The 'Cupcake' demo was playable by 10:03 with marketplace bots as cards, after the asset playground went up. The block also carried the Icon Coffee customer story (10:42), a guest appearance from Karen Cheng (11:09), the battle-screen whiteboard (11:41), and the confirmation that 'Cupcake' was only a code name (12:16)."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "12:29–1:02 PM",
     title: "Grok Bot for Sales",
     who: "Chris Dillettes & Mark Wright, go-to-market (on air)",
-    recap: "Echo (live deck updates from Granola mid-call, ~2 min); Olive the chief-of-staff bot; Salesforce auto-updates from Granola/Gong; Customer Expert on Notion account plans; the PG agent (five accounts, personal hooks from X posts); a growth bot that matches your writing voice."
+    recap: "The session ran a relay of sales bots: Echo updated the deck live from Granola mid-call in about two minutes, Olive ran chief-of-staff duties, Salesforce records updated themselves from Granola and Gong, a Customer Expert kept the Notion account plans current, a PG agent worked five accounts with personal hooks pulled from X posts, and a growth bot matched the rep's writing voice."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "1:13–2:28 PM",
     title: "Guests: Matt Berman + intern Shardul Marathe",
     who: "Creator; Stanford CS rising junior",
-    recap: "Berman: family bot, marketplace sales with auto-negotiation, $1,000/yr off PG&E (on air). Shardul, 'first forward-deployed intern': recruiter-finder, Stanford alumni-directory email finder, cover-letter critic, 'Sweet Job App'lier (on air)."
+    recap: "Berman showed a family bot and marketplace sales with auto-negotiation that saved $1,000 a year off PG&E (on air). Shardul, the 'first forward-deployed intern,' demoed a recruiter-finder, a Stanford alumni-directory email finder, a cover-letter critic and the 'Sweet Job App'lier (on air)."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
@@ -546,14 +552,14 @@ window.GG_SESSIONS = [
     time: "3:10–4:00 PM",
     title: "Afternoon build: scrappy mode",
     who: "The trio + the fleet",
-    recap: "Client/server split for anti-cheat; leaderboard; the 'cupcake board' kanban; 3D prototyping swarm via Potato Mode; Remotion ad pipeline (~6,000 lines); Cursor Projects coordinator demo; 'delete all the tests… true scrappy mode' (on air)."
+    recap: "The fleet split client and server for anti-cheat, added the leaderboard, and ran the 'cupcake board' kanban. A 3D prototyping swarm ran via Potato Mode, the Remotion ad pipeline wrote roughly 6,000 lines, and the Cursor Projects coordinator demo closed the block — all under the banner of 'delete all the tests… true scrappy mode' (on air)."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
     time: "4:00–4:40 PM",
     title: "Grok Bot for Customer Support",
     who: "David (software engineer, xAI user ops — 'David Gann' named in the morning session)",
-    recap: "The four-bot support org (build/reply/alert/tune) on Plain + Notion + Supabase + Stripe, demoed on Flylo's $20/month wifi: password reset citing the doc, SSO → low-confidence handoff, refunds granted/denied by the 14-day SOP without leaking it. Economics on air: $1–2 per medium ticket, ~$0.20 scripted."
+    recap: "David demoed the four-bot support org (build, reply, alert and tune) on Plain, Notion, Supabase and Stripe against Flylo's $20-a-month wifi. The bots reset a password citing the doc, handed off an SSO question at low confidence, and granted or denied refunds by the 14-day SOP without leaking it. Economics stated on air: $1–2 per medium ticket, about $0.20 scripted."
   },
   {
     day: "Day 2 — Wed Sep 16, 2026",
@@ -564,10 +570,31 @@ window.GG_SESSIONS = [
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
+    time: "8:30–9:00 AM",
+    title: "Open: ship-day hold cards",
+    who: "The trio",
+    recap: "The final broadcast went on air at 8:30 AM Pacific under the title 'Building a company in 3 days - launching today!' and held on 'Be right back' cards while the studio finished setup."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
     time: "9:00–10:30 AM",
     title: "Grok Bot for Marketing Operations",
     who: "Matthew Silberman & Teresa Hsu",
     recap: "Six RevOps & MarOps plays opened the final day: a self-completing to-do list, tools not just rules, the marketing–sales handoff, self-serve GTM data, territory planning, and a one-time CRM cleanup. Two demos in ten minutes showed the same pattern — a Territory Planner bot filing an account dispute as a task with Approve/Hold buttons, and Juno, a GTM product bot, turning one line of intent into a spec for a lead-review app."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "~10:30 AM–12:30 PM",
+    title: "Studio block: naming and launching Thursday Arena",
+    who: "The trio + the fleet",
+    recap: "The fleet took the build live on air: the first ranked match resolved at 10:52, the final name THURSDAY ARENA went on screen at 10:58, and by 11:30 the game's own funnel dashboard read 2,255 practice sessions, 742 completed, 268 converted and 2,983 public matches. The public URL, thursdayarena.com, was legible and live by 1:19 PM."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "~1:19–2:30 PM",
+    title: "Studio block: the ship verified in public",
+    who: "The trio + the fleet",
+    recap: "With thursdayarena.com legible and live on stream, the trio pointed check-agents at the public pages to reproduce a shop-button bug, watched the landing page's ticker carry player posts, and worked the fleet's triage feed while the agenda confirmed the 3:15 PM finale."
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
@@ -601,5 +628,5 @@ window.GG_EVENT_NUMBERS = [
   { label: "Ship deadline", value: "met", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air; Thursday Arena shipped on Thursday" },
   { label: "Thursday Arena", value: "shipped", sub: "live at thursdayarena.com — 4,898 public matches and a 677-player peak on launch day, on screen" },
   { label: "Profit target", value: "$30k", sub: "on screen, Day 1 — stated ambition, no sales" },
-  { label: "From sketch to live sign-up", value: "~45 min", sub: "Day 1, on screen, 4:01 to 4:19 PM" }
+  { label: "From sketch to live sign-up", value: "~18 min", sub: "Day 1, on screen — wireframe board at 4:01 PM, live sign-up page at 4:19 PM" }
 ];
