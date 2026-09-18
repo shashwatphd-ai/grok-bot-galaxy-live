@@ -957,7 +957,7 @@
     if (moment && !rp) {
       var m = el("div", "moment"), mi = el("div", "in");
       var ml = el("div", "lbl");
-      ml.appendChild(el("span", null, "On screen right now"));
+      ml.appendChild(el("span", null, (window.GG_META && window.GG_META.status === "ENDED") ? "The moment that closed the event" : "On screen right now"));
       mi.appendChild(ml);
       mi.appendChild(el("div", "txt", moment));
       var ms = el("div", "share");
