@@ -103,13 +103,14 @@ window.GG_WORKFLOW = {
 
     /* ── Day 3 ── */
     { id: "arena-launch", t: "10:58 AM", name: "THURSDAY ARENA — the build, named and deployed", status: "SHIPPED", detail: "The final name went on a deployed front page with a Play button and a live leaderboard of named players — the code-named 'Cupcake' demo launched as the company's product on ship day, with 2,983 public matches on the board by 11:30 AM PT.", day: 3 },
-    { id: "analytics", t: "11:30 AM", name: "Launch-day funnel dashboard", status: "SHIPPED", detail: "The build measured itself like a product — practice sessions, conversions, account creations and public matches on one screen.", day: 3 }
+    { id: "analytics", t: "11:30 AM", name: "Launch-day funnel dashboard", status: "SHIPPED", detail: "The build measured itself like a product — practice sessions, conversions, account creations and public matches on one screen.", day: 3 },
+    { id: "showcase", t: "3:15 PM", name: "The final showcase: the numbers, then a match against a viewer", status: "SHIPPED", detail: "The closing segment opened on the game's own dashboard — 4,898 public matches, 4,500 practice sessions, a 47.6% win rate, 677 concurrent players — and the hosts signed off at the 4:28 PM PT close mid-ranked-match against a viewer.", day: 3 }
   ],
 
   stats: {
     humanMoves: 27,
     aiMoves: 24,
-    deliverables: 14,
+    deliverables: 15,
     note: "Humans chose, ruled, tuned, debugged and approved. Bots proposed, produced, deployed and iterated. Every deliverable needed at least one of each."
   },
 
