@@ -94,7 +94,7 @@ window.GG_ENTRIES = [
     type: "WHY",
     tags: ["MILESTONE"],
     title: "Grok Bot Galaxy ended with a company and a shipped game built in three days",
-    body: "On Day 1 (8h 45m, 1.1M views at close) the trio debated candidate businesses live, chose a restaurant pop-up with 'Pop-up OS' operations software, named the company Ship by Thursday, put its domain live by afternoon, grew the bot fleet past 30, and designed tickets, plush and an email channel. On Day 2 (8h 23m, 374.9K views) the October pop-up event was retired ('There is no pop-up'), a game prototype under the code name 'Cupcake' became the build, and the day's sales track — Sales Engineering, Sales, SDRs, Customer Support — filled the playbook while the build went from playground to Next.js app with auth and a leaderboard, one bug short of playable at close. On Day 3 (7h 58m, 173.4K views) the day's sessions ran (Territory Planner proposing rulings on disputes, the Juno brief-writer, Gus the post-sales chief of staff and his self-improvement scan, a researcher-to-strategist marketing relay), and the build shipped as Thursday Arena at thursdayarena.com — leaderboard, shop, live ranked matches, 4,898 public matches and a 677-player peak by showcase, the hosts closing the event playing a viewer live. The event ran 25 hours on air, and the deadline in the company's name was met.",
+    body: "On Day 1 (8h 45m, 1.1M views at close) the trio debated candidate businesses live, chose a restaurant pop-up with 'Pop-up OS' operations software, named the company Ship by Thursday, put its domain live by afternoon, grew the bot fleet past 30, and designed tickets, plush and an email channel. On Day 2 (8h 23m, 374.9K views) the October pop-up event was retired ('There is no pop-up'), a game prototype under the code name 'Cupcake' became the build, and the day's sales track — Sales Engineering, Sales, SDRs, Customer Support — filled the playbook while the build went from playground to Next.js app with auth and a leaderboard, one bug short of playable at close. On Day 3 (7h 58m, 173.4K views) the day's sessions ran (Territory Planner proposing rulings on disputes, the Juno brief-writer, Gus the post-sales chief of staff and his self-improvement scan, a researcher-to-strategist marketing relay), and the build shipped as Thursday Arena at thursdayarena.com — leaderboard, shop, live ranked matches, 4,898 public matches and a 677-player peak by showcase, the hosts closing the event in live ranked play on their own game. The event ran 25 hours on air, and the deadline in the company's name was met.",
     lenses: {
       casual: "Three days ago there was no company. It ended with a live game anyone can play and a leaderboard of real players — and you watched every step of the build.",
       builder: "The stack that shipped combined marketplace-bot specialists assembled per function, governed agency (Approve/Hold, drift flags, human-edits-as-truth), routines over one-off prompts, and PRs with test evidence — 'delete all the tests' matured into bots that write their own.",
@@ -109,7 +109,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE"],
     title: "Day 3 ends with the deadline met and the game shipped",
-    body: "After 7h 58m on air, the third day closed on the 'Thanks for joining!' card at 173.4K views. The final fleet widget read 43 bots, 76 milestones logged, 2 working, 6 archived — the archived roster trimmed from 11 during the afternoon. The day kept the promise the whole event was named for — 'we ship a product by Thursday': Thursday Arena launched at thursdayarena.com with a leaderboard, a shop, and live ranked play; the showcase put the day's numbers on the board (4,898 public matches, 4,500 practice sessions, a 47.6% overall win rate, a peak of 677 concurrent players); and the hosts ended the event facing a viewer across the table in a ranked match. At close there was a named business, a live game with real players, and a fleet of 43 agents that built it on camera; three days earlier, none of it existed."
+    body: "After 7h 58m on air, the third day closed on the 'Thanks for joining!' card at 173.4K views. The final fleet widget read 43 bots, 76 milestones logged, 2 working, 6 archived — the archived roster trimmed from 11 during the afternoon. The day kept the promise the whole event was named for — 'we ship a product by Thursday': Thursday Arena launched at thursdayarena.com with a leaderboard, a shop, and live ranked play; the showcase put the day's numbers on the board (4,898 public matches, 4,500 practice sessions, a 47.6% overall win rate, a peak of 677 concurrent players); and the closing minutes ran the first sponsorship ad bid — 'our first theoretical sponsorship dollar' — before the sign-off: 'Thanks, y'all, for watching… Mash more PRs.' At close there was a named business, a live game with real players, and a fleet of 43 agents that built it on camera; three days earlier, none of it existed."
   },
   {
     id: "d3-1615",
@@ -139,13 +139,22 @@ window.GG_ENTRIES = [
     body: "The studio screen showed GitHub pull request #274 — a leaderboard fix — written by the fleet: a description of what changed and what was deliberately not touched, a Tests section running through the suite (leaderboard and contest tests, fixtures, page-HTML checks), and a verdict line: 'All green.' The 'delete all the tests' scrappy mode of Day 2 has grown into bots that write their own test evidence. The view counter read 162.7K."
   },
   {
+    id: "d3-1559",
+    t: "3:59 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["REVENUE", "FLEET"],
+    title: "The closing minutes: credits for the chat, and the first sponsorship dollar",
+    body: "The last stretch ran on giveaways and revenue experiments. At 3:59 the hosts promised $200 of Grok Bot credits to viewers posting 'credits' in the live chat; at 4:05 a rules endpoint went live at thursdayarena.com/rules, written to be readable by agents as well as people; at 4:20 the final metrics went up (past 4,000 games, close to 30,000 page views, signups 'probably crossing 2,000,' and the number-one spot on Google for the game's name); a bad SQL query from the software factory briefly took down prod and was fixed mid-sentence; and at 4:26 the ad auction fired its first test bid — 'our first theoretical sponsorship dollar.'"
+  },
+  {
     id: "d3-1541",
     t: "3:41 PM PT",
     day: 3,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "Six hundred and seventy-seven people are playing the game as the hosts face a viewer",
-    body: "Mid-match in the showcase, the hosts led the viewer @maxnewworld 1-0 in the best-of-three, Round 2 under way with the coin toss done and an opponent's card on the table — while the public site's own banner read 677 people playing now. The view counter read 161.5K."
+    title: "The site's own banner reads 677 people playing now",
+    body: "Mid-showcase, the public site's banner read 677 people playing now — the day's peak concurrent count, on screen while the hosts kept playing and talking monetization. The view counter read 161.5K."
   },
   {
     id: "d3-1538",
@@ -153,8 +162,8 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT", "MILESTONE"],
-    title: "Hosts versus a viewer: a live ranked match on the public site",
-    body: "The studio laptops are on thursdayarena.com playing a real match against a viewer — Round 1 of 3, coin toss done, an opponent's card on the table, and '@maxnewworld is the lead!' on the scoreboard. The game built in three days is matching its own makers against the public. The view counter read 156.7K."
+    title: "Ranked play, on air: the makers queue into their own game",
+    body: "The showcase turned to live ranked play on thursdayarena.com: the hosts queued into the public ladder — 'my rank is 1322 out of 1800' — with 1,819 players registered, playing through the best-of-three format while sketching the ad marketplace it could fund. An opponent's handle and the round marker sat on the scoreboard (on screen). The game built in three days was matching its own makers into the public pool. The view counter read 156.7K."
   },
   {
     id: "d3-1527",
@@ -173,6 +182,15 @@ window.GG_ENTRIES = [
     tags: ["MILESTONE", "PRODUCT", "KEYNOTE"],
     title: "The final showcase opens on the game's live numbers",
     body: "The closing segment arrived on schedule and opened on the game's own metrics dashboard: 4,898 public matches played — up from 2,983 at 11:30 AM — alongside 4,500 practice sessions, 1,650 X logins, an 8.0% practice-to-login conversion (388 players), a 47.6% public win rate, and 332 feedback items. Four people sat at the studio table to walk through the launch-day numbers. The view counter read 152.4K."
+  },
+  {
+    id: "d3-1520",
+    t: "3:20 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET"],
+    title: "Voice mode merges a pull request hands-free",
+    body: "Grok Bot's newly announced voice mode ran the fleet by voice during the showcase: 'merge PR 269,' spoken rather than typed, and the Bake bot walked the checks and merged it. The same voice path was used to file the leaderboard's win-loss bug, closing with the joke 'A SQL query walks into a bar… can I join you?'"
   },
   {
     id: "d3-1503",
@@ -234,8 +252,35 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT", "CHAT"],
-    title: "The landing page runs a live ticker of X posts — and players are on the board",
-    body: "The deployed landing page now shows the full pitch — THURSDAY ARENA, cupcake mascot, Play and Practice buttons, character cards fanned out — plus a live ticker of X posts where viewers are posting the teams they're building and the bugs they hit. A signed-in player profile on screen carries paired Elo ratings (1400 · 1347). The 'make it go viral' loop — play, post, pull others in — is wired into the site itself. The view counter read 134.9K."
+    title: "The landing page runs a live ticker of who is playing right now",
+    body: "The deployed landing page now shows the full pitch — THURSDAY ARENA, cupcake mascot, Play and Practice buttons, character cards fanned out — plus a live ticker showing the people actually playing: 'when you're logged in, it'll show like your profile image.' The hosts were already sketching a paid tier for it ('a special, like a blue color on the ticker'). A signed-in player profile on screen carries paired Elo ratings (1400 · 1347). The 'make it go viral' loop — play, be seen, pull others in — is wired into the site itself. The view counter read 134.9K."
+  },
+  {
+    id: "d3-1400",
+    t: "2:00 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "REVENUE"],
+    title: "A Stripe guest brainstorms agents paying agents with one-time cards",
+    body: "Dan Hill of Stripe and Link took the studio couch for the 2 PM block: agents paying agents through single-use Link cards, Stripe Projects, and monetization sketches for the game — sponsored cards, subscriptions, leagues. The pull-request counter passed 235 during the visit, and the hosts set the stretch goal out loud: 'get our first dollar.'"
+  },
+  {
+    id: "d3-1347",
+    t: "1:47 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "Vercel Analytics goes live: 1,400 people on the page, 44% on iOS",
+    body: "The team switched on Vercel Analytics for the public site and read it on air: 1,400 people on the page at that moment, 44% of them on iOS — more mobile than desktop, which sent the card UI back for a mobile pass. By late afternoon the traffic even included eight visitors who had found the game through Bing."
+  },
+  {
+    id: "d3-1341",
+    t: "1:41 PM PT",
+    day: 3,
+    type: "MOMENT",
+    tags: ["PRODUCT"],
+    title: "The game takes a support call from an AI phone line",
+    body: "Matt dialed the in-game support number live on air. The voice agent answered, the call was transcribed and moderated, and the summary was routed into the fleet's Slack feedback channel — the game's feedback loop now reachable by telephone."
   },
   {
     id: "d3-1340",
@@ -256,6 +301,15 @@ window.GG_ENTRIES = [
     body: "The studio screen showed a triage thread by the stats bot: numbered work items rolling through — ads campaigns ended with rolling margin figures, leaderboard and shop features landed, a cloud-agent deploy moved to boot-time, and one item carried a 'do-not-merge — retry' drift flag. Each host's tickets got their own status lines. It reads like a standup written by the fleet, for the fleet, while the humans sit at the same table. The view counter read 133K."
   },
   {
+    id: "d3-1331",
+    t: "1:31 PM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "The first Diamond player tops the leaderboard",
+    body: "The public leaderboard grew its first Diamond player, 'Ari the Monk,' at 1:31, followed by a second, 'Dev Arminas,' by 1:49 and five Diamonds by 3:22. The morning's first six Platinum players had been congratulated on air at 10:43, and by 3:46 a new number one led the board with 29 wins and 3 losses under the name 'Not a bot.'"
+  },
+  {
     id: "d3-1319",
     t: "1:19 PM PT",
     day: 3,
@@ -271,7 +325,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["KEYNOTE", "FLEET"],
     title: "The self-improvement scan: Gus diffs its drafts against what the human actually sent",
-    body: "The session's standout routine ran live: a weekly self-improvement scan with two jobs — a system audit that spotted a firing-routine gap and proposed exactly one concrete fix ('don't implement unless I say yes'), and a voice-learning pass that diffs Gus's drafted messages against the versions the manager actually sent (tone, wording, closings, banned phrases, warmth), logging the patterns as memory. Governance closed the loop: the bot learns, but the human's edits count as truth, and the fix ships only on approval. The manager also asked Gus to convene a staff meeting about what to prioritize with three hours of the day — 'staff meeting is live,' it replied."
+    body: "The session's standout routine ran live: a weekly self-improvement scan with two jobs — a system audit that spotted a firing-routine gap and proposed exactly one concrete fix ('don't implement unless I say yes'), and a voice-learning pass that diffs Gus's drafted messages against the versions the manager actually sent (tone, wording, closings, banned phrases, warmth), logging the patterns as memory. Governance closed the loop: the bot learns, but the human's edits count as truth, and the fix ships only on approval. The manager also asked Gus to convene a staff meeting about what to prioritize with the next and only free hour of his day — 'staff meeting is live,' it replied."
   },
   {
     id: "d3-1251",
@@ -334,22 +388,31 @@ window.GG_ENTRIES = [
     body: "The build block's newest screen showed a SHOP tab with buyable cards at 3 gold each — 'The Morning Newspaper' (pass it back: buff two friends from your bench), 'Hiring Signals' (backfire: deal 1 damage to the lowest-health enemy), and 'GTM Connections' (spot: give 50% of its ATK to the lowest-health ally). The auto-battler now has an economy, and the flavor is pure go-to-market. The view counter read 96.3K."
   },
   {
+    id: "d3-1114",
+    t: "11:14 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["KEYNOTE", "PRODUCT"],
+    title: "A growth guest turns the game's traction into a live playbook",
+    body: "Vincent Zhu, who works on growth at xAI, joined the studio for half an hour and built the game's growth playbook live in a Notion doc — welcome DMs for new followers, share prompts, a challenge-a-player loop — reading the funnel as he went: about 2,200 practice rounds and 1,000 X sign-ins, with the standing advice to 'let practice users win more often.' The visit closed with a double promo at 11:42: a 'reset' for existing users alongside the new-user free month."
+  },
+  {
     id: "d3-1058",
-    t: "10:58 AM PT",
+    t: "10:18 AM PT",
     day: 3,
     type: "MILESTONE",
     tags: ["MILESTONE", "PRODUCT"],
     title: "The game's final name is Thursday Arena",
-    body: "On screen during the studio block: a deployed front page titled THURSDAY ARENA — the game demo's name, revealed one day after 'maybe think of an actual good name.' The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels; a teammate's browser shows the matchmaking front end beside a deploy diff in the editor. The game's public URL is visible in the address bar but not yet legible on stream; the rename-and-deploy promise from Wednesday's sign-off is now on the record as kept."
+    body: "Live on air at 10:18 — 'Alright, okay. Thursday Arena is live' — the deployed front page went up under the final name, revealed one day after 'maybe think of an actual good name.' The page shows a player profile at a 1000 rating (the placeholder ELO the hosts joked about on Day 2), a Play button, a 'priority queue: eng' banner, and Leaderboard / Your matches / Tips / Read handbook panels; a teammate's browser shows the matchmaking front end beside a deploy diff in the editor. The hosts declared thursdayarena.com the game's only official site and its new X account the only official account; the rename-and-deploy promise from Wednesday's sign-off is now on the record as kept."
   },
   {
     id: "d3-1052",
-    t: "10:52 AM PT",
+    t: "10:10 AM PT",
     day: 3,
     type: "MOMENT",
     tags: ["MILESTONE", "PRODUCT"],
-    title: "The hosts play a live match and take round 1",
-    body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Wednesday's sign-off. The match-result screen shows 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. The view counter read 86.7K."
+    title: "The first live match plays out on air, best-of-three",
+    body: "'Let's go ahead and fight round one' — the game demo, still under its 'Cupcake' code name at that hour, was played live on the broadcast in practice mode against the game's own AI. 'It's the best of three rounds,' Matt explained as the bots dueled, with the shop economy opening between rounds: base cards at three gold from a ten-gold start, and selling a card refunds one. One day after 'I can't actually add any bots yet,' matches were resolving on screen — the result card reading 'You took round 1' with a Play Again button, team cards carrying charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sat active in the roster."
   },
   {
     id: "d3-1046",
@@ -388,8 +451,8 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["PRODUCT"],
-    title: "Back from the break, the trio works heads-down",
-    body: "In the last stretch of the Marketing Ops session, after a short hold, the stream returned to the main studio. Lauren and Matt Palmer are working at their laptops with cameras live; Roshan beside them. The morning's agenda is the build toward the Thursday ship, with Post-Sales at 12:30 PM and Marketing at 2:30 PM still to come. The view counter read 72K."
+    title: "Minutes after launch, the public leaderboard is filling",
+    body: "The Marketing Ops session had closed at 9:40 and handed the stream back, and by 10:18 the game was live under its final name. Two minutes later the public leaderboard already held 96 players; by 10:24 it was closing in on 500 users while the hosts worked favicon, styling and search-metadata polish live at their desks. Post-Sales at 12:30 PM and Marketing at 2:30 PM were still to come. The view counter read 72K."
   },
   {
     id: "d3-0940",
@@ -413,7 +476,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
     title: "A bot turns one sentence into a plan for a sales app",
-    body: "In the Marketing Ops demo, Matthew briefed a bot named Juno — 'a GTM product bot' that clarifies requirements one question at a time, writes the product spec, and hands it to a build flow. Fed 'I want to build an internal app for sales reps to review their leads more easily and quickly,' Juno specced a swipe-the-card interface: swipe left to reject a lead in the CRM with a reason, swipe right to accept and add it to a follow-up sequence, with auth flagged as a day-one requirement."
+    body: "In the Marketing Ops demo, Matthew briefed a bot named Juno — 'a GTM product bot' that clarifies requirements one question at a time, writes the product spec, and hands it to a build flow. Fed 'I want to build an internal app for sales reps to review their leads,' Juno specced a swipe-the-card interface: swipe left to reject a lead in the CRM with a reason, swipe right to accept and add it to a follow-up sequence, with CRM write-back correctness flagged from the start."
   },
   {
     id: "d3-0910",
@@ -441,12 +504,21 @@ window.GG_ENTRIES = [
   },
   {
     id: "d3-0900",
-    t: "9:00 AM PT",
+    t: "8:40 AM PT",
     day: 3,
     type: "MOMENT",
     tags: ["KEYNOTE"],
     title: "The final day begins: today the company ships",
-    body: "The third broadcast opened under the title 'Building a company in 3 days - launching today!' — the deadline now written into the stream's own name. The first stretch stayed on 'Be right back' hold cards while the studio finished setup, with the marketing track due to open the morning."
+    body: "The third broadcast opened under the title 'Building a company in 3 days - launching today!' — the deadline now written into the stream's own name. After a few minutes of hold cards the trio went live at 8:40 and opened ship day with a ten-minute offer for new users: sign up, create a bot and set up one recurring task, and the first month of the top tier is free — 'like, 200 bucks of usage in the first month.' The marketing track took the stage at 9:00."
+  },
+  {
+    id: "d3-0845",
+    t: "8:45 AM PT",
+    day: 3,
+    type: "PBP",
+    tags: ["FLEET"],
+    title: "The overnight software factory landed 168 pull requests",
+    body: "While the hosts slept, the fleet kept working: 'overnight, I think we landed more than 100 PRs — yeah, 168,' with Potato Mode on full autopilot and a QA bot named Play testing the builds as they came in. The trio walked the overnight diff at their desks before the day's first session, the clearest look yet at a company whose employees do not sleep."
   },
   {
     id: "d2-1653",
