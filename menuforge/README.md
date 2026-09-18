@@ -4,7 +4,7 @@
 
 MenuForge is a single-file, offline web app for building product/price menus the way the Grok Bot Galaxy demo company does them — offers with a price, a unit, a *before* anchor ("was $38"), a tier badge (★ 4.9, Most popular, Best value), and one honest sentence of pitch. Arrange the offers like a staircase, watch the live preview, and export the whole thing as a clean markdown sheet (for DMs, emails, docs) or a standalone HTML page (for hosting). One click of copy, and the menu ends with the question the stream's agent asked its human: *"Which one do you like?"*
 
-Built during Day 1 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where the demo company's bots went from Balsamiq wireframe to a deployed website with account signup in ~45 minutes — and along the way assembled merchandising menus ($220–250/flight instructor sessions 4.9★, Summit Flight $4,365+, Night Launch Pro $299), a digital-product catalog (checklist PDF $5–10, gear-guide bundle ~$25), and a merch line with a bot-run email channel promoting best-sellers.
+Built during Day 1 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where the demo company's bots went from Balsamiq wireframe to a staging site with a working account-signup flow in ~45 minutes (that Day 1 sign-up page was staging, never a public launch — the demo company's real public launch came on Day 3, as Thursday Arena at thursdayarena.com) — and along the way assembled merchandising menus ($220–250/flight instructor sessions 4.9★, Summit Flight $4,365+, Night Launch Pro $299), a digital-product catalog (checklist PDF $5–10, gear-guide bundle ~$25), and a merch line with a bot-run email channel promoting best-sellers.
 
 ## What it is
 
@@ -14,7 +14,7 @@ Built during Day 1 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where 
 - **The cover** — menu title, one-line subtitle, footnote, and the ask toggle: end every menu with *"Which one do you like?"* — the stream's human-in-the-loop merchandising moment, made a feature.
 - **Live preview** — the right pane renders exactly what a buyer sees while you type.
 - **Exports** — **Copy markdown** (a paste-ready sheet: headings, badges, anchors, the ask) and **Export HTML** (a complete standalone dark-theme page with embedded styles — save it, host it, send it). Both open in a dialog with Copy and Download buttons.
-- **Presets** — "Glider Flight Co." (the stream's business, homaged: $99 Discovery Flight → $5,869 weekend buyout), "PDF Info Products" ($9 checklist → $249 whole shelf, with was-price anchors), "Merch Line" (the drop Tee Bot would email).
+- **Presets** — "Glider Flight Co." (the stream's glider-flights side, homaged: $99 Discovery Flight → $5,869 weekend buyout), "PDF Info Products" ($9 checklist → $249 whole shelf, with was-price anchors), "Merch Line" (the drop Tee Bot would email), and "Campaign Offer Sheet" (the email-drop shape for Day 3's marketing crowd: a was-price anchor on every rung, a badge on four of five cards, a Sunday-midnight urgency line — a $29-to-$499 ladder the readout calls textbook).
 - **Zero setup** — one HTML file, no dependencies, no backend, no network calls, works straight from `file://`. Autosaves to localStorage as you type.
 
 ## 60-second demo script
@@ -29,7 +29,7 @@ Built during Day 1 of xAI's "Grok Bot Galaxy" event (Sept 15–17, 2026), where 
 
 Grok Bot Galaxy's Day 1 didn't just build a company live — it *merchandised* one. Agents assembled price menus with real unit economics and asked the human to pick; they drafted a $5–$299 digital catalog and a merch line; by end of day a "Tee Bot" was running the email channel for it. The weekend's most viral moment wasn't code, it was a price list and a question. Every solo founder watching now needs to put offers in front of buyers — in a DM, an email, a landing page — and the tools for that are either heavyweight e-commerce or a blank text box. MenuForge is the tiny offline middle: structure, ladder coaching, and both exports a founder actually pastes somewhere.
 
-And the day's closing arc doubled down: the demo company's site went live with account creation ~45 minutes after the first wireframe, a bot-written SEO audit shipped as a *dated work order* to drive pilot sign-ups, and the founders closed on a slide titled "Optimizing Costs — browser use is powerful (and expensive!)" — by the 1M-views mark, pricing was the day's running theme. When a fleet can build the store in an afternoon, the founder's job is deciding what's on the menu and at what price. That's the job MenuForge shrinks to one file.
+And the day's closing arc doubled down: the demo company's staging build showed a working account-creation flow ~45 minutes after the first wireframe (corrected late in the day — that was staging, not a public launch), a bot-written SEO audit shipped as a *dated work order* to drive pilot sign-ups, and the founders closed on a slide titled "Optimizing Costs — browser use is powerful (and expensive!)" — by the 1M-views mark, pricing was the day's running theme. When a fleet can build the store in an afternoon, the founder's job is deciding what's on the menu and at what price. That's the job MenuForge shrinks to one file.
 
 ## Files
 
