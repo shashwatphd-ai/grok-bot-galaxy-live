@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renewal Radar — renewal risk on one page</title>
+<meta name="description" content="An offline, single-file renewal-risk tracker for post-sales founders: account cards with health signals, risk lanes, a portfolio coach, and a renewal briefing you can walk into the call with. Tracks the renewal motion only — not the whole customer record. Zero dependencies.">
+<style>
+/* ============================================================
+Renewal Radar — theme
+Same dark "live event" family as its siblings. System fonts,
+no dependencies, runs from file://.
+============================================================ */
+:root { --bg: #0d1017; --bg-soft: #12161f; --panel: #171c27; --panel-2: #1d2330; --line: #2a3142; --text: #e8ecf4; --muted: #97a0b3; --faint: #6b7488; --accent: #8b93ff; --accent-soft: rgba(139, 147, 255, 0.14); --amber: #f2b13d; --teal: #2fbfb3; --red: #f6543f; --green: #4cc38a; --radius: 14px; --radius-sm: 9px; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: radial-gradient(900px 500px at 85% -10%, rgba(139, 147, 255, 0.09), transparent 60%), radial-gradient(700px 420px at -10% 15%, rgba(47, 191, 179, 0.08), transparent 55%), var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.45; min-height: 100vh; }
+::placeholder { color: var(--faint); }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+/* ---------- header ---------- */
+header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 16px 22px; border-bottom: 1px solid var(--line); background: rgba(13, 16, 23, 0.78); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); }
+.brand { display: flex; align-items: center; gap: 10px; margin-right: 6px; }
+.brand .logo { width: 34px; height: 34px; flex: none; background: linear-gradient(135deg, #f6543f, #f2b13d); border-radius: 30%; box-shadow: 0 0 0 4px rgba(246, 84, 63, 0.15); display: flex; align-items: center; justify-content: center; }
+.brand .logo b { font: 800 10px/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: -0.3px; color: rgba(13, 16, 23, 0.9); }
+.brand h1 { font-size: 18px; margin: 0; letter-spacing: 0.2px; }
+.brand .sub { font-size: 12px; color: var(--muted); margin-top: -2px; }
+.spacer { flex: 1; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+select, button { font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 8px 12px; cursor: pointer; }
+select:hover, button:hover { background: var(--panel-2); }
+select:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #0b0d1c; font-weight: 600; }
+button.primary:hover { background: #a3aaff; }
+button.ghost { background: transparent; }
+button:disabled { opacity: 0.45; cursor: default; }
+/* ---------- layout ---------- */
+main { max-width: 1280px; margin: 0 auto; padding: 22px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); gap: 26px; align-items: start; }
+.col-book { min-width: 0; }
+.col-radar { min-width: 0; position: sticky; top: 76px; }
+@media (max-width: 980px) {
+main { grid-template-columns: 1fr; }
+.col-radar { position: static; }
+}
+section { margin-bottom: 30px; }
+.section-head { display: flex; align-items: baseline; gap: 12px; margin: 0 0 12px; flex-wrap: wrap; }
+.section-head h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.4px; color: var(--muted); margin: 0; }
+.section-head .hint { font-size: 12.5px; color: var(--faint); }
+/* ---------- book name ---------- */
+.book-line { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 12px; }
+.book-line input { background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); padding: 9px 11px; width: 100%; font-weight: 600; }
+/* ---------- account cards ---------- */
+#accountsHost { display: grid; gap: 14px; }
+.acct { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; display: grid; gap: 9px; border-left: 4px solid var(--line); }
+.acct.lane-red { border-left-color: var(--red); }
+.acct.lane-amber { border-left-color: var(--amber); }
+.acct.lane-green { border-left-color: var(--green); }
+.acct-bar { display: flex; align-items: center; gap: 7px; min-width: 0; flex-wrap: wrap; }
+.acct-num { flex: none; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.acct-bar .company { flex: 1; min-width: 180px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); padding: 8px 10px; font: inherit; font-weight: 700; }
+.acct-bar .nudge { padding: 6px 9px; font-size: 13px; line-height: 1; color: var(--muted); }
+.acct-bar .del { border: none; background: transparent; color: var(--faint); font-size: 15px; padding: 5px 8px; border-radius: 6px; }
+.acct-bar .del:hover { color: #ff8a7a; background: rgba(246, 84, 63, 0.1); }
+.fgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+@media (max-width: 1100px) { .fgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.f { display: grid; gap: 3px; min-width: 0; }
+.f span { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 10px; color: var(--faint); letter-spacing: 0.3px; }
+.f input { background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); padding: 7px 8px; width: 100%; font: inherit; font-size: 13px; min-width: 0; }
+.f input[type="date"] { color-scheme: dark; }
+.sigs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.sig { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; cursor: pointer; user-select: none; }
+.sig:hover { background: var(--bg-soft); }
+.sig input { width: 13px; height: 13px; accent-color: var(--amber); }
+.sig.on { color: #ffce8a; border-color: rgba(242, 177, 61, 0.5); background: rgba(242, 177, 61, 0.1); }
+.touchline { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.whyline { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; background: var(--bg-soft); border: 1px dashed var(--line); border-radius: var(--radius-sm); padding: 7px 10px; }
+.whyline .why { flex: 1; min-width: 160px; font-size: 12.5px; color: var(--muted); }
+.chip { flex: none; font-size: 10.5px; font-weight: 800; letter-spacing: 0.4px; border-radius: 999px; padding: 3px 9px; }
+.chip.red { color: #ffb0a3; background: rgba(246, 84, 63, 0.16); }
+.chip.amber { color: #ffce8a; background: rgba(242, 177, 61, 0.13); }
+.chip.green { color: #8fe6bd; background: rgba(76, 195, 138, 0.14); }
+button.mini { padding: 5px 10px; font-size: 12px; }
+.add-card { width: 100%; border: 1px dashed var(--line); background: transparent; color: var(--muted); border-radius: var(--radius); padding: 12px; cursor: pointer; margin-top: 12px; }
+.add-card:hover { color: var(--text); background: var(--panel); border-style: solid; }
+.empty-state { border: 1px dashed var(--line); border-radius: var(--radius); padding: 26px 20px; text-align: center; color: var(--muted); }
+.empty-state p { margin: 0 0 12px; }
+/* ---------- coach + upcoming ---------- */
+.coach { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--amber); border-radius: var(--radius-sm); padding: 11px 14px; font-size: 13px; color: var(--muted); }
+.coach.all-clear { border-left-color: var(--accent); }
+.coach .verdict { color: var(--text); font-weight: 600; margin-bottom: 6px; }
+.coach ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.coach li { padding-left: 20px; position: relative; }
+.coach li.ok { color: var(--faint); }
+.coach li.flag { color: #ffce8a; }
+.coach li::before { position: absolute; left: 0; top: 0; }
+.coach li.ok::before { content: "\2713"; color: var(--accent); font-weight: 700; }
+.coach li.flag::before { content: "\2717"; color: var(--amber); font-weight: 700; }
+#upcomingHost { display: grid; gap: 6px; }
+.upc { display: flex; align-items: center; gap: 9px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 7px 10px; }
+.upc .when { flex: none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; font-weight: 700; color: var(--faint); min-width: 74px; }
+.upc .who { flex: 1; min-width: 0; font-size: 12.5px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* ---------- modal ---------- */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(5, 7, 12, 0.72); display: none; align-items: center; justify-content: center; z-index: 50; padding: 20px; }
+.modal-backdrop.open { display: flex; }
+.modal { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); width: min(880px, 100%); max-height: 88vh; display: flex; flex-direction: column; overflow: hidden; }
+.modal-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+.modal-head h3 { margin: 0; font-size: 15px; }
+.modal-head .x { margin-left: auto; border: none; background: transparent; color: var(--faint); font-size: 16px; padding: 4px 9px; border-radius: 6px; cursor: pointer; }
+.modal-head .x:hover { color: var(--text); background: var(--panel-2); }
+.modal textarea { flex: 1; margin: 14px 16px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--text); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; line-height: 1.55; padding: 12px; resize: none; min-height: 300px; white-space: pre; overflow: auto; }
+.modal-foot { display: flex; gap: 10px; padding: 0 16px 16px; flex-wrap: wrap; }
+.modal-foot .note { font-size: 12px; color: var(--faint); align-self: center; }
+/* ---------- toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(8px); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; color: var(--text); font-size: 13.5px; padding: 10px 18px; opacity: 0; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; z-index: 60; max-width: min(560px, 90vw); text-align: center; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 12px; color: var(--faint); text-align: center; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true"><b>rr</b></div>
+    <div>
+      <h1>Renewal Radar</h1>
+      <div class="sub">renewal risk on one page — walk in knowing, not hoping</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="toolbar">
+    <select id="presetSelect" title="Load a starter book — replaces what's here" aria-label="Load a preset book">
+      <option value="" disabled selected>Presets&hellip;</option>
+      <option value="postsale">Post-Sale Co.</option>
+      <option value="popup">Pop-up OS (day-of homage)</option>
+      <option value="postsaledesk">Post-Sales Desk (Gus digest)</option>
+    </select>
+    <button id="copyBriefBtn" type="button" title="Copy the whole book's renewal briefing as markdown — paste it into the call notes">Copy brief</button>
+    <button id="briefPageBtn" type="button" class="primary" title="Export the whole book as a standalone HTML one-pager — the sheet you walk into the call with">Brief page</button>
+    <button id="newBookBtn" type="button" class="ghost" data-act="new-book" title="Clear the book and start over">New book</button>
+  </div>
+</header>
+
+<main>
+  <div class="col-book">
+
+    <section aria-label="The book">
+      <div class="section-head">
+        <h2>The book</h2>
+        <span class="hint">Tracks the renewal motion only &mdash; not the whole customer record. It's the Monday sheet, not a CRM.</span>
+      </div>
+      <div class="book-line">
+        <input id="bookName" type="text" data-act="book-name" placeholder="Name the book — e.g. Q4 renewals" aria-label="Book name">
+      </div>
+      <div id="accountsHost"></div>
+      <button id="addAccountBtn" type="button" class="add-card" data-act="add-account">+ Add an account to the radar</button>
+    </section>
+
+  </div>
+
+  <aside class="col-radar" aria-label="Coach and upcoming renewals">
+    <section aria-label="Portfolio coach">
+      <div class="section-head">
+        <h2>The coach</h2>
+        <span class="hint">Reads the book the way a renewal call exposes it &mdash; live.</span>
+      </div>
+      <div id="coach" class="coach" role="status" aria-live="polite"></div>
+    </section>
+
+    <section aria-label="Upcoming renewals">
+      <div class="section-head">
+        <h2>Next up</h2>
+        <span class="hint">Every dated renewal, soonest first.</span>
+      </div>
+      <div id="upcomingHost"></div>
+    </section>
+  </aside>
+</main>
+
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 id="modalTitle">Renewal briefing</h3>
+      <button type="button" class="x" id="modalClose" title="Close" aria-label="Close export dialog">&#10005;</button>
+    </div>
+    <textarea id="modalText" readonly spellcheck="false" aria-label="Exported content"></textarea>
+    <div class="modal-foot">
+      <button id="modalCopy" type="button" class="primary">Copy to clipboard</button>
+      <button id="modalDownload" type="button">Download file</button>
+      <span class="note">If clipboard is blocked, select the text and copy manually &mdash; it's all here.</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer>
+  Renewal Radar &middot; built live during Grok Bot Galaxy, Day 3 &mdash; the post-sales track &middot;
+  one file, offline, zero dependencies &middot; tracks the renewal motion, not the whole customer record &middot;
+  your book never leaves this machine.
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============================================================
+     Renewal Radar — logic
+     One state object, autosaved to localStorage. Everything below
+     runs offline from file:// — no network, no dependencies.
+     Health-signal vocabulary comes from the Day 2 Customer Support
+     session (four-bot org, crawl-walk-run, refund SOP, churn-risk
+     hourly routines, quiet accounts), Nadia's line in Post-Sale
+     Co. — flags quiet accounts before they quiet-cancel — and the
+     Day 3 Post-Sales session's Gus digest (a QBR that gets ugly,
+     open promises with owners and dates, access-pending blockers,
+     an account kept soft rather than made a P0).
+     ============================================================ */
+
+  var STORAGE_KEY = "renewalradar.v1";
+  var state = null;
+  var saveTimer = null;
+  var toastTimer = null;
+
+  /* ---------- health signals — the Day 2 vocabulary, weighted ---------- */
+
+  var SIGNALS = [
+    { key: "usageDrop", label: "usage drop", weight: 3, short: "usage fell off",
+      before: "pull the usage trend before the call — show you noticed before they had to say it" },
+    { key: "ticketHeat", label: "ticket heat", weight: 2, short: "tickets running hot",
+      before: "read the last heated tickets — the temperature tells you which opener to skip" },
+    { key: "championLeft", label: "champion left", weight: 3, short: "champion gone — start winning the new one",
+      before: "get introduced to the new champion before the renewal, not at it" },
+    { key: "escalationHistory", label: "escalation history", weight: 2, short: "an escalation in the history",
+      before: "re-read the escalation thread — walk in with the fix, not an apology" },
+    { key: "invoiceFriction", label: "invoice friction", weight: 2, short: "money questions open",
+      before: "settle the money question first — grant inside policy, hold outside it, and say which" },
+    { key: "quietAccount", label: "quiet account", weight: 1, short: "quiet — and quiet is not loyal",
+      before: "quiet is not loyalty — bring one reason for them to talk" },
+    { key: "qbrFriction", label: "QBR friction", weight: 2, short: "the QBR is trending ugly",
+      before: "rebuild the QBR agenda around the open risks — the review that walks in blind is the one that gets ugly" },
+    { key: "openPromise", label: "open promise", weight: 2, short: "an open promise with a date on it",
+      before: "sweep the promises ledger first — an unattended promise with an owner and a date is a churn risk the account can already see" },
+    { key: "accessPending", label: "access pending", weight: 1, short: "seats still waiting on access",
+      before: "clear the access blockers before the call — a team still waiting on logins can't renew what they can't open" }
+  ];
+
+  var SIGNAL_KEYS = SIGNALS.map(function (s) { return s.key; });
+  var MAX_SCORE = SIGNALS.reduce(function (t, s) { return t + s.weight; }, 0); // 18
+
+  /* ---------- date math — local midnight, never UTC ----------
+     new Date("YYYY-MM-DD") parses as UTC midnight, which lands on
+     the previous day in negative-offset timezones and shifts every
+     countdown by one. Parse the parts into local midnight instead.
+     ----------------------------------------------------------- */
+
+  function pad2(n) { return (n < 10 ? "0" : "") + n; }
+
+  function parseISODate(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s == null ? "" : s).trim());
+    if (!m) return null;
+    var y = Number(m[1]);
+    var mo = Number(m[2]);
+    var d = Number(m[3]);
+    var dt = new Date(y, mo - 1, d); // local midnight — the whole point
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null; // rejects 2026-02-31
+    return dt;
+  }
+
+  function startOfToday() {
+    var n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), n.getDate());
+  }
+
+  function daysUntil(iso) {
+    var d = parseISODate(iso);
+    if (!d) return null;
+    // Math.round absorbs DST days where midnight-to-midnight isn't exactly 24h
+    return Math.round((d.getTime() - startOfToday().getTime()) / 86400000);
+  }
+
+  function isoFromToday(deltaDays) {
+    var d = startOfToday();
+    d.setDate(d.getDate() + deltaDays);
+    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+  }
+
+  /* ---------- free-form value parsing — ranges welcome ---------- */
+
+  function parseValue(s) {
+    var str = String(s == null ? "" : s).toLowerCase().replace(/,/g, "");
+    var m = /([0-9]+(?:\.[0-9]+)?)\s*(k|m)?/.exec(str);
+    if (!m) return null;
+    var n = Number(m[1]);
+    if (m[2] === "k") n *= 1000;
+    if (m[2] === "m") n *= 1000000;
+    if (!isFinite(n) || n <= 0) return null;
+    var monthly = /\/\s*mo|per month|\bmrr\b/.test(str);
+    return { amount: n, monthly: monthly, annual: monthly ? n * 12 : n };
+  }
+
+  function fmtMoney(n) {
+    return "$" + Math.round(n).toLocaleString("en-US");
+  }
+
+  /* ---------- state plumbing ---------- */
+
+  function uid() {
+    return "a-" + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3);
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  function blankAccount() {
+    var signals = {};
+    SIGNAL_KEYS.forEach(function (k) { signals[k] = false; });
+    return {
+      id: uid(), company: "", tier: "", value: "", renewalDate: "",
+      owner: "", nextTouch: "", champions: "", signals: signals, touchLogged: false
+    };
+  }
+
+  function defaultBook() {
+    return { format: "renewalradar", version: 1, bookName: "", accounts: [blankAccount()] };
+  }
+
+  function normalizeState(raw) {
+    var s = raw && typeof raw === "object" ? raw : {};
+    var out = {
+      format: "renewalradar",
+      version: 1,
+      bookName: typeof s.bookName === "string" ? s.bookName : "",
+      accounts: []
+    };
+    if (Object.prototype.toString.call(s.accounts) === "[object Array]") {
+      out.accounts = s.accounts.map(function (r) {
+        var o = r && typeof r === "object" ? r : {};
+        var a = blankAccount();
+        if (typeof o.id === "string" && o.id) a.id = o.id;
+        ["company", "tier", "value", "owner", "nextTouch", "champions"].forEach(function (k) {
+          a[k] = typeof o[k] === "string" ? o[k] : "";
+        });
+        a.renewalDate = parseISODate(o.renewalDate) ? String(o.renewalDate).trim() : "";
+        a.touchLogged = !!o.touchLogged;
+        if (o.signals && typeof o.signals === "object") {
+          SIGNAL_KEYS.forEach(function (k) {
+            if (o.signals[k] !== undefined) a.signals[k] = !!o.signals[k];
+          });
+        }
+        return a;
+      });
+    }
+    return out;
+  }
+
+  /* Preset renewal dates are built relative to "today" so the
+     coach's 14-day window stays honest whenever the file is first
+     opened — a hardcoded date would quietly go stale. */
+
+  var PRESETS = {
+    postsale: function () {
+      return normalizeState({
+        bookName: "Post-Sale Co. — renewals",
+        accounts: [
+          {
+            company: "Flylo In-Flight Wifi", tier: "Growth — wifi ops seat", value: "2.4k MRR",
+            renewalDate: isoFromToday(9), owner: "Nadia (CSM)", nextTouch: "",
+            champions: "Priya Shah", signals: { quietAccount: true }, touchLogged: false
+          },
+          {
+            company: "Acme Logistics", tier: "Business — routing module", value: "$40k ARR",
+            renewalDate: isoFromToday(45), owner: "Rosa (Account Manager)", nextTouch: "territory ruling lands Friday",
+            champions: "Jordan (West)", signals: { invoiceFriction: true, escalationHistory: true }, touchLogged: true
+          },
+          {
+            company: "Damon Digital", tier: "Starter — 20 days in", value: "6k ARR",
+            renewalDate: isoFromToday(30), owner: "Quinn (CS Lead)", nextTouch: "refund decision, said plainly",
+            champions: "", signals: { ticketHeat: true, invoiceFriction: true }, touchLogged: false
+          },
+          {
+            company: "Carter & Co.", tier: "Growth — day-one fan", value: "$12k ARR",
+            renewalDate: isoFromToday(90), owner: "Milo (Support Specialist)", nextTouch: "QBR draft",
+            champions: "Carter Liu, Dana W.", signals: {}, touchLogged: true
+          },
+          {
+            company: "Meridian Works", tier: "Business — SSO shop", value: "$18k ARR",
+            renewalDate: isoFromToday(60), owner: "Otis (On-Call Engineer)", nextTouch: "SSO doc gap closed, then check-in",
+            champions: "Sam Okafor, Lee Tran", signals: { escalationHistory: true }, touchLogged: true
+          }
+        ]
+      });
+    },
+    popup: function () {
+      return normalizeState({
+        bookName: "Pop-up OS — pilot book",
+        accounts: [
+          {
+            company: "Mission Ballroom Kitchen", tier: "Venue — dual site", value: "2k MRR",
+            renewalDate: isoFromToday(7), owner: "Rosa (Account Manager)", nextTouch: "",
+            champions: "Bea (GM)", signals: { championLeft: true, escalationHistory: true, quietAccount: true }, touchLogged: false
+          },
+          {
+            company: "The Panhandle Pourhouse", tier: "Restaurant — flagship", value: "3.6k MRR",
+            renewalDate: isoFromToday(55), owner: "Nadia (CSM)", nextTouch: "service walkthrough",
+            champions: "Marco, Ines", signals: {}, touchLogged: true
+          },
+          {
+            company: "Dolores Dumplings", tier: "Restaurant — single site", value: "800/mo",
+            renewalDate: isoFromToday(21), owner: "Quinn (CS Lead)", nextTouch: "settle the September invoice",
+            champions: "Jing", signals: { invoiceFriction: true }, touchLogged: false
+          },
+          {
+            company: "Fog Harbor Focaccia", tier: "Restaurant — seasonal", value: "1.2k MRR",
+            renewalDate: isoFromToday(34), owner: "Milo (Support Specialist)", nextTouch: "offseason playbook",
+            champions: "Theo, Rana", signals: {}, touchLogged: true
+          },
+          {
+            company: "Sunset Catering Co.", tier: "Catering — events arm", value: "600/mo",
+            renewalDate: isoFromToday(12), owner: "Nadia (CSM)", nextTouch: "season-wrap review",
+            champions: "Alma, Reyes", signals: { usageDrop: true }, touchLogged: true
+          }
+        ]
+      });
+    },
+    postsaledesk: function () {
+      return normalizeState({
+        bookName: "Post-Sales Desk — the Gus digest",
+        accounts: [
+          {
+            company: "Cardinal Migration", tier: "Business — training suite", value: "$24k ARR",
+            renewalDate: isoFromToday(26), owner: "Gus (chief of staff, bot)", nextTouch: "QBR agenda rebuilt around the open risks",
+            champions: "Dana Voss, Priya Nair", signals: { qbrFriction: true, openPromise: true }, touchLogged: true
+          },
+          {
+            company: "Bluefin Analytics", tier: "Growth — analytics seats", value: "$18k ARR",
+            renewalDate: isoFromToday(11), owner: "Nadia (CSM)", nextTouch: "renewal call — prep done",
+            champions: "Rio Tanaka, Margeaux Ellis", signals: {}, touchLogged: true
+          },
+          {
+            company: "Juniper & Main", tier: "Starter — three new seats", value: "$12k ARR",
+            renewalDate: isoFromToday(33), owner: "Milo (Support Specialist)", nextTouch: "",
+            champions: "", signals: { quietAccount: true, accessPending: true }, touchLogged: false
+          },
+          {
+            company: "Heron Data Works", tier: "Starter — kept soft", value: "$9k ARR",
+            renewalDate: isoFromToday(52), owner: "Quinn (CS Lead)", nextTouch: "kept soft, not a P0 — revisit next cycle",
+            champions: "Bea Ott, Callum Reyes", signals: { quietAccount: true }, touchLogged: false
+          },
+          {
+            company: "Lantern & Ledger", tier: "Enterprise — the book's anchor", value: "$60k ARR",
+            renewalDate: isoFromToday(64), owner: "Rosa (Account Manager)", nextTouch: "QBR draft",
+            champions: "Hollis Grant, Iris Chen", signals: {}, touchLogged: true
+          }
+        ]
+      });
+    }
+  };
+
+  function presetCopy(key) {
+    return PRESETS[key] ? PRESETS[key]() : null;
+  }
+
+  function byId(id) {
+    for (var i = 0; i < state.accounts.length; i++) {
+      if (state.accounts[i].id === id) return state.accounts[i];
+    }
+    return null;
+  }
+
+  function acctIdx(id) {
+    return state.accounts.findIndex(function (x) { return x.id === id; });
+  }
+
+  function save() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveNow, 250);
+  }
+
+  function saveNow() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      toast("Browser storage is full — export the briefing before experimenting further.");
+    }
+  }
+
+  function load() {
+    var raw = null;
+    try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { raw = null; }
+    if (!raw) return null;
+    try { return normalizeState(JSON.parse(raw)); } catch (e) { return null; }
+  }
+
+  /* ---------- risk math ---------- */
+
+  function activeSignals(acct) {
+    return SIGNALS.filter(function (s) { return acct.signals && acct.signals[s.key]; });
+  }
+
+  function riskScore(acct) {
+    return activeSignals(acct).reduce(function (t, s) { return t + s.weight; }, 0);
+  }
+
+  function laneFor(score) {
+    if (score >= 5) return "red";
+    if (score >= 2) return "amber";
+    return "green";
+  }
+
+  function whyLine(acct) {
+    var act = activeSignals(acct);
+    if (!act.length) return "no signals logged — green by default, not by evidence";
+    return act.map(function (s) { return s.short; }).join(" · ");
+  }
+
+  function championsList(acct) {
+    return String(acct.champions == null ? "" : acct.champions)
+      .split(/[,;]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+
+  function laneLabel(lane) {
+    return lane === "red" ? "RED" : lane === "amber" ? "AMBER" : "GREEN";
+  }
+
+  function whenText(acct) {
+    var d = daysUntil(acct.renewalDate);
+    if (d === null) return "no date set";
+    if (d < 0) return Math.abs(d) + " days past";
+    if (d === 0) return "today";
+    return "in " + d + " days";
+  }
+
+  /* ---------- the coach ---------- */
+
+  function coachReadout() {
+    var accounts = state.accounts;
+    var items = [];
+    var reds = [];
+    var ambers = 0;
+    accounts.forEach(function (a) {
+      var lane = laneFor(riskScore(a));
+      if (lane === "red") reds.push(a);
+      else if (lane === "amber") ambers++;
+    });
+
+    if (reds.length) {
+      items.push({ ok: false, kind: "red",
+        text: reds.length + " red lane" + (reds.length === 1 ? "" : "s") + " — " +
+          reds.map(function (a) { return a.company || "untitled"; }).join(", ") +
+          ". Walk these in first, not alphabetically." });
+    }
+
+    var unloved = accounts.filter(function (a) {
+      var d = daysUntil(a.renewalDate);
+      return d !== null && d >= 0 && d <= 14 && !a.touchLogged;
+    });
+    if (unloved.length) {
+      items.push({ ok: false, kind: "window",
+        text: unloved.map(function (a) {
+          return (a.company || "untitled") + " renews " + whenText(a) + " and no touch is logged";
+        }).join("; ") + " — the call you're least ready for is the one on the calendar." });
+    }
+
+    var overdue = accounts.filter(function (a) {
+      var d = daysUntil(a.renewalDate);
+      return d !== null && d < 0;
+    });
+    if (overdue.length) {
+      items.push({ ok: false, kind: "overdue",
+        text: overdue.map(function (a) { return a.company || "untitled"; }).join(", ") +
+          "'s renewal date" + (overdue.length === 1 ? " already passed" : "s already passed") +
+          " — either it renewed and the sheet is stale, or it churned and the sheet is a ghost." });
+    }
+
+    var thin = accounts.filter(function (a) { return championsList(a).length < 2; });
+    if (thin.length) {
+      items.push({ ok: false, kind: "thread",
+        text: thin.map(function (a) {
+          var names = championsList(a);
+          return names.length
+            ? (a.company || "untitled") + " is single-threaded — one champion (" + names[0] + "), no breadth"
+            : "no champion named at " + (a.company || "untitled") + " — write down who actually answers the phone";
+        }).join("; ") + ". A champion's resignation should never be your renewal notice." });
+    }
+
+    var top = concentrationTop(accounts);
+    if (top) {
+      items.push({ ok: false, kind: "concentration",
+        text: "revenue concentration: " + (top.company || "untitled") + " is " + top.pct +
+          "% of the book — one churn away from a bad quarter. Diversify or de-risk." });
+    }
+
+    var allQuiet = accounts.length > 0 && accounts.every(function (a) {
+      var act = activeSignals(a);
+      return act.length === 1 && act[0].key === "quietAccount";
+    });
+    if (allQuiet) {
+      items.push({ ok: false, kind: "quiet",
+        text: "nothing here is trending up — quiet is not loyal. Quiet accounts quiet-cancel; give each one a reason to talk." });
+    }
+
+    var verdict;
+    if (!accounts.length) {
+      verdict = "No accounts on the radar yet — add the renewals you'd hate to lose.";
+    } else if (!items.length) {
+      verdict = accounts.length + " account" + (accounts.length === 1 ? "" : "s") +
+        " · 0 red · 0 amber — lanes read green, touches logged, no single threads. Textbook.";
+      items.push({ ok: true, kind: "clean",
+        text: "Every renewal has an owner, a date, breadth, and a logged touch. Textbook." });
+    } else {
+      verdict = accounts.length + " account" + (accounts.length === 1 ? "" : "s") +
+        " · " + reds.length + " red · " + ambers + " amber — the flags below are the meeting agenda.";
+    }
+    return { verdict: verdict, items: items, reds: reds.length, ambers: ambers };
+  }
+
+  function concentrationTop(accounts) {
+    var vals = accounts.map(function (a) {
+      var p = parseValue(a.value);
+      return p ? { company: a.company, annual: p.annual } : null;
+    }).filter(Boolean);
+    if (vals.length < 2) return null;
+    var total = vals.reduce(function (t, v) { return t + v.annual; }, 0);
+    if (total <= 0) return null;
+    var top = vals.reduce(function (a, b) { return b.annual > a.annual ? b : a; });
+    var pct = Math.round((top.annual / total) * 100);
+    if (pct > 40) return { company: top.company, pct: pct, annual: top.annual, total: total };
+    return null;
+  }
+
+  function bookAnnual() {
+    return state.accounts.reduce(function (t, a) {
+      var p = parseValue(a.value);
+      return p ? t + p.annual : t;
+    }, 0);
+  }
+
+  /* ---------- the radar list ---------- */
+
+  function upcomingList(accounts) {
+    return accounts.filter(function (a) { return daysUntil(a.renewalDate) !== null; })
+      .sort(function (a, b) { return daysUntil(a.renewalDate) - daysUntil(b.renewalDate); });
+  }
+
+  function walkInOrder(accounts) {
+    var rank = function (a) { var l = laneFor(riskScore(a)); return l === "red" ? 0 : l === "amber" ? 1 : 2; };
+    return accounts.slice().sort(function (a, b) {
+      if (rank(a) !== rank(b)) return rank(a) - rank(b);
+      var da = daysUntil(a.renewalDate); if (da === null) da = 9999;
+      var db = daysUntil(b.renewalDate); if (db === null) db = 9999;
+      return da - db;
+    });
+  }
+
+  /* ---------- exports: the renewal briefing ---------- */
+
+  function mdCell(v) {
+    return String(v == null ? "" : v).replace(/\|/g, "\\|").replace(/\r?\n/g, " ");
+  }
+
+  function todayLabel() {
+    var n = new Date();
+    return n.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  }
+
+  function accountBriefLines(acct) {
+    var L = [];
+    var lane = laneFor(riskScore(acct));
+    var act = activeSignals(acct);
+    var p = parseValue(acct.value);
+    L.push("## " + mdCell(acct.company || "Untitled account") + (acct.tier ? " — " + mdCell(acct.tier) : ""));
+    L.push("");
+    L.push("- Risk lane: **" + laneLabel(lane) + "** (" + riskScore(acct) + "/" + MAX_SCORE + ") — " + mdCell(whyLine(acct)));
+    L.push("- Value: " + (acct.value || "(not set)") +
+      (p ? " (~" + fmtMoney(p.annual) + " annualized" + (p.monthly ? " at " + fmtMoney(p.amount) + "/mo)" : ")") : ""));
+    L.push("- Renews: " + (acct.renewalDate || "(no date set)") + " (" + whenText(acct) + ")");
+    L.push("- Owner: " + (acct.owner || "unowned") + " · Next touch: " + (acct.nextTouch || "nothing planned"));
+    var champs = championsList(acct);
+    L.push("- Champions: " + (champs.length ? champs.join(", ") : "none named — single-threaded"));
+    if (act.length) L.push("- Signals: " + act.map(function (s) { return s.label; }).join("; "));
+    if (act.length) {
+      L.push("- Before the call:");
+      act.forEach(function (s) { L.push("  - " + s.before); });
+    }
+    if (!acct.touchLogged) L.push("- No touch logged this cycle — log one before you walk in.");
+    return L;
+  }
+
+  function buildAccountMarkdown(id) {
+    var a = byId(id);
+    if (!a) return "";
+    return accountBriefLines(a).join("\n");
+  }
+
+  function buildMarkdown() {
+    var dr = coachReadout();
+    var L = [];
+    L.push("# Renewal briefing — " + (state.bookName || "Untitled book"));
+    L.push("");
+    L.push("_Generated " + todayLabel() + " · " + state.accounts.length +
+      " account" + (state.accounts.length === 1 ? "" : "s") + " · ~" + fmtMoney(bookAnnual()) +
+      " annualized · " + dr.reds + " red / " + dr.ambers + " amber_");
+    L.push("");
+    if (state.accounts.length) {
+      var order = walkInOrder(state.accounts);
+      L.push("**Walk-in order:** " + order.map(function (a) {
+        return (a.company || "untitled") + " (" + laneLabel(laneFor(riskScore(a))) + ", " + whenText(a) + ")";
+      }).join(" → "));
+      L.push("");
+    }
+    state.accounts.forEach(function (a) {
+      L.push.apply(L, accountBriefLines(a));
+      L.push("");
+    });
+    L.push("_Escalation hands off with context — so should the support-to-renewal handoff. Renewal Radar: one file, offline._");
+    return L.join("\n");
+  }
+
+  function buildHtml() {
+    var dr = coachReadout();
+    var L = [];
+    L.push("<!DOCTYPE html>");
+    L.push('<html lang="en">');
+    L.push("<head>");
+    L.push('<meta charset="UTF-8">');
+    L.push("<title>Renewal briefing — " + esc(state.bookName || "Untitled book") + "</title>");
+    L.push("<style>");
+    L.push("body { margin: 0; padding: 28px 22px 60px; background: #0d1017; color: #e8ecf4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.5; }");
+    L.push(".wrap { max-width: 860px; margin: 0 auto; }");
+    L.push("h1 { font-size: 24px; margin: 0 0 4px; }");
+    L.push(".meta { color: #97a0b3; font-size: 13px; margin-bottom: 18px; }");
+    L.push(".order { background: #171c27; border: 1px solid #2a3142; border-radius: 10px; padding: 10px 14px; font-size: 13.5px; color: #97a0b3; margin-bottom: 22px; }");
+    L.push(".acct { background: #171c27; border: 1px solid #2a3142; border-left: 4px solid #2a3142; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }");
+    L.push(".acct.red { border-left-color: #f6543f; } .acct.amber { border-left-color: #f2b13d; } .acct.green { border-left-color: #4cc38a; }");
+    L.push("h2 { font-size: 16px; margin: 0 0 8px; }");
+    L.push(".chip { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.4px; border-radius: 999px; padding: 2px 9px; margin-left: 6px; vertical-align: 2px; }");
+    L.push(".chip.red { color: #ffb0a3; background: rgba(246,84,63,0.16); } .chip.amber { color: #ffce8a; background: rgba(242,177,61,0.13); } .chip.green { color: #8fe6bd; background: rgba(76,195,138,0.14); }");
+    L.push("dl { margin: 0; display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; font-size: 13.5px; }");
+    L.push("dt { color: #6b7488; } dd { margin: 0; color: #c9d2e6; }");
+    L.push(".before { margin: 10px 0 0; padding-left: 18px; font-size: 13px; color: #97a0b3; }");
+    L.push(".before li { margin-bottom: 3px; }");
+    L.push(".note { font-size: 12px; color: #f2b13d; margin-top: 10px; }");
+    L.push(".foot { margin-top: 24px; font-size: 12px; color: #6b7488; }");
+    L.push("</style>");
+    L.push("</head>");
+    L.push("<body>");
+    L.push('<div class="wrap">');
+    L.push("<h1>Renewal briefing — " + esc(state.bookName || "Untitled book") + "</h1>");
+    L.push('<div class="meta">Generated ' + esc(todayLabel()) + " · " + state.accounts.length +
+      " account" + (state.accounts.length === 1 ? "" : "s") + " · ~" + fmtMoney(bookAnnual()) +
+      " annualized · " + dr.reds + " red / " + dr.ambers + " amber</div>");
+    if (state.accounts.length) {
+      L.push('<div class="order"><strong>Walk-in order:</strong> ' + walkInOrder(state.accounts).map(function (a) {
+        var lane = laneFor(riskScore(a));
+        return esc(a.company || "untitled") + ' <span class="chip ' + lane + '">' + laneLabel(lane) + " · " + esc(whenText(a)) + "</span>";
+      }).join(" &rarr; ") + "</div>");
+    }
+    state.accounts.forEach(function (a) {
+      var lane = laneFor(riskScore(a));
+      var act = activeSignals(a);
+      var p = parseValue(a.value);
+      var champs = championsList(a);
+      L.push('<div class="acct ' + lane + '">');
+      L.push("<h2>" + esc(a.company || "Untitled account") + (a.tier ? " — " + esc(a.tier) : "") +
+        '<span class="chip ' + lane + '">' + laneLabel(lane) + " · " + riskScore(a) + "/" + MAX_SCORE + "</span></h2>");
+      L.push("<dl>");
+      L.push("<dt>Value</dt><dd>" + esc(a.value || "(not set)") +
+        (p ? " (~" + fmtMoney(p.annual) + " annualized" + (p.monthly ? " at " + fmtMoney(p.amount) + "/mo)" : ")") : "") + "</dd>");
+      L.push("<dt>Renews</dt><dd>" + esc(a.renewalDate || "(no date set)") + " (" + esc(whenText(a)) + ")</dd>");
+      L.push("<dt>Owner</dt><dd>" + esc(a.owner || "unowned") + "</dd>");
+      L.push("<dt>Next touch</dt><dd>" + esc(a.nextTouch || "nothing planned") + "</dd>");
+      L.push("<dt>Champions</dt><dd>" + (champs.length ? esc(champs.join(", ")) : "none named — single-threaded") + "</dd>");
+      L.push("<dt>Signals</dt><dd>" + (act.length ? esc(act.map(function (s) { return s.label; }).join("; ")) + " — " + esc(whyLine(a)) : "none logged") + "</dd>");
+      L.push("</dl>");
+      if (act.length) {
+        L.push('<ul class="before">');
+        act.forEach(function (s) { L.push("<li>" + esc(s.before) + "</li>"); });
+        L.push("</ul>");
+      }
+      if (!a.touchLogged) L.push('<div class="note">No touch logged this cycle — log one before you walk in.</div>');
+      L.push("</div>");
+    });
+    L.push('<div class="foot">' + esc(dr.verdict) + " · Renewal Radar: one file, offline.</div>");
+    L.push("</div>");
+    L.push("</body>");
+    L.push("</html>");
+    return L.join("\n");
+  }
+
+  /* ---------- rendering: account cards ---------- */
+
+  function accountCardHtml(a, idx) {
+    var lane = laneFor(riskScore(a));
+    return '<div class="acct lane-' + lane + '" data-id="' + a.id + '">' +
+      '<div class="acct-bar">' +
+        '<span class="acct-num">' + (idx + 1) + '</span>' +
+        '<input type="text" class="company" data-act="account-field" data-field="company" data-id="' + a.id + '"' +
+          ' value="' + esc(a.company) + '" placeholder="Company — the renewal you\u2019d hate to lose" aria-label="Company">' +
+        '<button type="button" class="nudge" data-act="up" data-id="' + a.id + '" title="Move up" aria-label="Move account up">\u2191</button>' +
+        '<button type="button" class="nudge" data-act="down" data-id="' + a.id + '" title="Move down" aria-label="Move account down">\u2193</button>' +
+        '<button type="button" class="mini" data-act="brief-account" data-id="' + a.id + '" title="Copy this account\u2019s renewal briefing">Brief</button>' +
+        '<button type="button" class="del" data-act="del-account" data-id="' + a.id + '" title="Remove account" aria-label="Remove account">\u2715</button>' +
+      '</div>' +
+      '<div class="fgrid">' +
+        '<label class="f"><span>plan / tier</span><input type="text" data-act="account-field" data-field="tier" data-id="' + a.id + '"' +
+          ' value="' + esc(a.tier) + '" placeholder="Growth, Enterprise, dual site\u2026" aria-label="Plan or tier"></label>' +
+        '<label class="f"><span>ARR / MRR — free-form</span><input type="text" data-act="account-field" data-field="value" data-id="' + a.id + '"' +
+          ' value="' + esc(a.value) + '" placeholder="$40k ARR, 2.4k MRR, 800/mo" aria-label="ARR or MRR value"></label>' +
+        '<label class="f"><span>renewal date</span><input type="date" data-act="account-field" data-field="renewalDate" data-id="' + a.id + '"' +
+          ' value="' + esc(a.renewalDate) + '" aria-label="Renewal date"></label>' +
+        '<label class="f"><span>owner — human or bot</span><input type="text" data-act="account-field" data-field="owner" data-id="' + a.id + '"' +
+          ' value="' + esc(a.owner) + '" placeholder="Rosa (Account Manager)" aria-label="Owner"></label>' +
+        '<label class="f"><span>next touch</span><input type="text" data-act="account-field" data-field="nextTouch" data-id="' + a.id + '"' +
+          ' value="' + esc(a.nextTouch) + '" placeholder="QBR draft, invoice call\u2026" aria-label="Next touch"></label>' +
+        '<label class="f f-wide"><span>champions — comma-separated</span><input type="text" data-act="account-field" data-field="champions" data-id="' + a.id + '"' +
+          ' value="' + esc(a.champions) + '" placeholder="Two names here, not one" aria-label="Champions"></label>' +
+      '</div>' +
+      '<div class="sigs">' +
+        SIGNALS.map(function (s) {
+          var on = a.signals && a.signals[s.key];
+          return '<label class="sig' + (on ? " on" : "") + '"><input type="checkbox" data-act="signal" data-key="' + s.key + '" data-id="' + a.id + '"' +
+            (on ? " checked" : "") + '> ' + s.label + '</label>';
+        }).join("") +
+        '<label class="sig' + (a.touchLogged ? " on" : "") + '"><input type="checkbox" data-act="touch" data-id="' + a.id + '"' +
+          (a.touchLogged ? " checked" : "") + '> touch logged this cycle</label>' +
+      '</div>' +
+      '<div class="whyline">' +
+        '<span class="chip ' + lane + '" data-chip-for="' + a.id + '">' + laneLabel(lane) + " · " + riskScore(a) + "/" + MAX_SCORE + '</span>' +
+        '<span class="why" data-why-for="' + a.id + '">' + esc(whyLine(a)) + " · renews " + esc(whenText(a)) + '</span>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function updateAccountDyn(id) {
+    var a = byId(id);
+    if (!a) return;
+    var card = document.querySelector('.acct[data-id="' + id + '"]');
+    if (!card) return;
+    var lane = laneFor(riskScore(a));
+    card.className = "acct lane-" + lane;
+    var chipEl = card.querySelector("[data-chip-for]");
+    if (chipEl) {
+      chipEl.className = "chip " + lane;
+      chipEl.textContent = laneLabel(lane) + " · " + riskScore(a) + "/" + MAX_SCORE;
+    }
+    var whyEl = card.querySelector("[data-why-for]");
+    if (whyEl) whyEl.textContent = whyLine(a) + " · renews " + whenText(a);
+  }
+
+  function renderAccounts() {
+    var host = document.getElementById("accountsHost");
+    if (!host) return;
+    if (!state.accounts.length) {
+      host.innerHTML = '<div class="empty-state"><p>An empty radar catches nothing. Add the renewals you\u2019d hate to lose.</p></div>';
+      return;
+    }
+    host.innerHTML = state.accounts.map(accountCardHtml).join("");
+  }
+
+  /* ---------- rendering: coach + upcoming ---------- */
+
+  function renderCoach() {
+    var host = document.getElementById("coach");
+    if (!host) return;
+    var read = coachReadout();
+    var list = read.items.map(function (it) {
+      return '<li class="' + (it.ok ? "ok" : "flag") + '">' + esc(it.text) + "</li>";
+    }).join("");
+    host.innerHTML = '<div class="verdict">' + esc(read.verdict) + "</div>" + (list ? "<ul>" + list + "</ul>" : "");
+    host.classList.toggle("all-clear", state.accounts.length > 0 && read.items.length === 1);
+  }
+
+  function renderUpcoming() {
+    var host = document.getElementById("upcomingHost");
+    if (!host) return;
+    var upc = upcomingList(state.accounts).slice(0, 8);
+    if (!upc.length) {
+      host.innerHTML = '<div class="empty-state"><p>No renewal dates yet — the radar needs dates.</p></div>';
+      return;
+    }
+    host.innerHTML = upc.map(function (a) {
+      var lane = laneFor(riskScore(a));
+      var d = daysUntil(a.renewalDate);
+      var when = d === null ? "" : d < 0 ? Math.abs(d) + "d past" : d === 0 ? "today" : d + "d";
+      return '<div class="upc"><span class="when">' + esc(when) + '</span><span class="who">' +
+        esc(a.company || "untitled") + '</span><span class="chip ' + lane + '">' + laneLabel(lane) + '</span></div>';
+    }).join("");
+  }
+
+  function render() {
+    var nameEl = document.getElementById("bookName");
+    if (nameEl && nameEl.value !== state.bookName) nameEl.value = state.bookName;
+    renderAccounts();
+    renderCoach();
+    renderUpcoming();
+  }
+
+  /* ---------- export modal ---------- */
+
+  var exportKind = null; // "md" | "html"
+  var exportScope = null; // "book" | account id
+
+  function openExport(kind, scope) {
+    var text = kind === "html" ? buildHtml() : (scope && scope !== "book" ? buildAccountMarkdown(scope) : buildMarkdown());
+    if (!text.trim()) {
+      toast("Nothing to brief yet — add an account to the radar first.");
+      return;
+    }
+    exportKind = kind;
+    exportScope = scope;
+    var single = scope && scope !== "book" && kind === "md";
+    var title = document.getElementById("modalTitle");
+    var box = document.getElementById("modalText");
+    var dl = document.getElementById("modalDownload");
+    if (title) title.textContent = single
+      ? "Account briefing — markdown"
+      : kind === "html" ? "Renewal briefing — standalone page" : "Renewal briefing — markdown";
+    if (box) box.value = text;
+    if (dl) dl.textContent = kind === "html" ? "Download .html" : "Download .md";
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.add("open");
+    if (box) { box.focus(); box.select(); }
+  }
+
+  function closeExport() {
+    var backdrop = document.getElementById("modalBackdrop");
+    if (backdrop) backdrop.classList.remove("open");
+    exportKind = null;
+    exportScope = null;
+  }
+
+  function fallbackCopy(box) {
+    var ok = false;
+    try {
+      box.focus();
+      box.select();
+      ok = document.execCommand("copy");
+    } catch (e) { ok = false; }
+    return ok;
+  }
+
+  function copyText(text, okMsg, box) {
+    function fallback() {
+      if (box && fallbackCopy(box)) { toast(okMsg); return; }
+      toast("Clipboard blocked — select the text and copy manually. It's right there.");
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { toast(okMsg); }, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function copyCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box) return;
+    copyText(box.value, "Briefing copied — walk in knowing, not hoping.", box);
+  }
+
+  function downloadCurrent() {
+    var box = document.getElementById("modalText");
+    if (!box || !exportKind) return;
+    try {
+      var isHtml = exportKind === "html";
+      var blob = new Blob([box.value], { type: isHtml ? "text/html" : "text/markdown" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = isHtml ? "renewal-brief.html" : "renewal-brief.md";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 800);
+      toast(isHtml ? "renewal-brief.html saved — the one-pager for the call." : "renewal-brief.md saved — paste it into the call notes.");
+    } catch (e) {
+      toast("Download blocked — copy the text instead.");
+    }
+  }
+
+  /* ---------- toast ---------- */
+
+  function toast(msg) {
+    var el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.classList.remove("show"); }, 3400);
+  }
+
+  /* ---------- reorder ---------- */
+
+  function moveAccount(id, delta) {
+    var idx = acctIdx(id);
+    if (idx < 0) return false;
+    var to = idx + delta;
+    if (to < 0 || to >= state.accounts.length) return false;
+    var tmp = state.accounts[idx];
+    state.accounts[idx] = state.accounts[to];
+    state.accounts[to] = tmp;
+    return true;
+  }
+
+  /* ---------- event wiring ---------- */
+
+  function wireEvents() {
+    document.addEventListener("input", function (e) {
+      var el = e.target.closest ? e.target.closest("[data-act='account-field'],[data-act='book-name']") : null;
+      if (!el) return;
+      var act = el.getAttribute("data-act");
+      if (act === "book-name") {
+        state.bookName = el.value;
+        save();
+        return;
+      }
+      if (act === "account-field") {
+        var row = byId(el.getAttribute("data-id"));
+        if (!row) return;
+        row[el.getAttribute("data-field")] = el.value;
+        save();
+        updateAccountDyn(row.id);
+      }
+    });
+
+    document.addEventListener("change", function (e) {
+      var t = e.target;
+      if (!t || !t.matches) return;
+      if (t.matches("[data-act='signal']")) {
+        var sigRow = byId(t.getAttribute("data-id"));
+        if (!sigRow) return;
+        sigRow.signals[t.getAttribute("data-key")] = t.checked;
+        save();
+        updateAccountDyn(sigRow.id);
+        renderCoach();
+        renderUpcoming();
+        return;
+      }
+      if (t.matches("[data-act='touch']")) {
+        var touchRow = byId(t.getAttribute("data-id"));
+        if (!touchRow) return;
+        touchRow.touchLogged = t.checked;
+        save();
+        renderCoach();
+        return;
+      }
+      if (t.matches("[data-act='account-field']")) {
+        var dateRow = byId(t.getAttribute("data-id"));
+        if (!dateRow) return;
+        dateRow[t.getAttribute("data-field")] = t.value;
+        save();
+        updateAccountDyn(dateRow.id);
+        renderUpcoming();
+        return;
+      }
+      if (t.id === "presetSelect") { presetPick(t); return; }
+    });
+
+    document.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest("[data-act]") : null;
+      if (!btn) return;
+      var act = btn.getAttribute("data-act");
+      var id = btn.getAttribute("data-id");
+      if (act === "add-account") {
+        state.accounts.push(blankAccount());
+        save();
+        renderAccounts();
+        renderCoach();
+        renderUpcoming();
+        toast("Account added — company, date, owner. The coach reads the rest.");
+      } else if (act === "del-account") {
+        state.accounts = state.accounts.filter(function (x) { return x.id !== id; });
+        save();
+        renderAccounts();
+        renderCoach();
+        renderUpcoming();
+        toast("Account removed. The coach re-read the book.");
+      } else if (act === "up" || act === "down") {
+        if (!moveAccount(id, act === "up" ? -1 : 1)) return;
+        save();
+        renderAccounts();
+        renderUpcoming();
+      } else if (act === "brief-account") {
+        openExport("md", id);
+      } else if (act === "new-book") {
+        if (window.confirm("Clear the book and start over? Export the briefing first if you want to keep it.")) {
+          state = defaultBook();
+          save();
+          render();
+          toast("Fresh book — the radar is yours. Bend it to your renewal calendar.");
+        }
+      }
+    });
+
+    document.getElementById("copyBriefBtn").addEventListener("click", function () { openExport("md", "book"); });
+    document.getElementById("briefPageBtn").addEventListener("click", function () { openExport("html", "book"); });
+    document.getElementById("modalCopy").addEventListener("click", copyCurrent);
+    document.getElementById("modalDownload").addEventListener("click", downloadCurrent);
+    document.getElementById("modalClose").addEventListener("click", closeExport);
+    document.getElementById("modalBackdrop").addEventListener("click", function (e) {
+      if (e.target === this) closeExport();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeExport();
+    });
+  }
+
+  function presetPick(select) {
+    var key = select.value;
+    if (!key || !PRESETS[key]) return;
+    var name = select.options[select.selectedIndex].textContent;
+    if (!window.confirm("Load the " + name + " preset? It replaces the book — export the briefing first if you want to keep this one.")) {
+      select.selectedIndex = 0;
+      return;
+    }
+    state = presetCopy(key);
+    save();
+    render();
+    toast(name + " loaded — read the coach before you change a thing.");
+    select.selectedIndex = 0;
+  }
+
+  /* ---------- boot ---------- */
+
+  function boot() {
+    state = load();
+    if (!state) {
+      state = presetCopy("postsale");
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { /* non-fatal */ }
+    }
+    wireEvents();
+    render();
+  }
+
+  if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot);
+    } else {
+      boot();
+    }
+  }
+
+  /* ---------- test hook (harmless in the browser) ---------- */
+  if (typeof window !== "undefined") {
+    window.RenewalRadar = {
+      SIGNALS: SIGNALS,
+      MAX_SCORE: MAX_SCORE,
+      defaultBook: defaultBook,
+      normalizeState: normalizeState,
+      presetCopy: presetCopy,
+      parseISODate: parseISODate,
+      startOfToday: startOfToday,
+      daysUntil: daysUntil,
+      isoFromToday: isoFromToday,
+      parseValue: parseValue,
+      fmtMoney: fmtMoney,
+      laneFor: laneFor,
+      riskScore: riskScore,
+      activeSignals: activeSignals,
+      whyLine: whyLine,
+      championsList: championsList,
+      concentrationTop: function () { return concentrationTop(state.accounts); },
+      bookAnnual: function () { return bookAnnual(); },
+      coachReadout: function () { return coachReadout(); },
+      upcomingList: function () { return upcomingList(state.accounts); },
+      walkInOrder: function () { return walkInOrder(state.accounts); },
+      buildMarkdown: function () { return buildMarkdown(); },
+      buildAccountMarkdown: function (id) { return buildAccountMarkdown(id); },
+      buildHtml: function () { return buildHtml(); },
+      moveAccount: function (id, delta) { return moveAccount(id, delta); },
+      setBook: function (s) { state = s; },
+      getBook: function () { return state; },
+      saveNow: saveNow,
+      loadFromStorage: load
+    };
+  }
+})();
+</script>
+</body>
+</html>
