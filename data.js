@@ -27,7 +27,7 @@
 
    ── 5. window.GG_ENTRIES (array, NEWEST FIRST) ─────────────────────────────
      id "d<day>-<hhmm>" unique; t string; day 1|2|3;
-     type ONE of PBP | MOMENT | WHY | LENSES | QUOTE | DELTA;
+     type ONE of PBP | MOMENT | WHY | LENSES | QUOTE | DELTA | SLIDE | STAGE;
      optional lenses{casual,builder,investor,skeptic}, quote{text,who},
      delta[{label,from,to}], tags from REVENUE/PRODUCT/FLEET/KEYNOTE/CHAT/MILESTONE/HOLD.
 
@@ -57,9 +57,9 @@ window.GG_META = {
 window.GG_MOMENT = "Three days, one deadline kept: Thursday Arena is live at thursdayarena.com, with 4,898 public matches played on launch day.";
 
 window.GG_PRIMER = {
-  event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — build an entire real company live using teams of AI agents (Grok Bot), while the internet watches. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
+  event: "Grok Bot Galaxy is xAI's 3-day livestream (Sept 15–17, from a studio next to Dreamforce in San Francisco): three xAI employees — Lauren, Roshan and Matt — built an entire real company live using teams of AI agents (Grok Bot), while the internet watched. Day 1 drew 1.1M viewers; a viewer contest runs through Sept 29 with a Starship-launch trip as the prize.",
   company: "The company is Ship by Thursday — the name was spoken on the Day 1 broadcast, and its domain (shipbythursday.day) went live on Vercel that afternoon, pre-launch. What they are building and shipping is Thursday Arena: a character-draft battler whose cards are xAI bot-marketplace bots, with ELO skill ratings (the chess-style ranking number), charisma-versus-dexterity counters, and live-tunable debug sliders. It began on Day 1 as Pop-up OS — event-ops software for a restaurant pop-up — and the prototype the fleet built under the code name 'Cupcake' became the build itself, named and deployed as Thursday Arena on launch day.",
-  sofar: "Day 1 ran from no idea at the open to a named company by the close: the humans chose a restaurant pop-up with 'Pop-up OS' operations software, the domain went live, and the bot fleet grew past 30. Day 2 retired the October pop-up event ('There is no pop-up') and the code-named 'Cupcake' game prototype became the build — one bug short of playable matches at the 4:53 PM close, 374.9K views. Day 3 was ship day: the build launched as Thursday Arena at thursdayarena.com, playing live matches with a leaderboard, a shop and its own funnel dashboard; the marketing track ran its sessions on bot-staffed teams; and the day closed after 7h 58m with 4,898 public matches played, a peak of 677 concurrent players, and the deadline kept.",
+  sofar: "Day 1 ran from no idea at the open to a named company by the close: the humans chose a restaurant pop-up with 'Pop-up OS' operations software, the domain went live, and the bot fleet grew past 30. Day 2 retired the October pop-up event ('There is no pop-up') and the code-named 'Cupcake' game prototype became the build — one bug short of playable matches at the 4:53 PM close, 374.9K views. Day 3 was ship day: the build launched as Thursday Arena at thursdayarena.com, playing live matches with a leaderboard, a shop and its own funnel dashboard; the day's sessions ran on bot-staffed teams; and the day closed after 7h 58m with 4,898 public matches played, a peak of 677 concurrent players, and the deadline kept.",
   watchfor: "The event is over — the company shipped Thursday Arena on the day it promised, live at thursdayarena.com. Still open beyond the stream: the viewer contest runs through Sept 29 with a Starship-launch trip as the prize, and the question nobody answered on air — what happens when an agent teammate is wrong — now belongs to the shipped product."
 };
 
@@ -85,7 +85,7 @@ window.GG_SCOREBOARD = {
 };
 
 /* NEWEST FIRST. One entry = one block. See cheat sheet above.
-   Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = tape + 8:30 AM. */
+   Day 2 wall PT = broadcast audio + 8:30 AM. Day 3 wall PT = recording + 8:30 AM. */
 window.GG_ENTRIES = [
   {
     id: "d3-1630",
@@ -93,11 +93,11 @@ window.GG_ENTRIES = [
     day: 3,
     type: "WHY",
     tags: ["MILESTONE"],
-    title: "Grok Bot Galaxy, the whole event: three days from nothing to a shipped game",
-    body: "Day 1 (8h 45m, 1.1M views at close): candidate businesses debated live, a restaurant pop-up chosen with 'Pop-up OS' operations software, the company named Ship by Thursday, its domain live by afternoon, a bot fleet past 30, tickets and plush and an email channel designed. Day 2 (8h 23m, 374.9K): the October pop-up event retired ('There is no pop-up'), a game prototype under the code name 'Cupcake' became the build, and the day's sales track — Sales Engineering, Sales, SDRs, Customer Support — filled the playbook while the build went from playground to Next.js app with auth and a leaderboard, one bug short of playable at close. Day 3 (7h 58m, 173.4K): the marketing track ran (Territory Planner ruling on disputes, the Juno brief-writer, Gus the post-sales chief of staff and his self-improvement scan, a researcher-to-strategist marketing relay), and the build shipped as Thursday Arena at thursdayarena.com — leaderboard, shop, live ranked matches, 4,898 public matches and a 677-player peak by showcase, the hosts closing the event playing a viewer live. 25 hours on air; the deadline in the company's name, met.",
+    title: "Grok Bot Galaxy ended with a company and a shipped game built in three days",
+    body: "On Day 1 (8h 45m, 1.1M views at close) the trio debated candidate businesses live, chose a restaurant pop-up with 'Pop-up OS' operations software, named the company Ship by Thursday, put its domain live by afternoon, grew the bot fleet past 30, and designed tickets, plush and an email channel. On Day 2 (8h 23m, 374.9K views) the October pop-up event was retired ('There is no pop-up'), a game prototype under the code name 'Cupcake' became the build, and the day's sales track — Sales Engineering, Sales, SDRs, Customer Support — filled the playbook while the build went from playground to Next.js app with auth and a leaderboard, one bug short of playable at close. On Day 3 (7h 58m, 173.4K views) the day's sessions ran (Territory Planner proposing rulings on disputes, the Juno brief-writer, Gus the post-sales chief of staff and his self-improvement scan, a researcher-to-strategist marketing relay), and the build shipped as Thursday Arena at thursdayarena.com — leaderboard, shop, live ranked matches, 4,898 public matches and a 677-player peak by showcase, the hosts closing the event playing a viewer live. 25 hours on air; the deadline in the company's name, met.",
     lenses: {
       casual: "Three days ago there was no company. It ended with a live game anyone can play and a leaderboard of real players — and you watched every step of the build.",
-      builder: "The stack that shipped: marketplace-bot specialists assembled per function, governed agency (Approve/Hold, drift flags, human-edits-as-truth), routines over one-off prompts, and PRs with test evidence — 'delete all the tests' matured into bots that write their own.",
+      builder: "The stack that shipped combined marketplace-bot specialists assembled per function, governed agency (Approve/Hold, drift flags, human-edits-as-truth), routines over one-off prompts, and PRs with test evidence — 'delete all the tests' matured into bots that write their own.",
       investor: "The event was the go-to-market: 25 hours of watched development created distribution, a template marketplace doubled as a partner ecosystem, and the ship deadline itself became the marketing hook — a case study for agents-as-workforce economics.",
       skeptic: "A tiny game with placeholder ratings shipped on stream — real players and real play data are the receipt, but durability is unproven, the accountability question (what happens when an agent teammate is wrong) got guardrails rather than an answer, and much of what the sessions demoed ran on sample data, not the trio's own build."
     }
@@ -109,7 +109,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE"],
     title: "Day 3 ends with the deadline met and the game shipped",
-    body: "After 7h 58m on air, the third day closed on the 'Thanks for joining!' card at 173.4K views. The final fleet widget read 43 bots, 76 milestones logged, 2 working, 6 archived. The day kept the promise the whole event was named for — 'we ship a product by Thursday': Thursday Arena launched at thursdayarena.com with a leaderboard, a shop, and live ranked play; the showcase put the day's numbers on the board (4,898 public matches, 4,500 practice sessions, a 47.6% overall win rate, a peak of 677 concurrent players); and the hosts ended the event facing a viewer across the table in a ranked match. Three days earlier there was no company, no product, and no code — at close there was a named business, a live game with real players, and a fleet of 43 agents that built it on camera."
+    body: "After 7h 58m on air, the third day closed on the 'Thanks for joining!' card at 173.4K views. The final fleet widget read 43 bots, 76 milestones logged, 2 working, 6 archived — the archived roster trimmed from 11 during the afternoon. The day kept the promise the whole event was named for — 'we ship a product by Thursday': Thursday Arena launched at thursdayarena.com with a leaderboard, a shop, and live ranked play; the showcase put the day's numbers on the board (4,898 public matches, 4,500 practice sessions, a 47.6% overall win rate, a peak of 677 concurrent players); and the hosts ended the event facing a viewer across the table in a ranked match. Three days earlier there was no company, no product, and no code — at close there was a named business, a live game with real players, and a fleet of 43 agents that built it on camera."
   },
   {
     id: "d3-1615",
@@ -136,7 +136,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["FLEET", "PRODUCT"],
     title: "A bot-authored pull request, with its own test report and verdict",
-    body: "The studio screen showed GitHub pull request #274 — a leaderboard fix — written by the fleet: a description of what changed and what was deliberately not touched, a Tests section running through the suite (leaderboard and contest tests, fixtures, page-HTML checks), and a verdict line: 'All green.' The 'delete all the tests' scrappy mode of Day 2 has grown into bots that write their own test evidence. Views: 162.7K."
+    body: "The studio screen showed GitHub pull request #274 — a leaderboard fix — written by the fleet: a description of what changed and what was deliberately not touched, a Tests section running through the suite (leaderboard and contest tests, fixtures, page-HTML checks), and a verdict line: 'All green.' The 'delete all the tests' scrappy mode of Day 2 has grown into bots that write their own test evidence. The view counter read 162.7K."
   },
   {
     id: "d3-1541",
@@ -145,7 +145,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT"],
     title: "Six hundred and seventy-seven people are playing the game as the hosts face a viewer",
-    body: "Mid-match in the showcase: the hosts led the viewer @maxnewworld 1-0 in the best-of-three, Round 2 under way with the coin toss done and an opponent's card on the table — while the public site's own banner read 677 people playing now. The game built over three days was carrying live concurrent play while its makers competed inside it. Views: 161.5K."
+    body: "Mid-match in the showcase, the hosts led the viewer @maxnewworld 1-0 in the best-of-three, Round 2 under way with the coin toss done and an opponent's card on the table — while the public site's own banner read 677 people playing now. The game built over three days was carrying live concurrent play while its makers competed inside it. The view counter read 161.5K."
   },
   {
     id: "d3-1538",
@@ -154,7 +154,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "MILESTONE"],
     title: "Hosts versus a viewer: a live ranked match on the public site",
-    body: "The studio laptops are on thursdayarena.com playing a real match against a viewer — Round 1 of 3, coin toss done, an opponent's card on the table, and '@maxnewworld is the lead!' on the scoreboard. The game built in three days is matching its own makers against the public, live. Views: 156.7K."
+    body: "The studio laptops are on thursdayarena.com playing a real match against a viewer — Round 1 of 3, coin toss done, an opponent's card on the table, and '@maxnewworld is the lead!' on the scoreboard. The game built in three days is matching its own makers against the public, live. The view counter read 156.7K."
   },
   {
     id: "d3-1527",
@@ -163,7 +163,7 @@ window.GG_ENTRIES = [
     type: "MILESTONE",
     tags: ["MILESTONE", "PRODUCT"],
     title: "The public leaderboard is carrying real matches",
-    body: "On thursdayarena.com's leaderboard: named players with Elo ratings and win-loss records — a Gold-rated player at 1447 sitting at rank #51, others from 1142 to 1299 with double-digit win counts. The ratings system that started Day 2 as 'we're both gold at 1000' placeholders is now ranking real public play. Views: 154.1K."
+    body: "On thursdayarena.com's leaderboard: named players with Elo ratings and win-loss records — a Gold-rated player at 1447 sitting at rank #51, others from 1142 to 1299 with double-digit win counts. The ratings system that started Day 2 as 'we're both gold at 1000' placeholders is now ranking real public play. The view counter read 154.1K."
   },
   {
     id: "d3-1516",
@@ -172,7 +172,7 @@ window.GG_ENTRIES = [
     type: "MOMENT",
     tags: ["MILESTONE", "PRODUCT", "KEYNOTE"],
     title: "The final showcase opens on the game's live numbers",
-    body: "The closing segment arrived on schedule and opened on the game's own metrics dashboard: 4,898 public matches played — up from 2,983 at 11:30 AM — alongside 4,500 practice sessions, 1,650 X logins, an 8.0% practice-to-login conversion (388 players), a 47.6% public win rate, and 332 feedback items. Four people sat at the studio table to walk through the day-one numbers. Views: 152.4K."
+    body: "The closing segment arrived on schedule and opened on the game's own metrics dashboard: 4,898 public matches played — up from 2,983 at 11:30 AM — alongside 4,500 practice sessions, 1,650 X logins, an 8.0% practice-to-login conversion (388 players), a 47.6% public win rate, and 332 feedback items. Four people sat at the studio table to walk through the launch-day numbers. The view counter read 152.4K."
   },
   {
     id: "d3-1503",
@@ -181,7 +181,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["KEYNOTE"],
     title: "Marketing session's takeaways: scope, trust, invest",
-    body: "The session's 'What we learned' slide closed its argument in three lines: scope bots properly (bloating context and responsibilities slows them down — 'scope like a job description'); then trust your bots (a proactive, ambitious teammate gets tools, access and context, and room to run); and invest in your bots while copying others — give feedback like you would a teammate, and lean on the marketplace's shared templates. Views: 148.9K."
+    body: "The session's 'What we learned' slide closed its argument in three lines: scope bots properly (bloating context and responsibilities slows them down — 'scope like a job description'); then trust your bots (a proactive, ambitious teammate gets tools, access and context, and room to run); and invest in your bots while copying others — give feedback like you would a teammate, and lean on the marketplace's shared templates. The view counter read 148.9K."
   },
   {
     id: "d3-1450",
@@ -190,7 +190,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["KEYNOTE"],
     title: "A marketing bot takes a three-step order and reports back with screenshots",
-    body: "The Marketing session's demo put a 'Website Ops' bot over a landing-page build in the session's own workspace: the human's message read like a work order — make the landing page from the brief the Product Marketer bot just drafted, update the FAQs for the most common user questions, and send screenshots as you go so I can monitor progress. The bot answered that it was pulling the latest brief and opening a PR with progress screenshots as it worked. The sidebar showed the rest of the session's marketing fleet (Product Wiki, Website 101, Relocation) waiting for their own briefs. Views: 147.1K."
+    body: "The Marketing session's demo put a 'Website Ops' bot over a landing-page build in the session's own workspace: the human's message read like a work order — make the landing page from the brief the Product Marketer bot just drafted, update the FAQs for the most common user questions, and send screenshots as you go so I can monitor progress. The bot answered that it was pulling the latest brief and opening a PR with progress screenshots as it worked. The sidebar showed the rest of the session's marketing fleet (Product Wiki, Website 101, Relocation) waiting for their own briefs. The view counter read 147.1K."
   },
   {
     id: "d3-1449",
@@ -199,7 +199,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["KEYNOTE", "PRODUCT"],
     title: "The Product Marketer bot commits its brief to the workspace",
-    body: "The pipeline in motion: the Market Researcher surfaced findings from competitor advertising (an airline campaign — 'Make distance feel smaller.' — sat on screen as reference), then the baton passed to the Product Marketer bot, which wrote a positioning brief to a file in the shared workspace and pinged the team — with View PR and Open in Cursor buttons on the message. Marketing as a relay of specialists, ending in a committed artifact rather than a chat reply. Views: 146.6K."
+    body: "The pipeline was in motion: the Market Researcher surfaced findings from competitor advertising (an airline campaign — 'Make distance feel smaller.' — sat on screen as reference), then the baton passed to the Product Marketer bot, which wrote a positioning brief to a file in the shared workspace and pinged the team — with View PR and Open in Cursor buttons on the message. Marketing ran as a relay of specialists, ending in a committed artifact rather than a chat reply. The view counter read 146.6K."
   },
   {
     id: "d3-1436",
@@ -207,8 +207,8 @@ window.GG_ENTRIES = [
     day: 3,
     type: "PBP",
     tags: ["KEYNOTE", "PRODUCT"],
-    title: "Marketing session: the Market Researcher brief",
-    body: "The final session (Josh Kim) opened with a 'Market Researcher' bot and a single briefing message: research the product by reading its own website, understand the market it operates in, then a competitive analysis — 'identify and deeply understand 3 competitors,' list their marketing strategies and what's worked, and surface where we can strategically and competitively position ourselves. A marketing fleet waits in the sidebar: Market Eval, Product Marketer, performance and strategy bots. Views: 143.9K."
+    title: "The final marketing session opens with a Market Researcher brief",
+    body: "The final session (Josh Kim) opened with a 'Market Researcher' bot and a single briefing message: research the product by reading its own website, understand the market it operates in, then a competitive analysis — 'identify and deeply understand 3 competitors,' list their marketing strategies and what's worked, and surface where we can strategically and competitively position ourselves. A marketing fleet waits in the sidebar: Market Eval, Product Marketer, performance and strategy bots. The view counter read 143.9K."
   },
   {
     id: "d3-1429",
@@ -226,7 +226,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["FLEET"],
     title: "Bots propose process, not just code",
-    body: "More from the triage thread: the bot went beyond ticket status and proposed process changes for the build itself — one report per site while conflicts last, a team attribute on every ticket, and consolidating deploys — then shared itself to the team ('Share bot — ask to team by dunes') with View PR and Open in Cursor buttons on its work. The fleet isn't just executing the backlog; it's editing how the backlog runs. Views: 137.9K."
+    body: "Later in the triage thread, the bot went beyond ticket status and proposed process changes for the build itself — one report per site while conflicts last, a team attribute on every ticket, and consolidating deploys — then shared itself to the team ('Share bot — ask to team by dunes') with View PR and Open in Cursor buttons on its work. The fleet isn't just executing the backlog; it's editing how the backlog runs. The view counter read 137.9K."
   },
   {
     id: "d3-1406",
@@ -235,7 +235,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "CHAT"],
     title: "The landing page runs a live ticker of X posts — and players are on the board",
-    body: "The deployed landing page now shows the full pitch — THURSDAY ARENA, cupcake mascot, Play and Practice buttons, character cards fanned out — plus a live ticker of X posts where viewers are posting the teams they're building and the bugs they hit. A signed-in player profile on screen carries paired Elo ratings (1400 · 1347). The 'make it go viral' loop — play, post, pull others in — is wired into the site itself. Views: 134.9K."
+    body: "The deployed landing page now shows the full pitch — THURSDAY ARENA, cupcake mascot, Play and Practice buttons, character cards fanned out — plus a live ticker of X posts where viewers are posting the teams they're building and the bugs they hit. A signed-in player profile on screen carries paired Elo ratings (1400 · 1347). The 'make it go viral' loop — play, post, pull others in — is wired into the site itself. The view counter read 134.9K."
   },
   {
     id: "d3-1340",
@@ -295,7 +295,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["KEYNOTE", "PRODUCT"],
     title: "The Post-Sales session opens with a tour of community-built bots",
-    body: "The 12:30 session took the stage and went straight to the bot Marketplace: featured community bots (Lauren Tan's dr.eggbot, Lenny Rachitsky's Overheard, Claire Vo's Tradbot, Eric Zakgaiman's Projects Manager) beside team plugins — pastack (used by 88 teammates), Atlassian MCP (52), GitHub, and the Flylo demo environment. The lesson taking shape: a post-sales team assembles from installed specialists, not job posts. Views: 113.5K."
+    body: "Blake Schuller's 12:30 post-sales session took the stage and went straight to the bot Marketplace: featured community bots (Lauren Tan's dr.eggbot, Lenny Rachitsky's Overheard, Claire Vo's Tradbot, Eric Zakgaiman's Projects Manager) beside team plugins — pastack (used by 88 teammates), Atlassian MCP (52), GitHub, and the Flylo demo environment. The lesson taking shape was that a post-sales team assembles from installed specialists, not job posts. The view counter read 113.5K."
   },
   {
     id: "d3-1214",
@@ -304,7 +304,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["FLEET", "PRODUCT"],
     title: "A data bot now reports the game's stats on a schedule",
-    body: "A bot named Data is posting 'Season 1' session reports into a channel — practice counts, a 46.7% overall win rate, public-match totals, open versus fixed bugs, and feedback volume — with mini-charts inline. The hosts asked it live to 'add total user count over time,' and the report shape grew a new chart on request. A stats routine, not a slide deck: the numbers refresh themselves. Views: 109K."
+    body: "A bot named Data is posting 'Season 1' session reports into a channel — practice counts, a 46.7% overall win rate, public-match totals, open versus fixed bugs, and feedback volume — with mini-charts inline. The hosts asked it live to 'add total user count over time,' and the report shape grew a new chart on request. This is a stats routine rather than a slide deck, and the numbers refresh themselves. The view counter read 109K."
   },
   {
     id: "d3-1204",
@@ -313,7 +313,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
     title: "The company staffs its marketing by installing a bot from the Marketplace",
-    body: "The studio block's new thread is captioned 'Standing up marketing operations,' and the screen shows a Marketplace listing for 'Cerebro' by Marinos — a community-built GTM bot with duplicate and download buttons. The move echoes the event's own pitch: the fastest way to staff a function may be installing a specialist template, then teaching it your house rules. Views: 107K."
+    body: "The studio block's new thread is captioned 'Standing up marketing operations,' and the screen shows a Marketplace listing for 'Cerebro' by Marinos — a community-built GTM bot with duplicate and download buttons. The move echoes the event's own pitch: the fastest way to staff a function may be installing a specialist template, then teaching it your house rules. The view counter read 107K."
   },
   {
     id: "d3-1130",
@@ -322,7 +322,7 @@ window.GG_ENTRIES = [
     type: "DELTA",
     tags: ["PRODUCT", "FLEET"],
     title: "The game's dashboard counts 2,983 public matches so far",
-    body: "A 'Funnel snapshot (practice → convert → play)' chart on the studio screen: 2,255 practice sessions opened, 742 completed, 268 converted to the game, a fourth bar at 193 account creations, and 2,983 public matches. The fleet is now measuring its own game like a product funnel — whether those numbers reflect public traffic or seeded test data isn't stated on screen. Views: 98.7K."
+    body: "A 'Funnel snapshot (practice → convert → play)' chart on the studio screen showed 2,255 practice sessions opened, 742 completed, 268 converted to the game, a fourth bar at 193 account creations, and 2,983 public matches. The fleet is now measuring its own game like a product funnel — whether those numbers reflect public traffic or seeded test data isn't stated on screen. The view counter read 98.7K."
   },
   {
     id: "d3-1119",
@@ -331,7 +331,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT"],
     title: "The game adds a shop whose items are jokes about the sales world",
-    body: "The build block's newest screen: a SHOP tab with buyable cards at 3 gold each — 'The Morning Newspaper' (pass it back: buff two friends from your bench), 'Hiring Signals' (backfire: deal 1 damage to the lowest-health enemy), and 'GTM Connections' (spot: give 50% of its ATK to the lowest-health ally). The auto-battler now has an economy, and the flavor is pure go-to-market. Views: 96.3K."
+    body: "The build block's newest screen showed a SHOP tab with buyable cards at 3 gold each — 'The Morning Newspaper' (pass it back: buff two friends from your bench), 'Hiring Signals' (backfire: deal 1 damage to the lowest-health enemy), and 'GTM Connections' (spot: give 50% of its ATK to the lowest-health ally). The auto-battler now has an economy, and the flavor is pure go-to-market. The view counter read 96.3K."
   },
   {
     id: "d3-1058",
@@ -349,7 +349,7 @@ window.GG_ENTRIES = [
     type: "MOMENT",
     tags: ["MILESTONE", "PRODUCT"],
     title: "The hosts play a live match and take round 1",
-    body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Wednesday's sign-off. The match-result screen reads 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. Views: 86.7K."
+    body: "The game demo — still under its 'Cupcake' code name — is being played live on the broadcast, filling one of the Day 3 promises spoken at Wednesday's sign-off. The match-result screen shows 'You took round 1' with a Play Again button; team cards carry the charisma-vs-dexterity bars, several still reading 'no image provided' while an Image Gen bot sits active in the roster. One day after 'I can't actually add any bots yet,' matches are resolving on screen. The view counter read 86.7K."
   },
   {
     id: "d3-1046",
@@ -358,7 +358,7 @@ window.GG_ENTRIES = [
     type: "DELTA",
     tags: ["FLEET", "PRODUCT"],
     title: "The bots connect six company tools as the fleet reaches 43",
-    body: "The studio block walked through the workspace's 'Manage plugins and skills' screen: Vercel, Notion, Slack, X, PlanetScale and Clerk all show Connected — the same stack the build has leaned on since Day 2 (hosting, docs and the knowledge base, alerts, distribution, the database, auth). The fleet widget reads 43 bots online, 4 working now, 11 archived. Views: 83.8K.",
+    body: "The studio block walked through the workspace's 'Manage plugins and skills' screen: Vercel, Notion, Slack, X, PlanetScale and Clerk all show Connected — the same stack the build has leaned on since Day 2 (hosting, docs and the knowledge base, alerts, distribution, the database, auth). The fleet widget reads 43 bots online, 4 working now, 11 archived. The view counter read 83.8K.",
     delta: [
       { label: "Bots online", from: "30+ (Day 1 close)", to: "43" },
       { label: "Archived", from: "10 (Day 1)", to: "11" }
@@ -371,7 +371,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT", "FLEET"],
     title: "A stats bot checks the game's balance from live match data",
-    body: "Back from the break, the build screen showed a stats thread with a 'Launch dashboard — Session 1' card stamped 10:54 AM PT — practice and match activity, plus a bug list (two fixed, two open). Asked for 'basic game stats like win rates, difficulty, etc. to validate the game engine,' a bot named Sake replied that it is pulling win-rate and difficulty signals from live match data — the side-demo game is now producing real play data that the fleet analyzes. Views: 81.3K."
+    body: "Back from the break, the build screen showed a stats thread with a 'Launch dashboard — Session 1' card — practice and match activity, plus a bug list (two fixed, two open). Asked for 'basic game stats like win rates, difficulty, etc. to validate the game engine,' a bot named Sake replied that it is pulling win-rate and difficulty signals from live match data — the side-demo game is now producing real play data that the fleet analyzes. The view counter read 81.3K."
   },
   {
     id: "d3-1035",
@@ -389,7 +389,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT"],
     title: "Back from the break, the trio works heads-down",
-    body: "After the Marketing Ops session and a short hold, the stream returned to the main studio. Lauren and Matt Palmer are working at their laptops with cameras live; Roshan beside them. The morning's agenda is the build toward the Thursday ship, with Post-Sales at 12:30 PM and Marketing at 2:30 PM still to come. Views: 72K."
+    body: "In the last stretch of the Marketing Ops session, after a short hold, the stream returned to the main studio. Lauren and Matt Palmer are working at their laptops with cameras live; Roshan beside them. The morning's agenda is the build toward the Thursday ship, with Post-Sales at 12:30 PM and Marketing at 2:30 PM still to come. The view counter read 72K."
   },
   {
     id: "d3-0940",
@@ -454,7 +454,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "MILESTONE",
     tags: ["MILESTONE"],
-    title: "Day 2 signed off: 'from no app to an app' — one bug short of playable",
+    title: "Day 2 signed off 'from no app to an app,' one bug short of playable",
     body: "The broadcast ended at 4:53 PM Pacific after 8h 23m. They closed by saying, 'We went from no app to an app… an app with an engine and a bunch of bots that are basically [the] whole workforce today.' The build's honest state at the end was that X login works, the global leaderboard is wired but empty, the ratings are placeholders ('we're both gold at 1000'), and 'there's a bug. So I can't actually add any bots yet.' The Day 3 plans spoken at sign-off were to deploy, rename the game ('maybe think of an actual good name'), play matches live with chat, 'make it go viral. We have one day to grow our business,' and sprint an ads marketplace, all against the deadline of '72-hour live stream… we ship a product by Thursday.' They also announced a promo in which the first 1,000 people to duplicate dr. eggbot receive a free month of Grok Bot, a $200 value.",
     lenses: {
       casual: "Two days in, they have a real app with login and a leaderboard, a bot crew that built it, and exactly one bug between them and a playable game.",
@@ -470,7 +470,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT"],
     title: "The Support session demos a four-bot customer-service team",
-    body: "David Gan (software engineer, xAI user ops) demoed a four-bot support team on xAI's demo airline Flylo, which sells $20-a-month in-flight wifi: build handles infrastructure, reply answers tickets in Plain and Slack, alert flags urgent cases to Slack, and tune improves the system. The stack combined the Plain ticketing tool, a Notion knowledge base holding public docs plus an internal 14-day refund policy, a Supabase database, and Stripe. In the live demo a password reset was answered with a citation to the exact public doc; an SSO question about Okta hit no documentation, so the bot reported low confidence, handed off to a human, and raised a Slack alert ('exactly what we wanted'); and refunds were granted for Carter, who had just subscribed, and denied for Damon, who was about 20 days in and outside policy, all without leaking the internal policy. The rollout ladder is crawl-walk-run: the bots start read-only, then draft answers for review, then answer directly. The economics stated on air were $1–2 per medium ticket and about 20 cents for a scripted one, versus '$1… one to ten dollars' for competitors. A demo org on a demo airline — not the trio's build.",
+    body: "David Gan (software engineer, xAI user ops) demoed a four-bot support team on xAI's demo airline Flylo, which sells $20-a-month in-flight wifi: build handles infrastructure, reply answers tickets in Plain and Slack, alert flags urgent cases to Slack, and tune improves the system. The stack combined the Plain ticketing tool, a Notion knowledge base holding public docs plus an internal 14-day refund policy, a Supabase database, and Stripe. In the live demo a password reset was answered with a citation to the exact public doc; an SSO question about Okta hit no documentation, so the bot reported low confidence, handed off to a human, and raised a Slack alert ('exactly what we wanted'); and refunds were granted for Carter, who had just subscribed, and denied for Damon, who was about 20 days in and outside policy, all without leaking the internal policy. The rollout ladder is crawl-walk-run: the bots start read-only, then draft answers for review, then answer directly. The economics stated on air were $1–2 per medium ticket and about 20 cents for a scripted one, versus '$1… one to ten dollars' for competitors. This was a demo org on a demo airline, not the trio's build.",
     lenses: {
       casual: "They showed bots answering real-looking support tickets and issuing refunds — and refusing, politely, when the policy said no.",
       builder: "The reply bot's loop (read ticket, consult knowledge, answer or hand off, act) plus the alert bot closing the human-visibility gap is the cleanest agent pattern shown all event.",
@@ -520,7 +520,7 @@ window.GG_ENTRIES = [
       casual: "The bots are now making the ads for the game the bots made.",
       builder: "Programmatic ad creative (data in, video out) via an agent-owned codebase is a legitimately repeatable pattern.",
       investor: "This is the event's first revenue idea with a shape: an ads marketplace around a game with an audience that doesn't exist yet.",
-      skeptic: "Six thousand lines of ad code for a product with zero players. The sprint is the story; the revenue is a storyboard."
+      skeptic: "They wrote six thousand lines of ad code for a product with zero players. The sprint is the story; the revenue is a storyboard."
     }
   },
   {
@@ -544,7 +544,7 @@ window.GG_ENTRIES = [
     day: 2,
     type: "PBP",
     tags: ["CHAT"],
-    title: "Guest Matt Berman: the agent-fluencer life — school runs, sold bikes, $1,000 off PG&E",
+    title: "Guest Matt Berman describes the agent-fluencer life — school runs, sold bikes, $1,000 off PG&E",
     body: "Creator Matt Berman told the audience how Grok Bot runs in his life through three examples: a family bot triages his kids' school email, a marketplace bot sold his PlayStation, MacBook and mountain bike on Facebook Marketplace and eBay with automated back-and-forth negotiation, and a utility bot found him a $1,000-a-year saving on his PG&E plan. The studio banter with the trio produced one more line: he's done with the title 'chief of staff' for his bots — just call him Steve.",
     lenses: {
       casual: "His bots sold his old PlayStation and negotiated better electric bills. The future is annoyingly domestic.",
@@ -628,10 +628,10 @@ window.GG_ENTRIES = [
     title: "A coffee-shop owner says his bot wins him 'an extra hour or two' a day",
     body: "A produced customer segment featured Marcel, co-owner of Icon Coffee in San Francisco's Potrero Hill. His Grok Bot, named Rex ('kind of like my chief of staff'), triages his son's school email through the parent portal, has API access to the cafe's POS for reports and metrics on his phone, and optimized the menu from a photo of what was selling. Why it matters to him: 'My son's about to be 10. That time is so precious… an extra hour, two hours in my day.'",
     lenses: {
-      casual: "A real coffee-shop owner, a bot named Rex, and his evenings back.",
+      casual: "A real coffee-shop owner got a bot named Rex — and his evenings back.",
       builder: "POS API plus a photo of a menu turning into menu decisions is a genuinely small-business-shaped workflow.",
       investor: "SMB owners pay in time, not seats — and that's the pricing question xAI hasn't answered.",
-      skeptic: "This was a produced segment with xAI's own customer. Charming, curated, unverifiable."
+      skeptic: "This was a produced segment with xAI's own customer, charming, curated, and unverifiable."
     }
   },
   {
@@ -720,7 +720,7 @@ window.GG_ENTRIES = [
     type: "STAGE",
     tags: ["KEYNOTE", "PRODUCT"],
     title: "Sales Engineering opens with bots booking travel on a demo airline",
-    body: "Day 2's first session opened with an introduction: 'My name is Amrita. I am a field engineer here at Cursor.' Her demos ran on Flylo, xAI's own demo booking app ('a booking app that we at xAI just created as a demo project'), which sells flight cabins with a Postgres-backed guarantee that 'Flylo doesn't let two different customers confirm the same last cabin' and a 10-minute checkout hold. The demo bots were Mimi, who builds customer case-study slides with a problem, a solution, an impact and a quote; Sherlock, a technical expert with repository access through Cursor Cloud Agents, which spawned three more bots live (Battlecard Blair, Demo Drake and AI Radar); and Serena, who runs competitive intel and tested Southwest and Spirit booking flows. Among the facts that landed: Grok Bot runs Grok 4.6, its virtual machines are Linux-only, and her bot-built deck cost '$20 to $30' versus 'four or five hours' by hand. A Google Slides window titled as her vision deck was on screen, and views held around 50K through the morning.",
+    body: "Day 2's first session opened with an introduction: 'My name is Amrita. I am a field engineer here at Cursor.' Her demos ran on Flylo, xAI's own demo booking app ('a booking app that we at xAI just created as a demo project'), which sells flight cabins with a Postgres-backed guarantee that 'Flylo doesn't let two different customers confirm the same last cabin' and a 10-minute checkout hold. The demo bots were Mimi, who builds customer case-study slides with a problem, a solution, an impact and a quote; Sherlock, a technical expert with repository access through Cursor Cloud Agents, which spawned three more bots live (Battlecard Blair, Demo Drake and AI Radar); and Serena, who runs competitive intel and tested Southwest and Spirit booking flows. Among the facts that landed was that Grok Bot runs Grok 4.6, its virtual machines are Linux-only, and her bot-built deck cost '$20 to $30' versus 'four or five hours' by hand. A Google Slides window titled as her vision deck was on screen, and views held around 50K through the morning.",
     lenses: {
       casual: "The morning class: how to sell with a bot team, taught on a fake airline.",
       builder: "Sherlock spawning its own sub-bots is the multi-agent thesis in one demo — scope, spawn, supervise.",
@@ -743,7 +743,7 @@ window.GG_ENTRIES = [
 
   /* ── DAY 1 ── */
   {
-    id: "d1-1930",
+    id: "d1-2130",
     t: "9:30 PM PT",
     day: 1,
     type: "WHY",
@@ -758,7 +758,7 @@ window.GG_ENTRIES = [
     }
   },
   {
-    id: "d1-1805",
+    id: "d1-1730",
     t: "5:30 PM PT",
     day: 1,
     type: "WHY",
@@ -773,7 +773,7 @@ window.GG_ENTRIES = [
     }
   },
   {
-    id: "d1-1755",
+    id: "d1-1700",
     t: "5:00 PM PT",
     day: 1,
     type: "PBP",
@@ -786,14 +786,23 @@ window.GG_ENTRIES = [
     }
   },
   {
+    id: "d1-1655",
+    t: "4:55 PM PT",
+    day: 1,
+    type: "PBP",
+    tags: ["PRODUCT"],
+    title: "The fleet writes its own SEO work order",
+    body: "A bot-written growth plan landed on screen with keyword targets, page-weight and form fixes, and an FAQ — delivered as a work order with owners and a dated execution timeline running through Thursday, not as a report."
+  },
+  {
     id: "d1-1650",
     t: "4:50 PM PT",
     day: 1,
     type: "MILESTONE",
     tags: ["MILESTONE", "KEYNOTE"],
     screen: "optimizing-costs",
-    title: "🎉 The stream passes one million views as xAI shows what agents cost to run",
-    body: "The broadcast counter crossed 1M views during 'Optimizing Costs — browser use is powerful (and expensive!)', a walkthrough of agent unit economics with monthly-pricing toggles and per-task costs visible behind the demo. On air: 'browser use is super powerful… it's also expensive to run multiple times.' A company pitch showing its own cost math to a million viewers is a rare move.",
+    title: "The stream passes one million views as xAI shows what agents cost to run",
+    body: "The broadcast counter crossed 1M views during 'Optimizing Costs — browser use is powerful (and expensive!)', a walkthrough of agent unit economics with monthly-pricing toggles and per-task costs visible behind the demo. On air they said, 'browser use is super powerful… it's also expensive to run multiple times.' A company pitch showing its own cost math to a million viewers is a rare move.",
     delta: [
       { label: "Viewers", from: "968.3K", to: "1M+" }
     ]
@@ -819,7 +828,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "SLIDE",
     tags: ["KEYNOTE", "PRODUCT"],
-    title: "'Why Grok Bot': five pillars — and bots you can hand to someone else",
+    title: "The 'Why Grok Bot' slide lists five pillars, including bots you can hand to someone else",
     body: "The slide's feature grid listed five pillars: Easy as iMessage (bots DM you approvals and status); Always-on 24/7; Uses your tools like you (bots drive real SaaS with your logins); Finishes the work (create, direct, automate); and Shareable Templates — 'Peng shared Kenny with you,' a ready-made operations bot.",
     lenses: {
       casual: "You can hand a friend a fully-trained AI coworker, like sharing a playlist.",
@@ -835,7 +844,7 @@ window.GG_ENTRIES = [
     type: "WHY",
     tags: ["KEYNOTE"],
     title: "xAI shows its 'AI Maturity Curve' — from chatbots to bot-run teams",
-    body: "The founders keynote charted the industry's progression on air, from chatbots to 'ephemeral agents that finish a task' to 'bots that automate your jobs' to companies that 'fully automate a staff function.' xAI places Grok Bot on the top rung, where a bot roster IS the company's staff function. The day's demos, from 30+ titled agents to RFCs and fleet stats, are presented as rung-4 evidence.",
+    body: "The founders keynote charted the industry's progression on air, from chatbots to 'ephemeral agents that finish a task' to 'bots that automate your jobs' to companies that 'fully automate a staff function.' xAI places Grok Bot on the top rung, where a bot roster is the company's staff function. The day's demos, from 30+ titled agents to RFCs and fleet stats, are presented as rung-4 evidence.",
     lenses: {
       casual: "Chatbots do homework, copilots do tasks, bots do jobs — and a bot team does a whole department.",
       builder: "Rung 4 is an org-design claim, not a model claim: the product is the roster, the memory and the hand-offs.",
@@ -894,7 +903,7 @@ window.GG_ENTRIES = [
     type: "DELTA",
     tags: ["FLEET"],
     title: "The fleet dashboard counts 26 bots online and 10 already retired",
-    body: "The live fleet widget showed the org's pulse: 26 bots online, 880 web requests handled, only 1 bot actively working, and 10 archived — the roster churns staff like a real company. Ops chat showed QA picking up PRs and a Darcy-bot redeploy. Views: 908.7K.",
+    body: "The live fleet widget showed the org's pulse: 26 bots online, 880 web requests handled, only 1 bot actively working, and 10 archived — the roster churns staff like a real company. Ops chat showed QA picking up PRs and a Darcy-bot redeploy. The view counter read 908.7K.",
     delta: [
       { label: "Bots online", from: "11", to: "26" },
       { label: "Archived bots", from: "0", to: "10" }
@@ -935,7 +944,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["PRODUCT"],
     title: "The PM session opens with a booking dashboard on sample data",
-    body: "The session opened with a full-screen demo of an agent-built analytics dashboard. It showed 377 family bookings, which is 35.0% of 1,063 purchases; 1,187 family passengers out of 2,663 total; an average party size of 3.2; and mobile-versus-web splits — with the agent roster in the sidebar acting as the operating departments. Views: 842.6K.",
+    body: "The session opened with a full-screen demo of an agent-built analytics dashboard. It showed 377 family bookings, which is 35.0% of 1,063 purchases; 1,187 family passengers out of 2,663 total; an average party size of 3.2; and mobile-versus-web splits — with the agent roster in the sidebar acting as the operating departments. The view counter read 842.6K.",
     lenses: {
       casual: "Pretty dashboards! For a company that isn't this one.",
       builder: "Dashboards generated from the ops store are table stakes; the roster sidebar is the actual demo.",
@@ -1013,7 +1022,7 @@ window.GG_ENTRIES = [
     type: "PBP",
     tags: ["MILESTONE", "CHAT"],
     screen: "cody-guest",
-    title: "Guest Codie Sanchez: sell to three people first; distribution is the moat",
+    title: "Guest Codie Sanchez says to sell to three people first and treat distribution as the moat",
     body: "Guest Codie Sanchez (Contrarian Thinking founder), who has bought and sold ~1,600 businesses through her marketplace, joined as the idea crystallized. Her advice on stage was to sell the business idea to three people before committing to it, to obsess over distribution ('the number one reason they don't make it is because they don't have distribution'), to use controversy marketing — her AI-generated 'move to Austin' video pulled 2.4M views, and a 'no paid ads until $5–10M' take pulled 5.7M views and 2,000 signups — and to keep a proof vault of every good thing anyone says about the product. The session ended with the trio creating an operator-research bot live, seeded with her advice ('top San Francisco restaurant tours').",
     quote: {
       text: "The advice I followed was 'hire A-players and get out of their way'… the only time we almost ran out of money was when I followed that advice. Same with bots — you have to oversee them intensely.",
@@ -1028,7 +1037,7 @@ window.GG_ENTRIES = [
     tags: ["MILESTONE", "PRODUCT"],
     screen: "idea-thread",
     title: "The trio picks its idea: a restaurant pop-up run by ops software",
-    body: "Through agent dialogue — a 'platform for creators', small-business angles, pop-up concepts — the trio landed on 'pop-up OS for restaurants': they would run a real pop-up in San Francisco with a partnering chef, ticket it as an experiential dinner, and build the operating software — 'build an OS for running pop-ups, this meta product.' The company behind it got its name the same hour: Ship by Thursday. (This direction itself kept moving after lunch — see 3:25 PM.)",
+    body: "Through agent dialogue — a 'platform for creators', small-business angles, pop-up concepts — the trio landed on 'pop-up OS for restaurants': they would run a real pop-up in San Francisco with a partnering chef, ticket it as an experiential dinner, and build the operating software — 'build an OS for running pop-ups, this meta product.' The company behind it got its name the same hour: Ship by Thursday. (This direction itself kept moving after lunch.)",
     delta: [
       { label: "Company idea", from: "blank slate", to: "restaurant pop-up ('Pop-up OS')" },
       { label: "Company name", from: "unnamed", to: "'Ship by Thursday'" }
@@ -1056,7 +1065,7 @@ window.GG_ENTRIES = [
     day: 1,
     type: "PBP",
     tags: ["CHAT", "KEYNOTE"],
-    title: "Guest Peter Yang: 'anyone can build anything now — the money moved'",
+    title: "Guest Peter Yang says 'anyone can build anything now — the money moved'",
     body: "The first guest of the day was Peter Yang, ex-Instagram PM and creator: 'anyone can build anything now, but… it's hard to make money from pure software… people pay for the hard stuff.' His framing — value shifting from the app to distribution and physical-world execution — sat under every idea the trio chose for the rest of the day.",
     lenses: {
       casual: "The first guest told them software is free now, so sell things you can touch. They spent the day proving him right.",
