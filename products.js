@@ -568,17 +568,31 @@ window.GG_SESSIONS = [
     title: "Grok Bot for Marketing Operations",
     who: "Matthew Silberman & Teresa Hsu",
     recap: "Six RevOps & MarOps plays opened the final day: a self-completing to-do list, tools not just rules, the marketing–sales handoff, self-serve GTM data, territory planning, and a one-time CRM cleanup. Two demos in ten minutes showed the same pattern — a Territory Planner bot filing an account dispute as a task with Approve/Hold buttons, and Juno, a GTM product bot, turning one line of intent into a spec for a lead-review app."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "12:30–1:30 PM",
+    title: "Grok Bot for Post-Sales / Customer Success",
+    who: "Blake Schuller",
+    recap: "The team assembled from the Marketplace — featured community bots beside team plugins (Atlassian MCP, GitHub, the Flylo demo environment) — then 'Gus', a chief-of-staff bot over Flylo's demo post-sales org, filed a status digest of Risk, People, Blockers and Open promises, ran on scheduled routines (daily brief, call prep every 15 minutes, weekly unattended-promises sweeps, ask watch, visibility watch), and closed with the self-improvement scan: one proposed fix to its own routines per week, human-approved, plus voice-learning from the manager's actual edits. Session-demo data, not the trio's build."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "2:30–4:00 PM",
+    title: "Grok Bot for Marketing",
+    who: "Josh Kim",
+    recap: "Marketing as a relay of specialists: a Market Researcher bot briefed in one message to understand the product, its market and three competitors, surfacing positioning opportunities; the handoff to a Product Marketer bot that committed a positioning brief to the shared workspace with View PR buttons; takeaways — scope bots like a job description, then trust them, and give feedback like you would a teammate."
   }
 ];
 
 window.GG_EVENT_NUMBERS = [
   { label: "Viewers · Day 1", value: "1.1M at close", sub: "opened at 832K; closed ~5:30 PM PT" },
   { label: "Viewers · Day 2", value: "374.9K at close", sub: "opened at 2.6K; signed off 4:53 PM PT" },
-  { label: "Viewers · Day 3", value: "104.7K midday", sub: "climbing on the final day — the broadcast is titled 'launching today'" },
-  { label: "On air so far", value: "20h+", sub: "8h 45m on Day 1 plus 8h 23m on Day 2, and Day 3 live since 8:30 AM PT" },
-  { label: "Fleet", value: "11 to 43 bots", sub: "10 archived on Day 1; the Day 3 fleet widget shows 43 online" },
-  { label: "Ship deadline", value: "today", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air; the Day 3 broadcast is titled 'launching today'" },
-  { label: "Thursday Arena", value: "shipped", sub: "named and deployed on Day 3; 2,983 public matches by 11:30 AM PT, on screen" },
+  { label: "Viewers · Day 3", value: "173.4K at close", sub: "ended 4:28 PM PT after 7h 58m; the broadcast was titled 'launching today'" },
+  { label: "On air", value: "25h 06m", sub: "Day 1: 8h 45m · Day 2: 8h 23m · Day 3: 7h 58m" },
+  { label: "Fleet", value: "11 to 43 bots", sub: "final widget: 43 bots, 76 milestones, 2 working, 6 archived" },
+  { label: "Ship deadline", value: "met", sub: "'we ship a product by Thursday' — Day 2, 4:41 PM, on air; Thursday Arena shipped on Thursday" },
+  { label: "Thursday Arena", value: "shipped", sub: "live at thursdayarena.com — 4,898 public matches and a 677-player peak on launch day, on screen" },
   { label: "Profit target", value: "$30k", sub: "on screen, Day 1 — stated ambition, no sales" },
   { label: "From sketch to live sign-up", value: "~45 min", sub: "Day 1, on screen, 4:01 to 4:19 PM" }
 ];
