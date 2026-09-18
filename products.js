@@ -49,7 +49,7 @@ window.GG_PRODUCT = {
   name: "Ship by Thursday — Thursday Arena (the build)",
   nameConfidence: "high",
   oneLiner: "The trio's company is Ship by Thursday, named on the Day 1 broadcast with its domain (shipbythursday.day) live the same afternoon. What they built and shipped on Thursday is Thursday Arena, live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS (event-ops software for a restaurant pop-up), and the prototype the fleet built on Day 2 under the code name 'Cupcake' became the build itself: named, deployed and playing live matches on Day 3.",
-  stage: "LIVE — thursdayarena.com is public and playable; 2,983 public matches by 11:30 AM PT (on screen)"
+  stage: "SHIPPED — live at thursdayarena.com; by the 4:28 PM PT close: 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, and a peak of 677 concurrent players (on screen)"
 };
 
 window.GG_FEATURES = [
@@ -582,6 +582,13 @@ window.GG_SESSIONS = [
     title: "Grok Bot for Marketing",
     who: "Josh Kim",
     recap: "Marketing as a relay of specialists: a Market Researcher bot briefed in one message to understand the product, its market and three competitors, surfacing positioning opportunities; the handoff to a Product Marketer bot that committed a positioning brief to the shared workspace with View PR buttons; takeaways — scope bots like a job description, then trust them, and give feedback like you would a teammate."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "3:15–4:28 PM",
+    title: "Livestream Wrap and Final Showcase",
+    who: "The trio",
+    recap: "The closing segment opened on the game's own numbers — 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, 677 concurrent players — stated the official rules coached by dr. eggbot, and ended with the hosts playing a ranked match against a viewer before signing off at 4:28 PM PT."
   }
 ];
 
