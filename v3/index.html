@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grok Bot Galaxy — Live Commentary &amp; Product Tracker</title>
-<meta name="description" content="Live commentary on Grok Bot Galaxy (Sept 15–17, 2026): xAI's AI agents build a company in 3 days. Play-by-play, product tracker and Pop-up OS analysis.">
+<title>Grok Bot Galaxy — Product Tracker &amp; Full Recap</title>
+<meta name="description" content="Commentary and product tracker for xAI's Grok Bot Galaxy (Sept 15–17, 2026): three employees built a company in 3 days with a fleet of AI agents and shipped Thursday Arena. Full play-by-play, timeline and session recaps.">
 <link rel="canonical" href="https://shashwatphd-ai.github.io/grok-bot-galaxy-live/">
 <meta name="theme-color" content="#0a0a0f">
-<meta name="description" content="Follow what xAI's bot fleet is building live at Grok Bot Galaxy (Sept 15–17) without watching the stream: a product tracker for the demo company — every feature from spec to shipped, the bot roster, session recaps, and the full merged timeline.">
-<meta property="og:title" content="Grok Bot Galaxy — Live Commentary &amp; Product Tracker">
-<meta property="og:description" content="Three employees are building an entire company live on stream with a team of AI agents. Live scoreboard, play-by-play and audience-lens analysis.">
+<meta property="og:title" content="Grok Bot Galaxy — Product Tracker &amp; Full Recap">
+<meta property="og:description" content="Three employees built an entire company live on stream with a team of AI agents, shipping Thursday Arena on day three. Scoreboard, play-by-play and audience-lens analysis.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://shashwatphd-ai.github.io/grok-bot-galaxy-live/">
 <meta property="og:site_name" content="Grok Bot Galaxy">
@@ -17,10 +16,10 @@
 <meta property="og:image" content="https://shashwatphd-ai.github.io/grok-bot-galaxy-live/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Grok Bot Galaxy — Live Commentary &amp; Product Tracker">
+<meta property="og:image:alt" content="Grok Bot Galaxy — Product Tracker &amp; Full Recap">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Grok Bot Galaxy — Live Commentary &amp; Product Tracker">
-<meta name="twitter:description" content="Three employees are building an entire company live on stream with a team of AI agents. Live scoreboard, play-by-play and audience-lens analysis.">
+<meta name="twitter:title" content="Grok Bot Galaxy — Product Tracker &amp; Full Recap">
+<meta name="twitter:description" content="Three employees built an entire company live on stream with a team of AI agents, shipping Thursday Arena on day three. Scoreboard, play-by-play and audience-lens analysis.">
 <meta name="twitter:image" content="https://shashwatphd-ai.github.io/grok-bot-galaxy-live/og-image.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -38,7 +37,7 @@
 {"@type":"ListItem","position":9,"name":"Grok Bot for Marketing Operations","url":"https://x.ai/galaxy"},
 {"@type":"ListItem","position":10,"name":"Grok Bot for Post-Sales","url":"https://x.ai/galaxy"},
 {"@type":"ListItem","position":11,"name":"Grok Bot for Marketing","url":"https://x.ai/galaxy"}]},
-{"@type":"Event","name":"Grok Bot Galaxy","startDate":"2026-09-15","endDate":"2026-09-17","eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","name":"The Howard","address":"661 Howard St, San Francisco, CA"},"performer":{"@type":"Organization","name":"xAI"},"organizer":{"@type":"Organization","name":"xAI"},"isAccessibleForFree":true,"inLanguage":"en","url":"https://x.com/i/broadcasts/1AxRnZbVpjaxl","description":"Three xAI employees build an entire company live over three days using teams of AI agents."}
+{"@type":"Event","name":"Grok Bot Galaxy","startDate":"2026-09-15","endDate":"2026-09-17","eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","name":"The Howard","address":"661 Howard St, San Francisco, CA"},"performer":{"@type":"Organization","name":"xAI"},"organizer":{"@type":"Organization","name":"xAI"},"isAccessibleForFree":true,"inLanguage":"en","url":"https://x.com/i/broadcasts/1YGNrbXEeazGw","description":"Three xAI employees built an entire company live over three days using teams of AI agents."}
 ]}
 </script>
 <style>  :root  { --bg: #0a0a0f; --card: #13131c; --card2: #1a1a26; --line: #26263a; --text: #e8e8f0; --muted: #9a9ab0; --dim: #6f6f88; --accent: #ff2d78; --accent2: #4fc3f7; --gold: #ffc857; --green: #38e07b; --purple: #b39dff; --mono: ui-monospace, Consolas, "Courier New", monospace; }
@@ -464,7 +463,7 @@
     <h1>Grok Bot Galaxy <span class="galaxy">— Product Tracker</span></h1>
     <div class="meta-line">
       Updated <b id="meta-updated">—</b> · <span id="conn" class="conn"></span> ·
-      <a id="meta-stream" href="https://x.com/i/broadcasts/1AxRnZbVpjaxl" target="_blank" rel="noopener">Watch the stream ↗</a> ·
+      <a id="meta-stream" href="https://x.com/i/broadcasts/1YGNrbXEeazGw" target="_blank" rel="noopener">Watch the stream ↗</a> ·
       <a href="https://x.ai/galaxy" target="_blank" rel="noopener">Schedule ↗</a>
       <button id="catchup" class="cta" type="button">Catch me up</button>
     </div>
@@ -485,7 +484,7 @@
 
 <div class="ticker"><span id="ticker-text">Loading the galaxy…</span></div>
 
-<!-- ══ TAB: NOW — the v2 live feed, kept working ══ -->
+<!-- ══ TAB: NOW — the live feed, kept working ══ -->
 <section class="tab" id="tab-now">
   <div class="wrap">
     <div id="galaxy-load" class="galaxy-load"></div>
@@ -559,7 +558,7 @@
         <a class="dd-card" href="docs.html?doc=commentary-log.md">
           <div class="dd-kind">Long read</div>
           <h3>Commentary log</h3>
-          <p>Every entry from both days, in order — the full play-by-play, from the opening "no idea" to the Day 2 sign-off.</p>
+          <p>Every entry from all three days, in order — the full play-by-play, from the opening "no idea" to the Day 3 sign-off at 4:28 PM PT.</p>
         </a>
         <a class="dd-card" href="docs.html?doc=retro-day1.md">
           <div class="dd-kind">Long read</div>
@@ -567,7 +566,7 @@
           <p>What Day 1 proved, what it didn't, and the day in five lessons — written for founders watching.</p>
         </a>
         <a class="dd-card" href="docs.html?doc=transcript-day1-visual.md">
-          <div class="dd-kind">Transcript · posts soon</div>
+          <div class="dd-kind">Transcript</div>
           <h3>Day 1 visual transcript</h3>
           <p>Frame-by-frame record of what was on screen during Day 1.</p>
         </a>
@@ -586,45 +585,50 @@
           <h3>Day 2 audio transcript</h3>
           <p>The complete 8h 23m Day 2 broadcast, machine-transcribed with timestamps — the full spoken record of the day.</p>
         </a>
-        <a class="dd-card" href="/crewchart">
+        <a class="dd-card" href="docs.html?doc=transcript-day3-visual.md">
+          <div class="dd-kind">Transcript</div>
+          <h3>Day 3 visual transcript</h3>
+          <p>Frame-by-frame record of what was on screen during ship day, from the Thursday Arena deploy to the 4:28 PM PT sign-off.</p>
+        </a>
+        <a class="dd-card" href="crewchart/" data-root="crewchart/">
           <div class="dd-kind">Venture</div>
           <h3>CrewChart</h3>
           <p>The fleet as an org chart: every bot, role and status, and the 11 → 30+ hiring arc from Day 1, explorable.</p>
         </a>
-        <a class="dd-card" href="/menuforge">
+        <a class="dd-card" href="menuforge/" data-root="menuforge/">
           <div class="dd-kind">Venture</div>
           <h3>MenuForge</h3>
           <p>Pricing menus as a product: the tiered-offer playbook the PM session demoed — tiers, anchors, and the human taste call at the end.</p>
         </a>
-        <a class="dd-card" href="/whodoiask">
+        <a class="dd-card" href="whodoiask/" data-root="whodoiask/">
           <div class="dd-kind">Venture</div>
           <h3>WhoDoIAsk</h3>
           <p>Which bot owns which job: a directory of the fleet's roles and responsibilities, built from the Day 1 roster.</p>
         </a>
-        <a class="dd-card" href="/proofwall">
+        <a class="dd-card" href="proofwall/" data-root="proofwall/">
           <div class="dd-kind">Venture</div>
           <h3>ProofWall</h3>
           <p>Build a wall of testimonials with receipts: metric anchors, skeptic balance, and a coach that reads it like a skeptical buyer.</p>
         </a>
-        <a class="dd-card" href="/utmforge">
+        <a class="dd-card" href="utmforge/" data-root="utmforge/">
           <div class="dd-kind">Venture</div>
           <h3>UTMForge</h3>
           <p>Write your campaign-link naming convention once; the convention doctor catches drift before the report rots.</p>
         </a>
-        <a class="dd-card" href="/renewalradar">
+        <a class="dd-card" href="renewalradar/" data-root="renewalradar/">
           <div class="dd-kind">Venture</div>
           <h3>Renewal Radar</h3>
           <p>A renewal book that flags itself: nine health signals, a before-the-call line for each, and a coach that reads the book like an account owner.</p>
         </a>
-        <a class="dd-card" href="/shipdaychecklist">
+        <a class="dd-card" href="shipdaychecklist/" data-root="shipdaychecklist/">
           <div class="dd-kind">Venture</div>
           <h3>ShipDayChecklist</h3>
           <p>The launch-day command center: a countdown to the hour, a stranger's checklist, a kill-list of ship-or-die calls, and a first-hour funnel counted by hand.</p>
         </a>
-        <a class="dd-card" id="dd-stream" href="https://x.com/i/broadcasts/1AxRnZbVpjaxl" target="_blank" rel="noopener">
+        <a class="dd-card" id="dd-stream" href="https://x.com/i/broadcasts/1YGNrbXEeazGw" target="_blank" rel="noopener">
           <div class="dd-kind">Watch</div>
           <h3>The stream ↗</h3>
-          <p>The X broadcast — live and replayable.</p>
+          <p>The X broadcast, in full replay.</p>
         </a>
         <a class="dd-card" href="https://x.ai/galaxy" target="_blank" rel="noopener">
           <div class="dd-kind">Official</div>
@@ -655,7 +659,7 @@
 <footer>
   <div class="inner">
     <p>An independent tracker for xAI's Grok Bot Galaxy, Sept 15–17, 2026, at The Howard in San Francisco. It follows the demo company feature by feature so you don't have to watch the stream.</p>
-    <p>Times are Pacific. The company — "Ship by Thursday" — is named on the Day 1 broadcast; its product, Pop-up OS, kept building through Day 2 while a code-named game demo ("Cupcake") became the day's showpiece. Play-by-play reflects the stream and its transcripts, linked under Deep dives.</p>
+    <p>Times are Pacific. The company — "Ship by Thursday" — is named on the Day 1 broadcast; its build began as Pop-up OS, became the code-named "Cupcake" prototype on Day 2, and shipped on Day 3 as Thursday Arena, live at thursdayarena.com. Play-by-play reflects the stream and its transcripts, linked under Deep dives.</p>
     <p class="f-links">
       <a href="docs.html?doc=commentary-log.md">Full log</a> ·
       <a href="docs.html?doc=retro-day1.md">Day 1 retro</a> ·
@@ -2117,7 +2121,7 @@
     c.appendChild(document.createTextNode(" " + m.quip));
   }
 
-  /* ── data loading (data.js first, polled every 30s like v2) ── */
+  /* ── data loading (data.js first, polled every 30s) ── */
   function setData(text) {
     try { (new Function(text))(); return true; }
     catch (err) { return false; }
