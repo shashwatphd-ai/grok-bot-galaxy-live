@@ -103,7 +103,7 @@ window.GG_FEATURES = [
     numbers: [
       "Ship deadline: Thursday ('we ship a product by Thursday' — 4:41 PM, on air)"
     ],
-    notes: "Landing-page-first was Codie Sanchez's distribution doctrine applied: the front door shipped before the product did — and on launch day the front door became the game's own front page."
+    notes: "Landing-page-first was Codie Sanchez's distribution doctrine applied: the page shipped before the product did, and on launch day it became the game's own front page."
   },
   {
     id: "ads-pipeline",
@@ -123,7 +123,7 @@ window.GG_FEATURES = [
       "Ad code written by the agent: ~6,000 lines / 12 files",
       "Formats: 9:16 + 16:9"
     ],
-    notes: "The first revenue idea with a shape: an ads marketplace around the game demo — scheduled as Day 3's sprint."
+    notes: "The event's first concrete revenue idea was an ads marketplace around the game demo, scheduled as Day 3's sprint."
   },
   {
     id: "auth-backend",
@@ -336,7 +336,7 @@ window.GG_FEATURES = [
     numbers: [
       "Dated deadline on the work order: Thursday"
     ],
-    notes: "The deliverable was not a report but a work order with owners and dates the agent team can execute (on screen)."
+    notes: "The deliverable was a work order with owners and dates the agent team can execute (on screen)."
   },
   {
     id: "agent-pipeline",
@@ -356,7 +356,7 @@ window.GG_FEATURES = [
       "PR #10 posted to for-review via cursor.com/agents",
       "steve's rule-breaking PR: ~2,000 lines (on air)"
     ],
-    notes: "The engineering story: chat is the management layer, a stuck agent gets chased to its PR not its spinner — and by Day 2 the fleet had its own supervisor bots and autopilot playbooks."
+    notes: "Chat is the management layer of the pipeline; a stuck agent gets chased to its PR, not its spinner; by Day 2 the fleet had its own supervisor bots and autopilot playbooks."
   },
   {
     id: "fleet-widget",
@@ -380,7 +380,7 @@ window.GG_FEATURES = [
       "Archived: 10",
       "Final fleet: 43 bots · 76 milestones · 2 working · 6 archived"
     ],
-    notes: "The product's own org chart, ticking live — headcount, throughput, churn — and by Day 2 the fleet writes its own status docs."
+    notes: "The widget is the product's own org chart, ticking through headcount, throughput and churn; by Day 2 the fleet was writing its own status docs."
   }
 ];
 
@@ -608,7 +608,7 @@ window.GG_SESSIONS = [
     time: "2:30–4:00 PM",
     title: "Grok Bot for Marketing",
     who: "Josh Kim",
-    recap: "Marketing as a relay of specialists: a Market Researcher bot briefed in one message to understand the product, its market and three competitors, surfacing positioning opportunities; the handoff to a Product Marketer bot that committed a positioning brief to the shared workspace with View PR buttons; takeaways — scope bots like a job description, then trust them, and give feedback like you would a teammate."
+    recap: "The session ran marketing as a relay of specialists: a Market Researcher bot briefed in one message to understand the product, its market and three competitors, surfacing positioning opportunities; the handoff to a Product Marketer bot that committed a positioning brief to the shared workspace with View PR buttons; takeaways — scope bots like a job description, then trust them, and give feedback like you would a teammate."
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
