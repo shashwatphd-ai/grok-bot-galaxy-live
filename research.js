@@ -1,9 +1,8 @@
 /* ============================================================================
    GROK BOT GALAXY LIVE — RESEARCH LAYER
    ----------------------------------------------------------------------------
-   Tags Day 1 moments with entrepreneurship research from the scraped journal
-   database (ETP, JBV, AMJ, JM, JF, JCR and others — all citations come from
-   the curated CSV export; nothing here is invented).
+   Tags Day 1 moments with entrepreneurship research (ETP, JBV, AMJ and
+   other journals; every citation links to its paper).
 
    Self-initializing: load after data.js + products.js. It watches the page for
    re-renders (the NOW tab refreshes every 30s) and re-decorates.
@@ -237,11 +236,11 @@ window.GG_RESEARCH_MOMENTS = [
         if (e) host = e;
       }
       if (m.anchorFeature) {
-        var cand = document.querySelectorAll('[data-feature-id="' + m.anchorFeature + '"], [id="feature-' + m.anchorFeature + '"], [id="' + m.anchorFeature + '"]');
+        var cand = document.querySelectorAll('[id="feat-' + m.anchorFeature + '"], [data-feature-id="' + m.anchorFeature + '"], [id="' + m.anchorFeature + '"]');
         if (cand.length) host = cand[0];
         else {
           var paper0 = paperById[(m.papers[0] || {}).id];
-          var cards = document.querySelectorAll("#tab-product .entry, #tab-product .feature, #product .feature, .feature-card, #product .tile");
+          var cards = document.querySelectorAll("#tab-product .feat, #tab-product .entry, .feature-card, #product .tile");
           for (var i = 0; i < cards.length; i++) {
             if (cards[i].textContent.indexOf(featureNameFor(m)) !== -1) { host = cards[i]; break; }
           }
