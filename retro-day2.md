@@ -6,11 +6,11 @@
 
 ## What Day 2 actually proved
 
-**The pivot was documented, not argued.** At 9:39 AM a knowledge-base bot rewrote the company doc in Notion around a "game design studio" framing, and the screen showed what was being retired: "There is no pop-up. Oct 15 venue / host / dining tracks are retired." The most consequential decision of the event was made, written down by an agent, and narrated to viewers inside ten minutes. The ops-software line stayed in the plan doc, heading for Thursday — what died was the October event, not the platform.
+**The pivot was documented, not argued.** At 9:39 AM a knowledge-base bot rewrote the company doc in Notion around a "game design studio" framing, and the screen showed what was being retired: "There is no pop-up. Oct 15 venue / host / dining tracks are retired." The most consequential decision of the event was made, written down by an agent, and narrated to viewers inside ten minutes. The ops-software line stayed in the plan doc, heading for Thursday.
 
 **A prototype can be a decision tool.** "Cupcake" started as a demo of prototyping speed — skip login, no database, debug sliders — "we don't need login yet when we don't even know if the game is fun." By 10:03 AM it was playable; by the afternoon it was the build itself. The lesson runs opposite to spec-first instinct: build the smallest thing that tells you whether to continue, then let it earn promotion.
 
-**Scrappy mode had a method.** "Delete all the tests. We'll push it to main… true scrappy mode" sounded like chaos but arrived with anti-cheat reasoning (a client you can modify is a client that can cheat), a server-side leaderboard, a kanban board, and a supervisor bot over cloud agents. The speed came from cutting ceremony, not cutting thinking.
+**Scrappy mode had a method.** "Delete all the tests. We'll push it to main… true scrappy mode" sounded like chaos but arrived with anti-cheat reasoning (a client you can modify is a client that can cheat), a server-side leaderboard, a kanban board, and a supervisor bot over cloud agents. The speed came from dropping ceremony while keeping the thinking.
 
 **The sessions were the playbook, kept separate from the build.** Sales Engineering (Cursor's Amrita on the Flylo demo app), Sales, SDRs, and Customer Support each demoed bot-staffed functions on session sample data — and each time, the stream said so. Teaching artifacts and the trio's build ran in parallel lanes all day, which is the only reason the pivot stayed legible.
 
@@ -20,9 +20,9 @@
 
 ## Five things a founder can take from Day 2
 
-1. **Write the pivot down the same hour.** The Notion rewrite is what made "There is no pop-up" a decision instead of a mood. Undocumented pivots get re-litigated; documented ones get executed.
+1. **Write the pivot down the same hour.** The Notion rewrite is what made "There is no pop-up" a decision instead of a mood. A pivot that is not written down tends to get re-litigated later; a documented one gets executed.
 
-2. **Time-box the prototype to the question.** No login, no DB, debug sliders — every cut was chosen to answer "is the game fun?" faster. Scope is a function of the question you're asking.
+2. **Time-box the prototype to the question.** No login, no DB, debug sliders — every cut was chosen to answer "is the game fun?" faster.
 
 3. **Subtract before you add.** The landing page shipped fast because the discipline was stated as removal: "removing auth, removing a waitlist. We literally just want like a V1."
 
