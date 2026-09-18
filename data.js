@@ -437,6 +437,7 @@ window.GG_ENTRIES = [
     type: "MOMENT",
     tags: ["KEYNOTE"],
     title: "The final day begins: today the company ships",
+    body: "The third broadcast opened under the title 'Building a company in 3 days - launching today!' — the deadline now written into the stream's own name. The first stretch stayed on 'Be right back' hold cards while the studio finished setup, with the marketing track due to open the morning."
   },
   {
     id: "d2-1653",
