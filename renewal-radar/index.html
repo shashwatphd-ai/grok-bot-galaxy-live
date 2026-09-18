@@ -131,6 +131,7 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
       <option value="" disabled selected>Presets&hellip;</option>
       <option value="postsale">Post-Sale Co.</option>
       <option value="popup">Pop-up OS (day-of homage)</option>
+      <option value="postsaledesk">Post-Sales Desk (Gus digest)</option>
     </select>
     <button id="copyBriefBtn" type="button" title="Copy the whole book's renewal briefing as markdown — paste it into the call notes">Copy brief</button>
     <button id="briefPageBtn" type="button" class="primary" title="Export the whole book as a standalone HTML one-pager — the sheet you walk into the call with">Brief page</button>
@@ -207,8 +208,11 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
      runs offline from file:// — no network, no dependencies.
      Health-signal vocabulary comes from the Day 2 Customer Support
      session (four-bot org, crawl-walk-run, refund SOP, churn-risk
-     hourly routines, quiet accounts) and Nadia's line in Post-Sale
-     Co.: flags quiet accounts before they quiet-cancel.
+     hourly routines, quiet accounts), Nadia's line in Post-Sale
+     Co. — flags quiet accounts before they quiet-cancel — and the
+     Day 3 Post-Sales session's Gus digest (a QBR that gets ugly,
+     open promises with owners and dates, access-pending blockers,
+     an account kept soft rather than made a P0).
      ============================================================ */
 
   var STORAGE_KEY = "renewalradar.v1";
@@ -230,11 +234,17 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
     { key: "invoiceFriction", label: "invoice friction", weight: 2, short: "money questions open",
       before: "settle the money question first — grant inside policy, hold outside it, and say which" },
     { key: "quietAccount", label: "quiet account", weight: 1, short: "quiet — and quiet is not loyal",
-      before: "quiet is not loyalty — bring one reason for them to talk" }
+      before: "quiet is not loyalty — bring one reason for them to talk" },
+    { key: "qbrFriction", label: "QBR friction", weight: 2, short: "the QBR is trending ugly",
+      before: "rebuild the QBR agenda around the open risks — the review that walks in blind is the one that gets ugly" },
+    { key: "openPromise", label: "open promise", weight: 2, short: "an open promise with a date on it",
+      before: "sweep the promises ledger first — an unattended promise with an owner and a date is a churn risk the account can already see" },
+    { key: "accessPending", label: "access pending", weight: 1, short: "seats still waiting on access",
+      before: "clear the access blockers before the call — a team still waiting on logins can't renew what they can't open" }
   ];
 
   var SIGNAL_KEYS = SIGNALS.map(function (s) { return s.key; });
-  var MAX_SCORE = SIGNALS.reduce(function (t, s) { return t + s.weight; }, 0); // 13
+  var MAX_SCORE = SIGNALS.reduce(function (t, s) { return t + s.weight; }, 0); // 18
 
   /* ---------- date math — local midnight, never UTC ----------
      new Date("YYYY-MM-DD") parses as UTC midnight, which lands on
@@ -410,6 +420,38 @@ footer { max-width: 1280px; margin: 0 auto; padding: 8px 22px 30px; font-size: 1
             company: "Sunset Catering Co.", tier: "Catering — events arm", value: "600/mo",
             renewalDate: isoFromToday(12), owner: "Nadia (CSM)", nextTouch: "season-wrap review",
             champions: "Alma, Reyes", signals: { usageDrop: true }, touchLogged: true
+          }
+        ]
+      });
+    },
+    postsaledesk: function () {
+      return normalizeState({
+        bookName: "Post-Sales Desk — the Gus digest",
+        accounts: [
+          {
+            company: "Cardinal Migration", tier: "Business — training suite", value: "$24k ARR",
+            renewalDate: isoFromToday(26), owner: "Gus (chief of staff, bot)", nextTouch: "QBR agenda rebuilt around the open risks",
+            champions: "Dana Voss, Priya Nair", signals: { qbrFriction: true, openPromise: true }, touchLogged: true
+          },
+          {
+            company: "Bluefin Analytics", tier: "Growth — analytics seats", value: "$18k ARR",
+            renewalDate: isoFromToday(11), owner: "Nadia (CSM)", nextTouch: "renewal call — prep done",
+            champions: "Rio Tanaka, Margeaux Ellis", signals: {}, touchLogged: true
+          },
+          {
+            company: "Juniper & Main", tier: "Starter — three new seats", value: "$12k ARR",
+            renewalDate: isoFromToday(33), owner: "Milo (Support Specialist)", nextTouch: "",
+            champions: "", signals: { quietAccount: true, accessPending: true }, touchLogged: false
+          },
+          {
+            company: "Heron Data Works", tier: "Starter — kept soft", value: "$9k ARR",
+            renewalDate: isoFromToday(52), owner: "Quinn (CS Lead)", nextTouch: "kept soft, not a P0 — revisit next cycle",
+            champions: "Bea Ott, Callum Reyes", signals: { quietAccount: true }, touchLogged: false
+          },
+          {
+            company: "Lantern & Ledger", tier: "Enterprise — the book's anchor", value: "$60k ARR",
+            renewalDate: isoFromToday(64), owner: "Rosa (Account Manager)", nextTouch: "QBR draft",
+            champions: "Hollis Grant, Iris Chen", signals: {}, touchLogged: true
           }
         ]
       });
