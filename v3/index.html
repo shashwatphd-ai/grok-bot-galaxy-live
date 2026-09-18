@@ -322,8 +322,16 @@
   .tl-main { flex: 1; min-width: 220px; }
   .tl-top { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 3px; }
   .tl-top .etype { margin-bottom: 0; }
-  .tl-fname { color: var(--text); font-size: 14px; }
-  .tl-fcat { font-size: 10.5px; color: var(--dim); text-transform: uppercase; letter-spacing: 1px; }
+  .tl-fname { color: var(--text); font-size: 14px; font-weight: 700; }
+  .tl-fcat { font-size: 10.5px; color: var(--dim); text-transform: uppercase; letter-spacing: .5px; }
+  .tl-day { display: flex; align-items: center; gap: 12px; margin: 30px 0 6px; color: var(--text); font-size: 13px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+  .tl-day::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .tl-src { font-size: 9px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--dim); }
+  .tl-fgroup { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--purple); border-radius: 10px; margin-bottom: 8px; padding: 0 12px; }
+  .tl-fhead { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 9px 0 7px; border-bottom: 1px dashed var(--line); }
+  .tl-fhead .tl-go { margin-left: auto; }
+  .tl-frow { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px dashed var(--line); }
+  .tl-frow:last-child { border-bottom: 0; }
   .tl-txt { font-size: 13.5px; color: #c9c9da; line-height: 1.55; }
   .tl-txt.tl-moment { color: #fff; font-weight: 700; }
   .tl-go  { font-family: inherit; font-size: 12px; color: var(--accent2); background: none; border: 1px solid var(--line); border-radius: 14px; padding: 3px 11px; cursor: pointer; white-space: nowrap; align-self: center; }
@@ -361,6 +369,7 @@
   .wf-tlabel.edgeR { transform: translateX(-100%); }
   .tf0 { top: 38px; } .tf1 { top: 22px; } .tf2 { top: 6px; }
   .wf-rail { position: relative; height: 66px; margin-top: 12px; }
+  .wf-rail-label { position: absolute; left: 0; top: 0; z-index: 2; background: var(--card); color: var(--gold); font-size: 10px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 1px 8px 1px 0; }
   .wf-rline { position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, rgba(255,200,87,.15), rgba(255,200,87,.6)); }
   .wf-dlink { position: absolute; top: 0; height: 0; width: 0; border-left: 1px dashed rgba(255,200,87,.45); }
   .wf-dnode  { position: absolute; top: 50%; width: 20px; height: 20px; margin: -10px 0 0 -10px; background: none; border: 0; padding: 0; border-radius: 4px; }
@@ -383,12 +392,12 @@
   .wf-rowhead:hover, .wf-rowhead:focus-visible { background: var(--card2); }
   .wf-rowhead::after { content: "\25B8"; margin-left: auto; color: var(--dim); transition: transform .15s; }
   .wf-row.open .wf-rowhead::after { transform: rotate(90deg); }
-  .wf-rt { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; min-width: 66px; }
+  .wf-rt { color: var(--muted); font-size: 12.5px; font-variant-numeric: tabular-nums; min-width: 66px; white-space: nowrap; }
   .wf-lanechip { font-size: 9.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; border: 1px solid; border-radius: 10px; padding: 1px 8px; }
   .wf-lanechip.human { color: var(--gold); border-color: rgba(255,200,87,.5); }
   .wf-lanechip.ai { color: var(--accent2); border-color: rgba(79,195,247,.5); }
-  .wf-ractor { font-weight: 700; font-size: 13.5px; }
-  .wf-ract { color: var(--muted); font-size: 13.5px; }
+  .wf-ractor { font-weight: 700; font-size: 13.5px; max-width: 42%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .wf-ract { color: var(--muted); font-size: 13.5px; flex: 1 1 240px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .wf-rbody { display: none; padding: 0 14px 12px; font-size: 13.5px; color: #c9c9da; line-height: 1.6; }
   .wf-row.open .wf-rbody { display: block; }
   .wf-rdeliv { display: block; margin-top: 8px; color: var(--gold); font-size: 12.5px; font-weight: 700; }
@@ -447,6 +456,8 @@
     .featgrid, .sessgrid, .dd-grid { grid-template-columns: 1fr; }
     .tabs { top: 45px; }
     .fev-t { min-width: 70px; }
+    .tl-time { min-width: 64px; }
+    .wf-ract { white-space: normal; }
     #q { flex: 1 1 100%; max-width: none; order: 10; }
     .topbar .sess { max-width: none; }
   }</style>
@@ -525,7 +536,7 @@
   <div class="wrap">
     <div class="board">
       <div class="board-title"><span>Everything that happened, oldest first</span></div>
-      <p class="tl-note">Every feed entry and every product status change on one clock, grouped by hour. "View" on a row jumps to its full card.</p>
+      <p class="tl-note">Every feed entry and every product status change on one clock, oldest first, grouped by day and hour. "View" on a row opens its full entry, and "View card" on a grouped feature opens the feature card that owns those status changes. All times are Pacific.</p>
     </div>
     <div id="tl-body"></div>
   </div>
@@ -701,7 +712,8 @@
   var SEARCH_PH = { now: "Search the feed…", product: "Search features…", timeline: "Search the timeline…", screens: "Search screenshots…" };
   var EV_OPEN_FOR = ["BUILD", "STAGING", "SHIPPED", "PITCHED"];
   var WF_START = 510;  /* 8:30 AM PT */
-  var WF_END = 1080;   /* 6:00 PM PT */
+  var WF_END = 1080;   /* fallback only; per-day broadcast ends below */
+  var WF_DAYS = { 1: { end: 1050, label: "5:30 PM" }, 2: { end: 1013, label: "4:53 PM" }, 3: { end: 988, label: "4:28 PM" } };
 
   var activeTab = "now";
   var dataPath = "data.js";
@@ -752,6 +764,29 @@
     var h12 = (h % 12 === 0) ? 12 : h % 12;
     return h12 + ":00 " + (h < 12 ? "AM" : "PM");
   }
+  /* display clock: strip "Day N," / "Late " / "PT" — day context lives in the
+     day dividers and the tab note, never inside a row timestamp */
+  function fmtClock(t) {
+    return String(t || "").replace(/^Day\s*\d+,\s*/i, "").replace(/^Late\s+/i, "").replace(/\s*PT$/i, "");
+  }
+  function stripProv(s) {
+    return String(s || "").replace(/\s*\((?:on air|on screen)\)\s*$/i, "");
+  }
+  /* which day a feature statusHistory row belongs to, derived from its own time
+     string or the feature's category ("The build (Day 2–3)" → 2) */
+  function featBaseDay(f) {
+    var m = /Day\s*(\d)/i.exec((f && f.category) || "");
+    return m ? parseInt(m[1], 10) : 1;
+  }
+  function histDay(f, s) {
+    var m = /^Day\s*(\d+)/i.exec(s.t || "");
+    if (m) return parseInt(m[1], 10);
+    m = /^Sep\s+(\d+)/i.exec(s.t || "");
+    if (m) return { 15: 1, 16: 2, 17: 3 }[parseInt(m[1], 10)] || featBaseDay(f);
+    m = /^Late\s+Day\s*(\d+)/i.exec(s.t || "");
+    if (m) return parseInt(m[1], 10);
+    return featBaseDay(f);
+  }
   /* wall-clock PT timestamp for an event: day 1-3 of the event, "4:37 PM" string.
      Sept 2026 is PDT (UTC-7): midnight PT = 07:00 UTC on the same UTC date. */
   function ptDate(day, t) {
@@ -784,7 +819,7 @@
     });
     (window.GG_FEATURES || []).forEach(function (f) {
       (f.statusHistory || []).forEach(function (s) {
-        var d = ptDate(1, s.t);
+        var d = ptDate(histDay(f, s), s.t);
         if (d && d > lastVisit) n++;
       });
     });
@@ -798,7 +833,7 @@
   function latestHistoryNew(f) {
     if (!lastVisit || !(f.statusHistory || []).length) return false;
     var last = f.statusHistory[f.statusHistory.length - 1];
-    var d = ptDate(1, last.t);
+    var d = ptDate(histDay(f, last), last.t);
     return !!(d && d > lastVisit);
   }
 
@@ -971,7 +1006,7 @@
 
     /* ticker */
     var tick = "Latest: ";
-    if (E[0]) tick += E[0].t + ": " + E[0].title + "  •  ";
+    if (E[0]) tick += fmtClock(E[0].t) + ": " + E[0].title + "  •  ";
     var deltas = (window.GG_SCOREBOARD && window.GG_SCOREBOARD.deltas) || [];
     if (deltas.length) tick += " Changed: " + deltas.join("  •  ") + "  •  ";
     tick += " Session: " + (M.session || "—") + "  •  Viewers: " + (M.viewers || "—") + "  •  ";
@@ -1069,12 +1104,13 @@
       d.id = anchorId(e.id);
       var top = el("div", "entry-top");
       top.appendChild(el("span", "etype", typeLabel(e.type)));
-      top.appendChild(el("span", "time", e.t));
+      top.appendChild(el("span", "time", fmtClock(e.t)));
       if (entryIsNew(e)) {
         d.classList.add("is-new");
         top.appendChild(el("span", "newpill", "new"));
       }
       (e.tags || []).forEach(function (tg) {
+        if (String(tg).toUpperCase() === String(e.type).toUpperCase()) return;
         top.appendChild(el("span", "etag etag-" + (KNOWN_TAGS[tg] ? tg : "OTHER"), tg));
       });
       var pl = el("a", "permalink", "#");
@@ -1190,9 +1226,9 @@
     mi.appendChild(lbl);
     var cap;
     if (it.kind === "entry") {
-      cap = it.e.t + ": " + (it.e.title || (it.e.quote && it.e.quote.text) || typeLabel(it.e.type));
+      cap = fmtClock(it.e.t) + ": " + (it.e.title || (it.e.quote && it.e.quote.text) || typeLabel(it.e.type));
     } else {
-      cap = it.s.t + ": " + it.f.name + " moves to " + it.s.status;
+      cap = fmtClock(it.s.t) + ": " + it.f.name + " moves to " + it.s.status;
     }
     mi.appendChild(el("div", "txt", cap));
     var pr = el("div", "rp-progress"), bar = el("div", "rp-bar");
@@ -1401,7 +1437,7 @@
         var line = el("div", "ftl-line");
         var lt = el("div", "ftl-top");
         lt.appendChild(el("span", "pill st-" + statusCls(s.status), s.status));
-        if (s.t) lt.appendChild(el("span", "ftl-t", s.t));
+        if (s.t) lt.appendChild(el("span", "ftl-t", fmtClock(s.t)));
         if (lastVisit && s === hist[hist.length - 1] && latestHistoryNew(f)) {
           lt.appendChild(el("span", "newpill", "new"));
         }
@@ -1428,7 +1464,7 @@
       var list = el("div", "fev-list");
       evList.forEach(function (e2) {
         var r = el("div", "fev-row");
-        r.appendChild(el("span", "fev-t", e2.t));
+        r.appendChild(el("span", "fev-t", fmtClock(e2.t)));
         r.appendChild(el("span", "fev-w", e2.what));
         list.appendChild(r);
       });
@@ -1567,7 +1603,7 @@
     });
     (window.GG_FEATURES || []).forEach(function (f) {
       (f.statusHistory || []).forEach(function (s) {
-        items.push({ min: parseTime(s.t), day: 1, kind: "feature", f: f, s: s });
+        items.push({ min: parseTime(s.t), day: histDay(f, s), kind: "feature", f: f, s: s });
       });
     });
     items.forEach(function (it, i) {
@@ -1589,43 +1625,53 @@
     return [it.f.name, it.f.category, it.s.status, it.s.note].join(" ").toLowerCase();
   }
 
-  function tlItem(it) {
+  function tlEntryRow(it) {
+    var e = it.e;
     var row = el("div", "tl-item");
-    if (it.kind === "entry") {
-      var e = it.e;
-      row.appendChild(el("span", "tl-time", e.t || ""));
-      var main = el("div", "tl-main");
-      var top = el("div", "tl-top");
-      top.appendChild(el("span", "etype", typeLabel(e.type)));
-      (e.tags || []).forEach(function (tg) {
-        top.appendChild(el("span", "etag etag-" + (KNOWN_TAGS[tg] ? tg : "OTHER"), tg));
-      });
-      main.appendChild(top);
-      var txt = e.title || (e.quote && e.quote.text) || "";
-      if (txt.length > 180) txt = txt.slice(0, 177) + "…";
-      var tn = el("div", "tl-txt" + (e.type === "MOMENT" ? " tl-moment" : ""), txt);
-      main.appendChild(tn);
-      row.appendChild(main);
-      var go = el("button", "tl-go", "View in feed →");
-      go.type = "button";
-      go.addEventListener("click", function () { goEntry(e.id); });
-      row.appendChild(go);
-    } else {
-      row.appendChild(el("span", "tl-time", it.s.t || ""));
-      var main2 = el("div", "tl-main");
-      var top2 = el("div", "tl-top");
-      top2.appendChild(el("span", "pill st-" + statusCls(it.s.status), it.s.status));
-      top2.appendChild(el("b", "tl-fname", it.f.name));
-      top2.appendChild(el("span", "tl-fcat", it.f.category));
-      main2.appendChild(top2);
-      if (it.s.note) main2.appendChild(el("div", "tl-txt", it.s.note));
-      row.appendChild(main2);
-      var go2 = el("button", "tl-go", "View card →");
-      go2.type = "button";
-      go2.addEventListener("click", function () { goFeature(it.f.id); });
-      row.appendChild(go2);
-    }
+    row.appendChild(el("span", "tl-time", fmtClock(e.t)));
+    var main = el("div", "tl-main");
+    var top = el("div", "tl-top");
+    top.appendChild(el("span", "tl-src", "Feed"));
+    top.appendChild(el("span", "etype", typeLabel(e.type)));
+    (e.tags || []).forEach(function (tg) {
+      if (String(tg).toUpperCase() === String(e.type).toUpperCase()) return;
+      top.appendChild(el("span", "etag etag-" + (KNOWN_TAGS[tg] ? tg : "OTHER"), tg));
+    });
+    main.appendChild(top);
+    var txt = stripProv(e.title || (e.quote && e.quote.text) || "");
+    if (txt.length > 180) txt = txt.slice(0, 177) + "…";
+    main.appendChild(el("div", "tl-txt" + (e.type === "MOMENT" ? " tl-moment" : ""), txt));
+    row.appendChild(main);
+    var go = el("button", "tl-go", "View →");
+    go.type = "button";
+    go.addEventListener("click", function () { goEntry(e.id); });
+    row.appendChild(go);
     return row;
+  }
+
+  function tlFeatureRow(s) {
+    var row = el("div", "tl-frow");
+    row.appendChild(el("span", "tl-time", fmtClock(s.t)));
+    row.appendChild(el("span", "pill st-" + statusCls(s.status), s.status));
+    if (s.note) row.appendChild(el("span", "tl-txt", stripProv(s.note)));
+    return row;
+  }
+
+  function tlFeatureGroup(f, rows) {
+    var g = el("div", "tl-fgroup");
+    var head = el("div", "tl-fhead");
+    head.appendChild(el("span", "tl-src", "Card"));
+    var nm = el("b", "tl-fname", String(f.name || "").split(" (")[0]);
+    nm.title = f.name;
+    head.appendChild(nm);
+    if (f.category) head.appendChild(el("span", "tl-fcat", f.category));
+    var go = el("button", "tl-go", "View card →");
+    go.type = "button";
+    go.addEventListener("click", function () { goFeature(f.id); });
+    head.appendChild(go);
+    g.appendChild(head);
+    rows.forEach(function (r) { g.appendChild(r); });
+    return g;
   }
 
   function renderTimeline() {
@@ -1644,35 +1690,56 @@
     }
     var counts = {};
     items.forEach(function (it) {
-      var k = Math.floor(it.min / 60);
+      var k = it.day * 100 + Math.floor(it.min / 60);
       counts[k] = (counts[k] || 0) + 1;
     });
-    var curHour = null, bucket = null;
+    var curDay = null, curKey = null, bucket = null, run = [], runId = null;
+    function flushRun() {
+      if (!run.length) return;
+      bucket.appendChild(tlFeatureGroup(run[0].f, run.map(function (it) { return tlFeatureRow(it.s); })));
+      run = [];
+    }
     items.forEach(function (it) {
-      var hk = Math.floor(it.min / 60);
-      if (hk !== curHour) {
-        curHour = hk;
+      var hk = it.day * 100 + Math.floor(it.min / 60);
+      if (it.day !== curDay) {
+        flushRun();
+        curDay = it.day;
+        wrap.appendChild(el("div", "tl-day", "Day " + it.day + (DAY_NAMES[it.day] ? " · " + DAY_NAMES[it.day] : "")));
+        curKey = null;
+      }
+      if (hk !== curKey) {
+        flushRun();
+        curKey = hk;
         var h = el("div", "tl-hour");
         var hh = el("div", "tl-hour-h");
-        hh.appendChild(el("span", null, hourLabel(hk * 60)));
+        hh.appendChild(el("span", null, hourLabel((hk % 100) * 60)));
         hh.appendChild(el("span", "cat-n", counts[hk] + (counts[hk] === 1 ? " event" : " events")));
         h.appendChild(hh);
         bucket = el("div", "tl-list");
         h.appendChild(bucket);
         wrap.appendChild(h);
       }
-      bucket.appendChild(tlItem(it));
+      if (it.kind === "entry") {
+        flushRun();
+        bucket.appendChild(tlEntryRow(it));
+      } else {
+        if (runId !== it.f.id) flushRun();
+        runId = it.f.id;
+        run.push(it);
+      }
     });
+    flushRun();
     if (skipped > 0 && !Q) {
       wrap.appendChild(el("p", "pmiss", skipped + (skipped === 1 ? " event" : " events") + " had no readable time and are left out here."));
     }
   }
 
   /* ── WORKFLOW tab: humans vs AI employees on one clock ── */
-  function wfX(t) {
+  function wfX(t, day) {
     var m = parseTime(t);
     if (m == null) return null;
-    return Math.max(0, Math.min(1, (m - WF_START) / (WF_END - WF_START)));
+    var end = (WF_DAYS[day || WF_DAY] || { end: WF_END }).end;
+    return Math.max(0, Math.min(1, (m - WF_START) / (end - WF_START)));
   }
   var wfPopEl = null, wfPopReturn = null;
   function wfDocClick(ev) {
@@ -1736,13 +1803,13 @@
     var sb = el("div", "board");
     var st = el("div", "board-title");
     st.appendChild(el("span", null, "Who did what — Day " + WF_DAY));
-    st.appendChild(el("span", "upd", "every step on one clock, 8:30 AM to 6:00 PM PT"));
+    st.appendChild(el("span", "upd", "every step on one clock, 8:30 AM to " + ((WF_DAYS[WF_DAY] || {}).label || "6:00 PM") + " · all times Pacific"));
     sb.appendChild(st);
     var hum = steps.filter(function (s) { return s.lane === "human"; }).length;
     var aiN = steps.length - hum;
     var tiles = el("div", "tiles");
-    [["Humans", hum, "moves by the trio"],
-     ["AI employees", aiN, "moves by the bot fleet"],
+    [["Human moves", hum, "by the trio"],
+     ["AI moves", aiN, "by the bot fleet"],
      ["Deliverables", dels.length, "things that actually materialized"]].forEach(function (n) {
       var t = el("div", "tile");
       t.appendChild(el("div", "l", n[0]));
@@ -1757,7 +1824,7 @@
         var on = WF_DAY === d;
         var c = el("button", "fchip" + (on ? " on" : ""));
         c.type = "button";
-        c.appendChild(el("span", null, "Day " + d + (d === days[days.length - 1] ? " (latest)" : "")));
+        c.appendChild(el("span", null, "Day " + d + (DAY_NAMES[d] ? " · " + DAY_NAMES[d].split(",")[0] : "")));
         c.addEventListener("click", function () { WF_DAY = d; renderWorkflow(); });
         dch.appendChild(c);
       });
@@ -1770,7 +1837,7 @@
     /* swimlane canvas */
     var cb = el("div", "board");
     var bt = el("div", "board-title");
-    bt.appendChild(el("span", null, "Who did what — humans and bots"));
+    bt.appendChild(el("span", null, "Humans and bots, one clock"));
     var lg = el("span", "upd wf-legend");
     lg.appendChild(el("i", "g")); lg.appendChild(document.createTextNode("humans"));
     lg.appendChild(el("i", "c")); lg.appendChild(document.createTextNode("AI employees"));
@@ -1780,15 +1847,16 @@
     var canvas = el("div", "wf-canvas");
     var inner = el("div", "wf-inner");
     inner.id = "wf-inner";
-    for (var h = 9; h <= 18; h++) {
-      var gx = wfX(h * 60);
+    var wfEndH = Math.floor(((WF_DAYS[WF_DAY] || { end: WF_END }).end) / 60);
+    for (var h = 9; h <= wfEndH; h++) {
+      var hTs = h === 12 ? "12 PM" : (h > 12 ? (h - 12) + " PM" : h + " AM");
+      var gx = wfX(hTs, WF_DAY);
       if (gx == null) continue;
       var g = el("div", "wf-grid");
       g.style.left = (gx * 100) + "%";
-      var glbl = h === 9 ? "9 AM" : h === 12 ? "12 PM" : h === 18 ? "6 PM" : String(h > 12 ? h - 12 : h);
+      var glbl = hTs;
       var gb = el("b", null, glbl);
       if (h === 9) gb.style.transform = "none";
-      if (h === 18) gb.style.transform = "translateX(-100%)";
       g.appendChild(gb);
       inner.appendChild(g);
     }
@@ -1803,7 +1871,7 @@
     var stepBtns = [];
     var lastX = { human: -1, ai: -1 }, lastTier = { human: -1, ai: -1 };
     steps.forEach(function (s, i) {
-      var x = wfX(s.t);
+      var x = wfX(s.t, WF_DAY);
       if (x == null) return;
       var lane = s.lane === "human" ? "human" : "ai";
       var tier = (x - lastX[lane] < 0.05) ? (lastTier[lane] + 1) % 3 : 0;
@@ -1837,9 +1905,10 @@
     });
     /* deliverables rail */
     var rail = el("div", "wf-rail");
+    rail.appendChild(el("span", "wf-rail-label", "Deliverables · " + dels.length));
     rail.appendChild(el("div", "wf-rline"));
     dels.forEach(function (d, di) {
-      var x = wfX(d.t);
+      var x = wfX(d.t, WF_DAY);
       if (x == null) return;
       var n = el("button", "wf-dnode");
       n.type = "button";
@@ -1859,7 +1928,7 @@
       steps.forEach(function (s, i) {
         if (matched < 0 && (s.deliverable === d.id || (!s.deliverable && s.t === d.t))) matched = i;
       });
-      var x = wfX(d.t);
+      var x = wfX(d.t, WF_DAY);
       if (matched < 0 || x == null) return;
       var c = el("div", "wf-dlink");
       c.style.left = (x * 100) + "%";
@@ -1885,8 +1954,12 @@
       head.setAttribute("aria-controls", "wfrb-" + i);
       head.appendChild(el("span", "wf-rt", s.t));
       head.appendChild(el("span", "wf-lanechip " + (s.lane === "human" ? "human" : "ai"), s.lane === "human" ? "Human" : "AI"));
-      head.appendChild(el("span", "wf-ractor", s.actor));
-      head.appendChild(el("span", "wf-ract", s.act));
+      var raS = el("span", "wf-ractor", s.actor);
+      var rcS = el("span", "wf-ract", s.act);
+      raS.title = s.actor;
+      rcS.title = s.act;
+      head.appendChild(raS);
+      head.appendChild(rcS);
       var body = el("div", "wf-rbody");
       body.id = "wfrb-" + i;
       body.appendChild(el("div", null, s.detail || ""));
@@ -1964,7 +2037,7 @@
     var bd = el("div", "board");
     var bt = el("div", "board-title");
     bt.appendChild(el("span", null, "Key frames from the replay"));
-    bt.appendChild(el("span", "upd", "showing " + S.filter(scrMatch).length + " of " + S.length + " screens"));
+    bt.appendChild(el("span", "upd", "showing " + S.filter(scrMatch).length + " of " + S.length + " screens · all times Pacific"));
     bd.appendChild(bt);
     var chips = el("div", "fchips");
     function chip(label, key, count) {
@@ -2022,7 +2095,7 @@
     inn.appendChild(el("span", "rc", s.caption));
     var meta = el("span", "meta");
     meta.appendChild(el("span", "kindchip kind-" + s.kind, s.kind));
-    meta.appendChild(el("span", "wallt", s.wall + " PT"));
+    meta.appendChild(el("span", "wallt", s.wall));
     meta.appendChild(el("span", "replay", "find it in the replay at " + s.t));
     inn.appendChild(meta);
     b.appendChild(inn);
@@ -2059,7 +2132,7 @@
     im.src = s.file; im.alt = s.title;
     document.getElementById("lb-title").textContent = s.title;
     document.getElementById("lb-cap").textContent = s.caption;
-    document.getElementById("lb-meta").textContent = "replay " + s.t + " · wall " + s.wall + " PT · " + (lbIdx + 1) + " of " + items.length;
+    document.getElementById("lb-meta").textContent = "replay " + s.t + " · wall " + s.wall + " · " + (lbIdx + 1) + " of " + items.length;
     document.getElementById("lightbox").hidden = false;
     document.body.style.overflow = "hidden";
     document.getElementById("lb-x").focus();
