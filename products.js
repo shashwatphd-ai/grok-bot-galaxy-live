@@ -49,7 +49,7 @@ window.GG_PRODUCT = {
   name: "Ship by Thursday — Thursday Arena (the build)",
   nameConfidence: "high",
   oneLiner: "The trio's company is Ship by Thursday, named on the Day 1 broadcast with its domain (shipbythursday.day) live the same afternoon. What they built and shipped on Thursday is Thursday Arena, live at thursdayarena.com — 'Pick a captain. Take two mystery teammates. Fight three rounds.' It began Day 1 as Pop-up OS (event-ops software for a restaurant pop-up), and the prototype the fleet built on Day 2 under the code name 'Cupcake' became the build itself: named, deployed and playing live matches on Day 3.",
-  stage: "SHIPPED — live at thursdayarena.com; by the 4:28 PM PT close: 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, a peak of 677 concurrent players, 1,650 X logins (388 converted at 8.0%), and 332 feedback submissions (on screen)"
+  stage: "SHIPPED — live at thursdayarena.com; the 3:16 PM showcase dashboard read: 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, a peak of 677 concurrent players, 1,650 X logins (388 converted at 8.0%), and 332 feedback submissions (on screen)"
 };
 
 window.GG_FEATURES = [
@@ -63,8 +63,8 @@ window.GG_FEATURES = [
       { status: "BUILD", t: "9:50 AM", note: "The prototype rules were set on air — skip sign-in, no database, debug sliders — 'we don't need login yet when we don't even know if the game is fun' (on air)" },
       { status: "BUILD", t: "10:03 AM", note: "The first playable draft ran on localhost from marketplace-bot seed data, with a stat bug fixed live (on air)" },
       { status: "BUILD", t: "4:45 PM", note: "X login worked, the leaderboard was wired but empty, and the ratings read a placeholder 'gold 1000' — 'there's a bug, I can't actually add any bots yet' (on air)" },
-      { status: "SHIPPED", t: "Day 3, 10:52 AM", note: "The first live match resolves on stream — 'You took round 1' with a Play Again button (on screen)" },
-      { status: "SHIPPED", t: "Day 3, 10:58 AM", note: "The final name goes on screen: THURSDAY ARENA — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); the public URL sat in the address bar but was not yet legible on stream" },
+      { status: "SHIPPED", t: "Day 3, 10:13 AM", note: "The first on-air match resolves — practice against the game's own AI, 'You took round 1' on the result card (on screen)" },
+      { status: "SHIPPED", t: "Day 3, 10:18 AM", note: "The final name goes live on air — 'Thursday Arena is live' — a matchmaking front page with player profile at 1000, Leaderboard, Your matches, Tips, Read handbook (on screen); thursdayarena.com was declared the game's only official site" },
       { status: "SHIPPED", t: "Day 3, 1:19 PM", note: "The public URL becomes legible on stream and live: thursdayarena.com — wordmark, Play button, character cards on the deployed site" }
     ],
     builtBy: ["dr. eggbot's engineering bot", "Cupcake Eng", "founding engineer bot"],
@@ -92,7 +92,7 @@ window.GG_FEATURES = [
     statusHistory: [
       { status: "BUILD", t: "9:27 AM", note: "'Our first goal is to make a landing page' (on air)" },
       { status: "BUILD", t: "9:31 AM", note: "'We have our lander getting spun up' — the scaffold was built while the design was still argued (on air)" },
-      { status: "SHIPPED", t: "Day 3, 10:58 AM", note: "The deployed front page goes on screen under the final name — THURSDAY ARENA — with a Play button, a player profile and the Leaderboard / Your matches / Tips / Read handbook panels (on screen)" }
+      { status: "SHIPPED", t: "Day 3, 10:18 AM", note: "The deployed front page goes on screen under the final name — THURSDAY ARENA — with a Play button, a player profile and the Leaderboard / Your matches / Tips / Read handbook panels (on screen)" }
     ],
     builtBy: ["grokbot", "growth engineer bot"],
     evidence: [
@@ -133,7 +133,7 @@ window.GG_FEATURES = [
     statusHistory: [
       { status: "BUILD", t: "12:31 PM", note: "Auth was assigned on air — 'we need to implement the auth system too' (Clerk named at 3:45 PM)" },
       { status: "BUILD", t: "3:11 PM", note: "The client/server split was made for anti-cheat, the global leaderboard was added, and the backend moved to Vercel serverless (on air)" },
-      { status: "SHIPPED", t: "Day 3, 10:52 AM", note: "Login and the leaderboard carry real matches on the deployed build — named players with win-loss records and Elo ratings on screen" }
+      { status: "SHIPPED", t: "Day 3, 10:20 AM", note: "Login and the leaderboard carry real matches on the deployed build — 96 players on the public board within two minutes of launch, named players with records and Elo ratings on screen" }
     ],
     builtBy: ["Cupcake Eng", "founding engineer bot"],
     evidence: [
@@ -571,30 +571,44 @@ window.GG_SESSIONS = [
   {
     day: "Day 3 — Thu Sep 17, 2026",
     time: "8:30–9:00 AM",
-    title: "Open: ship-day hold cards",
+    title: "Open: ship-day promo and the overnight recap",
     who: "The trio",
-    recap: "The final broadcast went on air at 8:30 AM Pacific under the title 'Building a company in 3 days - launching today!' and held on 'Be right back' cards while the studio finished setup."
+    recap: "The trio went live at 8:40 with a ten-minute offer for new users — sign up, create a bot, set one recurring task, and the first month of the top tier is free (about $200 of usage) — then recapped the overnight software-factory run: 168 pull requests landed, Potato Mode on full autopilot, and a QA bot named Play testing the builds. They previewed the game before the marketing track took the stage at 9:00."
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
-    time: "9:00–10:30 AM",
+    time: "9:00–9:40 AM",
     title: "Grok Bot for Marketing Operations",
     who: "Matthew Silberman & Teresa Hsu",
     recap: "Six RevOps & MarOps plays opened the final day: a self-completing to-do list, tools not just rules, the marketing–sales handoff, self-serve GTM data, territory planning, and a one-time CRM cleanup. Two demos in ten minutes showed the same pattern — a Territory Planner bot filing an account dispute as a task with Approve/Hold buttons, and Juno, a GTM product bot, turning one line of intent into a spec for a lead-review app."
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
-    time: "~10:30 AM–12:30 PM",
+    time: "~9:51 AM–12:25 PM",
     title: "Studio block: naming and launching Thursday Arena",
     who: "The trio + the fleet",
-    recap: "The fleet took the build live on air: the first ranked match resolved at 10:52, the final name THURSDAY ARENA went on screen at 10:58, and by 11:30 the game's own funnel dashboard read 2,255 practice sessions, 742 completed, 268 converted and 2,983 public matches. The public URL, thursdayarena.com, was legible and live by 1:19 PM."
+    recap: "The fleet took the build live on air: the first match resolved by 10:13 (practice against the game's own AI, best-of-three), the final name went live at 10:18 — 'Thursday Arena is live' — with 96 players on the public leaderboard by 10:20 and nearly 500 users by 10:24. By 11:30 the game's own funnel dashboard read 2,255 practice sessions, 742 completed, 268 converted and 2,983 public matches, and the public URL, thursdayarena.com, was named on air at 12:25."
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
-    time: "~1:19–2:30 PM",
+    time: "~11:14–11:46 AM",
+    title: "Guest: Vincent Zhu (xAI growth)",
+    who: "Growth",
+    recap: "The growth guest built the game's growth playbook live in Notion — welcome DMs for new followers, share prompts, a challenge-a-player loop — reading the funnel as he went (about 2,200 practice rounds and 1,000 X sign-ins) and advising the hosts to 'let practice users win more often.' The visit closed with a double promo at 11:42: an existing-user 'reset' alongside the new-user free month."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "~1:23–2:00 PM",
     title: "Studio block: the ship verified in public",
     who: "The trio + the fleet",
-    recap: "With thursdayarena.com legible and live on stream, the trio pointed check-agents at the public pages to reproduce a shop-button bug, watched the landing page's ticker carry player posts, and worked the fleet's triage feed while the agenda confirmed the 3:15 PM finale."
+    recap: "With thursdayarena.com live and named, the trio pointed check-agents at the public pages to reproduce a shop-button bug, took a support call on the AI voice-agent phone line, switched on Vercel Analytics (1,400 people on the page, 44% on iOS), and watched the first Diamond player top the leaderboard while the landing page's ticker carried live player activity."
+  },
+  {
+    day: "Day 3 — Thu Sep 17, 2026",
+    time: "2:00–2:30 PM",
+    title: "Guest: Dan Hill (Stripe, Link)",
+    who: "Payments",
+    recap: "Agent-to-agent payments through single-use Link cards, Stripe Projects, and monetization sketches for the game — sponsored cards, subscriptions, leagues — with the pull-request counter past 235 and 'get our first dollar' set as the stretch goal. Grok Bot's voice mode, announced that hour, was demoed on the spot."
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
@@ -605,7 +619,7 @@ window.GG_SESSIONS = [
   },
   {
     day: "Day 3 — Thu Sep 17, 2026",
-    time: "2:30–4:00 PM",
+    time: "2:30–3:12 PM",
     title: "Grok Bot for Marketing",
     who: "Josh Kim",
     recap: "The session ran marketing as a relay of specialists: a Market Researcher bot briefed in one message to understand the product, its market and three competitors, surfacing positioning opportunities; the handoff to a Product Marketer bot that committed a positioning brief to the shared workspace with View PR buttons; takeaways — scope bots like a job description, then trust them, and give feedback like you would a teammate."
@@ -615,7 +629,7 @@ window.GG_SESSIONS = [
     time: "3:15–4:28 PM",
     title: "Livestream Wrap and Final Showcase",
     who: "The trio",
-    recap: "The closing segment opened on the game's own numbers — 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, 677 concurrent players — stated the official rules coached by dr. eggbot, and ended with the hosts playing a ranked match against a viewer before signing off at 4:28 PM PT."
+    recap: "The closing segment opened on the game's own numbers — 4,898 public matches, 4,500 practice sessions, a 47.6% public win rate, 677 concurrent players — stated the official rules coached by dr. eggbot, ran live ranked play on the public site, and closed on the ad auction's first test bid and a credits giveaway before the 4:28 PM PT sign-off."
   }
 ];
 
