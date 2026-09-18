@@ -6,7 +6,7 @@
 
 ## What ship day actually proved
 
-**The deadline was built into the product.** "We ship a product by Thursday" was spoken on Day 1 as a constraint; Thursday Arena shipped on Thursday with its deadline in its own name. The event's arc — pick a business, watch agents build it, pivot the plan on Day 2, ship on Day 3 — closed the loop with the least glamorous milestone of all: a public URL (thursdayarena.com) carrying real players within hours of the name going on screen.
+**The deadline was built into the product.** "We ship a product by Thursday" was spoken on Day 1 as a constraint; Thursday Arena shipped on Thursday with its deadline in its own name. The event's arc — pick a business, watch agents build it, pivot the plan on Day 2, ship on Day 3 — closed the loop with the least glamorous milestone of all: a public URL (thursdayarena.com) carrying real players within minutes of the name going live on air at 10:18 AM.
 
 **Governed agency became the day's doctrine.** Every session landed on the same shape from a different angle: Marketing Ops' Territory Planner proposing a ruling and waiting on Approve/Hold; Post-Sales' Gus running scheduled sweeps but learning only from the human's own edits ("don't implement unless I say yes"); the Marketing session's closing slide — scope bots properly, then trust them, invest in them. The fleet's own build ran the same way: ticket triage with drift flags, a do-not-merge guard, a PR with its test evidence and an "all green" verdict.
 
@@ -18,7 +18,7 @@
 
 ## Five things a founder can take from Day 3
 
-1. **A public deadline converts scramble into scope.** The sudden-death feature kill-list, the sudden clarity of "ship by end of day," and the rename-and-deploy promise all came from the same source: a date the company could not move. Small teams ship when the deadline comes from outside and everyone can watch it.
+1. **A public deadline converts scramble into scope.** The sudden-death feature kill-list, the launch checklist run against a fixed date, and the rename-and-deploy promise all came from the same source: a date the company could not move. Small teams ship when the deadline comes from outside and everyone can watch it.
 
 2. **Verify the ship on the ship.** The trio did not trust the deploy — they pointed check-agents at the live public URL to reproduce a shop-button bug, on air. In the last hour of a launch, reproduce failures on the live site rather than on localhost.
 
@@ -26,7 +26,7 @@
 
 4. **Let the marketplace staff your gaps.** The Post-Sales session assembled a working function from installed specialists in minutes. The trio's own fleet did the same all week — the pattern generalizes: hire the template, teach it your house rules, then audit it.
 
-5. **End on the thing you built.** The last act on air was the hosts queuing into a ranked match against a viewer, on the public site, with 677 people playing.
+5. **End on the thing you built.** The last acts on air were live ranked play on the public site and the first sponsorship ad bid — with 677 people playing at the day's peak.
 
 ---
 
